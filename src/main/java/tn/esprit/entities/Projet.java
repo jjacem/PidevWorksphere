@@ -1,4 +1,4 @@
-package entities;
+package tn.esprit.entities;
 
 import java.util.Date;
 
@@ -8,34 +8,34 @@ public class Projet {
     private String nom;
     private String description;
     private Date datecréation, deadline;
+    private EtatProjet etat;
     private Equipe equipe;
 
     public Projet() {
     }
 
-    public Projet(int id, String nom, String description, Date datecréation, Date deadline, Equipe equipe) {
+    public Projet(int id, String nom, String description, Date datecréation, Date deadline,  EtatProjet etat,Equipe equipe) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.datecréation = datecréation;
         this.deadline = deadline;
+        this.etat = etat;
         this.equipe = equipe;
-    }
 
-    public Projet(String nom, String description, Date datecréation, Date deadline, Equipe equipe) {
+    }
+    public Projet(int id, String nom, String description, Date datecréation, Date deadline,  EtatProjet etat) {
+        this.id = id;
         this.nom = nom;
         this.description = description;
         this.datecréation = datecréation;
         this.deadline = deadline;
-        this.equipe = equipe;
+        this.etat = etat;
+
+
     }
 
-    public Projet(int id, String nom, String description, Equipe equipe) {
-        this.id = id;
-        this.nom = nom;
-        this.description = description;
-        this.equipe = equipe;
-    }
+
 
     public Equipe getEquipe() {
         return equipe;
@@ -85,6 +85,14 @@ public class Projet {
         this.nom = nom;
     }
 
+    public EtatProjet getEtat() {
+        return etat;
+    }
+
+    public void setEtat(EtatProjet etat) {
+        this.etat = etat;
+    }
+
     @Override
     public String toString() {
         return "Projet{\n" +
@@ -93,6 +101,7 @@ public class Projet {
                 "DATE CREATION  :" + datecréation +"\n" +
                 "DESCRIPTION    :" + description + "\n" +
                 "DEADLINE       :" + deadline  + "\n"+
+                "ETAT           :" + etat + "\n"+
                 "EQUIPE         :" + equipe.getNomEquipe() +"\n"+
                 '}';
     }

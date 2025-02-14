@@ -1,19 +1,20 @@
-package service;
+package tn.esprit.services;
 
-import entities.*;
-import utils.MyDatabase;
+import tn.esprit.entities.Equipe;
+import tn.esprit.entities.Role;
+import tn.esprit.entities.User;
+import tn.esprit.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceEquipe implements IServiceEquipe<Equipe>{
+public class ServiceEquipe implements IServiceEquipe<Equipe> {
     Connection connection;
-    public ServiceEquipe(){
-        connection= MyDatabase.getInstance().getConnection();
 
+    public ServiceEquipe() {
+        connection = MyDatabase.getInstance().getConnection();
     }
-
 
     @Override
     public void ajouterEquipe(Equipe equipe) throws SQLException {
@@ -32,11 +33,11 @@ public class ServiceEquipe implements IServiceEquipe<Equipe>{
         if (!rs.next()) throw new SQLException("Erreur lors de la récupération de l'ID de l'équipe.");
         int equipeId = rs.getInt("id");
 
-        // hne 3malna association bin equipe w employe puisque kol equipe feha akthe men employé
-        for (Employee emp : equipe.getEmployes()) {
-            PreparedStatement assocStatement = connection.prepareStatement("INSERT INTO equipe_employee (equipe_id, employee_id) VALUES (?, ?)");
+        // hne 3malna association bin equipe w user puisque kol equipe feha akthe men user
+        for (User user : equipe.getEmployes()) {
+            PreparedStatement assocStatement = connection.prepareStatement("INSERT INTO equipe_employee (equipe_id, id_user) VALUES (?, ?)");
             assocStatement.setInt(1, equipeId);
-            assocStatement.setInt(2, emp.getId());
+            assocStatement.setInt(2, user.getId());
             assocStatement.executeUpdate();
         }
     }
@@ -51,18 +52,17 @@ public class ServiceEquipe implements IServiceEquipe<Equipe>{
         preparedStatement.executeUpdate();
 
         // hne fas5na association le9dima
-        String deleteAndInsert = "DELETE FROM equipe_employee WHERE equipe_id = ?; ";
+        String deleteAndInsert = "DELETE FROM equipe_employee WHERE equipe_id = ?";
         PreparedStatement statement = connection.prepareStatement(deleteAndInsert);
         statement.setInt(1, equipe.getId());
         statement.executeUpdate();
 
-        //hne 3malna association bin equipe w employe el jdida
-
-        String assocReq = "INSERT INTO equipe_employee (equipe_id, employee_id) VALUES (?, ?)";
+        // hne 3malna association bin equipe w user el jdida
+        String assocReq = "INSERT INTO equipe_employee (equipe_id, id_user) VALUES (?, ?)";
         PreparedStatement assocStatement = connection.prepareStatement(assocReq);
-        for (Employee emp : equipe.getEmployes()) {
+        for (User user : equipe.getEmployes()) {
             assocStatement.setInt(1, equipe.getId());
-            assocStatement.setInt(2, emp.getId());
+            assocStatement.setInt(2, user.getId());
             assocStatement.executeUpdate();
         }
     }
@@ -75,11 +75,9 @@ public class ServiceEquipe implements IServiceEquipe<Equipe>{
         deleteAssoc.setInt(1, id);
         deleteAssoc.executeUpdate();
 
-
         PreparedStatement deleteEquipe = connection.prepareStatement("DELETE FROM equipe WHERE id = ?");
         deleteEquipe.setInt(1, id);
-        int equipesupprimer = deleteEquipe.executeUpdate();
-
+        deleteEquipe.executeUpdate();
     }
 
     @Override
@@ -93,30 +91,28 @@ public class ServiceEquipe implements IServiceEquipe<Equipe>{
             int id = rs.getInt("id");
             String nomEquipe = rs.getString("nom_equipe");
 
-            String employesReq = "SELECT e.id, e.nom, e.prenom FROM employee e " +
-                    "JOIN equipe_employee ee ON e.id = ee.employee_id WHERE ee.equipe_id = ?";
+
+            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role FROM user e " +
+                    "JOIN equipe_employee ee ON e.id_user = ee.id_user WHERE ee.equipe_id = ?";
+
             PreparedStatement employesStmt = connection.prepareStatement(employesReq);
             employesStmt.setInt(1, id);
             ResultSet employesRs = employesStmt.executeQuery();
 
-            List<Employee> employes = new ArrayList<>();
+            List<User> employes = new ArrayList<>();
             while (employesRs.next()) {
-                employes.add(new Employee(
-                        employesRs.getInt("id"),
+                // Utilisation de User et gestion du rôle
+                User user = new User(
+                        employesRs.getInt("id_user"),
                         employesRs.getString("nom"),
-                        employesRs.getString("prenom")
-                ));
+                        employesRs.getString("prenom"),
+                        Role.valueOf(employesRs.getString("role"))
+                );
+                employes.add(user);
             }
 
             equipes.add(new Equipe(id, nomEquipe, employes));
         }
         return equipes;
     }
-
-
-
-
-
-
-
 }

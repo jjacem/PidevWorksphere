@@ -1,7 +1,9 @@
-package service;
+package tn.esprit.services;
 
-import entities.*;
-import utils.MyDatabase;
+import tn.esprit.entities.Equipe;
+import tn.esprit.entities.EtatProjet;
+import tn.esprit.entities.Projet;
+import tn.esprit.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,30 +20,34 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
     @Override
     public void ajouterProjet(Projet projet) throws SQLException {
-        String req = "insert into projet (nom, description, datecréation, deadline, equipe_id) " +
-                "values ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
+        String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id) " +
+                "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
                 new java.sql.Date(projet.getDatecréation().getTime()) + "', '" +
                 new java.sql.Date(projet.getDeadline().getTime()) + "', " +
+                "'" + projet.getEtat().name() + "', " +
                 (projet.getEquipe() != null ? projet.getEquipe().getId() : "NULL") + ")";
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(req);
+        System.out.println("projet ajoute");
 
     }
 
 
     @Override
     public void modifierProjet(Projet projet) throws SQLException {
-        String req = "update projet set nom=?, description=?, datecréation=?, deadline=?, equipe_id=? where id=?";        PreparedStatement preparedStatement= connection.prepareStatement(req);
+        String req = "update projet set nom=?, description=?, datecréation=?, deadline=?,etat=?, equipe_id=? where id=?";        PreparedStatement preparedStatement= connection.prepareStatement(req);
 
         preparedStatement.setString(1,projet.getNom());
         preparedStatement.setString(2,projet.getDescription());
         preparedStatement.setDate(3, new java.sql.Date(projet.getDatecréation().getTime()));
         preparedStatement.setDate(4, new java.sql.Date(projet.getDeadline().getTime()));
+        preparedStatement.setString(5, projet.getEtat().name());
+        preparedStatement.setInt(6,projet.getEquipe().getId());
+        preparedStatement.setInt(7,projet.getId());
 
-        preparedStatement.setInt(5,projet.getEquipe().getId());
-        preparedStatement.setInt(6,projet.getId());
         preparedStatement.executeUpdate();
+        System.out.println("Projet mise à jour avec succès.");
 
     }
 
@@ -51,16 +57,16 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         String req = "DELETE FROM projet WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         preparedStatement.setInt(1, id);
-        int projetsupprimer= preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
+        System.out.println("Projet supprimée avec succès.");
 
     }
-
 
 
     @Override
     public List<Projet> afficherProjet() throws SQLException {
         List<Projet> projets = new ArrayList<>();
-        String req = "SELECT p.id, p.nom, p.description, p.datecréation, p.deadline, e.nom_equipe " +
+        String req = "SELECT * " +
                 "FROM projet p " +
                 "LEFT JOIN equipe e ON p.equipe_id = e.id";  // Join with equipe table to get team information
 
@@ -74,7 +80,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
             projet.setDescription(rs.getString("description"));
             projet.setDatecréation(rs.getDate("datecréation"));
             projet.setDeadline(rs.getDate("deadline"));
-
+            projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
 
             Equipe equipe = new Equipe();
             equipe.setNomEquipe(rs.getString("nom_equipe"));
