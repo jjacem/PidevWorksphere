@@ -18,82 +18,40 @@ public class Main {
         //user
         ServiceUser serviceUser = new ServiceUser();
 
-        User u1 = new User("yassinbouras", "bouras", "yassinb@gmail.com", "1236545", "tunis", Sexe.HOMME);
+        User u1 = new User();
+        u1=u1.RH("yassine","bouras","yassinbouras0@rh.com","1234","",Sexe.HOMME,"",5,"conflicts manager");
+      User u2=new User();
+              u2=u2.Candidat("yassine","bouras","yassinbou000000ra0s@Candida00t.com","1234","",Sexe.HOMME,"",500.00);
+   User u3=new User();
+    u3=u3.Manager ("yassine","bouras","yassinbouras@Candidat.com","1234","",Sexe.HOMME,"","finance",10,5000000.00);
+    User u4=new User();
+    u4=u4.Employe ("yassine","bouras","yassinbouras@Candidat.com","1234","",Sexe.HOMME,"","financier",1000.00,5,"finance","compete");
+
         try {
-            serviceUser.ajouter(u1);
+            serviceUser.ajouter(u2);
             System.out.println(serviceUser.afficher());
-            int i1 = serviceUser.findidbyemail(u1.getEmail());
-            u1.setIdUser(i1);
-            u1.setNom("yasss");
-            u1.setPrenom("bou");
-            serviceUser.modifier(u1);
-            System.out.println(serviceUser.afficher());
-            serviceUser.supprimer(u1.getIdUser());
+            int i1 = serviceUser.findidbyemail(u2.getEmail());
+            u2.setIdUser(i1);
+            u2.setNom("yasss");
+            u2.setPrenom("bou");
+            serviceUser.modifier(u2);
             System.out.println(serviceUser.afficher());
 
-
+            System.out.println(serviceUser.afficher());
+            Reclamation r1 = new Reclamation("en cours", "probleme de salaire");
+            r1.setId_candidat(u2.getIdUser());
+            ServiceReclamation serviceReclamation = new ServiceReclamation();
+            serviceReclamation.ajouter(r1);
+            System.out.println(serviceReclamation.afficher());
+            serviceReclamation.afficher();
+            serviceUser.supprimer(u2.getIdUser());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
 
-        //empl
-        ServiceEmploye serviceEmploye = new ServiceEmploye();
-        User u2 = new User("yassinbouras", "bouras", "yassin1020@emp.com", "1236545", "tunis", Sexe.HOMME);
-        Employe e1 = new Employe(u2, "java", 2000, 2, "developpeur");
-        try {
-            serviceEmploye.ajouter(e1);
-            System.out.println(serviceEmploye.afficher());
-            int i1 = serviceEmploye.findidbyemail(u2.getEmail());
-            System.out.println("idest" + i1);
-            e1.setId_employe(i1);
-            e1.setNom("yasss");
-            e1.setPrenom("bou");
-            e1.setPoste("tailwi,d");
-            serviceEmploye.modifier(e1);
-            System.out.println(serviceEmploye.afficher());
-            serviceEmploye.supprimer(i1);
-            System.out.println(serviceEmploye.afficher());
 
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
 
 
-        //manager
-        ServiceManager serviceManager = new ServiceManager();
-        User u3 = new User("yassinbouras", "bouras", "yassin100@Manager.com", "1236545", "tunis", Sexe.HOMME);
-         Manager m1 = new Manager(u3, 30, 8000, "hrever");
-
-        try {
-            serviceManager.ajouter(m1);
-            System.out.println(serviceEmploye.afficher());
-            int i1 = serviceManager.findidbyemail(u3.getEmail());
-            System.out.println("idest" + i1);
-            m1.setId_manager(i1);
-            e1.setNom("yasss");
-            e1.setPrenom("bou");
-            e1.setDepartement("finance");
-            serviceManager.modifier(m1);
-            System.out.println(serviceManager.afficher());
-            serviceManager.supprimer(i1);
-            System.out.println(serviceManager.afficher());
-
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        //candidat
-        ServiceCandidat serviceCandidat = new ServiceCandidat();
-        User u4 = new User("yassinbouras", "bouras", "yassinb@candidat.com", "1236545", "tunis", Sexe.HOMME);
-        Candidat c1 = new Candidat(u4, Status.Candidature, 1000);
-
-        //rh
-        ServiceRH serviceRH = new ServiceRH();
-        User u5 = new User("yassinbouras", "bouras", "yassinb@emp.com", "1236545", "tunis", Sexe.HOMME);
-        RH rh1 = new RH(u5, "java", "developpeur", 2);
-
-    }
-}
+}}

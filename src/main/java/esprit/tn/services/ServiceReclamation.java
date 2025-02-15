@@ -4,6 +4,7 @@ import esprit.tn.entities.Reclamation;
 import esprit.tn.entities.Role;
 import esprit.tn.entities.Sexe;
 import esprit.tn.entities.User;
+import esprit.tn.utils.MyDatabase;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,11 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceReclamation implements IService <Reclamation> {
+
     Connection connection;
+    public ServiceReclamation(){connection = MyDatabase.getInstance().getConnection();}
     @Override
     public void ajouter(Reclamation reclamation) throws SQLException {
-        String req = "INSERT INTO Reclamation (status, description,id_candidat) " +
-                "VALUES ('" + reclamation.getStatus() + "', '" + reclamation.getDescription() + "' + '" + reclamation.getId_candidat() + "')";
+        String req = "INSERT INTO Reclamation (status, message_rec, id_user) " +
+                "VALUES ('" + reclamation.getStatus() + "', '" + reclamation.getDescription() + "', '" + reclamation.getId_candidat() + "')";
+
         Statement statement=connection.createStatement();
         statement.executeUpdate(req);
         System.out.println("reclamtation ajoute");
@@ -26,7 +30,7 @@ public class ServiceReclamation implements IService <Reclamation> {
 
     @Override
     public void modifier(Reclamation reclamation) throws SQLException {
-String req = "UPDATE Reclamation SET  status=?, description=? WHERE id_reclamation=?";
+String req = "UPDATE Reclamation SET  status=?, meesage_rec=? WHERE id_reclamation=?";
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(req);
             System.out.println("reclamation modifie");

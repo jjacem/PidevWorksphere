@@ -2,6 +2,8 @@ package esprit.tn.services;
 import esprit.tn.entities.Role;
 import esprit.tn.entities.Sexe;
 import esprit.tn.entities.User;
+import esprit.tn.entities.Status;
+
 import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
@@ -33,7 +35,19 @@ public class ServiceUser implements IService<User> {
             return Role.RH;
         }
     }
-
+public Status changetexttostatus(String text){
+        if (text == "Candidature") {
+            return Status.Candidature;
+        } else if (text == "Entretien") {
+            return Status.Entretien;
+        } else if (text == "programmé") {
+            return Status.programmé;
+        } else if(text == "Embauché"){
+            return Status.Embauché;
+        }else {
+            return Status.Refusé;
+        }
+    }
 
 
 
@@ -61,12 +75,25 @@ public class ServiceUser implements IService<User> {
     }
     @Override
         public void ajouter(User user) throws SQLException {
-        String req = "INSERT INTO User (nom, prenom, email, mdp, role, adresse, sexe) " +
+        String req = "INSERT INTO User (nom, prenom, email, mdp, role, adresse, sexe, image_profil, status, salaire_attendu, poste, salaire, experience_travail, departement, competence, nombreProjet, budget, departement_géré, ans_experience, specialisation) " +
                 "VALUES ('" + user.getNom() + "', '" + user.getPrenom() + "', '" + user.getEmail() + "', '" +
-                user.getMdp() + "', '" + user.getRole() + "', '" + user.getAdresse() + "', '" +
-                user.getSexe() + "')";
+                user.getMdp() + "', '" + user.getRole().name() + "', '" + user.getAdresse() + "', '" +
+                user.getSexe().name() + "', '" + user.getImageProfil() + "', " +
+                (user.getStatus() != null ? "'" + user.getStatus().name() + "'" : "NULL") + ", " +
+                (user.getSalaireAttendu() != null ? user.getSalaireAttendu() : "NULL") + ", " +
+                (user.getPoste() != null ? "'" + user.getPoste() + "'" : "NULL") + ", " +
+                (user.getSalaire() != null ? user.getSalaire() : "NULL") + ", " +
+                (user.getExperienceTravail() != 0 ? user.getExperienceTravail() : "NULL") + ", " +
+                (user.getDepartement() != null ? "'" + user.getDepartement() + "'" : "NULL") + ", " +
+                (user.getCompetence() != null ? "'" + user.getCompetence() + "'" : "NULL") + ", " +
+                (user.getNombreProjet() != 0 ? user.getNombreProjet() : "NULL") + ", " +
+                (user.getBudget() != null ? user.getBudget() : "NULL") + ", " +
+                (user.getDepartementGere() != null ? "'" + user.getDepartementGere() + "'" : "NULL") + ", " +
+                (user.getAnsExperience() != 0 ? user.getAnsExperience() : "NULL") + ", " +
+                (user.getSpecialisation() != null ? "'" + user.getSpecialisation() + "'" : "NULL") + ")";
 
-            Statement statement=connection.createStatement();
+
+        Statement statement=connection.createStatement();
             statement.executeUpdate(req);
             System.out.println("user ajoute");
         }
@@ -115,16 +142,31 @@ statement.executeUpdate();
         ResultSet rs= statement.executeQuery(req);
         while (rs.next()){
 Role role = changetexttorole(rs.getString("role"));
-      Sexe      Sexe = changetexttosexe(rs.getString("sexe"));
-            User user = new User(
+      Sexe      sexe = changetexttosexe(rs.getString("sexe"));
+      Status status = changetexttostatus(rs.getString("status"));
 
+                    User user = new User(
                     rs.getString("nom"),
+                    role,
                     rs.getString("prenom"),
                     rs.getString("email"),
                     rs.getString("mdp"),
-                   role ,
-                    rs.getString("adresse"),Sexe
-                    );
+                    rs.getString("adresse"),
+                    sexe,
+                    rs.getString("image_profil"),
+                    status,
+                    rs.getDouble("salaire_attendu"),
+                    rs.getString("poste"),
+                    rs.getDouble("salaire"),
+                    rs.getInt("experience_travail"),
+                    rs.getString("departement"),
+                    rs.getString("competence"),
+                    rs.getInt("nombreProjet"),
+                    rs.getDouble("budget"),
+                    rs.getString("departement_géré"),
+                    rs.getInt("ans_experience"),
+                    rs.getString("specialisation")
+            );
 user.setIdUser(rs.getInt("id_user"));
 
 
@@ -148,16 +190,30 @@ public User extractuser(Object o){
 
         if (rs.next()) {
             Role role = changetexttorole(rs.getString("role"));
-            Sexe sexe = changetexttosexe(rs.getString("sexe"));
+            Sexe      sexe = changetexttosexe(rs.getString("sexe"));
+            Status status = changetexttostatus(rs.getString("status"));
 
             User user = new User(
                     rs.getString("nom"),
+                    role,
                     rs.getString("prenom"),
                     rs.getString("email"),
                     rs.getString("mdp"),
-                    role,
                     rs.getString("adresse"),
-                    sexe
+                    sexe,
+                    rs.getString("image_profil"),
+                    status,
+                    rs.getDouble("salaire_attendu"),
+                    rs.getString("poste"),
+                    rs.getDouble("salaire"),
+                    rs.getInt("experience_travail"),
+                    rs.getString("departement"),
+                    rs.getString("competence"),
+                    rs.getInt("nombreProjet"),
+                    rs.getDouble("budget"),
+                    rs.getString("departement_géré"),
+                    rs.getInt("ans_experience"),
+                    rs.getString("specialisation")
             );
 
             user.setIdUser(rs.getInt("id_user"));

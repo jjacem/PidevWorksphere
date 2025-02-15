@@ -1,14 +1,15 @@
 package esprit.tn.entities;
 
 public class Reclamation {
-private int id_reclamation,id_candidat;
+private int id_reclamation,id_user;
 private String status;
-private String description;
+private String message_rec;
 private Reponse rep;
+
 public Reclamation(String status, String description) {
     super();
     this.status = status;
-    this.description = description;
+    this.message_rec = description;
 }
 
     public int getId_reclamation() {
@@ -16,10 +17,10 @@ public Reclamation(String status, String description) {
     }
 
     public int getId_candidat() {
-        return id_candidat;
+        return id_user;
     }
     public void setId_candidat(int id_candidat) {
-        this.id_candidat = id_candidat;
+        this.id_user = id_candidat;
     }
 
     public void setId_reclamation(int id_reclamation) {
@@ -35,11 +36,11 @@ public Reclamation(String status, String description) {
     }
 
     public String getDescription() {
-        return description;
+        return message_rec;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.message_rec = description;
     }
 
     public Reponse getRep() {
@@ -55,7 +56,7 @@ public Reclamation(String status, String description) {
         return "Reclamation{" +
                 "id_reclamation=" + id_reclamation +
                 ", status='" + status + '\'' +
-                ", description='" + description + '\'' +
+                ", description='" + message_rec + '\'' +
                 ", rep=" + rep +
                 '}';
     }
