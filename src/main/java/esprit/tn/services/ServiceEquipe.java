@@ -1,9 +1,9 @@
-package tn.esprit.services;
+package esprit.tn.services;
 
-import tn.esprit.entities.Equipe;
-import tn.esprit.entities.Role;
-import tn.esprit.entities.User;
-import tn.esprit.utils.MyDatabase;
+import esprit.tn.entities.Equipe;
+import esprit.tn.entities.Role;
+import esprit.tn.entities.User;
+import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -35,9 +35,15 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
         // hne 3malna association bin equipe w user puisque kol equipe feha akthe men user
         for (User user : equipe.getEmployes()) {
+
+            if (user.getRole() != Role.EMPLOYE) {
+                System.out.println("L'utilisateur " + user.getNom() + " n'a pas le rôle EMPLOYE. Ajout annulé.");
+                continue; // Ignore cet utilisateur
+            }
+
             PreparedStatement assocStatement = connection.prepareStatement("INSERT INTO equipe_employee (equipe_id, id_user) VALUES (?, ?)");
             assocStatement.setInt(1, equipeId);
-            assocStatement.setInt(2, user.getId());
+            assocStatement.setInt(2, user.getIdUser());
             assocStatement.executeUpdate();
         }
     }
@@ -62,7 +68,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         PreparedStatement assocStatement = connection.prepareStatement(assocReq);
         for (User user : equipe.getEmployes()) {
             assocStatement.setInt(1, equipe.getId());
-            assocStatement.setInt(2, user.getId());
+            assocStatement.setInt(2, user.getIdUser());
             assocStatement.executeUpdate();
         }
     }
@@ -106,7 +112,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
                         employesRs.getInt("id_user"),
                         employesRs.getString("nom"),
                         employesRs.getString("prenom"),
-                        Role.valueOf(employesRs.getString("role"))
+                        Role.valueOf(employesRs.getString("role").toUpperCase())
                 );
                 employes.add(user);
             }
@@ -114,5 +120,25 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             equipes.add(new Equipe(id, nomEquipe, employes));
         }
         return equipes;
+    }
+
+
+
+    public List<User> getEmployesDisponibles() throws SQLException {
+        List<User> employesDisponibles = new ArrayList<>();
+        String req = "SELECT id_user, nom, prenom, role FROM user WHERE role = 'Employe'"; // Récupérer uniquement les employés
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            User user = new User(
+                    rs.getInt("id_user"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    Role.valueOf(rs.getString("role").toUpperCase())
+            );
+            employesDisponibles.add(user);
+        }
+        return employesDisponibles;
     }
 }

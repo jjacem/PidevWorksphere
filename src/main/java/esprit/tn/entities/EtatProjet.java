@@ -1,4 +1,4 @@
-package tn.esprit.entities;
+package esprit.tn.entities;
 
 public enum EtatProjet {
 

@@ -1,9 +1,9 @@
-package tn.esprit.services;
+package esprit.tn.services;
 
-import tn.esprit.entities.Equipe;
-import tn.esprit.entities.EtatProjet;
-import tn.esprit.entities.Projet;
-import tn.esprit.utils.MyDatabase;
+import esprit.tn.entities.Equipe;
+import esprit.tn.entities.EtatProjet;
+import esprit.tn.entities.Projet;
+import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;

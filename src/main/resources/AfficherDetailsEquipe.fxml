@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="esprit.tn.controllers.AfficherDetailsEquipeController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@stylesEquipe.css">
+
+    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <!-- Bouton Retour -->
+        <Button text="← Retour" onAction="#retour" styleClass="button" />
+
+        <!-- Nom de l'équipe -->
+        <Label fx:id="nomEquipeLabel" styleClass="label-subtitle" />
+
+        <!-- Barre de recherche -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Rechercher un membre:" styleClass="label-text" />
+            <TextField fx:id="rechercheField" promptText="Nom, prénom ou email" prefWidth="300" />
+        </HBox>
+
+        <!-- Liste des membres de l'équipe -->
+        <VBox fx:id="membresContainer" spacing="10" styleClass="card">
+            <!-- Les membres seront ajoutés dynamiquement ici -->
+        </VBox>
+    </VBox>
+
+</AnchorPane>

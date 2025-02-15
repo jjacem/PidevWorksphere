@@ -1,4 +1,4 @@
-package tn.esprit.utils;
+package esprit.tn.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
