@@ -25,6 +25,9 @@ public class AfficherEquipeController {
     @FXML
     private VBox equipesContainer;
 
+    @FXML
+    private TextField searchField;
+
     private ServiceEquipe serviceEquipe;
 
     public AfficherEquipeController() {
@@ -54,35 +57,23 @@ public class AfficherEquipeController {
             Label nomEquipeLabel = new Label(equipe.getNomEquipe());
             nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
 
-            // Bouton Modifier avec icône
-            Button modifierButton = new Button();
-            ImageView editIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/edit.png")));
-            editIcon.setFitWidth(16); // Taille de l'icône
-            editIcon.setFitHeight(16);
-            modifierButton.setGraphic(editIcon);
-            modifierButton.setStyle("-fx-background-color: transparent; -fx-padding: 5;");
-            modifierButton.setOnAction(event -> modifierEquipe(equipe));
-
-            // Bouton Supprimer avec icône
-            Button supprimerButton = new Button();
-            ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/delete.png")));
-            deleteIcon.setFitWidth(16); // Taille de l'icône
-            deleteIcon.setFitHeight(16);
-            supprimerButton.setGraphic(deleteIcon);
-            supprimerButton.setStyle("-fx-background-color: transparent; -fx-padding: 5;");
-            supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
-
-            // Bouton Détails avec icône
-            Button detailsButton = new Button();
-            ImageView detailsIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/details.png")));
-            detailsIcon.setFitWidth(16); // Taille de l'icône
-            detailsIcon.setFitHeight(16);
-            detailsButton.setGraphic(detailsIcon);
-            detailsButton.setStyle("-fx-background-color: transparent; -fx-padding: 5;");
+            // Bouton Détails
+            Button detailsButton = new Button("Détails");
+            detailsButton.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
             detailsButton.setOnAction(event -> afficherDetailsEquipe(equipe));
 
+            // Bouton Modifier
+            Button modifierButton = new Button("Modifier");
+            modifierButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+            modifierButton.setOnAction(event -> modifierEquipe(equipe));
+
+            // Bouton Supprimer
+            Button supprimerButton = new Button("Supprimer");
+            supprimerButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+            supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
+
             // Ajouter les éléments à la carte
-            card.getChildren().addAll(nomEquipeLabel, modifierButton, supprimerButton, detailsButton);
+            card.getChildren().addAll(nomEquipeLabel, detailsButton, modifierButton, supprimerButton);
             equipesContainer.getChildren().add(card);
         }
     }
@@ -93,8 +84,9 @@ public class AfficherEquipeController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEquipe.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) equipesContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.getScene().setRoot(root);
+            stage.setTitle("Ajouter une équipe");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,23 +97,16 @@ public class AfficherEquipeController {
             // Charger la vue de modification d'équipe
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEquipe.fxml"));
             Parent root = loader.load();
-
             // Récupérer le contrôleur de la vue de modification
             ModifierEquipeController controller = loader.getController();
-
             // Passer l'équipe à modifier au contrôleur
             controller.setEquipeAModifier(equipe);
 
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
-
-            // Créer une nouvelle fenêtre (stage)
-            Stage stage = new Stage();
-            stage.setScene(scene);
+            // Obtenir la scène actuelle
+            Stage stage = (Stage) equipesContainer.getScene().getWindow();
+            // Remplacer le contenu de la scène actuelle avec la nouvelle vue
+            stage.getScene().setRoot(root);
             stage.setTitle("Modifier une équipe");
-
-            // Afficher la fenêtre
-            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -169,13 +154,47 @@ public class AfficherEquipeController {
             AfficherDetailsEquipeController controller = loader.getController();
             controller.setEquipe(equipe);
 
-            // Ouvrir une nouvelle fenêtre
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Stage stage = (Stage) equipesContainer.getScene().getWindow();
             stage.setTitle("Détails de l'équipe");
-            stage.show();
+            stage.getScene().setRoot(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    public void rechercherEquipe() {
+        String nomEquipe = searchField.getText().trim();
+        try {
+            // Appeler la méthode rechercherEquipe avec le texte de recherche
+            List<Equipe> equipes = serviceEquipe.rechercherEquipe(nomEquipe);
+            afficherEquipes(equipes);  // Mettre à jour l'affichage avec les résultats
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    public void supprimerToutesEquipes() {
+        // Afficher une alerte de confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer toutes les équipes ?");
+        alert.setContentText("Cette action est irréversible.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                serviceEquipe.supprimerToutesEquipes(); // Méthode pour supprimer toutes les équipes
+                List<Equipe> equipes = serviceEquipe.afficherEquipe(); // Rafraîchir la liste
+                afficherEquipes(equipes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

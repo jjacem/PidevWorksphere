@@ -11,11 +11,11 @@ import java.util.List;
 
 public class ServiceProjet implements IServiceProjet<Projet> {
     Connection connection;
+
     public ServiceProjet() {
         connection = MyDatabase.getInstance().getConnection();
 
     }
-
 
 
     @Override
@@ -36,15 +36,16 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
     @Override
     public void modifierProjet(Projet projet) throws SQLException {
-        String req = "update projet set nom=?, description=?, datecréation=?, deadline=?,etat=?, equipe_id=? where id=?";        PreparedStatement preparedStatement= connection.prepareStatement(req);
+        String req = "update projet set nom=?, description=?, datecréation=?, deadline=?,etat=?, equipe_id=? where id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
 
-        preparedStatement.setString(1,projet.getNom());
-        preparedStatement.setString(2,projet.getDescription());
+        preparedStatement.setString(1, projet.getNom());
+        preparedStatement.setString(2, projet.getDescription());
         preparedStatement.setDate(3, new java.sql.Date(projet.getDatecréation().getTime()));
         preparedStatement.setDate(4, new java.sql.Date(projet.getDeadline().getTime()));
         preparedStatement.setString(5, projet.getEtat().name());
-        preparedStatement.setInt(6,projet.getEquipe().getId());
-        preparedStatement.setInt(7,projet.getId());
+        preparedStatement.setInt(6, projet.getEquipe().getId());
+        preparedStatement.setInt(7, projet.getId());
 
         preparedStatement.executeUpdate();
         System.out.println("Projet mise à jour avec succès.");
@@ -91,4 +92,54 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
         return projets;
     }
+
+
+    public List<Equipe> getEquipes() throws SQLException {
+        List<Equipe> equipes = new ArrayList<>();
+        String req = "SELECT * FROM equipe";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+
+        while (rs.next()) {
+            Equipe equipe = new Equipe();
+            equipe.setId(rs.getInt("id"));
+            equipe.setNomEquipe(rs.getString("nom_equipe"));
+            equipes.add(equipe);
+        }
+
+        return equipes;
+    }
+
+    public List<Projet> rechercherProjet(String nomProjet, String nomEquipe) throws SQLException {
+        List<Projet> projets = new ArrayList<>();
+        StringBuilder req = new StringBuilder("SELECT * FROM projet p LEFT JOIN equipe e ON p.equipe_id = e.id WHERE 1=1");
+
+        // Ajouter des conditions en fonction des critères fournis
+        if (nomProjet != null && !nomProjet.isEmpty()) {
+            req.append(" AND LOWER(p.nom) LIKE LOWER('%").append(nomProjet).append("%')");
+        }
+        if (nomEquipe != null && !nomEquipe.isEmpty()) {
+            req.append(" AND LOWER(e.nom_equipe) LIKE LOWER('%").append(nomEquipe).append("%')");
+        }
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req.toString());
+
+        while (rs.next()) {
+            Projet projet = new Projet();
+            projet.setId(rs.getInt("id"));
+            projet.setNom(rs.getString("nom"));
+            projet.setDescription(rs.getString("description"));
+            projet.setDeadline(rs.getDate("deadline"));
+            projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
+            Equipe equipe = new Equipe();
+            equipe.setNomEquipe(rs.getString("nom_equipe"));
+            projet.setEquipe(equipe);
+
+            projets.add(projet);
+        }
+
+        return projets;
+    }
+
 }

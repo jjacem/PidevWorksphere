@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener; // Import nécessaire pour ListChangeListener
+import javafx.collections.ListChangeListener;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceEquipe;
 import javafx.stage.Stage;
@@ -155,17 +155,14 @@ public class AjouterEquipeController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
             Parent root = loader.load();
 
-            // Fermer la fenêtre actuelle
+            // Obtenir la scène actuelle
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.close();
+            // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
+            stage.getScene().setRoot(root);
+            stage.setTitle("liste des équipes");
 
-            // Ouvrir la nouvelle fenêtre
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.setTitle("Liste des équipes");
-            newStage.show();
-
-        } catch (SQLException | IOException e) {
+        }
+        catch (SQLException | IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText("Erreur lors de l'ajout");

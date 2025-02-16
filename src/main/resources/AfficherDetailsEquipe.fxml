@@ -26,7 +26,7 @@
         <!-- Barre de recherche -->
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Rechercher un membre:" styleClass="label-text" />
-            <TextField fx:id="rechercheField" promptText="Nom, prénom ou email" prefWidth="300" />
+            <TextField fx:id="rechercheField" promptText="Nomou prénom " prefWidth="300" onKeyReleased="#rechercherEmployee" />
         </HBox>
 
         <!-- Liste des membres de l'équipe -->

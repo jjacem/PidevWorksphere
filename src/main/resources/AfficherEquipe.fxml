@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.Priority?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="esprit.tn.controllers.AfficherEquipeController"
-            prefHeight="600.0" prefWidth="800.0"
-            stylesheets="@stylesEquipe.css">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@stylesEquipe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherEquipeController">
 
-    <!-- Carte blanche pour le contenu -->
-    <VBox alignment="CENTER" spacing="20" styleClass="card" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <!-- Titre de la page -->
-        <Label text="Liste des équipes" styleClass="label-title" />
+    <!-- Conteneur principal -->
+    <HBox spacing="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <!-- Barre de recherche à gauche -->
+        <VBox alignment="CENTER_LEFT" spacing="10" styleClass="search-container" />
 
-        <!-- Bouton Ajouter aligné à droite -->
-        <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-container">
-            <Button text="Ajouter une équipe" onAction="#redirectToAjouterEquipe" styleClass="button-ajouter" />
-        </HBox>
+        <!-- Contenu principal avec la liste des équipes -->
+        <VBox alignment="CENTER" spacing="20" styleClass="card" HBox.hgrow="ALWAYS">
+            <!-- Titre de la page -->
 
-        <!-- ScrollPane pour la liste des équipes -->
-        <ScrollPane fitToWidth="true" fitToHeight="true" prefHeight="400" prefWidth="600">
-            <VBox fx:id="equipesContainer" spacing="10">
-                <!-- Les équipes seront ajoutées dynamiquement ici -->
-            </VBox>
-        </ScrollPane>
-    </VBox>
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Liste des équipe" />
 
+            <!-- Bouton Ajouter aligné à droite -->
+            <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-container">
+               <TextField fx:id="searchField" onKeyReleased="#rechercherEquipe" promptText="Rechercher une équipe..." />
+                <Button onAction="#redirectToAjouterEquipe" styleClass="button-ajouter" text="Ajouter une équipe" />
+            </HBox>
+
+            <!-- Bouton supprimer tout -->
+            <HBox alignment="CENTER_RIGHT">
+                <Button onAction="#supprimerToutesEquipes" text="Supprimer tout" styleClass="button-supprimer-tout"/>
+            </HBox>
+
+            <!-- ScrollPane pour la liste des équipes -->
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="400" prefWidth="600">
+                <VBox fx:id="equipesContainer" spacing="10">
+                    <!-- Les équipes seront ajoutées dynamiquement ici -->
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </HBox>
 </AnchorPane>

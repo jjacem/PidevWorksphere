@@ -165,16 +165,12 @@ public class ModifierEquipeController {
             // Rediriger vers la page AfficherEquipe.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
             Parent root = loader.load();
-
-            // Fermer la fenêtre actuelle
+            // Obtenir la scène actuelle
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.close();
+            // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
+            stage.getScene().setRoot(root);
+            stage.setTitle("liste des équipes");
 
-            // Ouvrir la nouvelle fenêtre
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.setTitle("Liste des équipes");
-            newStage.show();
 
         } catch (SQLException | IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

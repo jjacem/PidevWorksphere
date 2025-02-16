@@ -8,4 +8,7 @@ public interface IServiceEquipe  <T>{
     public void modifierEquipe(T t) throws SQLException;
     public void supprimerEquipe(int id) throws SQLException;
     public List<T> afficherEquipe() throws SQLException;
+    public List<T> rechercherEquipe(String nomEquipe) throws SQLException;
+
+    public void supprimerToutesEquipes()throws SQLException;
 }

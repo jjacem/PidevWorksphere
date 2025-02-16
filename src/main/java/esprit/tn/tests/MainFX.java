@@ -16,12 +16,14 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Charger le fichier FXML
        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEquipe.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterProjet.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherProjet.fxml"));
         Parent root = loader.load();
 
         // Configurer la scène
         Scene scene = new Scene(root, 600, 400); // Taille de la fenêtre
-        primaryStage.setTitle("Ajouter une équipe"); // Titre de la fenêtre
+        primaryStage.setTitle("worksphere"); // Titre de la fenêtre
         primaryStage.setScene(scene);
 
         // Afficher la fenêtre

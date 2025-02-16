@@ -26,11 +26,12 @@ public class Main {
                 equipe);
 
         try {
-            /*** Ajouter/modifier/supprimer/afficher équipe ***/
+            /*** Ajouter/modifier/supprimer/afficher/rechercher équipe ***/
 
-            serviceEquipe.ajouterEquipe(equipe);
+            //serviceEquipe.ajouterEquipe(equipe);
             //serviceEquipe.modifierEquipe(equipe);
            // serviceEquipe.supprimerEquipe(2);
+            serviceEquipe.rechercherEquipe("DEVOPS");
             System.out.println(serviceEquipe.afficherEquipe());
 
             /*** Ajouter/modifier/supprimer/afficher projet  **/
@@ -38,7 +39,7 @@ public class Main {
              //serviceProjet.ajouterProjet(projet);
             //serviceProjet.modifierProjet(projet);
             //serviceProjet.supprimerProjet(4);
-            System.out.println(serviceProjet.afficherProjet());
+            //System.out.println(serviceProjet.afficherProjet());
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

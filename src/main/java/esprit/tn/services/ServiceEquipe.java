@@ -141,4 +141,59 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         }
         return employesDisponibles;
     }
+
+
+    @Override
+    public List<Equipe> rechercherEquipe(String nomEquipe) throws SQLException {
+        List<Equipe> equipes = new ArrayList<>();
+        String req = "SELECT * FROM equipe WHERE nom_equipe LIKE ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setString(1, "%" + nomEquipe + "%");
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id"); // Adapte selon le nom de la colonne
+            String nom = rs.getString("nom_equipe");
+
+            Equipe equipe = new Equipe(id, nom, new ArrayList<>()); // Liste vide pour les employés, à remplir si besoin
+            equipes.add(equipe);
+        }
+
+        return equipes;
+    }
+
+    public List<User> rechercherEmployee(int equipeId, String searchText) throws SQLException {
+        List<User> employesTrouves = new ArrayList<>();
+        String req = "SELECT u.id_user, u.nom, u.prenom " +
+                "FROM user u " +
+                "JOIN equipe_employee ee ON u.id_user = ee.id_user " +
+                "WHERE ee.equipe_id = ? AND (LOWER(u.nom) LIKE ? OR LOWER(u.prenom) LIKE ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.setInt(1, equipeId);
+            preparedStatement.setString(2, "%" + searchText.toLowerCase() + "%");
+            preparedStatement.setString(3, "%" + searchText.toLowerCase() + "%");
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("id_user"),
+                        rs.getString("nom"),
+                        rs.getString("prenom")
+                );
+                employesTrouves.add(user);
+            }
+        }
+        return employesTrouves;
+    }
+
+
+    public void supprimerToutesEquipes() throws SQLException {
+        // Logique pour supprimer toutes les équipes
+        String query = "DELETE FROM equipe";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.executeUpdate();
+        }
+    }
+
 }

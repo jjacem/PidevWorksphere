@@ -1,5 +1,6 @@
 package esprit.tn.controllers;
 
+import esprit.tn.services.ServiceEquipe;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,8 @@ import esprit.tn.entities.Equipe;
 import esprit.tn.entities.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 public class AfficherDetailsEquipeController {
 
@@ -28,6 +31,7 @@ public class AfficherDetailsEquipeController {
     private VBox membresContainer;
 
     private Equipe equipe;
+    private ServiceEquipe serviceEquipe = new ServiceEquipe(); // Instance du service
 
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
@@ -54,24 +58,40 @@ public class AfficherDetailsEquipeController {
         }
     }
 
+
     @FXML
     public void retour() {
         try {
             // Charger l'interface de la liste des équipes
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
             Parent root = loader.load();
-
-            // Fermer la fenêtre actuelle
+            // Obtenir la scène actuelle et remplacer son contenu
             Stage stage = (Stage) membresContainer.getScene().getWindow();
-            stage.close();
-
-            // Ouvrir la fenêtre de la liste des équipes
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.setTitle("Liste des équipes");
-            newStage.show();
+            stage.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    private void rechercherEmployee() {
+        try {
+            String searchText = rechercheField.getText().trim();
+            List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
+
+            membresContainer.getChildren().clear(); // Vider l'affichage
+
+            for (User user : resultats) {
+                HBox card = new HBox(10);
+                Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
+                card.getChildren().add(nomPrenomLabel);
+                membresContainer.getChildren().add(card);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

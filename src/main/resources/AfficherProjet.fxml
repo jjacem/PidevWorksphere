@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.control.ScrollPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="esprit.tn.controllers.AfficherProjetController"
+            style="-fx-background-color: #f5f5f5;"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Titre de la Page -->
+    <Label text="Liste des Projets"
+           style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;"
+           AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"/>
+
+    <!-- Barre de Recherche et Boutons -->
+    <HBox spacing="10" alignment="CENTER_LEFT" AnchorPane.topAnchor="20" AnchorPane.rightAnchor="20">
+        <TextField fx:id="searchField" promptText="Rechercher un projet..." style="-fx-pref-width: 200;"/>
+        <Button text="Ajouter" style="-fx-background-color: #0086b3; -fx-text-fill: white;" onAction="#AjouterBTN"/>
+        <Button text="Supprimer Tout" style="-fx-background-color: #ff4444; -fx-text-fill: white;"/>
+    </HBox>
+
+    <!-- Liste des Projets -->
+    <ScrollPane fitToWidth="true" AnchorPane.topAnchor="80" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <ListView fx:id="projetListView" style="-fx-background-color: white;">
+            <!-- Chaque projet s'affichera sous forme de VBox via le cellFactory -->
+        </ListView>
+    </ScrollPane>
+
+</AnchorPane>

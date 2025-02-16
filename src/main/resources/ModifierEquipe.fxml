@@ -12,8 +12,8 @@
 
     <VBox alignment="CENTER" spacing="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
         <!-- Titre de la fenêtre -->
-        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Modifier une équipe" />
 
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Modifier une équipe" />
         <!-- Champ pour le nom de l'équipe -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label style="-fx-font-weight: bold; -fx-text-fill: #333333;" text="Nom de l'équipe:" />
