@@ -131,7 +131,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
     public List<User> getEmployesDisponibles() throws SQLException {
         List<User> employesDisponibles = new ArrayList<>();
-        String req = "SELECT id_user, nom, prenom, role FROM user WHERE role = 'Employe'"; // Récupérer uniquement les employés
+        String req = "SELECT id_user, nom, prenom, role FROM user WHERE role = 'Employe'";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -157,10 +157,10 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {
-            int id = rs.getInt("id"); // Adapte selon le nom de la colonne
+            int id = rs.getInt("id");
             String nom = rs.getString("nom_equipe");
 
-            Equipe equipe = new Equipe(id, nom, new ArrayList<>()); // Liste vide pour les employés, à remplir si besoin
+            Equipe equipe = new Equipe(id, nom, new ArrayList<>());
             equipes.add(equipe);
         }
 
@@ -194,7 +194,6 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
 
     public void supprimerToutesEquipes() throws SQLException {
-        // Logique pour supprimer toutes les équipes
         String query = "DELETE FROM equipe";
         try (PreparedStatement pst = connection.prepareStatement(query)) {
             pst.executeUpdate();
@@ -207,12 +206,13 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             preparedStatement.setString(1, nomEquipe);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Retourne true si une équipe avec ce nom existe déjà
+                return rs.getInt(1) > 0;
             }
         }
         return false;
     }
 
+    //hedi cntrl te3 modif si mem nom existe ou non
     public boolean cntrlModifEquipe(String nomEquipe, int idEquipeActuelle) throws SQLException {
         String req = "SELECT COUNT(*) FROM equipe WHERE nom_equipe = ? AND id != ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
@@ -220,7 +220,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             preparedStatement.setInt(2, idEquipeActuelle);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Retourne true si une équipe avec ce nom existe déjà (sauf l'équipe actuelle)
+                return rs.getInt(1) > 0;
             }
         }
         return false;

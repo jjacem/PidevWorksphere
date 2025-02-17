@@ -4,7 +4,6 @@ import esprit.tn.entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -104,10 +103,8 @@ public class ModifierEquipeController {
                 }
             });
 
-            // Désactiver le bouton "Confirmer" par défaut
             confirmerButton.setDisable(true);
 
-            // Activer "Confirmer" seulement si au moins 2 employés sont sélectionnés
             employesSelectionnesList.addListener((ListChangeListener.Change<? extends User> change) -> {
                 confirmerButton.setDisable(employesSelectionnesList.size() < 2);
             });
@@ -154,7 +151,6 @@ public class ModifierEquipeController {
         }
 
         try {
-            // Vérifier si une équipe avec le même nom existe déjà (sauf l'équipe actuelle)
             if (serviceEquipe.cntrlModifEquipe(nomEquipe, equipeAModifier.getId())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Nom d'équipe existant");
@@ -166,12 +162,11 @@ public class ModifierEquipeController {
                 return;
             }
 
-            // Mettre à jour l'équipe
             equipeAModifier.setNomEquipe(nomEquipe);
             equipeAModifier.setEmployes(employesSelectionnes);
             serviceEquipe.modifierEquipe(equipeAModifier);
 
-            // Affichage de la confirmation
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
@@ -180,12 +175,9 @@ public class ModifierEquipeController {
             alert.showAndWait();
 
 
-            // Rediriger vers la page AfficherEquipe.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
             Parent root = loader.load();
-            // Obtenir la scène actuelle
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
             stage.getScene().setRoot(root);
             stage.setTitle("Liste des équipes");
 
@@ -197,27 +189,18 @@ public class ModifierEquipeController {
 
     @FXML
     public void annuler() {
-        // Afficher une boîte de dialogue de confirmation
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
         confirmation.setHeaderText("Annuler la modification ?");
         confirmation.setContentText("Êtes-vous sûr de vouloir annuler la modification de l'équipe ?");
         applyAlertStyle(confirmation);
-
-        // Attendre la réponse de l'utilisateur
         Optional<ButtonType> result = confirmation.showAndWait();
 
-        // Si l'utilisateur confirme, rediriger vers AfficherEquipe.fxml
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                // Charger la page AfficherEquipe.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
                 Parent root = loader.load();
-
-                // Obtenir la scène actuelle
                 Stage stage = (Stage) annulerButton.getScene().getWindow();
-
-                // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
                 stage.getScene().setRoot(root);
                 stage.setTitle("Liste des équipes");
             } catch (IOException e) {
@@ -235,7 +218,6 @@ public class ModifierEquipeController {
             // Supprimer l'employé de la liste des employés sélectionnés
             employesSelectionnesList.remove(employeSelectionne);
         } else {
-            // Afficher une alerte si aucun employé n'est sélectionné
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aucune sélection");
             alert.setHeaderText(null);

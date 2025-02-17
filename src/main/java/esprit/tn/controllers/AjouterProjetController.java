@@ -34,7 +34,7 @@ public class AjouterProjetController {
     private ComboBox<String> etatComboBox;
 
     @FXML
-    private ComboBox<Equipe> equipeComboBox; // Utiliser ComboBox<Equipe> pour stocker des objets Equipe
+    private ComboBox<Equipe> equipeComboBox;
 
     private ServiceProjet serviceProjet;
 
@@ -44,15 +44,15 @@ public class AjouterProjetController {
 
     @FXML
     public void initialize() {
-        // Initialiser les états du projet
+        // hne initialisation te3 les etats
         etatComboBox.getItems().addAll("Terminé", "Annulé", "EnCours");
 
-        // Charger les équipes depuis la base de données
+        // chargement te3 les equipes mel base
         try {
             List<Equipe> equipes = serviceProjet.getEquipes();
             equipeComboBox.getItems().addAll(equipes);
 
-            // Personnaliser l'affichage des équipes dans la ComboBox
+            // hne personnalisation te3 affichage te3 equipe
             equipeComboBox.setCellFactory(param -> new ListCell<Equipe>() {
                 @Override
                 protected void updateItem(Equipe equipe, boolean empty) {
@@ -60,7 +60,7 @@ public class AjouterProjetController {
                     if (empty || equipe == null) {
                         setText(null);
                     } else {
-                        setText(equipe.getNomEquipe()); // Afficher uniquement le nom de l'équipe
+                        setText(equipe.getNomEquipe());
                     }
                 }
             });
@@ -73,7 +73,7 @@ public class AjouterProjetController {
                     if (empty || equipe == null) {
                         setText(null);
                     } else {
-                        setText(equipe.getNomEquipe()); // Afficher uniquement le nom de l'équipe
+                        setText(equipe.getNomEquipe());
                     }
                 }
             });
@@ -83,55 +83,11 @@ public class AjouterProjetController {
         }
     }
 
-    /*@FXML
-    private void AjouterProjet(ActionEvent event) {
-        try {
-            // Récupérer les données du formulaire
-            String nom = nomField.getText();
-            String description = descriptionField.getText();
-            Date dateCreation = java.sql.Date.valueOf(dateCreationPicker.getValue());
-            Date deadline = java.sql.Date.valueOf(deadlinePicker.getValue());
-            EtatProjet etat = EtatProjet.valueOf(etatComboBox.getValue());
-
-            // Récupérer l'équipe sélectionnée
-            Equipe equipe = equipeComboBox.getValue();
-
-            // Créer un objet Projet
-            Projet projet = new Projet();
-            projet.setNom(nom);
-            projet.setDescription(description);
-            projet.setDatecréation(dateCreation);
-            projet.setDeadline(deadline);
-            projet.setEtat(etat);
-            projet.setEquipe(equipe);
-            // Ajouter le projet à la base de données
-            serviceProjet.ajouterProjet(projet);
-
-            // Retourner à la page AfficherProjet.fxml
-                // Charger la page AfficherProjet.fxml
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
-                // Récupérer la scène actuelle
-                Stage stage = (Stage) nomField.getScene().getWindow();
-
-                // Remplacer la scène actuelle par la nouvelle scène
-                stage.setScene(new Scene(root));
-                stage.setTitle("Liste des Projets");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(e.getMessage());
-            }
-
-            } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @FXML
     private void AjouterProjet(ActionEvent event) {
         try {
-            // Récupérer les données du formulaire
+
             String nom = nomField.getText();
             String description = descriptionField.getText();
             LocalDate dateCreationLocal = dateCreationPicker.getValue();
@@ -139,7 +95,6 @@ public class AjouterProjetController {
             String etat = etatComboBox.getValue();
             Equipe equipe = equipeComboBox.getValue();
 
-            // Vérifier si tous les champs sont remplis
             if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Champs manquants");
@@ -154,7 +109,7 @@ public class AjouterProjetController {
             Date dateCreation = java.sql.Date.valueOf(dateCreationLocal);
             Date deadline = java.sql.Date.valueOf(deadlineLocal);
 
-            // Vérifier si la date de création est postérieure à la deadline
+            // hne verif te3 date
             if (dateCreation.after(deadline)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Erreur de date");
@@ -165,7 +120,7 @@ public class AjouterProjetController {
                 return;
             }
 
-            // Vérifier si un projet avec le même nom existe déjà
+            // hne verif si fama projet b nafs esm
             if (serviceProjet.projetExiste(nom)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Nom de projet existant");
@@ -176,7 +131,7 @@ public class AjouterProjetController {
                 return;
             }
 
-            // Créer un objet Projet
+            // hne creation te3 projet
             Projet projet = new Projet();
             projet.setNom(nom);
             projet.setDescription(description);
@@ -185,10 +140,9 @@ public class AjouterProjetController {
             projet.setEtat(EtatProjet.valueOf(etat));
             projet.setEquipe(equipe);
 
-            // Ajouter le projet à la base de données
+            // Ajout te3 projet fi bdd
             serviceProjet.ajouterProjet(projet);
 
-            // Afficher une alerte de succès
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Succès");
             successAlert.setHeaderText(null);
@@ -196,7 +150,6 @@ public class AjouterProjetController {
             applyAlertStyle(successAlert);
             successAlert.showAndWait();
 
-            // Retourner à la page AfficherProjet.fxml
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -205,20 +158,12 @@ public class AjouterProjetController {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
 
-            // Afficher une alerte d'erreur
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Erreur");
-            errorAlert.setHeaderText("Erreur lors de l'ajout du projet");
-            errorAlert.setContentText("Une erreur s'est produite lors de l'ajout du projet : " + e.getMessage());
-            applyAlertStyle(errorAlert);
-            errorAlert.showAndWait();
         }
     }
 
     @FXML
     private void Retour(ActionEvent event) {
         try {
-            // Charger la page précédente
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.setScene(new Scene(root));

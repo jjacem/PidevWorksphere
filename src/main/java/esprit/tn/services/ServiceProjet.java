@@ -78,7 +78,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         List<Projet> projets = new ArrayList<>();
         String req = "SELECT * " +
                 "FROM projet p " +
-                "LEFT JOIN equipe e ON p.equipe_id = e.id";  // Join with equipe table to get team information
+                "LEFT JOIN equipe e ON p.equipe_id = e.id";
 
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(req);
@@ -119,37 +119,41 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         return equipes;
     }
 
-    public List<Projet> rechercherProjet(String nomProjet, String nomEquipe) throws SQLException {
+    public List<Projet> rechercherProjet(String nomProjet) throws SQLException {
         List<Projet> projets = new ArrayList<>();
-        StringBuilder req = new StringBuilder("SELECT * FROM projet p LEFT JOIN equipe e ON p.equipe_id = e.id WHERE 1=1");
+        StringBuilder req = new StringBuilder("SELECT p.*, e.nom_equipe FROM projet p LEFT JOIN equipe e ON p.equipe_id = e.id WHERE 1=1");
 
-        // Ajouter des conditions en fonction des critères fournis
+        // Ajouter une condition pour rechercher par nom de projet
         if (nomProjet != null && !nomProjet.isEmpty()) {
             req.append(" AND LOWER(p.nom) LIKE LOWER('%").append(nomProjet).append("%')");
         }
-        if (nomEquipe != null && !nomEquipe.isEmpty()) {
-            req.append(" AND LOWER(e.nom_equipe) LIKE LOWER('%").append(nomEquipe).append("%')");
-        }
 
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(req.toString());
+        // Afficher la requête SQL pour le débogage
+        System.out.println("Requête SQL : " + req.toString());
 
-        while (rs.next()) {
-            Projet projet = new Projet();
-            projet.setId(rs.getInt("id"));
-            projet.setNom(rs.getString("nom"));
-            projet.setDescription(rs.getString("description"));
-            projet.setDeadline(rs.getDate("deadline"));
-            projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
-            Equipe equipe = new Equipe();
-            equipe.setNomEquipe(rs.getString("nom_equipe"));
-            projet.setEquipe(equipe);
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(req.toString())) {
 
-            projets.add(projet);
+            while (rs.next()) {
+                Projet projet = new Projet();
+                projet.setId(rs.getInt("id"));
+                projet.setNom(rs.getString("nom"));
+                projet.setDescription(rs.getString("description"));
+                projet.setDatecréation(rs.getDate("datecréation"));
+                projet.setDeadline(rs.getDate("deadline"));
+                projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
+
+                Equipe equipe = new Equipe();
+                equipe.setNomEquipe(rs.getString("nom_equipe"));
+                projet.setEquipe(equipe);
+
+                projets.add(projet);
+            }
         }
 
         return projets;
     }
+
 
     public boolean projetExiste(String nomProjet) throws SQLException {
         String req = "SELECT COUNT(*) FROM projet WHERE nom = ?";
@@ -157,7 +161,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
             preparedStatement.setString(1, nomProjet);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Retourne true si un projet avec ce nom existe déjà
+                return rs.getInt(1) > 0;
             }
         }
         return false;

@@ -93,6 +93,7 @@ public class Projet {
         this.etat = etat;
     }
 
+
     @Override
     public String toString() {
         return "Projet{\n" +

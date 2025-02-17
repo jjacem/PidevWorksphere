@@ -4,7 +4,6 @@ import esprit.tn.entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -95,10 +94,9 @@ public class AjouterEquipeController {
                 }
             });
 
-            // Désactiver le bouton "Confirmer" par défaut
+
             confirmerButton.setDisable(true);
 
-            // Activer "Confirmer" seulement si au moins 2 employés sont sélectionnés
             employesSelectionnesList.addListener((ListChangeListener.Change<? extends User> change) -> {
                 confirmerButton.setDisable(employesSelectionnesList.size() < 2);
             });
@@ -142,7 +140,6 @@ public class AjouterEquipeController {
         }
 
         try {
-            // Vérifier si une équipe avec le même nom existe déjà
             if (serviceEquipe.nomEquipeExiste(nomEquipe)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Équipe existante");
@@ -153,10 +150,8 @@ public class AjouterEquipeController {
                 return;
             }
 
-            // Ajouter l'équipe
             serviceEquipe.ajouterEquipe(new Equipe(0, nomEquipe, employesSelectionnes));
 
-            // Affichage de la confirmation
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
@@ -164,13 +159,9 @@ public class AjouterEquipeController {
             applyAlertStyle(alert);
             alert.showAndWait();
 
-            // Rediriger vers la page AfficherEquipe.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
             Parent root = loader.load();
-
-            // Obtenir la scène actuelle
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
             stage.getScene().setRoot(root);
             stage.setTitle("Liste des équipes");
 
@@ -188,7 +179,6 @@ public class AjouterEquipeController {
 
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Réinitialiser l'interface
             nomEquipeField.clear();
             employesSelectionnesList.clear();
             confirmerButton.setDisable(true);

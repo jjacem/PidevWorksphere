@@ -12,8 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,17 +33,16 @@ public class AfficherProjetController {
     @FXML
     public void initialize() {
         try {
-            // Charger tous les projets au démarrage
+            // Charger tous les projets
             List<Projet> projets = serviceProjet.afficherProjet();
             projetListView.getItems().addAll(projets);
 
             // Ajouter un Listener sur le TextField pour la recherche dynamique
             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 try {
-                    // Appeler la méthode de recherche avec le texte saisi
-                    List<Projet> projetsFiltres = serviceProjet.rechercherProjet(newValue, newValue);
+                    //appel te3 recherche + maj liste
+                    List<Projet> projetsFiltres = serviceProjet.rechercherProjet(newValue);
 
-                    // Mettre à jour la ListView
                     projetListView.getItems().clear();
                     projetListView.getItems().addAll(projetsFiltres);
                 } catch (SQLException e) {
@@ -53,7 +50,7 @@ public class AfficherProjetController {
                 }
             });
 
-            // Personnalisation des cellules de la ListView
+            // Personnalisation te3 liste
             projetListView.setCellFactory(param -> new ListCell<Projet>() {
                 private final AnchorPane cellContainer = new AnchorPane();
                 private final VBox leftContent = new VBox(10);
@@ -68,20 +65,41 @@ public class AfficherProjetController {
                 private final Button modifierBtn = new Button("Modifier");
                 private final Button supprimerBtn = new Button("Supprimer");
 
-                {
-                    // Configuration initiale des éléments graphiques
-                    leftContent.setPadding(new Insets(10));
-                    leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, new HBox(10, dateCreationLabel, deadlineLabel, etatLabel));
+       {
+         // Configuration initiale des éléments graphiques  leftContent.setPadding(new Insets(10));
+           leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, new HBox(10, dateCreationLabel, deadlineLabel, etatLabel));
 
 
-                    modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
-                    supprimerBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+            modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
+             supprimerBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
 
-                    // Ajouter un événement au bouton "Supprimer"
-                    supprimerBtn.setOnAction(event -> {
+                    // Ajout te3 event lel btn supp w modif"
+              supprimerBtn.setOnAction(event -> {
                         Projet projet = getItem();
                         if (projet != null) {
                             supprimerProjet(projet.getId());
+                        }
+                    });
+                    modifierBtn.setOnAction(event -> {
+                        Projet projet = getItem();
+                        if (projet != null) {
+                            try {
+
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
+                                Parent root = loader.load();
+
+                                ModifierProjetController modifierProjetController = loader.getController();
+                                modifierProjetController.setProjetAModifier(projet);
+
+
+                                Stage stage = (Stage) projetListView.getScene().getWindow();
+
+
+                                stage.setScene(new Scene(root));
+                                stage.setTitle("Modifier un Projet");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
 
@@ -105,7 +123,7 @@ public class AfficherProjetController {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        // Mise à jour des labels avec les données du projet
+
                         nomLabel.setText(projet.getNom());
                         nomLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0086b3;");
 
@@ -130,15 +148,11 @@ public class AfficherProjetController {
     @FXML
     private void AjouterBTN() {
         try {
-            // Charger la vue AjouterProjet.fxml
+
             Parent root = FXMLLoader.load(getClass().getResource("/AjouterProjet.fxml"));
-
-            // Récupérer la scène actuelle
             Stage stage = (Stage) projetListView.getScene().getWindow();
-
-            // Remplacer la scène actuelle par la nouvelle scène
             stage.setScene(new Scene(root));
-            stage.setTitle("Ajouter un Projet"); // Optionnel : définir un titre pour la fenêtre
+            stage.setTitle("Ajouter un Projet");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,16 +165,10 @@ public class AfficherProjetController {
         try {
             List<Projet> projets;
             if (searchText.isEmpty()) {
-                // Si le champ de recherche est vide, afficher tous les projets
                 projets = serviceProjet.afficherProjet();
             } else {
-                // Rechercher par nom de projet ou nom d'équipe
-                projets = serviceProjet.rechercherProjet(searchText, searchText);
+                projets = serviceProjet.rechercherProjet(searchText);
             }
-
-            System.out.println("Nombre de projets trouvés : " + projets.size()); // Log
-
-            // Mettre à jour la ListView
             projetListView.getItems().clear();
             projetListView.getItems().addAll(projets);
         } catch (SQLException e) {
@@ -171,30 +179,23 @@ public class AfficherProjetController {
 
     @FXML
     private void supprimerProjet(int id) {
-        // Afficher une alerte de confirmation
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce projet ?");
         alert.setContentText("Cette action est irréversible.");
 
-        // Appliquer le style personnalisé à l'alerte
         applyAlertStyle(alert);
 
-        // Attendre la réponse de l'utilisateur
         Optional<ButtonType> result = alert.showAndWait();
 
-        // Si l'utilisateur confirme la suppression
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                // Appeler la méthode du service pour supprimer le projet
                 serviceProjet.supprimerProjet(id);
 
                 // Rafraîchir la liste des projets
                 List<Projet> projets = serviceProjet.afficherProjet();
                 projetListView.getItems().clear();
                 projetListView.getItems().addAll(projets);
-
-                // Afficher une alerte de succès
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Succès");
                 successAlert.setHeaderText(null);
@@ -210,30 +211,26 @@ public class AfficherProjetController {
 
     @FXML
     private void supprimerTousProjet() {
-        // Afficher une alerte de confirmation
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Êtes-vous sûr de vouloir supprimer tous les projets ?");
         alert.setContentText("Cette action est irréversible.");
 
-        // Appliquer le style personnalisé à l'alerte
         applyAlertStyle(alert);
 
-        // Attendre la réponse de l'utilisateur
         Optional<ButtonType> result = alert.showAndWait();
 
-        // Si l'utilisateur confirme la suppression
+
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                // Appeler la méthode du service pour supprimer tous les projets
+
                 serviceProjet.supprimerTousProjet();
 
-                // Rafraîchir la liste des projets
                 List<Projet> projets = serviceProjet.afficherProjet();
                 projetListView.getItems().clear();
                 projetListView.getItems().addAll(projets);
 
-                // Afficher une alerte de succès
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Succès");
                 successAlert.setHeaderText(null);
@@ -244,16 +241,13 @@ public class AfficherProjetController {
             } catch (SQLException e) {
                 e.printStackTrace();
 
-                // Afficher une alerte d'erreur
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Erreur");
-                errorAlert.setHeaderText("Erreur lors de la suppression");
-                errorAlert.setContentText("Une erreur s'est produite lors de la suppression de tous les projets : " + e.getMessage());
-                applyAlertStyle(errorAlert);
-                errorAlert.showAndWait();
             }
         }
     }
+
+
+
+
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
