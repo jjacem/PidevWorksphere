@@ -18,6 +18,8 @@ public class Main {
 
         EntretienService service = new EntretienService();
 
+        System.out.println(service.getEntretienById(2));
+
 
 //            Entretien entretien = new Entretien("Entretien mt3 info ", "je veux un ingenieur qui matrise java et synphony ",new Date(), Time.valueOf("10:00:00"), TypeEntretien.EN_PRESENTIEL, true);
 //            service.ajouter(entretien);
@@ -39,10 +41,9 @@ public class Main {
 //
 //
 //
-       FeedbackService feedbackService = new FeedbackService();
+//       FeedbackService feedbackService = new FeedbackService();
 //
 //        feedbackService.ajouter(feedback);
-        Feedback feedback = new Feedback("je suis un candidat" , 5 , "");
 
 
 

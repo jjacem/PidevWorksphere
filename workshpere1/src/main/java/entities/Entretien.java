@@ -20,6 +20,8 @@ public class Entretien {
 
     private boolean status ;
 
+    private int employeId ;
+
     public Entretien() {
     }
 
@@ -32,6 +34,24 @@ public class Entretien {
         this.status = status;
     }
 
+
+    public Entretien(int id, String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+    }
+
+    public int getEmployeId() {
+        return employeId;
+    }
+
+    public void setEmployeId(int employeId) {
+        this.employeId = employeId;
+    }
 
     @Override
     public String toString() {

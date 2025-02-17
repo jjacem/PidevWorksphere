@@ -2,9 +2,7 @@ package entities;
 
 public enum Role {
 
-    MANAGER,
-    RH,
-    EMPLOYEE,
-    CANDIDAT
+    EMPLOYE, MANAGER, CANDIDAT, RH
+
 
 }
