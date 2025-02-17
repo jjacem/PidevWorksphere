@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 import java.sql.SQLException;
 import java.util.Date;
@@ -82,7 +83,7 @@ public class AjouterProjetController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void AjouterProjet(ActionEvent event) {
         try {
             // Récupérer les données du formulaire
@@ -125,6 +126,93 @@ public class AjouterProjetController {
             } catch (SQLException e) {
             e.printStackTrace();
         }
+    }*/
+
+    @FXML
+    private void AjouterProjet(ActionEvent event) {
+        try {
+            // Récupérer les données du formulaire
+            String nom = nomField.getText();
+            String description = descriptionField.getText();
+            LocalDate dateCreationLocal = dateCreationPicker.getValue();
+            LocalDate deadlineLocal = deadlinePicker.getValue();
+            String etat = etatComboBox.getValue();
+            Equipe equipe = equipeComboBox.getValue();
+
+            // Vérifier si tous les champs sont remplis
+            if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Champs manquants");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez remplir tous les champs.");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+                return;
+            }
+
+            // Convertir LocalDate en java.sql.Date
+            Date dateCreation = java.sql.Date.valueOf(dateCreationLocal);
+            Date deadline = java.sql.Date.valueOf(deadlineLocal);
+
+            // Vérifier si la date de création est postérieure à la deadline
+            if (dateCreation.after(deadline)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Erreur de date");
+                alert.setHeaderText(null);
+                alert.setContentText("La date de création ne peut pas être postérieure à la deadline.");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+                return;
+            }
+
+            // Vérifier si un projet avec le même nom existe déjà
+            if (serviceProjet.projetExiste(nom)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Nom de projet existant");
+                alert.setHeaderText(null);
+                alert.setContentText("Un projet avec ce nom existe déjà. Veuillez choisir un autre nom.");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+                return;
+            }
+
+            // Créer un objet Projet
+            Projet projet = new Projet();
+            projet.setNom(nom);
+            projet.setDescription(description);
+            projet.setDatecréation(dateCreation);
+            projet.setDeadline(deadline);
+            projet.setEtat(EtatProjet.valueOf(etat));
+            projet.setEquipe(equipe);
+
+            // Ajouter le projet à la base de données
+            serviceProjet.ajouterProjet(projet);
+
+            // Afficher une alerte de succès
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Succès");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Projet ajouté avec succès !");
+            applyAlertStyle(successAlert);
+            successAlert.showAndWait();
+
+            // Retourner à la page AfficherProjet.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste des Projets");
+
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+
+            // Afficher une alerte d'erreur
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Erreur");
+            errorAlert.setHeaderText("Erreur lors de l'ajout du projet");
+            errorAlert.setContentText("Une erreur s'est produite lors de l'ajout du projet : " + e.getMessage());
+            applyAlertStyle(errorAlert);
+            errorAlert.showAndWait();
+        }
     }
 
     @FXML
@@ -137,5 +225,11 @@ public class AjouterProjetController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
     }
 }

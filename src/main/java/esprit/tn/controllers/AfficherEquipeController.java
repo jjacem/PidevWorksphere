@@ -45,36 +45,46 @@ public class AfficherEquipeController {
         }
     }
 
+
+
     private void afficherEquipes(List<Equipe> equipes) {
         equipesContainer.getChildren().clear(); // Vider le conteneur
 
-        for (Equipe equipe : equipes) {
-            // Créer une carte pour chaque équipe
-            HBox card = new HBox(10);
-            card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+        if (equipes.isEmpty()) {
+            // Afficher un message si la liste est vide
+            Label messageLabel = new Label("Aucune équipe enregistrée");
+            messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
+            equipesContainer.getChildren().add(messageLabel);
+        } else {
+            // Afficher les équipes
+            for (Equipe equipe : equipes) {
+                // Créer une carte pour chaque équipe
+                HBox card = new HBox(10);
+                card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-            // Nom de l'équipe
-            Label nomEquipeLabel = new Label(equipe.getNomEquipe());
-            nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+                // Nom de l'équipe
+                Label nomEquipeLabel = new Label(equipe.getNomEquipe());
+                nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
 
-            // Bouton Détails
-            Button detailsButton = new Button("Détails");
-            detailsButton.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
-            detailsButton.setOnAction(event -> afficherDetailsEquipe(equipe));
+                // Bouton Détails
+                Button detailsButton = new Button("Détails");
+                detailsButton.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+                detailsButton.setOnAction(event -> afficherDetailsEquipe(equipe));
 
-            // Bouton Modifier
-            Button modifierButton = new Button("Modifier");
-            modifierButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
-            modifierButton.setOnAction(event -> modifierEquipe(equipe));
+                // Bouton Modifier
+                Button modifierButton = new Button("Modifier");
+                modifierButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+                modifierButton.setOnAction(event -> modifierEquipe(equipe));
 
-            // Bouton Supprimer
-            Button supprimerButton = new Button("Supprimer");
-            supprimerButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
-            supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
+                // Bouton Supprimer
+                Button supprimerButton = new Button("Supprimer");
+                supprimerButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+                supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
 
-            // Ajouter les éléments à la carte
-            card.getChildren().addAll(nomEquipeLabel, detailsButton, modifierButton, supprimerButton);
-            equipesContainer.getChildren().add(card);
+                // Ajouter les éléments à la carte
+                card.getChildren().addAll(nomEquipeLabel, detailsButton, modifierButton, supprimerButton);
+                equipesContainer.getChildren().add(card);
+            }
         }
     }
 
@@ -110,13 +120,10 @@ public class AfficherEquipeController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur lors du chargement de la page de modification");
-            alert.setContentText("Une erreur s'est produite lors de l'ouverture de la page de modification.");
-            alert.showAndWait();
+
         }
     }
+
 
     private void supprimerEquipe(Equipe equipe) {
         // Afficher une alerte de confirmation
@@ -124,11 +131,7 @@ public class AfficherEquipeController {
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Êtes-vous sûr de vouloir supprimer cette équipe ?");
         alert.setContentText("Cette action est irréversible.");
-
-        // Appliquer le style CSS à l'alerte
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/stylesEquipe.css").toExternalForm());
-        dialogPane.getStyleClass().add("dialog-pane");
+        applyAlertStyle(alert);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -184,6 +187,7 @@ public class AfficherEquipeController {
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Êtes-vous sûr de vouloir supprimer toutes les équipes ?");
         alert.setContentText("Cette action est irréversible.");
+        applyAlertStyle(alert);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -197,4 +201,9 @@ public class AfficherEquipeController {
         }
     }
 
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+    }
 }

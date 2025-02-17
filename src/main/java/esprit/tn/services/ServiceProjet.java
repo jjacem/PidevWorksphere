@@ -64,6 +64,15 @@ public class ServiceProjet implements IServiceProjet<Projet> {
     }
 
 
+
+    public void supprimerTousProjet() throws SQLException {
+        String req = "DELETE FROM projet"; // Requête pour supprimer tous les projets
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.executeUpdate(); // Exécuter la requête
+            System.out.println("Tous les projets ont été supprimés avec succès.");
+        }
+    }
+
     @Override
     public List<Projet> afficherProjet() throws SQLException {
         List<Projet> projets = new ArrayList<>();
@@ -142,4 +151,15 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         return projets;
     }
 
+    public boolean projetExiste(String nomProjet) throws SQLException {
+        String req = "SELECT COUNT(*) FROM projet WHERE nom = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.setString(1, nomProjet);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retourne true si un projet avec ce nom existe déjà
+            }
+        }
+        return false;
+    }
 }

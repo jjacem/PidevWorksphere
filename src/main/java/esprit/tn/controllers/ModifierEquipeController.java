@@ -135,6 +135,8 @@ public class ModifierEquipeController {
         employesSelectionnesList.clear();
     }
 
+
+
     @FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
@@ -145,11 +147,25 @@ public class ModifierEquipeController {
             alert.setTitle("Champ(s) manquant(s)");
             alert.setHeaderText(null);
             alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
+            applyAlertStyle(alert);
             alert.showAndWait();
+
             return;
         }
 
         try {
+            // Vérifier si une équipe avec le même nom existe déjà (sauf l'équipe actuelle)
+            if (serviceEquipe.cntrlModifEquipe(nomEquipe, equipeAModifier.getId())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Nom d'équipe existant");
+                alert.setHeaderText(null);
+                alert.setContentText("Une équipe avec ce nom existe déjà. Veuillez choisir un autre nom.");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+
+                return;
+            }
+
             // Mettre à jour l'équipe
             equipeAModifier.setNomEquipe(nomEquipe);
             equipeAModifier.setEmployes(employesSelectionnes);
@@ -160,7 +176,9 @@ public class ModifierEquipeController {
             alert.setTitle("Succès");
             alert.setHeaderText(null);
             alert.setContentText("Équipe modifiée avec succès !");
+            applyAlertStyle(alert);
             alert.showAndWait();
+
 
             // Rediriger vers la page AfficherEquipe.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
@@ -169,32 +187,42 @@ public class ModifierEquipeController {
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
             // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
             stage.getScene().setRoot(root);
-            stage.setTitle("liste des équipes");
-
+            stage.setTitle("Liste des équipes");
 
         } catch (SQLException | IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur lors de la modification");
-            alert.setContentText("Une erreur s'est produite lors de la modification de l'équipe.");
-            alert.showAndWait();
+
             e.printStackTrace();
         }
     }
 
     @FXML
     public void annuler() {
+        // Afficher une boîte de dialogue de confirmation
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
         confirmation.setHeaderText("Annuler la modification ?");
-        confirmation.setContentText("Voulez-vous vraiment annuler la modification de l'équipe ?");
+        confirmation.setContentText("Êtes-vous sûr de vouloir annuler la modification de l'équipe ?");
+        applyAlertStyle(confirmation);
 
+        // Attendre la réponse de l'utilisateur
         Optional<ButtonType> result = confirmation.showAndWait();
+
+        // Si l'utilisateur confirme, rediriger vers AfficherEquipe.fxml
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Réinitialiser l'interface
-            nomEquipeField.clear();
-            employesSelectionnesList.clear();
-            confirmerButton.setDisable(true);
+            try {
+                // Charger la page AfficherEquipe.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                Parent root = loader.load();
+
+                // Obtenir la scène actuelle
+                Stage stage = (Stage) annulerButton.getScene().getWindow();
+
+                // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
+                stage.getScene().setRoot(root);
+                stage.setTitle("Liste des équipes");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -211,8 +239,16 @@ public class ModifierEquipeController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aucune sélection");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez sélectionner un employé à supprimer.");
+            alert.setContentText("Veuillez sélectionner un employé à supprimer");
+            applyAlertStyle(alert);
             alert.showAndWait();
         }
+    }
+
+
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
     }
 }

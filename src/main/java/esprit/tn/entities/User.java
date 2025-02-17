@@ -223,7 +223,7 @@ public class User {
     public String getSpecialisation() { return specialisation; }
     public void setSpecialisation(String specialisation) { this.specialisation = specialisation; }
 
-    /*@Override
+    @Override
     public String toString() {
         return "User{" +
                 "idUser=" + idUser +
@@ -247,12 +247,12 @@ public class User {
                 ", ansExperience=" + ansExperience +
                 ", specialisation='" + specialisation + '\'' +
                 '}';
-    }*/
+    }
 
 
-    @Override
+    /*@Override
     public String toString() {
 
         return "Employee{" + "id=" + idUser + ", nom='" + nom + "', prenom='" + prenom + "'}";
-    }
+    }*/
 }

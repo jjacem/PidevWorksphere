@@ -17,6 +17,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class AfficherProjetController {
     @FXML
@@ -63,7 +64,7 @@ public class AfficherProjetController {
                 private final Label deadlineLabel = new Label();
                 private final Label etatLabel = new Label();
                 private final Label equipeLabel = new Label();
-                private final Button detailsBtn = new Button("Détails");
+
                 private final Button modifierBtn = new Button("Modifier");
                 private final Button supprimerBtn = new Button("Supprimer");
 
@@ -72,7 +73,7 @@ public class AfficherProjetController {
                     leftContent.setPadding(new Insets(10));
                     leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, new HBox(10, dateCreationLabel, deadlineLabel, etatLabel));
 
-                    detailsBtn.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white;");
+
                     modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
                     supprimerBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
 
@@ -84,7 +85,7 @@ public class AfficherProjetController {
                         }
                     });
 
-                    buttonBox.getChildren().addAll(detailsBtn, modifierBtn, supprimerBtn);
+                    buttonBox.getChildren().addAll(modifierBtn, supprimerBtn);
 
                     AnchorPane.setLeftAnchor(leftContent, 10.0);
                     AnchorPane.setRightAnchor(buttonBox, 10.0);
@@ -167,23 +168,95 @@ public class AfficherProjetController {
         }
     }
 
+
     @FXML
     private void supprimerProjet(int id) {
-        try {
-            // Appeler la méthode du service pour supprimer le projet
-            serviceProjet.supprimerProjet(id);
+        // Afficher une alerte de confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce projet ?");
+        alert.setContentText("Cette action est irréversible.");
 
-            // Rafraîchir la liste des projets
-            List<Projet> projets = serviceProjet.afficherProjet();
-            projetListView.getItems().clear();
-            projetListView.getItems().addAll(projets);
+        // Appliquer le style personnalisé à l'alerte
+        applyAlertStyle(alert);
 
-            System.out.println("Projet supprimé avec succès !");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Erreur lors de la suppression du projet : " + e.getMessage());
+        // Attendre la réponse de l'utilisateur
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // Si l'utilisateur confirme la suppression
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                // Appeler la méthode du service pour supprimer le projet
+                serviceProjet.supprimerProjet(id);
+
+                // Rafraîchir la liste des projets
+                List<Projet> projets = serviceProjet.afficherProjet();
+                projetListView.getItems().clear();
+                projetListView.getItems().addAll(projets);
+
+                // Afficher une alerte de succès
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Succès");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Projet supprimé avec succès !");
+                applyAlertStyle(successAlert);
+                successAlert.showAndWait();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    @FXML
+    private void supprimerTousProjet() {
+        // Afficher une alerte de confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer tous les projets ?");
+        alert.setContentText("Cette action est irréversible.");
 
+        // Appliquer le style personnalisé à l'alerte
+        applyAlertStyle(alert);
+
+        // Attendre la réponse de l'utilisateur
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // Si l'utilisateur confirme la suppression
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                // Appeler la méthode du service pour supprimer tous les projets
+                serviceProjet.supprimerTousProjet();
+
+                // Rafraîchir la liste des projets
+                List<Projet> projets = serviceProjet.afficherProjet();
+                projetListView.getItems().clear();
+                projetListView.getItems().addAll(projets);
+
+                // Afficher une alerte de succès
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Succès");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Tous les projets ont été supprimés avec succès !");
+                applyAlertStyle(successAlert);
+                successAlert.showAndWait();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+                // Afficher une alerte d'erreur
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Erreur");
+                errorAlert.setHeaderText("Erreur lors de la suppression");
+                errorAlert.setContentText("Une erreur s'est produite lors de la suppression de tous les projets : " + e.getMessage());
+                applyAlertStyle(errorAlert);
+                errorAlert.showAndWait();
+            }
+        }
+    }
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+    }
 }

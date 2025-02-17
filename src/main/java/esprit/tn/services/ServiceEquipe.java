@@ -18,6 +18,11 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
     @Override
     public void ajouterEquipe(Equipe equipe) throws SQLException {
+
+        // Vérifier si une équipe avec le même nom existe déjà
+        if (nomEquipeExiste(equipe.getNomEquipe())) {
+            throw new SQLException("Une équipe avec ce nom existe déjà.");
+        }
         // hne insertion te3 equipe
         String req = "INSERT INTO equipe (nom_equipe) VALUES (?)";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
@@ -196,4 +201,28 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         }
     }
 
+    public boolean nomEquipeExiste(String nomEquipe) throws SQLException {
+        String req = "SELECT COUNT(*) FROM equipe WHERE nom_equipe = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.setString(1, nomEquipe);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retourne true si une équipe avec ce nom existe déjà
+            }
+        }
+        return false;
+    }
+
+    public boolean cntrlModifEquipe(String nomEquipe, int idEquipeActuelle) throws SQLException {
+        String req = "SELECT COUNT(*) FROM equipe WHERE nom_equipe = ? AND id != ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.setString(1, nomEquipe);
+            preparedStatement.setInt(2, idEquipeActuelle);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retourne true si une équipe avec ce nom existe déjà (sauf l'équipe actuelle)
+            }
+        }
+        return false;
+    }
 }

@@ -133,14 +133,26 @@ public class AjouterEquipeController {
 
         if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champ(s) manquant(s)");
+            alert.setTitle("Champ manquant");
             alert.setHeaderText(null);
             alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
+            applyAlertStyle(alert);
             alert.showAndWait();
             return;
         }
 
         try {
+            // Vérifier si une équipe avec le même nom existe déjà
+            if (serviceEquipe.nomEquipeExiste(nomEquipe)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Équipe existante");
+                alert.setHeaderText(null);
+                alert.setContentText("Une équipe avec ce nom existe déjà.");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+                return;
+            }
+
             // Ajouter l'équipe
             serviceEquipe.ajouterEquipe(new Equipe(0, nomEquipe, employesSelectionnes));
 
@@ -149,6 +161,7 @@ public class AjouterEquipeController {
             alert.setTitle("Succès");
             alert.setHeaderText(null);
             alert.setContentText("Équipe ajoutée avec succès !");
+            applyAlertStyle(alert);
             alert.showAndWait();
 
             // Rediriger vers la page AfficherEquipe.fxml
@@ -159,25 +172,19 @@ public class AjouterEquipeController {
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
             // Remplacer le contenu de la scène actuelle avec la vue AfficherEquipe
             stage.getScene().setRoot(root);
-            stage.setTitle("liste des équipes");
+            stage.setTitle("Liste des équipes");
 
-        }
-        catch (SQLException | IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur lors de l'ajout");
-            alert.setContentText("Une erreur s'est produite lors de l'ajout de l'équipe.");
-            alert.showAndWait();
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
-
     @FXML
     public void annuler() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
         confirmation.setHeaderText("Annuler la création ?");
         confirmation.setContentText("Voulez-vous vraiment annuler la création de l'équipe ?");
+        applyAlertStyle(confirmation);
 
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -188,4 +195,9 @@ public class AjouterEquipeController {
         }
     }
 
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+    }
 }
