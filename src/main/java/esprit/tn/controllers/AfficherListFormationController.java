@@ -1,4 +1,5 @@
 package esprit.tn.controllers;
+import esprit.tn.entities.Typeformation;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceFormation;
 
@@ -37,6 +38,10 @@ public class AfficherListFormationController {
     private Button Btnrecherche;
 
     private final ServiceFormation formationService = new ServiceFormation();
+    @FXML
+    private Button btnD;
+    @FXML
+    private Button btnP;
 
     @FXML
     public void initialize() {
@@ -167,4 +172,31 @@ public class AfficherListFormationController {
         listformationid.setItems(observableList);  // formationListView est votre ListView ou TableView
     }
 
+    @FXML
+    public void Ondis(ActionEvent actionEvent) throws SQLException {
+        List<Formation> allFormations = formationService.getListFormation();
+
+        // Filtrer les formations en présentiel
+        List<Formation> filteredFormations = allFormations.stream()
+                .filter(formation -> formation.getType() == Typeformation.Présentiel)
+                .collect(Collectors.toList());
+
+        // Mettre à jour l'affichage
+        updateFormationListView(filteredFormations);
+    }
+
+    @FXML
+    public void Onpres(ActionEvent actionEvent) throws SQLException {
+        List<Formation> allFormations = formationService.getListFormation();
+
+        // Filtrer les formations en distanciel
+        List<Formation> filteredFormations = allFormations.stream()
+                .filter(formation -> formation.getType() == Typeformation.Distanciel)
+                .collect(Collectors.toList());
+
+        // Mettre à jour l'affichage
+        updateFormationListView(filteredFormations);
+    }
+
+    
 }

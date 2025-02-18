@@ -5,7 +5,9 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceReservation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -29,6 +31,8 @@ public class AjouterReservationController {
     private Button btnReservation;
     private int userId;
     private int formationId; // Utilisation de l'ID de la formation au lieu de l'objet complet
+    @FXML
+    private Button btnback;
 
 
     // Setter pour l'utilisateur afin de remplir les champs du formulaire
@@ -94,5 +98,21 @@ public class AjouterReservationController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void Onback(ActionEvent actionEvent) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherListFormation.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
+        }
     }
 }

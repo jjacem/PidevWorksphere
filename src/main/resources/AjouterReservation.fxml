@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterReservationController">
    <children>
       <Label layoutX="237.0" layoutY="27.0" text="Ajouter Reservation" textFill="#0086b3">
@@ -40,5 +39,6 @@
          </font>
       </Label>
       <Button fx:id="btnReservation" layoutX="126.0" layoutY="354.0" mnemonicParsing="false" onAction="#Onajouterreservation" prefHeight="26.0" prefWidth="411.0" style="-fx-background-color: #0086b3;" text="Ajouter Reservation" textFill="WHITE" />
+      <Button fx:id="btnback" layoutX="26.0" layoutY="15.0" mnemonicParsing="false" onAction="#Onback" text="&lt;" />
    </children>
 </AnchorPane>
