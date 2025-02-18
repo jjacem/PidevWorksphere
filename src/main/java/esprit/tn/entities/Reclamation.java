@@ -57,7 +57,7 @@ public Reclamation(String status, String description) {
                 "id_reclamation=" + id_reclamation +
                 ", status='" + status + '\'' +
                 ", description='" + message_rec + '\'' +
-                ", rep=" + rep +
+
                 '}';
     }
 }

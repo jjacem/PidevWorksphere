@@ -6,10 +6,7 @@ import esprit.tn.entities.Sexe;
 import esprit.tn.entities.User;
 import esprit.tn.utils.MyDatabase;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,29 +23,46 @@ public class ServiceReclamation implements IService <Reclamation> {
         statement.executeUpdate(req);
         System.out.println("reclamtation ajoute");
 
+
+
     }
 
     @Override
     public void modifier(Reclamation reclamation) throws SQLException {
-String req = "UPDATE Reclamation SET  status=?, meesage_rec=? WHERE id_reclamation=?";
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(req);
-            System.out.println("reclamation modifie");
+String req = "UPDATE Reclamation SET  status=?, message_rec=? WHERE id_reclamation=?";
+        try (PreparedStatement statement = connection.prepareStatement(req)) {
+            statement.setString(1, reclamation.getStatus());
+            statement.setString(2, reclamation.getDescription());
+            statement.setInt(3, reclamation.getId_reclamation());
+
+
+
+            int rowsUpdated = statement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("reclamation modifiée avec succès.");
+            } else {
+                System.out.println("Aucune reclamation trouvée avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void supprimer(int id) throws SQLException {
         String req = "DELETE FROM Reclamation WHERE id_reclamation=?";
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(req);
-        System.out.println("reclamation supprime");
+        PreparedStatement statement= connection.prepareStatement(req);
+        statement.setInt(1,id);
+        statement.executeUpdate();
+        System.out.println("rec supprimee");
 
     }
 
     @Override
     public List<Reclamation> afficher() throws SQLException {
        String req = "SELECT * FROM Reclamation";
+       String req2 = "SELECT * FROM User";
         ArrayList<Reclamation> reclamations = new ArrayList<>();
         Statement statement= connection.createStatement();
 
@@ -58,7 +72,7 @@ String req = "UPDATE Reclamation SET  status=?, meesage_rec=? WHERE id_reclamati
             Reclamation reclamation = new Reclamation(
 
                     rs.getString("status"),
-                    rs.getString("description")
+                    rs.getString("message_rec")
             );
             reclamation.setId_reclamation(rs.getInt("id_reclamation"));
 
