@@ -1,0 +1,53 @@
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="esprit.tn.controllers.ModifierEvenementController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <!-- Champ Nom -->
+        <Label layoutX="50.0" layoutY="30.0" text="Nom:" />
+        <TextField fx:id="tfNomEvent" layoutX="150.0" layoutY="30.0"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px;
+                    -fx-background-color: #f0f0f0; -fx-border-color: black;-fx-border-width: 0.2px;" />
+        <Label fx:id="lblErrorNom" layoutX="150.0" layoutY="60.0" textFill="red" visible="false" />
+
+        <!-- Champ Description -->
+        <Label layoutX="50.0" layoutY="70.0" text="Description:" />
+        <TextField fx:id="tfDescEvent" layoutX="150.0" layoutY="70.0"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+        <Label fx:id="lblErrorDesc" layoutX="150.0" layoutY="100.0" textFill="red" visible="false" />
+
+        <!-- Champ Date -->
+        <Label layoutX="50.0" layoutY="110.0" text="Date:" />
+        <DatePicker fx:id="dpDateEvent" layoutX="150.0" layoutY="110.0"
+                    prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+        <Label fx:id="lblErrorDate" layoutX="150.0" layoutY="140.0" textFill="red" visible="false" />
+
+        <!-- Champ Heure -->
+        <Label layoutX="50.0" layoutY="230.0" text="Heure:" />
+        <TextField fx:id="tfHeureEvent" layoutX="150.0" layoutY="230.0"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+        <Label fx:id="lblErrorHeure" layoutX="150.0" layoutY="260.0" textFill="red" visible="false" />
+
+        <!-- Champ Lieu -->
+        <Label layoutX="50.0" layoutY="150.0" text="Lieu:" />
+        <TextField fx:id="tfLieuEvent" layoutX="150.0" layoutY="150.0"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+        <Label fx:id="lblErrorLieu" layoutX="150.0" layoutY="180.0" textFill="red" visible="false" />
+
+        <!-- Champ Capacité -->
+        <Label layoutX="50.0" layoutY="190.0" text="Capacité:" />
+        <TextField fx:id="tfCapaciteEvent" layoutX="150.0" layoutY="190.0"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+        <Label fx:id="lblErrorCapacite" layoutX="150.0" layoutY="220.0" textFill="red" visible="false" />
+
+        <!-- Bouton Modifier -->
+        <Button fx:id="btnModifier" text="Modifier" layoutX="250.0" layoutY="250.0"
+                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 5px;" />
+    </children>
+</AnchorPane>
