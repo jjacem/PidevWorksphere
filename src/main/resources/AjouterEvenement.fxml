@@ -71,7 +71,12 @@
       <Label fx:id="capaciteEventErrorLabel" layoutX="138.0" layoutY="325.0" textFill="red" visible="false" />
 
       <!-- Bouton Ajouter -->
-      <Button fx:id="ajouterBtn" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#ajouterEvenement" text="Ajouter"
+
+      <Button fx:id="ajouterbtn" layoutX="80.0" layoutY="358.0" mnemonicParsing="false" onAction="#ajouterEvenement"
+              prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;"
+              text="Ajouter evenement" />
+      <!-- Bouton Ajouter -->
+      <Button fx:id="RetourBtnaListEvent" layoutX="410.0" layoutY="400.0" mnemonicParsing="false" onAction="#RetourListEvenement" text="Retour"
               prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
    </children>
 </AnchorPane>

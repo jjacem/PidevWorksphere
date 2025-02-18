@@ -89,7 +89,9 @@ public class AfficherSponsorController {
 
 package esprit.tn.controllers;
 
+import esprit.tn.entities.Evenement;
 import esprit.tn.entities.Sponsor;
+import esprit.tn.services.ServiceEvenement;
 import esprit.tn.services.ServiceSponsor;  // Assurez-vous d'avoir une classe pour le service des sponsors
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -98,23 +100,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AfficherSponsorController {
 
     @FXML
     private ListView<Sponsor> lv_sponsor;
-
+    @FXML
+    private TextField txtRechercheSponso;
     @FXML
     void initialize() {
         ServiceSponsor serviceSponsor = new ServiceSponsor();
@@ -222,4 +223,27 @@ public class AfficherSponsorController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void OnchercherSponsor(ActionEvent actionEvent) throws SQLException {
+        String searchText = txtRechercheSponso.getText();
+        ServiceSponsor serviceSponsor=new ServiceSponsor();
+        // Liste des sponsor
+        List<Sponsor> allSponsor = serviceSponsor.afficher();
+
+        // Filtrer les sponsor avec Stream en fonction du texte de recherche
+        List<Sponsor> filteredSponsor = allSponsor.stream()
+                .filter(Sponsor -> Sponsor.getNomSponso().toLowerCase().contains(searchText.toLowerCase()))
+                .collect(Collectors.toList());
+
+        // Mettre à jour l'affichage des résultats de la recherche
+        updateSponsorListView(filteredSponsor);
+
+    }
+    private void updateSponsorListView(List<Sponsor> filteredSponsor) {
+        // Convertir la liste filtrée en ObservableList pour l'affichage
+        ObservableList<Sponsor> observableList = FXCollections.observableArrayList(filteredSponsor);
+        lv_sponsor.setItems(observableList);  // formationListView est votre ListView ou TableView
+    }
+
 }

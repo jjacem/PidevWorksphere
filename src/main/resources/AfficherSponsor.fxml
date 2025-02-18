@@ -34,14 +34,14 @@
                 prefHeight="40.0" prefWidth="160.0"
                 style="-fx-background-color: #000000;" text="Ajouter Sponsor" textFill="WHITE"
                 AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0"
-                />
+                onAction="#Onajoutersponso"/>
 
         <!-- Barre de recherche -->
         <HBox layoutX="0.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" spacing="10"
               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
-                <TextField fx:id="txtRechercheSponsor" prefHeight="30.0" prefWidth="400.0" promptText="Rechercher..." />
-                <Button fx:id="btnRechercheSponsor"
+                <TextField fx:id="txtRechercheSponso" prefHeight="30.0" prefWidth="400.0" promptText="Rechercher..." />
+                <Button fx:id="btnRechercheSponsor"  onAction="#OnchercherSponsor"
                         prefHeight="30.0" prefWidth="100.0" text="Rechercher"
                         style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
             </children>

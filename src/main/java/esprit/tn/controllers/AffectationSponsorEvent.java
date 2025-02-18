@@ -55,11 +55,18 @@ public class AffectationSponsorEvent {
 
 import esprit.tn.services.ServiceSponsor;
 import esprit.tn.services.ServiceEvenement;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -106,6 +113,24 @@ public class AffectationSponsorEvent {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+
+
+
+    @FXML
+    public void backbtn(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Sponsor_events.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

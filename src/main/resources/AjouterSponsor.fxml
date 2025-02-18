@@ -54,5 +54,10 @@
         <Button fx:id="ajouterbtn" layoutX="80.0" layoutY="270.0" mnemonicParsing="false" onAction="#AjouterSponsor"
                 prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;"
                 text="Ajouter le sponsor" />
+
+
+
+        <Button fx:id="RetourBtnaListSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListSponso" text="Retour"
+                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
     </children>
 </AnchorPane>

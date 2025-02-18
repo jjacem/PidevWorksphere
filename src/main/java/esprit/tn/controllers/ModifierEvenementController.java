@@ -85,12 +85,18 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.Evenement;
 import esprit.tn.services.ServiceEvenement;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -226,5 +232,22 @@ public class ModifierEvenementController {
         lblErrorNom.setText("L'événement a été mis à jour avec succès !");
         lblErrorNom.setTextFill(javafx.scene.paint.Color.GREEN);
         lblErrorNom.setVisible(true);
+    }
+
+
+
+    @FXML
+    public void RetourListEvenement(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvenement.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

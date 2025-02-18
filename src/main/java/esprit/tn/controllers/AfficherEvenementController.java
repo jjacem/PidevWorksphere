@@ -293,4 +293,6 @@ public class AfficherEvenementController {
         lv_event.setItems(observableList);  // formationListView est votre ListView ou TableView
     }
 
+
+
 }

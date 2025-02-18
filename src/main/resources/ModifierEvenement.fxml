@@ -49,5 +49,8 @@
         <!-- Bouton Modifier -->
         <Button fx:id="btnModifier" text="Modifier" layoutX="250.0" layoutY="250.0"
                 prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 5px;" />
+
+        <Button fx:id="RetourBtnaListEvent" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListEvenement" text="Retour"
+                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
     </children>
 </AnchorPane>

@@ -15,9 +15,13 @@
         <Label fx:id="eventsLabel" layoutX="300" layoutY="50" prefHeight="100" prefWidth="300"/>
 
         <!-- Button pour supprimer l'association entre sponsor et événement -->
-        <Button fx:id="deleteButton" layoutX="300" layoutY="200" text="Supprimer l'association"/>
-
+        <Button fx:id="deleteButton" layoutX="300" layoutY="200" text="Supprimer l'association"
+                prefHeight="40.0"
+                style="-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand; -fx-padding: 10 20; -fx-background-radius: 4;"/>
+        <Button fx:id="AffectationEventSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false"
+                onAction="#AjouterAffectation" text="Ajouter Affectation"
+                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
         <!-- Optionnel : bouton pour revenir à la vue précédente -->
-        <Button fx:id="backButton" layoutX="300" layoutY="250" text="Retour"/>
+
     </children>
 </AnchorPane>
