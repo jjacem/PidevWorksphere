@@ -102,8 +102,8 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             int id = rs.getInt("id");
             String nomEquipe = rs.getString("nom_equipe");
 
-
-            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role FROM user e " +
+            // Requête pour récupérer les employés de l'équipe, y compris leur image_profil
+            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role, e.image_profil FROM user e " +
                     "JOIN equipe_employee ee ON e.id_user = ee.id_user WHERE ee.equipe_id = ?";
 
             PreparedStatement employesStmt = connection.prepareStatement(employesReq);
@@ -112,12 +112,12 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
             List<User> employes = new ArrayList<>();
             while (employesRs.next()) {
-                // Utilisation de User et gestion du rôle
                 User user = new User(
                         employesRs.getInt("id_user"),
                         employesRs.getString("nom"),
                         employesRs.getString("prenom"),
-                        Role.valueOf(employesRs.getString("role").toUpperCase())
+                        Role.valueOf(employesRs.getString("role").toUpperCase()),
+                        employesRs.getString("image_profil")
                 );
                 employes.add(user);
             }
@@ -126,7 +126,6 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         }
         return equipes;
     }
-
 
 
     public List<User> getEmployesDisponibles() throws SQLException {
@@ -169,7 +168,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
     public List<User> rechercherEmployee(int equipeId, String searchText) throws SQLException {
         List<User> employesTrouves = new ArrayList<>();
-        String req = "SELECT u.id_user, u.nom, u.prenom " +
+        String req = "SELECT u.id_user, u.nom, u.prenom, u.image_profil " +
                 "FROM user u " +
                 "JOIN equipe_employee ee ON u.id_user = ee.id_user " +
                 "WHERE ee.equipe_id = ? AND (LOWER(u.nom) LIKE ? OR LOWER(u.prenom) LIKE ?)";
@@ -184,14 +183,14 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
                 User user = new User(
                         rs.getInt("id_user"),
                         rs.getString("nom"),
-                        rs.getString("prenom")
+                        rs.getString("prenom"),
+                        rs.getString("image_profil")
                 );
                 employesTrouves.add(user);
             }
         }
         return employesTrouves;
     }
-
 
     public void supprimerToutesEquipes() throws SQLException {
         String query = "DELETE FROM equipe";

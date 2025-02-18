@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.entities.Equipe;
@@ -46,7 +48,6 @@ public class AfficherEquipeController {
     }
 
 
-
     private void afficherEquipes(List<Equipe> equipes) {
         equipesContainer.getChildren().clear(); // Vider le conteneur
 
@@ -55,31 +56,30 @@ public class AfficherEquipeController {
             messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
             equipesContainer.getChildren().add(messageLabel);
         } else {
-            // Affichage te3 les equipes + nom + les boutons
             for (Equipe equipe : equipes) {
-                // hne creation te3 card pour chaque equipe
                 HBox card = new HBox(10);
-                card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+                card.setStyle("-fx-background-color: white; -fx-padding: 15;  -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
 
                 Label nomEquipeLabel = new Label(equipe.getNomEquipe());
                 nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
 
                 Button detailsButton = new Button("Détails");
-                detailsButton.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+                detailsButton.getStyleClass().addAll("card-button", "details-button");
                 detailsButton.setOnAction(event -> afficherDetailsEquipe(equipe));
 
-
                 Button modifierButton = new Button("Modifier");
-                modifierButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+                modifierButton.getStyleClass().addAll("card-button", "modifier-button");
                 modifierButton.setOnAction(event -> modifierEquipe(equipe));
 
-
                 Button supprimerButton = new Button("Supprimer");
-                supprimerButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;");
+                supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
                 supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
 
-                // Ajout te3 les elements lel card
-                card.getChildren().addAll(nomEquipeLabel, detailsButton, modifierButton, supprimerButton);
+                // Utilisation d'un Region pour pousser les boutons à droite
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                card.getChildren().addAll(nomEquipeLabel, spacer, detailsButton, modifierButton, supprimerButton);
                 equipesContainer.getChildren().add(card);
             }
         }
@@ -191,4 +191,5 @@ public class AfficherEquipeController {
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
     }
+
 }

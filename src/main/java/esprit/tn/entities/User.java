@@ -145,11 +145,25 @@ public class User {
         return u;
     }
 
-    public User(int id, String nom, String prenom,Role role) {
+   public User(int id, String nom, String prenom,Role role) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
+    }
+    public User(int id, String nom, String prenom, Role role, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+        this.imageProfil = imageProfil;
+    }
+
+    public User(int id, String nom, String prenom, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.imageProfil = imageProfil;
     }
 
     public User(int id, String nom, String prenom) {
@@ -250,9 +264,5 @@ public class User {
     }
 
 
-    /*@Override
-    public String toString() {
 
-        return "Employee{" + "id=" + idUser + ", nom='" + nom + "', prenom='" + prenom + "'}";
-    }*/
 }

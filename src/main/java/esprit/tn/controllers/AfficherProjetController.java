@@ -66,8 +66,8 @@ public class AfficherProjetController {
                 private final Button supprimerBtn = new Button("Supprimer");
 
        {
-         // Configuration initiale des éléments graphiques  leftContent.setPadding(new Insets(10));
-           leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, new HBox(10, dateCreationLabel, deadlineLabel, etatLabel));
+
+           leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, dateCreationLabel, deadlineLabel, etatLabel);
 
 
             modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
@@ -144,6 +144,9 @@ public class AfficherProjetController {
             e.printStackTrace();
         }
     }
+
+
+
 
     @FXML
     private void AjouterBTN() {

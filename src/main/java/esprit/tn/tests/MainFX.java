@@ -19,10 +19,11 @@ public class MainFX extends Application {
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterProjet.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherProjet.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
         Parent root = loader.load();
 
         // Configurer la scène
-        Scene scene = new Scene(root, 600, 400); // Taille de la fenêtre
+        Scene scene = new Scene(root, 800, 600); // Taille de la fenêtre
         primaryStage.setTitle("worksphere"); // Titre de la fenêtre
         primaryStage.setScene(scene);
 

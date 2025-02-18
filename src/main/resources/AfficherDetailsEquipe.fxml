@@ -7,30 +7,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="esprit.tn.controllers.AfficherDetailsEquipeController"
             prefHeight="600.0" prefWidth="800.0"
             stylesheets="@stylesEquipe.css">
 
-    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <!-- Bouton Retour -->
-        <Button text="← Retour" onAction="#retour" styleClass="button" />
+    <!-- Conteneur principal centré avec un fond blanc et une bordure arrondie -->
+    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" styleClass="main-card">
+        <!-- Bouton Retour bien positionné dans le cadre blanc -->
+        <HBox alignment="CENTER_LEFT">
+            <Button text="← Retour" onAction="#retour" styleClass="button-back" />
+        </HBox>
 
-        <!-- Nom de l'équipe -->
-        <Label fx:id="nomEquipeLabel" styleClass="label-subtitle" />
+        <!-- Nom de l'équipe avec un style plus grand et bleu -->
+        <Label fx:id="nomEquipeLabel" styleClass="label-title" />
 
         <!-- Barre de recherche -->
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="Rechercher un membre:" styleClass="label-text" />
-            <TextField fx:id="rechercheField" promptText="Nomou prénom " prefWidth="300" onKeyReleased="#rechercherEmployee" />
+            <TextField fx:id="rechercheField" promptText="Nom ou prénom" prefWidth="300" onKeyReleased="#rechercherEmployee" />
         </HBox>
 
         <!-- Liste des membres de l'équipe -->
-        <VBox fx:id="membresContainer" spacing="10" styleClass="card">
+        <VBox fx:id="membresContainer" spacing="10" styleClass="members-container">
             <!-- Les membres seront ajoutés dynamiquement ici -->
         </VBox>
     </VBox>
-
 </AnchorPane>

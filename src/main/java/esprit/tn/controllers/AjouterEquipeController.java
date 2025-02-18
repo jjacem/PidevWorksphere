@@ -169,6 +169,7 @@ public class AjouterEquipeController {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void annuler() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -176,12 +177,18 @@ public class AjouterEquipeController {
         confirmation.setHeaderText("Annuler la création ?");
         confirmation.setContentText("Voulez-vous vraiment annuler la création de l'équipe ?");
         applyAlertStyle(confirmation);
-
         Optional<ButtonType> result = confirmation.showAndWait();
+
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            nomEquipeField.clear();
-            employesSelectionnesList.clear();
-            confirmerButton.setDisable(true);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) annulerButton.getScene().getWindow();
+                stage.getScene().setRoot(root);
+                stage.setTitle("Liste des équipes");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
