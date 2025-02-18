@@ -75,10 +75,10 @@ public class AfficherFormationController {
                                 imageView.setImage(new Image(formation.getPhoto().toString()));
                             }
 
-                            Label titreLabel = new Label( formation.getDescription());
+                            Label titreLabel = new Label( formation.getTitre());
                             titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
 
-                            Label descriptionLabel = new Label("Description:"+formation.getTitre());
+                            Label descriptionLabel = new Label("Description:"+formation.getDescription());
                             descriptionLabel.setStyle("-fx-font-size: 14px");
                             Label dateLabel = new Label("Date: " + formation.getDate().toString());
                             dateLabel.setStyle("-fx-font-size: 14px");

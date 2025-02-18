@@ -42,6 +42,8 @@ public class ModifierFormationController implements Initializable {
 
     private Formation formation;
     private final ServiceFormation serviceFormation = new ServiceFormation();
+    @FXML
+    private Button btnretour;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,6 +81,12 @@ public class ModifierFormationController implements Initializable {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs.");
                 return;
             }
+            if (date.isBefore(LocalDate.now())) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "La date ne doit pas être inférieure à aujourd'hui.");
+                return;
+            }
+
+
 
             // Vérification de l'URL de la photo
             URL photo = null;
@@ -130,5 +138,21 @@ public class ModifierFormationController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void Onback(ActionEvent actionEvent) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
+        }
     }
 }

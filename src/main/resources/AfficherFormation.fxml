@@ -23,7 +23,7 @@
         </Label>
 
         <!-- Bouton Ajouter -->
-        <Button fx:id="btnajouterID" layoutX="594.0" layoutY="135.0" onAction="#Onajouterformation" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #000000;" text="Ajouter Formation" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="135.0" />
+        <Button fx:id="btnajouterID" layoutX="594.0" layoutY="135.0" onAction="#Onajouterformation" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #000000" text="Ajouter Formation" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="135.0" />
       <HBox fx:id="Vrechcerche" layoutX="-8.0" layoutY="-6.0" prefHeight="85.0" prefWidth="776.0">
          <children>
             <TextField fx:id="Trecherche" prefHeight="26.0" prefWidth="329.0" promptText="Rechercher....">

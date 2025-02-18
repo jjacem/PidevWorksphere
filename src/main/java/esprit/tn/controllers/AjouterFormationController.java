@@ -46,69 +46,107 @@ public class AjouterFormationController implements Initializable {
     private AnchorPane FormAj;
     @FXML
     private TextField photoID;
+    @FXML
+    private Button btnretour;
 
-    @Deprecated
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeID.setItems(FXCollections.observableArrayList(Typeformation.values()));
-
     }
 
     @FXML
     public void OnAjouterFormation(ActionEvent event) {
+        resetErrorMessages();
+
         try {
-            // Récupération des données
             String titre = titreID.getText();
             String description = descriptionID.getText();
             LocalDate date = dateID.getValue();
-            LocalTime heureDebut = LocalTime.parse(heureDID.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-            LocalTime heureFin = LocalTime.parse(heureFID.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-            int nbPlaces = Integer.parseInt(nbplaceID.getText());
+            String heureDebutText = heureDID.getText();
+            String heureFinText = heureFID.getText();
+            String nbPlacesText = nbplaceID.getText();
             Typeformation typeFormation = typeID.getValue();
 
-            // Vérification des champs obligatoires
-            if (titre.isEmpty() || description.isEmpty() || date == null || typeFormation == null) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs obligatoires.");
+            if (titre.isEmpty()) {
+                showErrorMessage(titreID, "Le titre ne peut pas être vide.");
                 return;
             }
 
-            // Gestion de l'URL de la photo
+            if (description.isEmpty()) {
+                showErrorMessage(descriptionID, "La description ne peut pas être vide.");
+                return;
+            }
+
+            if (date == null) {
+                showErrorMessage(dateID, "Veuillez sélectionner une date.");
+                return;
+            }
+            if (date.isBefore(LocalDate.now())) {
+                showErrorMessage(dateID, "La date ne doit pas être inférieure à aujourd'hui.");
+                return;
+            }
+
+            LocalTime heureDebut;
+            LocalTime heureFin;
+            try {
+                heureDebut = LocalTime.parse(heureDebutText, DateTimeFormatter.ofPattern("HH:mm"));
+                heureFin = LocalTime.parse(heureFinText, DateTimeFormatter.ofPattern("HH:mm"));
+            } catch (Exception e) {
+                showErrorMessage(heureDID, "Format d'heure invalide (HH:mm). Veuillez corriger.");
+                return;
+            }
+
+            int nbPlaces;
+            try {
+                nbPlaces = Integer.parseInt(nbPlacesText);
+                if (nbPlaces <= 0) {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException e) {
+                showErrorMessage(nbplaceID, "Veuillez entrer un nombre valide et positif pour les places.");
+                return;
+            }
+
             URL photo = null;
             if (!photoID.getText().isEmpty()) {
                 try {
                     photo = new URL(photoID.getText());
                 } catch (MalformedURLException e) {
-                    showAlert(Alert.AlertType.ERROR, "Erreur", "URL de la photo invalide !");
+                    showErrorMessage(photoID, "URL de la photo invalide !");
                     return;
                 }
             }
 
-            // Remplacer 1 par l'ID utilisateur réel
             int userId = 1;
-
-            // Création de l'objet Formation
             Formation formation = new Formation(description, titre, date, heureDebut, heureFin, nbPlaces, typeFormation, photo, userId);
 
-            // Ajout via le service
             ServiceFormation serviceFormation = new ServiceFormation();
             serviceFormation.ajouterFormation(formation);
-
-            // Affichage du message de succès
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Formation ajoutée avec succès !");
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
             Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez entrer un nombre valide pour les places et respecter le format HH:mm pour les heures.");
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
+    }
+
+    private void resetErrorMessages() {
+        titreID.setStyle("");
+        descriptionID.setStyle("");
+        dateID.setStyle("");
+        heureDID.setStyle("");
+        heureFID.setStyle("");
+        nbplaceID.setStyle("");
+        photoID.setStyle("");
+    }
+
+    private void showErrorMessage(Control control, String message) {
+        showAlert(Alert.AlertType.ERROR, "Erreur", message);
+        control.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
     }
 
     private void showAlert(AlertType type, String title, String content) {
@@ -117,5 +155,20 @@ public class AjouterFormationController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void Onback(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
+        }
     }
 }

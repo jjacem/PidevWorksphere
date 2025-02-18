@@ -64,5 +64,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <Button fx:id="btnretour" layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#Onback" text="&lt;" />
    </children>
 </AnchorPane>
