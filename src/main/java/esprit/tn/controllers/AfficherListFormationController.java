@@ -169,7 +169,7 @@ public class AfficherListFormationController {
     private void updateFormationListView(List<Formation> filteredFormations) {
         // Convertir la liste filtrée en ObservableList pour l'affichage
         ObservableList<Formation> observableList = FXCollections.observableArrayList(filteredFormations);
-        listformationid.setItems(observableList);  // formationListView est votre ListView ou TableView
+        listformationid.setItems(observableList);
     }
 
     @FXML
@@ -198,5 +198,5 @@ public class AfficherListFormationController {
         updateFormationListView(filteredFormations);
     }
 
-    
+
 }

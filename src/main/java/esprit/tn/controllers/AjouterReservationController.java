@@ -30,7 +30,7 @@ public class AjouterReservationController {
     @FXML
     private Button btnReservation;
     private int userId;
-    private int formationId; // Utilisation de l'ID de la formation au lieu de l'objet complet
+    private int formationId;
     @FXML
     private Button btnback;
 
