@@ -8,35 +8,50 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import services.EntretienService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AffichageEntretineController {
     @FXML
     private ListView<Entretien> lv_entretien;
 
     private EntretienService entretienService = new EntretienService();
+
+    private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
+
+
     @FXML
     private Button btn_ajouter;
+    @FXML
+    private TextField searchField;
 
 
     @FXML
     public void initialize() throws SQLException {
         afficherEntretien();
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                filterEntretiens(newValue);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void afficherEntretien() throws SQLException {
         List<Entretien> entretiens = entretienService.afficher();
         ObservableList<Entretien> data = FXCollections.observableArrayList(entretiens);
-        lv_entretien.setItems(data);
+        allEntretiens.setAll(entretiens);
+        lv_entretien.setItems(allEntretiens);
 
         lv_entretien.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -49,23 +64,51 @@ public class AffichageEntretineController {
                     Button btnModifier = new Button("Modifier");
                     Button btnSupprimer = new Button("Supprimer");
                     Button btnAffecter = new Button("Affecter");
+                    Button btnFeedback;
+
+                    if (entretien.getFeedbackId() != 0) {
+                        btnFeedback = new Button("📄Voir Feedback");
+                        btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
+                    } else {
+                        btnFeedback = new Button("➕ Ajouter Feedback");
+                        btnFeedback.setOnAction(event -> {
+                            ajouterFeedback(entretien.getId());
+                            try {
+                                afficherEntretien(); // Refresh list after adding feedback
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
 
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
+                    btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
 
+                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer, btnAffecter, btnFeedback);
+                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
 
-                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer, btnAffecter);
+                    setText("📝 Titre: " + entretien.getTitre() + "\n"
+                            + "Description: " + entretien.getDescription() + "\n"
+                            + "📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien() + "\n"
+                            + "📌 Type: " + entretien.getType_entretien() + "\n"
+                            + "✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
 
-                    setText("Titre: " + entretien.getTitre() +
-                            " | Description: " + entretien.getDescription() +
-                            " | Date: " + entretien.getDate_entretien() +
-                            " | Heure: " + entretien.getHeure_entretien() +
-                            " | Type: " + entretien.getType_entretien() +
-                            " | Statut: " + (entretien.isStatus() ? "Terminé" : "En cours"));
-
+                    setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
                     setGraphic(buttonBox);
                 }
             }
         });
+
+    }
+
+    private void filterEntretiens(String keyword) throws SQLException {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            lv_entretien.setItems(allEntretiens);
+        } else {
+            String lowerKeyword = keyword.toLowerCase();
+            List<Entretien> filteredList = entretienService.rechercher(lowerKeyword);
+            lv_entretien.setItems(FXCollections.observableArrayList(filteredList));
+        }
     }
 
     @FXML
@@ -102,7 +145,126 @@ public class AffichageEntretineController {
             e.printStackTrace();
         }
     }
+
+
+
+    private void supprimerEntretien(Entretien entretien) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Supprimer l'entretien");
+        alert.setContentText("Êtes-vous sûr de vouloir supprimer cet entretien ?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    entretienService.supprimer(entretien.getId());
+                    afficherEntretien();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Erreur");
+                    errorAlert.setHeaderText("Échec de la suppression");
+                    errorAlert.setContentText("Une erreur est survenue lors de la suppression de l'entretien.");
+                    errorAlert.show();
+                }
+            }
+        });
+    }
+
+
+    private void voirFeedback(int feedbackId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/voirFeedback.fxml"));
+            Parent root = loader.load();
+
+            lv_entretien.getScene().setRoot(root);
+
+           voirFeedbackController controller = loader.getController();
+            controller.chargerFeedback(feedbackId);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Voir Feedback");
+           stage.show();
+            afficherEntretien();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    private void ajouterFeedback(int entretienId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterFeedback.fxml"));
+            Parent root = loader.load();
+
+            AjouterFeedbackController controller = loader.getController();
+            controller.setEntretienId(entretienId);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Ajouter Feedback");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 }
+
+
+    void refreshDatas() throws SQLException {
+
+            afficherEntretien();
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

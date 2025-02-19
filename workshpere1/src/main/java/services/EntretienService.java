@@ -7,6 +7,7 @@ import utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EntretienService implements Iservice<Entretien> {
 
@@ -77,14 +78,29 @@ public class EntretienService implements Iservice<Entretien> {
             Date dateEntretien = resultSet.getDate("date_entretien");
             Time heureEntretien = resultSet.getTime("heure_entretien");
             TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
+            int feedbackId  = resultSet.getInt("feedbackId");
+            int employe_id  = resultSet.getInt("employe_id");
+
+
+
             boolean status = resultSet.getBoolean("status");
 
-            Entretien entretien = new Entretien( id , titre, description, dateEntretien, heureEntretien, typeEntretien, status);
+            Entretien entretien = new Entretien( id , titre, description, dateEntretien, heureEntretien, typeEntretien, status , feedbackId , employe_id);
             entretiens.add(entretien);
         }
 
         return entretiens;
 }
+
+
+    public List<Entretien> rechercher(String keyword) throws SQLException {
+        List<Entretien> entretiens = afficher();
+
+        return entretiens.stream()
+                .filter(entretien -> entretien.getTitre().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
 
     public void affecterEntretien(int employeId, int entretienId) {
         String sql = "UPDATE entretiens SET employe_id = ? WHERE id = ?";
@@ -158,11 +174,59 @@ public class EntretienService implements Iservice<Entretien> {
 
 
 
-
-
-
-
+    public void assignerFeedback(int entretienId, int feedbackId) throws SQLException {
+        String query = "UPDATE entretiens SET feedbackId = ? WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, feedbackId);
+            pstmt.setInt(2, entretienId);
+            pstmt.executeUpdate();
+        }
     }
+
+
+    public void reaassignerFeedback(int entretienId, int feedbackId) throws SQLException {
+        String query = "UPDATE entretiens SET feedbackId = null  WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, feedbackId);
+            pstmt.setInt(2, entretienId);
+            pstmt.executeUpdate();
+        }
+    }
+
+
+    public Entretien getEntretienByFeedbackId(int feedbackId) {
+        String sql = "SELECT * FROM entretiens WHERE feedbackId = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, feedbackId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                Entretien entretien = new Entretien();
+                entretien.setTitre(resultSet.getString("titre"));
+                entretien.setDescription(resultSet.getString("description"));
+                entretien.setDate_entretien(resultSet.getDate("date_entretien"));
+                entretien.setHeure_entretien(resultSet.getTime("heure_entretien"));
+                entretien.setType_entretien(TypeEntretien.valueOf(resultSet.getString("type_entretien")));
+                entretien.setStatus(resultSet.getBoolean("status"));
+                entretien.setEmployeId(resultSet.getInt("employe_id"));
+                entretien.setFeedbackId(resultSet.getInt("feedbackId"));
+                return entretien;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Return null if no entretien is found
+    }
+
+
+
+
+
+
+
+
+}
 
 
 

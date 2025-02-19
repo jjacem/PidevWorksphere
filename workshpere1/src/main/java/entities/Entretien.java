@@ -22,6 +22,8 @@ public class Entretien {
 
     private int employeId ;
 
+    private int feedbackId ;
+
     public Entretien() {
     }
 
@@ -33,6 +35,34 @@ public class Entretien {
         this.type_entretien = type_entretien;
         this.status = status;
     }
+
+
+    public Entretien(int id, String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status, int feedbackId) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+        this.feedbackId = feedbackId;
+    }
+
+
+    public Entretien(int id, String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status, int feedbackId , int employeId) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+        this.feedbackId = feedbackId;
+        this.employeId = employeId;
+    }
+
+
+
 
 
     public Entretien(int id, String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status) {
@@ -55,7 +85,7 @@ public class Entretien {
 
     @Override
     public String toString() {
-        return "Entretien{" +
+        return "Entretien{num:" +feedbackId+
                 "titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
                 ", heure_entretien=" + heure_entretien +
@@ -111,6 +141,15 @@ public class Entretien {
 
     public void setType_entretien(TypeEntretien type_entretien) {
         this.type_entretien = type_entretien;
+    }
+
+
+    public int getFeedbackId() {
+        return feedbackId;
+    }
+
+    public void setFeedbackId(int feedbackId) {
+        this.feedbackId = feedbackId;
     }
 
     public boolean isStatus() {

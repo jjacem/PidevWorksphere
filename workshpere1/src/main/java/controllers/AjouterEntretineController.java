@@ -4,13 +4,18 @@ package controllers;
 import entities.Entretien;
 import entities.TypeEntretien;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import services.EntretienService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -80,7 +85,14 @@ public class AjouterEntretineController {
         entretienService.ajouter(entretien);
 
 
-        clearFields();  }
+        clearFields();
+
+            fermerFenetre();
+            ouvrirAffichageEntretien();
+
+
+
+        }
 
         catch (SQLException e) {
             showAlert( "Erreur SQL", "Erreur lors de l'ajout : " + e.getMessage());
@@ -111,6 +123,33 @@ public class AjouterEntretineController {
     private void fermerFenetre() {
         btnAjouter.getScene().getWindow().hide();
     }
+
+
+    private void ouvrirAffichageEntretien() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+
+            AffichageEntretineController controller = loader.getController();
+            controller.initialize();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste des Entretiens");
+            stage.show();
+
+        } catch (IOException | SQLException e) {
+            showAlert("Erreur", "Impossible d'ouvrir l'affichage : " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
 
 
 }

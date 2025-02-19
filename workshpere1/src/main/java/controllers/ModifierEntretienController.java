@@ -4,11 +4,15 @@ import entities.Entretien;
 import entities.TypeEntretien;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import services.EntretienService;
 
+import java.io.IOException;
 import java.time.ZoneId;
 import java.util.Date;
 import java.time.LocalDate;
@@ -136,15 +140,12 @@ public class ModifierEntretienController implements Initializable {
 
             entretienService.modifier(entretienActuel);
             fermerFenetre();
+
+            ouvrirAffichageEntretien();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 
 
 
@@ -154,4 +155,37 @@ public class ModifierEntretienController implements Initializable {
         Stage stage = (Stage) btnModifier.getScene().getWindow();
         stage.close();
     }
+
+    private void ouvrirAffichageEntretien() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+
+            AffichageEntretineController controller = loader.getController();
+            controller.initialize();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste des Entretiens");
+            stage.show();
+
+        } catch (IOException | SQLException e) {
+            showAlert("Erreur", "Impossible d'ouvrir l'affichage : " + e.getMessage());
+        }
+    }
+
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.show();
+    }
+
+
+
+
+
+
 }
