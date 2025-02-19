@@ -94,14 +94,19 @@ public class ServiceEvenement implements IService<Evenement> {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                User user = new User(resultSet.getInt("id_user"), resultSet.getString("nom"), resultSet.getString("prenom"));
+                User u = new User();
+                u.testRH("email"+resultSet.getInt("id_user")+ "@gmail.com");
+                u.setIdUser(resultSet.getInt("id_user"));
+                u.setNom(resultSet.getString("nom"));
+                u.setPrenom(resultSet.getString("prenom"));
+
                 Evenement evenement = new Evenement(
                         resultSet.getString("nomEvent"),
                         resultSet.getString("descEvent"),
                         resultSet.getTimestamp("dateEvent").toLocalDateTime(), // Récupération de LocalDateTime
                         resultSet.getString("lieuEvent"),
                         resultSet.getInt("capaciteEvent"),
-                        user,
+                        u,
                         resultSet.getInt("id_user")
                 );
                 evenement.setIdEvent(resultSet.getInt("idEvent"));

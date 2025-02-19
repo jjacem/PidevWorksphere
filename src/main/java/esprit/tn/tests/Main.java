@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Connection connection;
 
         connection = MyDatabase.getInstance().getConnection();
@@ -109,9 +109,13 @@ public class Main {
             e.printStackTrace();
         }
 
+
 serviceUser.changermdp("1234",3);
 
 
+
+
+    serviceUser.ajouter(u1);
 
 
 

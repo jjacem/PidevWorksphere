@@ -137,7 +137,9 @@ public class AjouterEvenementController {
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Evenement;
+import esprit.tn.entities.User;
 import esprit.tn.services.ServiceEvenement;
+import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -253,7 +255,10 @@ public class AjouterEvenementController {
             }
 
             // Créer l'événement
-            Evenement evenement = new Evenement(nomEvent, descEvent, LocalDateTime.of(date, time), lieuEvent, capaciteEvent, 1); // 1 est l'ID de l'utilisateur
+
+
+            User u =SessionManager.extractuserfromsession();
+            Evenement evenement = new Evenement(nomEvent, descEvent, LocalDateTime.of(date, time), lieuEvent, capaciteEvent,u.getIdUser() ); // 1 est l'ID de l'utilisateur
 
             // Appeler le service pour ajouter l'événement
             ServiceEvenement serviceEvenement = new ServiceEvenement();

@@ -9,10 +9,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+
+import javax.swing.text.html.ImageView;
 
 public class DashboardCandidat {
 
-
+    @FXML
+    private AnchorPane contentPane;
+@FXML
+    ImageView img;
     public void modifierprofil(ActionEvent actionEvent) {
      try{
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCompte.fxml"));
