@@ -20,8 +20,8 @@ public class Main {
 
         try {
             // Testing ServiceOffre CRUD
-//            serviceOffre.ajouter(offre);
-//            System.out.println("Offre ajoutée: " + offre);
+            serviceOffre.ajouter(offre);
+            System.out.println("Offre ajoutée: " + offre);
 
             // Update offer
 //            offre.setDescription("mise à jour du description");

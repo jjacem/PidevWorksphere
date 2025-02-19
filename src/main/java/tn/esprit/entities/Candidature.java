@@ -2,7 +2,7 @@ package tn.esprit.entities;
 
 public class Candidature {
     private int idCandidature;
-    private String nom, prenom, emailCandidature, cv, lettreMotivation;
+    private String  cv, lettreMotivation;
     private OffreEmploi idOffre;
     private User idCandidat;
 
@@ -71,9 +71,6 @@ public class Candidature {
                 "idCandidature=" + idCandidature +
                 ", idOffre=" + idOffre +
                 ", idCandidat=" + idCandidat +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", emailCandidature='" + emailCandidature + '\'' +
                 ", cv='" + cv + '\'' +
                 ", lettreMotivation='" + lettreMotivation + '\'' +
                 '}';

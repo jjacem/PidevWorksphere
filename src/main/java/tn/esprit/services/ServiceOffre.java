@@ -26,7 +26,6 @@ public class ServiceOffre implements IService<OffreEmploi> {
         System.out.println("Offre ajoutée avec succès !");
     }
 
-
     @Override
     public void modifier(OffreEmploi offre) throws SQLException {
         String req = "update offre set titre=?, description=?, type_contrat=?, salaire=?, lieu_travail=?, date_publication=?, date_limite=?, statut_offre=?, experience=? where id_offre=?";
@@ -65,21 +64,144 @@ public class ServiceOffre implements IService<OffreEmploi> {
         ResultSet rs = statement.executeQuery(req);
 
         while (rs.next()) {
-            OffreEmploi offre = new OffreEmploi();
-            offre.setIdOffre(rs.getInt("id_offre"));
-            offre.setTitre(rs.getString("titre"));
-            offre.setDescription(rs.getString("description"));
-            offre.setTypeContrat(rs.getString("type_contrat"));
-            offre.setSalaire(rs.getInt("salaire"));
-            offre.setLieuTravail(rs.getString("lieu_travail"));
-            offre.setDatePublication(rs.getDate("date_publication"));
-            offre.setDateLimite(rs.getDate("date_limite"));
-            offre.setStatutOffre(rs.getString("statut_offre"));
-            offre.setExperience(rs.getString("experience"));
+            OffreEmploi offre = new OffreEmploi(
+                rs.getInt("id_offre"),
+                rs.getInt("salaire"),
+                rs.getString("titre"),
+                rs.getString("description"),
+                rs.getString("type_contrat"),
+                rs.getString("lieu_travail"),
+                rs.getString("statut_offre"),
+                rs.getString("experience"),
+                rs.getDate("date_publication"),
+                rs.getDate("date_limite")
+            );
 
             offres.add(offre);
         }
 
+        return offres;
+    }
+
+    // Méthode pour récupérer toutes les offres
+    public List<OffreEmploi> recupererOffres() throws SQLException {
+        List<OffreEmploi> offres = new ArrayList<>();
+
+        String query = "SELECT * FROM offre";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+
+        while (resultSet.next()) {
+            OffreEmploi offre = new OffreEmploi(
+                    resultSet.getInt("id_offre"),
+                    resultSet.getInt("salaire"),
+                    resultSet.getString("titre"),
+                    resultSet.getString("description"),
+                    resultSet.getString("type_contrat"),
+                    resultSet.getString("lieu_travail"),
+                    resultSet.getString("statut_offre"),
+                    resultSet.getString("experience"),
+                    resultSet.getDate("date_publication"),
+                    resultSet.getDate("date_limite")
+            );
+            offres.add(offre);
+        }
+
+        return offres;
+    }
+
+    public void supprimerOffre(int id_offre) throws SQLException {
+        String query = "DELETE FROM offre WHERE id_offre = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id_offre);
+            int rowsAffected = ps.executeUpdate(); // Exécution de la requête
+            if (rowsAffected > 0) {
+                System.out.println("Offre supprimée avec succès de la base de données.");
+            }else {
+                System.out.println("Aucune offre correspondante trouvée pour la suppression.");
+            }
+            //ps.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression de l'offre : " + e.getMessage());
+        }
+    }
+
+    public OffreEmploi recupererOffreParTitre(String titreOffre) throws SQLException {
+        String query = "SELECT * FROM offre WHERE titre = ?";
+        OffreEmploi offre = null;
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, titreOffre);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return new OffreEmploi(
+                        rs.getInt("id_offre"),
+                        rs.getInt("salaire"),
+                        rs.getString("titre"),
+                        rs.getString("description"),
+                        rs.getString("type_contrat"),
+                        rs.getString("lieu_travail"),
+                        rs.getString("statut_offre"),
+                        rs.getString("experience"),
+                        rs.getDate("date_publication"),
+                        rs.getDate("date_limite")
+                );
+            }
+        }catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'offre : " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void modifierOffre(OffreEmploi offre) throws SQLException {
+        String query = "UPDATE offre SET titre = ?, description = ?, type_contrat = ?, salaire = ?, lieu_travail = ?, experience = ?, statut_offre = ?, date_publication = ?, date_limite = ? WHERE id_offre = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, offre.getTitre());
+            ps.setString(2, offre.getDescription());
+            ps.setString(3, offre.getTypeContrat());
+            ps.setDouble(4, offre.getSalaire());
+            ps.setString(5, offre.getLieuTravail());
+            ps.setString(6, offre.getExperience());
+            ps.setString(7, offre.getStatutOffre());
+            ps.setDate(8, new java.sql.Date(offre.getDatePublication().getTime()));
+            ps.setDate(9, new java.sql.Date(offre.getDateLimite().getTime()));
+
+            ps.setInt(10, offre.getIdOffre());
+
+            ps.executeUpdate();
+            System.out.println("Offre modifiée avec succès.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public List<OffreEmploi> rechercherOffres(String searchTerm) throws SQLException {
+        List<OffreEmploi> offres = new ArrayList<>();
+        String query = "SELECT * FROM offre WHERE titre LIKE ? OR description LIKE ? OR lieu_travail LIKE ?";
+        
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            String searchPattern = "%" + searchTerm + "%";
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OffreEmploi offre = new OffreEmploi(
+                    rs.getInt("id_offre"),
+                    rs.getInt("salaire"),
+                    rs.getString("titre"),
+                    rs.getString("description"),
+                    rs.getString("type_contrat"),
+                    rs.getString("lieu_travail"),
+                    rs.getString("statut_offre"),
+                    rs.getString("experience"),
+                    rs.getDate("date_publication"),
+                    rs.getDate("date_limite")
+                );
+                offres.add(offre);
+            }
+        }
         return offres;
     }
 }

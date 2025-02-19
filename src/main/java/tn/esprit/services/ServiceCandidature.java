@@ -10,8 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceCandidature implements IService<Candidature>{
+public class ServiceCandidature implements IService<Candidature> {
     Connection connection;
+
     public ServiceCandidature() {
         connection = MyDatabase.getInstance().getConnection();
     }
@@ -26,7 +27,6 @@ public class ServiceCandidature implements IService<Candidature>{
         statement.executeUpdate(req);
         System.out.println("Candidature ajoutée avec succès !");
     }
-
 
     @Override
     public void modifier(Candidature candidature) throws SQLException {
@@ -52,7 +52,6 @@ public class ServiceCandidature implements IService<Candidature>{
         System.out.println("Candidature supprimée avec succès !");
     }
 
-
     @Override
     public List<Candidature> afficher() throws SQLException {
         List<Candidature> candidatures = new ArrayList<>();
@@ -64,14 +63,70 @@ public class ServiceCandidature implements IService<Candidature>{
         while (rs.next()) {
             Candidature candidature = new Candidature();
             candidature.setIdCandidature(rs.getInt("id_candidature"));
-            candidature.setIdOffre(new OffreEmploi(rs.getInt("id_offre"),rs.getInt("salaire"),rs.getString("titre"),rs.getString("description"),rs.getString("type_contrat"),rs.getString("lieu_travail"),rs.getString("statut_offre"),rs.getString("experience"),rs.getDate("date_publication"),rs.getDate("date_limite")));
-            candidature.setIdCandidat(new User(rs.getInt("id_candidat"),rs.getString("nom_u"),rs.getString("prenom_u"),rs.getString("mdp_u"),rs.getString("email_u"), Role.valueOf(rs.getString("role").toUpperCase())));
+            candidature.setIdOffre(new OffreEmploi(rs.getInt("id_offre"), rs.getInt("salaire"), rs.getString("titre"), rs.getString("description"), rs.getString("type_contrat"), rs.getString("lieu_travail"), rs.getString("statut_offre"), rs.getString("experience"), rs.getDate("date_publication"), rs.getDate("date_limite")));
+            candidature.setIdCandidat(new User(rs.getInt("id_candidat"), rs.getString("nom_u"), rs.getString("prenom_u"), rs.getString("mdp_u"), rs.getString("email_u"), Role.valueOf(rs.getString("role").toUpperCase())));
             candidature.setCv(rs.getString("cv"));
             candidature.setLettreMotivation(rs.getString("lettre_motivation"));
 
             candidatures.add(candidature);
         }
 
+        return candidatures;
+    }
+
+    public boolean hasUserAppliedForOffer(int userId, int offerId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM candidature WHERE id_candidat = ? AND id_offre = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, offerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+        return false;
+    }
+
+    public List<Integer> getAppliedOfferIds(int userId) throws SQLException {
+        List<Integer> appliedOfferIds = new ArrayList<>();
+        String query = "SELECT id_offre FROM candidature WHERE id_candidat = ?";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                appliedOfferIds.add(rs.getInt("id_offre"));
+            }
+        }
+        return appliedOfferIds;
+    }
+
+    public List<Candidature> getCandidaturesByUser(int userId) throws SQLException {
+        List<Candidature> candidatures = new ArrayList<>();
+        String query = "SELECT c.*, o.titre, o.id_offre, o.description " +
+                      "FROM candidature c " +
+                      "JOIN offre o ON o.id_offre = c.id_offre " +
+                      "WHERE c.id_candidat = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                OffreEmploi offre = new OffreEmploi();
+                offre.setIdOffre(rs.getInt("id_offre"));
+                offre.setTitre(rs.getString("titre"));
+                offre.setDescription(rs.getString("description"));
+
+                Candidature candidature = new Candidature();
+                candidature.setIdCandidature(rs.getInt("id_candidature"));
+                candidature.setIdOffre(offre);
+                candidature.setCv(rs.getString("cv"));
+                candidature.setLettreMotivation(rs.getString("lettre_motivation"));
+                
+                candidatures.add(candidature);
+            }
+        }
+        System.out.println("Found " + candidatures.size() + " candidatures");
         return candidatures;
     }
 }

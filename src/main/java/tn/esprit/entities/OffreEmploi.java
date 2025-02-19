@@ -1,5 +1,6 @@
 package tn.esprit.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class OffreEmploi {
@@ -7,7 +8,7 @@ public class OffreEmploi {
     private String titre, description, typeContrat, lieuTravail, statutOffre, experience;
     private Date datePublication, dateLimite;
 
-    public OffreEmploi() {
+    public OffreEmploi(int id, String titre, String description, String typeContrat, String lieuTravail, int salaire, String statutOffre, int experience, LocalDate datePublication, LocalDate dateLimite) {
     }
 
     public OffreEmploi(int idOffre, int salaire, String titre, String description, String typeContrat, String lieuTravail, String statutOffre, String experience, Date datePublication, Date dateLimite) {
@@ -33,6 +34,9 @@ public class OffreEmploi {
         this.experience = experience;
         this.datePublication = datePublication;
         this.dateLimite = dateLimite;
+    }
+
+    public OffreEmploi() {
     }
 
     public int getIdOffre() {
