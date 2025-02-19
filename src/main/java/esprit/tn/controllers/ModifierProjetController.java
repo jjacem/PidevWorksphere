@@ -154,10 +154,26 @@ public class ModifierProjetController {
             successAlert.showAndWait();
 
 
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
+            /*Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
+            //Parent root = FXMLLoader.load(getClass().getResource("/DashboardManager.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Liste des Projets");
+            stage.setTitle("Liste des Projets");*/
+
+            // Charger le tableau de bord
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir le contrôleur du tableau de bord
+            DashboardManager dashboardController = loader.getController();
+
+            // Charger la page "Projet" dans le tableau de bord
+            dashboardController.loadPage("/AfficherProjet.fxml");
+
+            // Afficher la nouvelle scène
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste Projet");
 
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -165,16 +181,40 @@ public class ModifierProjetController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void Retour(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
+            //Parent root = FXMLLoader.load(getClass().getResource("/DashboardManager.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+
+    @FXML
+    private void Retour(ActionEvent event) {
+        try {
+            // Charger le tableau de bord
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir le contrôleur du tableau de bord
+            DashboardManager dashboardController = loader.getController();
+
+            // Charger la page "Projet" dans le tableau de bord
+            dashboardController.loadPage("/AfficherProjet.fxml");
+
+            // Afficher la nouvelle scène
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste Projet");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();

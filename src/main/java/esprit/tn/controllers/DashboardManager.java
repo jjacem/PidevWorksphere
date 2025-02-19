@@ -19,7 +19,13 @@ public class DashboardManager {
     private VBox contentArea;
     @FXML
     private ImageView img;
-    private void loadPage(String page) {
+
+    @FXML
+    public void initialize() {
+        loadPage("/AfficherEquipe.fxml");
+    }
+
+    public void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
             Parent newPage = loader.load(); // Use Parent instead of AnchorPane
@@ -63,6 +69,4 @@ public class DashboardManager {
     }
 
 
-    public void equipe(ActionEvent actionEvent) {
-    }
 }
