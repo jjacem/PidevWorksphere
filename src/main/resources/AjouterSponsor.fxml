@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AjouterSponsorController">
+
+    <children>
+        <!-- Titre de la page -->
+        <Text fx:id="ajoutersponsortitle" layoutX="220.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un Sponsor" style="-fx-font-size: 24px; -fx-fill: #0086b3;" />
+
+        <!-- Champ Nom -->
+        <Label fx:id="nomlabel" layoutX="72.0" layoutY="90.0" text="Nom du sponsor :" textFill="#0086b3">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="nomtextfield" layoutX="217.0" layoutY="85.0" prefHeight="35.0" prefWidth="300.0" promptText="Nom du sponsor" />
+
+        <!-- Champ Prénom -->
+        <Label fx:id="prenomlabel" layoutX="72.0" layoutY="125.0" text="Prénom du sponsor :" textFill="#0086b3">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="prenomtextfield" layoutX="217.0" layoutY="120.0" prefHeight="35.0" prefWidth="300.0" promptText="Prénom du sponsor" />
+
+        <!-- Champ Email -->
+        <Label fx:id="emaillabel" layoutX="72.0" layoutY="160.0" text="Email du sponsor :" textFill="#0086b3">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="emailtextfield" layoutX="217.0" layoutY="155.0" prefHeight="35.0" prefWidth="300.0" promptText="Email du sponsor" />
+
+        <!-- Champ Budget -->
+        <Label fx:id="budgetlabel" layoutX="72.0" layoutY="195.0" text="Budget du sponsor :" textFill="#0086b3">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="budgettextfield" layoutX="217.0" layoutY="190.0" prefHeight="35.0" prefWidth="300.0" promptText="Budget du sponsor" />
+
+        <!-- Labels pour messages d'erreur -->
+        <Label fx:id="emailErrorLabel" layoutX="217.0" layoutY="185.0" textFill="red" />
+        <Label fx:id="budgetErrorLabel" layoutX="217.0" layoutY="215.0" textFill="red" />
+
+        <!-- Bouton Ajouter -->
+        <Button fx:id="ajouterbtn" layoutX="80.0" layoutY="270.0" mnemonicParsing="false" onAction="#AjouterSponsor"
+                prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;"
+                text="Ajouter le sponsor" />
+
+
+
+        <Button fx:id="RetourBtnaListSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListSponso" text="Retour"
+                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
+    </children>
+</AnchorPane>

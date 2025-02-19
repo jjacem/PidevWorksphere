@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="esprit.tn.controllers.ModifierSponsorController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <!-- Champ Nom -->
+        <TextField fx:id="txtNom" layoutX="150.0" layoutY="60.0" promptText="Nom"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+
+        <!-- Champ Prénom -->
+        <TextField fx:id="txtPrenom" layoutX="150.0" layoutY="100.0" promptText="Prénom"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+
+        <!-- Champ Email -->
+        <TextField fx:id="txtEmail" layoutX="150.0" layoutY="140.0" promptText="Email"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+
+        <!-- Champ Budget -->
+        <TextField fx:id="txtBudget" layoutX="150.0" layoutY="180.0" promptText="Budget"
+                   prefHeight="35.0" prefWidth="300.0" style="-fx-font-size: 14px; -fx-border-radius: 5px; -fx-background-color: #f0f0f0;-fx-border-color: black;-fx-border-width: 0.2px;" />
+
+        <!-- Bouton Modifier -->
+        <Button fx:id="btnModifier" layoutX="150.0" layoutY="220.0" text="Modifier"
+                onAction="#modifierSponsor" prefHeight="40.0" prefWidth="120.0"
+                style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 5px;" />
+
+
+
+        <Button fx:id="RetourBtnaListSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListSponso" text="Retour"
+                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
+    </children>
+</AnchorPane>

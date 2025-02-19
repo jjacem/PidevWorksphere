@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherUser">
+   <children>
+      <ImageView fitHeight="411.0" fitWidth="600.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@5479108.jpg" />
+         </image>
+      </ImageView>
+      <ListView fx:id="data" layoutX="171.0" layoutY="153.0" prefHeight="200.0" prefWidth="378.0" style="-fx-background-color: #13000;" />
+      <ListView fx:id="attributes" layoutX="171.0" layoutY="310.0" prefHeight="42.0" prefWidth="378.0" />
+      <ChoiceBox fx:id="filterrole" layoutX="171.0" layoutY="127.0" prefWidth="150.0" />
+      <TextField fx:id="search" layoutX="225.0" layoutY="27.0" promptText="chercher Users" />
+   </children>
+</AnchorPane>
