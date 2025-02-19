@@ -113,12 +113,13 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             List<User> employes = new ArrayList<>();
             while (employesRs.next()) {
                 User user = new User(
-                        employesRs.getInt("id_user"),
-                        employesRs.getString("nom"),
-                        employesRs.getString("prenom"),
-                        Role.valueOf(employesRs.getString("role").toUpperCase()),
-                        employesRs.getString("image_profil")
+
                 );
+                user.setIdUser(employesRs.getInt("id_user"));
+                        user.setNom(employesRs.getString("nom"));
+                        user.setPrenom(employesRs.getString("prenom"));
+                        user.setRole(Role.valueOf(employesRs.getString("role").toUpperCase()));
+                        user.setImageProfil(employesRs.getString("image_profil"));
                 employes.add(user);
             }
 
@@ -136,11 +137,13 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
         while (rs.next()) {
             User user = new User(
-                    rs.getInt("id_user"),
-                    rs.getString("nom"),
-                    rs.getString("prenom"),
-                    Role.valueOf(rs.getString("role").toUpperCase())
+
             );
+            user.setIdUser(rs.getInt("id_user"));
+            user.setNom(rs.getString("nom"));
+            user.setPrenom(rs.getString("prenom"));
+            user.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
+
             employesDisponibles.add(user);
         }
         return employesDisponibles;
@@ -181,11 +184,12 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 User user = new User(
-                        rs.getInt("id_user"),
-                        rs.getString("nom"),
-                        rs.getString("prenom"),
-                        rs.getString("image_profil")
+
                 );
+                user.setIdUser(rs.getInt("id_user"));
+                user.setNom(rs.getString("nom"));
+                user.setPrenom(rs.getString("prenom"));
+                user.setImageProfil(rs.getString("image_profil"));
                 employesTrouves.add(user);
             }
         }

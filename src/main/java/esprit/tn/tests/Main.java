@@ -25,7 +25,7 @@ public class Main {
         User u2 = new User();
         u2 = u2.Candidat("yassine", "bouras", "yassin18.gmail", "1234", "", Sexe.HOMME, "", 500.00);
         User u3 = new User();
-        u3 = u3.Manager("yassine", "bouras", "yassinbouras@Candidat.com", "1234", "", Sexe.HOMME, "", "finance", 10, 5000000.00);
+        u3 = u3.Manager("Jacem", "Hbaieb", "jacemhbaieb@gmail.com", "1234", "", Sexe.HOMME, "", "finance", 10, 5000000.00);
         User u4 = new User();
         u4 = u4.Employe("yassine", "bouras", "yassinbouras90@gmail.com", "1234", "", Sexe.HOMME, "", "financier", 1000.00, 5, "finance", "compete");
 
@@ -115,7 +115,7 @@ serviceUser.changermdp("1234",3);
 
 
 
-    serviceUser.ajouter(u1);
+    serviceUser.ajouter(u3);
 
 
 
