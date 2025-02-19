@@ -85,7 +85,8 @@ public class AfficherDetailsEquipeController {
     @FXML
     public void retour() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) membresContainer.getScene().getWindow();
             stage.getScene().setRoot(root);

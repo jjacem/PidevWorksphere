@@ -175,7 +175,8 @@ public class ModifierEquipeController {
             alert.showAndWait();
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
             stage.getScene().setRoot(root);
@@ -198,7 +199,8 @@ public class ModifierEquipeController {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) annulerButton.getScene().getWindow();
                 stage.getScene().setRoot(root);
