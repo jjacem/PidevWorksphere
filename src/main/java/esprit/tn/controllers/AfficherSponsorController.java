@@ -139,6 +139,7 @@ public class AfficherSponsorController {
                         // Bouton Modifier
                         Button btnModifier = new Button("Modifier");
                         btnModifier.getStyleClass().add("btn-modifier");
+                        btnModifier.setStyle("-fx-background-color: ffc400; -fx-text-fill: white;");
 
                         // Ajouter un gestionnaire d'événements pour le bouton Modifier
                         btnModifier.setOnAction(event -> {
@@ -163,6 +164,7 @@ public class AfficherSponsorController {
                         // Bouton Supprimer
                         Button btnSupprimer = new Button("Supprimer");
                         btnSupprimer.getStyleClass().add("btn-supprimer");
+                        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 
                         // Ajouter un gestionnaire d'événements pour le bouton Supprimer
                         btnSupprimer.setOnAction(event -> {

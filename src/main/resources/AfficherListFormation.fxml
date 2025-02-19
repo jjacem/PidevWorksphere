@@ -31,7 +31,7 @@
                         <Insets left="400" top="20.0" />
                     </HBox.margin>
                 </TextField>
-                <Button fx:id="Btnrecherche" mnemonicParsing="false" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #0086b3;" text="Recherhcer" textFill="#f7f7f7">
+                <Button fx:id="Btnrecherche" mnemonicParsing="false" prefHeight="27.0" prefWidth="133.0" style="-fx-background-color: #0086b3;" text="Recherhcer" textFill="#f7f7f7">
                     <HBox.margin>
                         <Insets top="20.0" />
                     </HBox.margin>
@@ -39,6 +39,6 @@
             </children>
         </HBox>
       <Button fx:id="btnP" layoutX="309.0" layoutY="88.0" mnemonicParsing="false" onAction="#Onpres" style="-fx-background-color: #0a7b0e;" text="Presentiel" textFill="WHITE" />
-      <Button fx:id="btnD" layoutX="390.0" layoutY="88.0" mnemonicParsing="false" onAction="#Ondis" style="-fx-background-color: #e1921a;" text="Distanciel" textFill="WHITE" />
+      <Button fx:id="btnD" layoutX="456.0" layoutY="88.0" mnemonicParsing="false" onAction="#Ondis" style="-fx-background-color: #e1921a;" text="Distanciel" textFill="WHITE" />
     </children>
 </AnchorPane>

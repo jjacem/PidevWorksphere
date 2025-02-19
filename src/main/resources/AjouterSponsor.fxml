@@ -7,12 +7,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="esprit.tn.controllers.AjouterSponsorController">
+<AnchorPane prefHeight="678.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterSponsorController">
 
     <children>
         <!-- Titre de la page -->
-        <Text fx:id="ajoutersponsortitle" layoutX="220.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un Sponsor" style="-fx-font-size: 24px; -fx-fill: #0086b3;" />
+        <Text fx:id="ajoutersponsortitle" layoutX="220.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24px; -fx-fill: #0086b3;" text="Ajouter un Sponsor" />
 
         <!-- Champ Nom -->
         <Label fx:id="nomlabel" layoutX="72.0" layoutY="90.0" text="Nom du sponsor :" textFill="#0086b3">
@@ -51,13 +50,10 @@
         <Label fx:id="budgetErrorLabel" layoutX="217.0" layoutY="215.0" textFill="red" />
 
         <!-- Bouton Ajouter -->
-        <Button fx:id="ajouterbtn" layoutX="80.0" layoutY="270.0" mnemonicParsing="false" onAction="#AjouterSponsor"
-                prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;"
-                text="Ajouter le sponsor" />
+        <Button fx:id="ajouterbtn" layoutX="80.0" layoutY="270.0" mnemonicParsing="false" onAction="#AjouterSponsor" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter le sponsor" />
 
 
 
-        <Button fx:id="RetourBtnaListSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListSponso" text="Retour"
-                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
+        <Button fx:id="RetourBtnaListSponsor" layoutX="762.0" layoutY="24.0" mnemonicParsing="false" onAction="#RetourListSponso" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: black; -fx-text-fill: white;" text="Retour" />
     </children>
 </AnchorPane>

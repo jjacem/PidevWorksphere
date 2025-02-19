@@ -67,6 +67,7 @@ public class AfficherEvenementController {
 
                         if (SessionManager.getRole().equals(Role.RH) ) {
                             Button btnModifierEvent = new Button("Modifier");
+                            btnModifierEvent.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             btnModifierEvent.getStyleClass().add("btn-modifierEvent");
 
                             btnModifierEvent.setOnAction(event -> {
@@ -88,7 +89,7 @@ public class AfficherEvenementController {
 
                             Button btnSupprimerEvent = new Button("Supprimer");
                             btnSupprimerEvent.getStyleClass().add("btn-supprimerEvent");
-
+                            btnSupprimerEvent.setStyle("-fx-background-color: red; -fx-text-fill: white;");
                             btnSupprimerEvent.setOnAction(event -> {
                                 try {
                                     Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
