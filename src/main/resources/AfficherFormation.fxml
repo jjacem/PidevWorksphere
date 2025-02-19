@@ -23,7 +23,7 @@
         </Label>
 
         <!-- Bouton Ajouter -->
-        <Button fx:id="btnajouterID" layoutX="609.0" layoutY="154.0" onAction="#Onajouterformation" prefHeight="26.0" prefWidth="117.0" style="-fx-background-color: #000000" text="Ajouter Formation" textFill="WHITE" AnchorPane.rightAnchor="45.39999999999998" AnchorPane.topAnchor="154.0" />
+        <Button fx:id="btnajouterID" layoutX="624.0" layoutY="122.0" onAction="#Onajouterformation" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #000000" text="Ajouter Formation" textFill="WHITE" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="122.0" />
       <HBox fx:id="Vrechcerche" layoutX="-204.0" prefHeight="86.0" prefWidth="989.0">
          <children>
             <TextField fx:id="Trecherche" prefHeight="30.0" prefWidth="323.0" promptText="Rechercher....">
@@ -31,7 +31,7 @@
                   <Insets left="420" top="20.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" prefHeight="31.0" prefWidth="94.0" style="-fx-background-color:#0086b3" text="Recherhcer" textFill="WHITE">
+            <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" prefHeight="31.0" prefWidth="94.0" style="-fx-background-color:#0086b3" text="Rechercher" textFill="WHITE">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>

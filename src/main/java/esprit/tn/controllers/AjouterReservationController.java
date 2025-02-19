@@ -35,7 +35,10 @@ public class AjouterReservationController {
     private int formationId;
     @FXML
     private Button btnback;
-
+    @FXML
+    public void initialize() {
+        dateID.setValue(LocalDate.now());
+    }
 
     // Setter pour l'utilisateur afin de remplir les champs du formulaire
     public void setUser(User user) {

@@ -39,6 +39,6 @@
             </children>
         </HBox>
       <Button fx:id="btnP" layoutX="309.0" layoutY="88.0" mnemonicParsing="false" onAction="#Onpres" style="-fx-background-color: #0a7b0e;" text="Presentiel" textFill="WHITE" />
-      <Button fx:id="btnD" layoutX="390.0" layoutY="88.0" mnemonicParsing="false" onAction="#Ondis" style="-fx-background-color: #e1921a;" text="Distanciel" textFill="WHITE" />
+      <Button fx:id="btnD" layoutX="423.0" layoutY="88.0" mnemonicParsing="false" onAction="#Ondis" style="-fx-background-color: #e1921a;" text="Distanciel" textFill="WHITE" />
     </children>
 </AnchorPane>

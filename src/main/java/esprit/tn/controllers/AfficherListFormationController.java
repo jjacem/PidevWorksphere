@@ -105,7 +105,7 @@ public class AfficherListFormationController {
                                     AjouterReservationController controller = loader.getController();
                                     controller.setUser(formation.getUser());
                                     // Passer l'ID de la formation et l'ID utilisateur
-                                    controller.setFormationId(1);  // Passer l'ID de la formation
+                                    controller.setFormationId(formation.getId_f());
                                     controller.setUserId(SessionManager.extractuserfromsession().getIdUser()); // Remplacer par l'ID de l'utilisateur connecté
                                     // Changer de scène
                                     Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
