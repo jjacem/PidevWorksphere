@@ -9,25 +9,22 @@ import javafx.stage.Stage;
 public class MainFX extends Application {
 
     public static void main(String[] args) {
-        launch(args); // Lance l'application JavaFX
+        launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Charger le fichier FXML
-       // FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEquipe.fxml"));
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterProjet.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherProjet.fxml"));
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherProjet.fxml"));
+
         Parent root = loader.load();
 
-        // Configurer la scène
-        Scene scene = new Scene(root, 800, 600); // Taille de la fenêtre
-        primaryStage.setTitle("worksphere"); // Titre de la fenêtre
+
+        Scene scene = new Scene(root, 800, 600);
+        primaryStage.setTitle("worksphere");
         primaryStage.setScene(scene);
 
-        // Afficher la fenêtre
         primaryStage.show();
     }
 }

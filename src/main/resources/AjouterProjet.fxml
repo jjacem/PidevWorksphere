@@ -16,13 +16,9 @@
 <AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterProjetController">
 
     <!-- Bouton de Retour en Haut à Gauche -->
-    <Button fx:id="retourButton" onAction="#Retour" style="-fx-background-color: transparent; -fx-text-fill: #0086b3; -fx-font-size: 14; -fx-font-weight: bold; -fx-cursor: hand;" text="Retour">
-        <graphic>
-            <ImageView fitHeight="16" fitWidth="16">
-                <Image url="@/icons/back-arrow.png" />
-            </ImageView>
-        </graphic>
+    <Button fx:id="retourButton" onAction="#Retour" style="-fx-background-color: transparent; -fx-text-fill: #0086b3; -fx-font-size: 14; -fx-font-weight: bold; -fx-cursor: hand;" text="← Retour">
     </Button>
+
 
     <!-- Carte Blanche pour le Formulaire -->
     <VBox alignment="CENTER" layoutX="73.0" layoutY="36.0" prefHeight="440.0" prefWidth="555.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">

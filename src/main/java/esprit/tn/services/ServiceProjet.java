@@ -92,6 +92,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
             projet.setDeadline(rs.getDate("deadline"));
             projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
 
+
             Equipe equipe = new Equipe();
             equipe.setNomEquipe(rs.getString("nom_equipe"));
             projet.setEquipe(equipe);
