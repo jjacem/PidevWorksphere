@@ -102,7 +102,7 @@ public class AfficherListFormationController {
 
                                     // Récupérer le contrôleur AjouterReservationController
                                     AjouterReservationController controller = loader.getController();
-
+                                    controller.setUser(formation.getUser());
                                     // Passer l'ID de la formation et l'ID utilisateur
                                     controller.setFormationId(16);  // Passer l'ID de la formation
                                     controller.setUserId(1); // Remplacer par l'ID de l'utilisateur connecté
@@ -114,12 +114,10 @@ public class AfficherListFormationController {
                                 }
                             });
 
-
-
                             // Conteneur pour aligner les boutons à droite
                             HBox buttonContainer = new HBox(10,reservationButton);
                             buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-                            buttonContainer.setPadding(new Insets(30, 10, 10, 850)); // Marges autour des boutons
+                            buttonContainer.setPadding(new Insets(30, 10, 10, 50)); // Marges autour des boutons
 
                             // Conteneur pour les infos
                             VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);

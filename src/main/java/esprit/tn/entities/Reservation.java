@@ -54,7 +54,10 @@ public class Reservation {
     public void setFormationId(int formationId) {
         this.formationId = formationId;
     }
-
+    public User getUser() {
+        return user;
+    }
+    public Formation getFormation() {return formation;}
 
     @Override
     public String toString() {

@@ -91,7 +91,7 @@ public class AfficherFormationController {
 
 
                             Button modifierButton = new Button("Modifier");
-                            modifierButton.setStyle("-fx-background-color: #FFA500; -fx-text-fill: white;");
+                            modifierButton.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             modifierButton.setOnAction(event -> {
                                 // Charger la page de modification
                                 try {
@@ -116,19 +116,19 @@ public class AfficherFormationController {
                             // Conteneur pour aligner les boutons à droite
                             HBox buttonContainer = new HBox(10, modifierButton, supprimerButton);
                             buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-                            buttonContainer.setPadding(new Insets(30, 10, 10, 850)); // Marges autour des boutons
+                            buttonContainer.setPadding(new Insets(30, 10, 10, 50)); // Marges autour des boutons
 
                             // Conteneur pour les infos
                             VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
 
                             // Conteneur principal avec l'image, les infos et les boutons
-                            HBox mainBox = new HBox(10, imageView, infoBox);
+                            HBox mainBox = new HBox(5, imageView, infoBox);
                             mainBox.setAlignment(Pos.CENTER_LEFT);
                             mainBox.setPadding(new Insets(10));
 
                             // Ajout du conteneur des boutons à droite
                             HBox fullBox = new HBox(10, mainBox, buttonContainer);
-                            fullBox.setAlignment(Pos.CENTER_LEFT); // Laisse les boutons à droite automatiquement
+                            fullBox.setAlignment(Pos.CENTER_LEFT);
 
                             setGraphic(fullBox);
                         }

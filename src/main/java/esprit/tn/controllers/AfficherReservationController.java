@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Reservation;
+import esprit.tn.entities.User;
 import esprit.tn.services.ServiceReservation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -60,32 +62,45 @@ public class AfficherReservationController {
                             setText(null);
                             setGraphic(null);
                         } else {
+
                             // Création des éléments d'affichage pour chaque réservation
-                            //Label prenomLabel = new Label("Prénom: " + user.getPrenom());
-                          //  prenomLabel.setStyle("-fx-font-size: 14px;");
+                             //Label prenomLabel = new Label("Prénom: " + reservation.getUser().getPrenom().toString());
+                           //  prenomLabel.setStyle("-fx-font-size: 14px;");
 
-                            //Label nomLabel = new Label("Nom: " + reservation.getNom());
-                            //nomLabel.setStyle("-fx-font-size: 14px;");
+                           //  Label nomLabel = new Label("Nom: " + reservation.getUser().getNom().toString());
+                           // nomLabel.setStyle("-fx-font-size: 14px;");
 
-                           // Label formationLabel = new Label("Formation: " + reservation.getFormation().getTitre());
-                           // formationLabel.setStyle("-fx-font-size: 14px;");
+                           // Label mailLabel = new Label("Nom: " + reservation.getUser().getEmail().toString());
+                           // nomLabel.setStyle("-fx-font-size: 14px;");
 
+                            // Label formationLabel = new Label("Formation: " + reservation.getFormation().getTitre());
+                           //  formationLabel.setStyle("-fx-font-size: 14px;");
+
+
+                            // 📅 Label pour la date de réservation
                             Label dateLabel = new Label("Date: " + reservation.getDate().toString());
                             dateLabel.setStyle("-fx-font-size: 14px;");
 
                             Button modifierButton = new Button("Modifier");
-                            modifierButton.setStyle("-fx-background-color: #ff7700; -fx-text-fill: white;");
+                            modifierButton.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             modifierButton.setOnAction(event -> modifierButton(reservation));
+
                             Button supprimerButton = new Button("Supprimer");
                             supprimerButton.setStyle("-fx-background-color: #ff2600; -fx-text-fill: white;");
                             supprimerButton.setOnAction(event -> supprimerButton(reservation));
 
+                            Region spacer = new Region();
+                            HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
 
-                            // Conteneur pour les informations de réservation
-                            VBox infoBox = new VBox(5, dateLabel, modifierButton ,supprimerButton);
-                            infoBox.setPadding(new Insets(10));
+                            HBox buttonBox = new HBox(10, modifierButton, supprimerButton);
+                            buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
-                            setGraphic(infoBox);
+                            // Conteneur principal avec date + boutons
+                            HBox mainBox = new HBox(10, dateLabel, spacer, buttonBox);
+                            mainBox.setAlignment(Pos.CENTER_LEFT);
+                            mainBox.setPadding(new Insets(10));
+
+                            setGraphic(mainBox);
                         }
                     }
 
@@ -95,22 +110,20 @@ public class AfficherReservationController {
                     private void supprimerButton(Reservation reservation) {
                         ServiceReservation serviceReservation = new ServiceReservation();
 
-                        // Création de l'alerte de confirmation
+                        //  Boîte de dialogue de confirmation
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Confirmation de suppression");
                         alert.setHeaderText(null);
                         alert.setContentText("Vous êtes sûr de vouloir supprimer cette réservation ?");
 
-                        // Attente de la réponse de l'utilisateur
                         Optional<ButtonType> result = alert.showAndWait();
 
-                        // Vérifier si l'utilisateur a cliqué sur OK
                         if (result.isPresent() && result.get() == ButtonType.OK) {
                             try {
                                 serviceReservation.supprimeReservation(reservation);
                                 System.out.println("Suppression réussie pour la réservation ID : " + reservation.getId_r());
 
-                                // Mise à jour de la ListView
+                                // 🔄 Mise à jour de la ListView après suppression
                                 listReservation.getItems().remove(reservation);
                             } catch (SQLException e) {
                                 System.err.println("Erreur lors de la suppression : " + e.getMessage());
@@ -122,7 +135,6 @@ public class AfficherReservationController {
                 };
             }
         });
+
     }
-
-
 }

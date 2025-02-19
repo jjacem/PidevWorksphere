@@ -22,7 +22,7 @@ public class MainFX extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Afficher formation");
-            primaryStage.setMaximized(true);
+            //primaryStage.setMaximized(true);
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
