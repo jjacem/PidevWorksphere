@@ -22,6 +22,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class AfficherReservationController {
@@ -42,7 +43,6 @@ public class AfficherReservationController {
         try {
             ObservableList<Reservation> reservationList = FXCollections.observableArrayList(reservationService.getListReservation());
             listReservation.setItems(reservationList);
-
             setupListView();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,8 +64,8 @@ public class AfficherReservationController {
                         } else {
 
                             // Création des éléments d'affichage pour chaque réservation
-                             //Label prenomLabel = new Label("Prénom: " + reservation.getUser().getPrenom().toString());
-                           //  prenomLabel.setStyle("-fx-font-size: 14px;");
+                            // Label prenomLabel = new Label("Prénom: " + reservation.getUser().getPrenom().toString());
+                           // prenomLabel.setStyle("-fx-font-size: 14px;");
 
                            //  Label nomLabel = new Label("Nom: " + reservation.getUser().getNom().toString());
                            // nomLabel.setStyle("-fx-font-size: 14px;");

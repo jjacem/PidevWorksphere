@@ -49,6 +49,7 @@ public class AfficherListFormationController {
             ObservableList<Formation> formationsList = FXCollections.observableArrayList(formationService.getListFormation());
             listformationid.setItems(formationsList);
 
+
             setupListView();
         } catch (SQLException e) {
             e.printStackTrace();
