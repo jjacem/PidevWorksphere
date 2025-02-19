@@ -121,23 +121,30 @@ public class EntretienService implements Iservice<Entretien> {
 
     public List<Entretien> getEntretiensByEmployeId(int employeId) {
         List<Entretien> entretiens = new ArrayList<>();
-        String sql = "SELECT * FROM entretien WHERE employe_id = ?";
+        String sql = "SELECT * FROM entretiens WHERE employe_id = ?";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, employeId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Entretien entretien = new Entretien();
-                entretien.setTitre(resultSet.getString("titre"));
-                entretien.setDescription(resultSet.getString("description"));
-                entretien.setDate_entretien(resultSet.getDate("date_entretien"));
-                entretien.setHeure_entretien(resultSet.getTime("heure_entretien"));
-                entretien.setType_entretien(TypeEntretien.valueOf(resultSet.getString("type_entretien")));
-                entretien.setStatus(resultSet.getBoolean("status"));
-                entretien.setEmployeId(resultSet.getInt("employe_id"));
+                int  id = resultSet.getInt("id");
+                String titre = resultSet.getString("titre");
+                String description = resultSet.getString("description");
+                Date dateEntretien = resultSet.getDate("date_entretien");
+                Time heureEntretien = resultSet.getTime("heure_entretien");
+                TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
+                int feedbackId  = resultSet.getInt("feedbackId");
+                int employe_id  = resultSet.getInt("employe_id");
 
-                entretiens.add(entretien);
+
+
+                boolean status = resultSet.getBoolean("status");
+                Entretien entretienss = new Entretien( id , titre, description, dateEntretien, heureEntretien, typeEntretien, status , feedbackId , employe_id);
+
+
+
+                entretiens.add(entretienss);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,8 +169,10 @@ public class EntretienService implements Iservice<Entretien> {
                 Time heureEntretien = resultSet.getTime("heure_entretien");
                 TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
                 boolean status = resultSet.getBoolean("status");
+                int feedbackId  = resultSet.getInt("feedbackId");
+                int employe_id  = resultSet.getInt("employe_id");
 
-                entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status);
+                entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status , feedbackId  ,employe_id );
             }
         } catch (SQLException e) {
             e.printStackTrace();

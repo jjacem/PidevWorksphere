@@ -56,7 +56,7 @@ public class AjouterFeedbackController {
             return;
         }
 
-        Date date = new Date(System.currentTimeMillis()); // ✅ Use current date
+        Date date = new Date(System.currentTimeMillis());
 
         Feedback feedback = new Feedback(message, rate, entretienId, date);
 
@@ -65,13 +65,12 @@ public class AjouterFeedbackController {
             entSer.assignerFeedback(entretienId, id);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Feedback ajouté avec succès !");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
             Parent entretienView = loader.load();
 
-            AffichageEntretineController controller = loader.getController();
+            AffichageEntretienbyemployeeId controller = loader.getController();
             controller.refreshDatas();
 
-            // Set the root to AffichageEntretien.fxml
             Scene scene = btnAjouterFeedback.getScene();
             scene.setRoot(entretienView);
         } catch (SQLException e) {

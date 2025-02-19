@@ -9,18 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import services.EntretienService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class AffichageEntretineController {
+public class AffichageEntretienbyemployeeId {
     @FXML
     private ListView<Entretien> lv_entretien;
 
@@ -48,7 +45,7 @@ public class AffichageEntretineController {
     }
 
     private void afficherEntretien() throws SQLException {
-        List<Entretien> entretiens = entretienService.afficher();
+        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(1);
         ObservableList<Entretien> data = FXCollections.observableArrayList(entretiens);
         allEntretiens.setAll(entretiens);
         lv_entretien.setItems(allEntretiens);
@@ -62,23 +59,26 @@ public class AffichageEntretineController {
                     setGraphic(null);
                 } else {
                     Button btnModifier = new Button("Modifier");
-                    Button btnSupprimer = new Button("Supprimer");
-                    Button btnAffecter = new Button("Affecter");
                     Button btnFeedback;
 
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄Voir Feedback");
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
-
-                        HBox buttonBox = new HBox(10,  btnFeedback);
-
-
+                    } else {
+                        btnFeedback = new Button("➕ Ajouter Feedback");
+                        btnFeedback.setOnAction(event -> {
+                            ajouterFeedback(entretien.getId());
+                            try {
+                                afficherEntretien();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
 
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
-                    btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
 
-                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer, btnAffecter);
+                    HBox buttonBox = new HBox(10, btnModifier, btnFeedback);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
@@ -177,13 +177,13 @@ public class AffichageEntretineController {
 
             lv_entretien.getScene().setRoot(root);
 
-           voirFeedbackController controller = loader.getController();
+            voirFeedbackController controller = loader.getController();
             controller.chargerFeedback(feedbackId);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Voir Feedback");
-           stage.show();
+            stage.show();
             afficherEntretien();
         } catch (IOException e) {
             e.printStackTrace();
@@ -210,12 +210,12 @@ public class AffichageEntretineController {
             e.printStackTrace();
         }
 
-}
+    }
 
 
     void refreshDatas() throws SQLException {
 
-            afficherEntretien();
+        afficherEntretien();
 
 
     }
@@ -223,50 +223,6 @@ public class AffichageEntretineController {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

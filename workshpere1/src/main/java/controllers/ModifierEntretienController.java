@@ -159,10 +159,10 @@ public class ModifierEntretienController implements Initializable {
     private void ouvrirAffichageEntretien() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
             Parent root = loader.load();
 
-            AffichageEntretineController controller = loader.getController();
+            AffichageEntretienbyemployeeId controller = loader.getController();
             controller.initialize();
 
             Stage stage = new Stage();

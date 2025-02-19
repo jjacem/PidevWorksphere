@@ -1,17 +1,15 @@
 package controllers;
 
-
 import entities.Entretien;
 import entities.TypeEntretien;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import services.EntretienService;
 
@@ -25,9 +23,8 @@ import java.util.Date;
 
 public class AjouterEntretineController {
 
-
     @FXML
-    private ComboBox cb_type_entretien;
+    private ComboBox<String> cb_type_entretien;
     @FXML
     private TextField tf_titre;
     @FXML
@@ -39,10 +36,9 @@ public class AjouterEntretineController {
     @FXML
     private Button btnAjouter;
     @FXML
-    private Spinner sp_heure_entretien;
+    private Spinner<Integer> sp_heure_entretien;
 
-    private  EntretienService entretienService = new EntretienService();
-
+    private EntretienService entretienService = new EntretienService();
 
     @FXML
     public void initialize() {
@@ -51,82 +47,81 @@ public class AjouterEntretineController {
         sp_heure_entretien.setValueFactory(valueFactory);
     }
 
-
-
-
-
     @FXML
     public void ajouterEntretien(ActionEvent actionEvent) throws SQLException {
-
-        try{
-
-        String titre = tf_titre.getText();
-        String description = tf_description.getText();
-        LocalDate date = dp_date_entretien.getValue();
-        int heure = (int) sp_heure_entretien.getValue();
-//        TypeEntretien type = (TypeEntretien) cb_type_entretien.getValue();
-
-            TypeEntretien type = TypeEntretien.valueOf((String) cb_type_entretien.getValue());
-
+        try {
+            String titre = tf_titre.getText();
+            String description = tf_description.getText();
+            LocalDate date = dp_date_entretien.getValue();
+            int heure = (int) sp_heure_entretien.getValue();
+            String typeString = (String) cb_type_entretien.getValue();
             boolean status = cb_status.isSelected();
 
+            // Check if the required fields are filled
+            if (titre.isEmpty() || description.isEmpty() || date == null || typeString == null || typeString.isEmpty()) {
+                showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
 
+            // Convert the string to enum, ensure it's not null
+            TypeEntretien type;
+            try {
+                type = TypeEntretien.valueOf(typeString);
+            } catch (IllegalArgumentException e) {
+                showAlert("Erreur", "Type d'entretien invalide.");
+                return;
+            }
 
-        if (titre.isEmpty() || description.isEmpty() || date == null || type == null) {
-            showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
-            return;
-        }
+            Date dateEntretien = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Time heureEntretien = Time.valueOf(LocalTime.of(heure, 0));
 
-        Date dateEntretien = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Time heureEntretien = Time.valueOf(LocalTime.of(heure, 0));
+            Entretien entretien = new Entretien(titre, description, dateEntretien, heureEntretien, type, status);
+            entretienService.ajouter(entretien);
 
-        Entretien entretien = new Entretien(titre, description, dateEntretien, heureEntretien, type, status);
-
-        entretienService.ajouter(entretien);
-
-
-        clearFields();
-
-            fermerFenetre();
+            clearFields();
+            fermerFenetre(actionEvent);
             ouvrirAffichageEntretien();
 
-
-
+        } catch (SQLException e) {
+            System.err.println("SQL Error: " + e.getMessage());
+            showAlert("Erreur SQL", "Erreur lors de l'ajout : " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected Error: " + e.getMessage());
+            showAlert("Erreur Inattendue", "Une erreur inattendue s'est produite : " + e.getMessage());
         }
-
-        catch (SQLException e) {
-            showAlert( "Erreur SQL", "Erreur lors de l'ajout : " + e.getMessage());
-        }
-
-
-
     }
 
     private void clearFields() {
-            tf_titre.clear();
-            tf_description.clear();
-            dp_date_entretien.setValue(null);
-            cb_type_entretien.setValue(null);
-            cb_status.setSelected(false);
+        tf_titre.clear();
+        tf_description.clear();
+        dp_date_entretien.setValue(null);
+        cb_type_entretien.setValue(null);
+        cb_status.setSelected(false);
     }
-
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.show();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(title);
+            alert.setContentText(message);
+            alert.showAndWait();
+        });
     }
-
 
     @FXML
-    private void fermerFenetre() {
-        btnAjouter.getScene().getWindow().hide();
+    private void fermerFenetre(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            showAlert("Erreur", "Impossible de fermer la fenêtre.");
+        }
     }
 
-
     private void ouvrirAffichageEntretien() {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
             Parent root = loader.load();
@@ -143,13 +138,4 @@ public class AjouterEntretineController {
             showAlert("Erreur", "Impossible d'ouvrir l'affichage : " + e.getMessage());
         }
     }
-
-
-
-
-
-
-
-
-
 }
