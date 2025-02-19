@@ -21,13 +21,13 @@ public class Main {
         ServiceUser serviceUser = new ServiceUser();
 
         User u1 = new User();
-        u1 = u1.RH("yassine", "bouras", "yassinbouras0@rh.com", "1234", "", Sexe.HOMME, "", 5, "conflicts manager");
+        u1 = u1.RH("kassous", "eya", "eyakassous0@rh.com", "1234", "", Sexe.HOMME, "", 5, "conflicts manager");
         User u2 = new User();
         u2 = u2.Candidat("yassine", "bouras", "yassin18.gmail", "1234", "", Sexe.HOMME, "", 500.00);
         User u3 = new User();
-        u3 = u3.Manager("Jacem", "Hbaieb", "jacemhbaieb@gmail.com", "1234", "", Sexe.HOMME, "", "finance", 10, 5000000.00);
+        u3 = u3.Manager("asma", "sallemi", "asma@gmail.com", "1234", "", Sexe.HOMME, "", "finance", 10, 5000000.00);
         User u4 = new User();
-        u4 = u4.Employe("yassine", "bouras", "yassinbouras90@gmail.com", "1234", "", Sexe.HOMME, "", "financier", 1000.00, 5, "finance", "compete");
+        u4 = u4.Employe("employeEya", "employeEya", "employeEya@gmail.com", "1234", "", Sexe.HOMME, "", "financier", 1000.00, 5, "finance", "compete");
 
 //        try {
 //            serviceUser.ajouter(u4);

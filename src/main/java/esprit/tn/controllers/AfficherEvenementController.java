@@ -36,11 +36,18 @@ public class AfficherEvenementController {
     private TextField txtRechercheEvent;
 
     private ObservableList<Evenement> observableList;
-
+    @FXML
+    private Button btnAjouterEvent;
+    @FXML
+    private Button btnretourdashRH;
     @FXML
     void initialize() {
         ServiceEvenement serviceEvenement = new ServiceEvenement();
-
+// Vérifie si le rôle de l'utilisateur est RH, sinon cache le bouton
+        if (!SessionManager.getRole().equals(Role.RH.name())) {
+            btnAjouterEvent.setVisible(false);
+            btnretourdashRH.setVisible(false);
+        }
         try {
             List<Evenement> evenementList = serviceEvenement.afficher();
             observableList = FXCollections.observableList(evenementList);
@@ -65,10 +72,10 @@ public class AfficherEvenementController {
                         HBox hbox = new HBox(10);
                         hbox.getChildren().add(eventText);
 
-                        if (SessionManager.getRole().equals(Role.RH) ) {
+                        if (SessionManager.getRole().equals(Role.RH.name()) ) {
                             Button btnModifierEvent = new Button("Modifier");
                             btnModifierEvent.getStyleClass().add("btn-modifierEvent");
-
+                            btnModifierEvent.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             btnModifierEvent.setOnAction(event -> {
                                 try {
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvenement.fxml"));
@@ -88,6 +95,7 @@ public class AfficherEvenementController {
 
                             Button btnSupprimerEvent = new Button("Supprimer");
                             btnSupprimerEvent.getStyleClass().add("btn-supprimerEvent");
+                            btnSupprimerEvent.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 
                             btnSupprimerEvent.setOnAction(event -> {
                                 try {
@@ -159,5 +167,21 @@ public class AfficherEvenementController {
     private void updateFormationListView(List<Evenement> filteredEvenement) {
         ObservableList<Evenement> observableList = FXCollections.observableArrayList(filteredEvenement);
         lv_event.setItems(observableList);
+    }
+
+
+
+    public void retourdashRH(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

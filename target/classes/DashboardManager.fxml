@@ -20,14 +20,14 @@
 
         <!-- Logo -->
         <ImageView fitHeight="88.0" fitWidth="174.0">
-            <Image url="@/images/workshepre.png" />
+            <Image url="@/Images/workshepre.png" />
         </ImageView>
 
         <!-- User Profile Section -->
         <VBox alignment="CENTER" spacing="10">
             <!-- Circular Profile Image -->
             <ImageView fitHeight="80.0" fitWidth="80.0">
-                <Image url="@/images/user.png" />
+                <Image url="@/Images/user.png" />
                 <clip>
                     <Circle centerX="40.0" centerY="40.0" radius="40.0" />
                 </clip>

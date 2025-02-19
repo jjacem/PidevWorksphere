@@ -250,4 +250,18 @@ public class ModifierEvenementController {
             e.printStackTrace();
         }
     }
+
+    public void retourdashRH(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle et la remplacer
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

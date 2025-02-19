@@ -22,7 +22,7 @@
 
         <!-- Logo -->
         <ImageView fitHeight="88.0" fitWidth="174.0">
-            <Image url="@/Images/logo.png" />
+            <Image url="@/Images/workshepre.png" />
         </ImageView>
 
         <!-- User Profile Section -->
