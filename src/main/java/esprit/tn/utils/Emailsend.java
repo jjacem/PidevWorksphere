@@ -36,8 +36,6 @@ public class Emailsend {
         }
     }
 
-    public static void main(String[] args) {
-        sendEmail("recipient@example.com", "Test Subject", "Hello, this is a test email!");
-    }
+
 
 }

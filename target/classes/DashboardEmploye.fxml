@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.DashboardEmploye"
+            prefHeight="500.0" prefWidth="800.0">
+
+    <left>
+        <VBox spacing="10.0" prefWidth="150.0" style="-fx-background-color: #2C3E50; -fx-padding: 10;">
+            <Button text="Profile" onAction="#loadProfile" prefWidth="130"/>
+            <Button text="Password" onAction="#loadPassword" prefWidth="130"/>
+            <Button text="Offre Emploi" onAction="#loadOffreEmploi" prefWidth="130"/>
+            <Button text="Reclamation" onAction="#loadReclamation" prefWidth="130"/>
+        </VBox>
+    </left>
+
+    <center>
+        <AnchorPane fx:id="contentPane" prefWidth="600.0" prefHeight="500.0"/>
+    </center>
+
+</BorderPane>

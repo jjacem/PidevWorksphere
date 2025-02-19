@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceReponse implements IService<Reponse> {
-    private Connection connection;
+    private final Connection connection;
 
     public ServiceReponse() {
         this.connection = MyDatabase.getInstance().getConnection();
@@ -16,12 +16,13 @@ public class ServiceReponse implements IService<Reponse> {
 
     @Override
     public void ajouter(Reponse reponse) throws SQLException {
-        String req = "INSERT INTO Reponse (message, id_user , id_reclamation) VALUES (?, ?, ?)";
+        String req = "INSERT INTO Reponse (message, id_user, id_reclamation, status) VALUES (?, ?, ?, ?)";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, reponse.getMessage());
-            preparedStatement.setInt(2, reponse.getId_employe());
+            preparedStatement.setInt(2, reponse.getId_user());
             preparedStatement.setInt(3, reponse.getId_reclamation());
+            preparedStatement.setString(4, reponse.getStatus());
 
             preparedStatement.executeUpdate();
             System.out.println("Réponse ajoutée avec succès.");
@@ -30,11 +31,12 @@ public class ServiceReponse implements IService<Reponse> {
 
     @Override
     public void modifier(Reponse reponse) throws SQLException {
-        String req = "UPDATE Reponse SET message = ? WHERE id_reponse = ?";
+        String req = "UPDATE Reponse SET message = ?, status = ? WHERE id_reponse = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
             preparedStatement.setString(1, reponse.getMessage());
-            preparedStatement.setInt(2, reponse.getId_reponse());
+            preparedStatement.setString(2, reponse.getStatus());
+            preparedStatement.setInt(3, reponse.getId_reponse());
 
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -73,14 +75,67 @@ public class ServiceReponse implements IService<Reponse> {
                 Reponse reponse = new Reponse(
                         rs.getString("message"),
                         rs.getInt("id_user"),
-                        rs.getInt("id_reclamation")
+                        rs.getInt("id_reclamation"),
+                        rs.getString("status")
                 );
                 reponse.setId_reponse(rs.getInt("id_reponse"));
+                reponse.setDatedepot(rs.getTimestamp("datedepot"));
 
                 reponses.add(reponse);
             }
         }
 
         return reponses;
+    }
+    public Reponse getresponsebyid(int id){
+        String req = "SELECT * FROM Reponse WHERE id_reponse = ?";
+        Reponse reponse = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) {
+                    reponse = new Reponse(
+                            rs.getString("message"),
+                            rs.getInt("id_user"),
+                            rs.getInt("id_reclamation"),
+                            rs.getString("status")
+                    );
+                    reponse.setId_reponse(rs.getInt("id_reponse"));
+                    reponse.setDatedepot(rs.getTimestamp("datedepot"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reponse;
+    }
+
+    public Reponse checkForRepInRec(int idrec) {
+        String req = "SELECT * FROM Reponse WHERE id_reclamation = ?";
+        Reponse response = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(req)) {
+            preparedStatement.setInt(1, idrec);
+
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                if (rs.next()) { // Fetch only the first response (since each reclamation has only one response)
+                    response = new Reponse(
+                            rs.getString("message"),
+                            rs.getInt("id_user"),
+                            rs.getInt("id_reclamation"),
+                            rs.getString("status")
+                    );
+                    response.setId_reponse(rs.getInt("id_reponse"));
+                    response.setDatedepot(rs.getTimestamp("datedepot"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return response; // Return the found response or null if no response exists
     }
 }

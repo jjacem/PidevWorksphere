@@ -1,5 +1,6 @@
 package esprit.tn.utils;
 
+import esprit.tn.entities.Role;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceUser;
 
@@ -10,10 +11,9 @@ public class SessionManager {
     private static String username;
     private static String role;
 
-    public static void setSession(String token, String user, String userRole) {
+    public static void setSession(String token) {
         jwtToken = token;
-        username = user;
-        role = userRole;
+
     }
 public static User extractuserfromsession() throws SQLException {
     ServiceUser serviceUser = new ServiceUser();
@@ -38,7 +38,10 @@ public int extractidfromsession() {
     }
 
     public static String getRole() {
-        return role;
+        JwtUtil jwtUtil = new JwtUtil();
+        Role role = jwtUtil.getRoleFromToken(jwtToken);
+
+        return role.name();
     }
 
     public static void clearSession() {

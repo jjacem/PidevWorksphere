@@ -140,7 +140,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.budget = budget;}
 
 
-    public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
+        public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, departementGere, nombreProjet, budget);
         return u;
     }

@@ -4,7 +4,6 @@ import esprit.tn.entities.Sexe;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.SessionManager;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -12,26 +11,20 @@ import java.sql.SQLException;
 
 public class ModifierCompteController {
     @FXML
-    private TextField nom;
-    @FXML
-    private TextField prenom;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextField mdp;
-    @FXML
-    private TextField adresse;
+    private TextField nom, prenom, email, adresse, imageProfil;
     @FXML
     private ChoiceBox<Sexe> sexe;
     @FXML
-    private TextField salaireAttendu;
+    private TextField salaireAttendu, competence, experienceTravail, nombreProjet, anneeExperience, specialisation;
     @FXML
-    private TextField ImageProfil;
+    private Label salaireLabel, competenceLabel, experienceLabel, projetLabel, anneeExpLabel, specialisationLabel;
+    private String role = SessionManager.getRole();
     private int userId;
+User us=new User();
     public void initData(int userId) {
         this.userId = userId;
-
     }
+
     @FXML
     public void initialize() throws SQLException {
         sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
@@ -43,55 +36,99 @@ public class ModifierCompteController {
             nom.setText(u.getNom());
             prenom.setText(u.getPrenom());
             email.setText(u.getEmail());
-
             adresse.setText(u.getAdresse());
             sexe.setValue(u.getSexe());
-            salaireAttendu.setText(String.valueOf(u.getSalaireAttendu()));
-            ImageProfil.setText(u.getImageProfil());
+            imageProfil.setText(u.getImageProfil());
+
+            switch (role) {
+                case "CANDIDAT":
+                    salaireAttendu.setText(String.valueOf(u.getSalaireAttendu()));
+                    salaireAttendu.setVisible(true);
+                    salaireLabel.setVisible(true);
+                  String stuts=  u.getStatus().name(); //can't be edited
+                    break;
+                case "EMPLOYE":
+                    competence.setVisible(true);
+                    experienceTravail.setVisible(true);
+                    competenceLabel.setVisible(true);
+                    experienceLabel.setVisible(true);
+                    String poste = u.getPoste();
+                    Double salaire=u.getSalaire();
+                    String competence=u.getCompetence();
+
+
+                break;
+                case "MANAGER":
+                    nombreProjet.setVisible(true);
+                    projetLabel.setVisible(true);
+                    double budget=u.getBudget();
+                    String dep=u.getDepartementGere();
+
+                    break;
+                case "RH":
+                    anneeExperience.setVisible(true);
+                    specialisation.setVisible(true);
+                    anneeExpLabel.setVisible(true);
+                    specialisationLabel.setVisible(true);
+                    break;
+            }
+            System.out.println("role et"+role);
         }
     }
 
     @FXML
-    public void saveChanges(ActionEvent actionEvent) {
+    public void saveChanges() {
         ServiceUser serviceUser = new ServiceUser();
 
         if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
-                mdp.getText().isEmpty() || adresse.getText().isEmpty() || sexe.getValue() == null ||
-                salaireAttendu.getText().isEmpty() || ImageProfil.getText().isEmpty()) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Input Error");
-            alert.setContentText("Please fill in all fields.");
-            alert.showAndWait();
+                adresse.getText().isEmpty() || sexe.getValue() == null || imageProfil.getText().isEmpty()) {
+            showAlert("Input Error", "Please fill in all fields.");
             return;
         }
 
         try {
-            double salaire = Double.parseDouble(salaireAttendu.getText());
-            User modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(),
-                    mdp.getText(), adresse.getText(), sexe.getValue(),
-                    ImageProfil.getText(), salaire);
+            User modifiedUser;
+            switch (role) {
+                case "CANDIDAT":
+                    double salaire = Double.parseDouble(salaireAttendu.getText());
+                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
+                            adresse.getText(), sexe.getValue(), imageProfil.getText(), salaire);
+                    break;
+                case "EMPLOYE":
+                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
+                            adresse.getText(), sexe.getValue(), imageProfil.getText(), "", 0.0,
+                            Integer.parseInt(experienceTravail.getText()), "", competence.getText());
+                    break;
+                case "MANAGER":
+                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
+                            adresse.getText(), sexe.getValue(), imageProfil.getText(), "",
+                            Integer.parseInt(nombreProjet.getText()), 0.0);
+                    break;
+                case "RH":
+                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
+                            adresse.getText(), sexe.getValue(), imageProfil.getText(),
+                            Integer.parseInt(anneeExperience.getText()), specialisation.getText());
+                    break;
+                default:
+                    showAlert("Error", "Invalid role.");
+                    return;
+            }
 
             modifiedUser.setIdUser(SessionManager.extractuserfromsession().getIdUser());
             serviceUser.modifier(modifiedUser);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Account updated successfully!");
-            alert.showAndWait();
+            showAlert("Success", "Account updated successfully!");
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Error");
-            alert.setContentText("Invalid salary value. Please enter a valid number.");
-            alert.showAndWait();
+            showAlert("Input Error", "Invalid number format.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Database Error");
-            alert.setContentText("Failed to update account: " + e.getMessage());
-            alert.showAndWait();
+            showAlert("Database Error", "Failed to update account.");
         }
     }
 
-
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

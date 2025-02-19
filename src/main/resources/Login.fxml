@@ -13,9 +13,9 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.LoginContoller">
 
     <children>
-        <AnchorPane layoutX="200.0" layoutY="-1.0" prefHeight="402.0" prefWidth="399.0" style="-fx-background-color: #ffffff;">
+        <AnchorPane layoutX="200.0" layoutY="-1.0"  prefHeight="402.0" prefWidth="399.0" style="-fx-background-color: #ffffff;">
             <children>
-                <Label fx:id="textid1" layoutX="237.0" layoutY="339.0" prefHeight="16.0" prefWidth="110.0" style="-fx-cursor: hand;" text="Cliquez ici" textFill="#325afa">
+                <Label fx:id="textid1" layoutX="237.0" layoutY="339.0" onMouseClicked="#forgotpassword" prefHeight="16.0" prefWidth="110.0" style="-fx-cursor: hand;" text="Cliquez ici" textFill="#325afa">
                     <font>
                         <Font size="11.0" />
                     </font>
@@ -26,7 +26,7 @@
                     </font>
                 </Label>
 
-                <Button fx:id="ConnectBtn" layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="34.0" prefWidth="286.0" style="-fx-background-color: #0086B3;" text="Connecter" textFill="WHITE" />
+                <Button fx:id="ConnectBtn" layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Connecter" textFill="WHITE" />
 
                 <!-- Password Field -->
                 <PasswordField fx:id="mdp" layoutX="74.0" layoutY="225.0" prefHeight="34.0" prefWidth="286.0" promptText="Mot de passe" />
@@ -43,6 +43,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
+            <Button fx:id="signupbtn1" layoutX="227.0" layoutY="281.0" mnemonicParsing="false" onAction="#handlesignup" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Inscrire" textFill="WHITE" />
             </children>
         </AnchorPane>
         <Label layoutX="300.0" layoutY="52.0" text="SE CONNECTER" textOverrun="CLIP">
@@ -56,7 +57,7 @@
         <Label layoutX="351.0" layoutY="98.0" text="Connecter à votre profil" textFill="#615c5c" />
       <ImageView fitHeight="435.0" fitWidth="203.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@img_1.png" />
+            <Image url="@Images/img_1.png" />
          </image>
       </ImageView>
     </children>

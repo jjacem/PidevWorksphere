@@ -1,4 +1,14 @@
 esprit\tn\controllers\AfficherUser$1$1.class
+esprit\tn\controllers\ModifierReclamationController.class
+esprit\tn\services\ServiceReclamation.class
+esprit\tn\controllers\DashboardEmploye.class
+esprit\tn\entities\Reclamation.class
+esprit\tn\tests\Main.class
+esprit\tn\tests\MainFx.class
 esprit\tn\controllers\AfficherUser$1.class
-esprit\tn\controllers\ReclamationsController.class
+esprit\tn\controllers\AfficherReclamationsController.class
+esprit\tn\services\ServiceReponse.class
+esprit\tn\controllers\AjouterReclamationController.class
+esprit\tn\controllers\AjouterReponseController.class
+esprit\tn\controllers\ModiferReponseController.class
 esprit\tn\utils\SessionManager.class

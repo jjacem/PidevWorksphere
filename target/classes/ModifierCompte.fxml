@@ -3,41 +3,46 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierCompteController">
+<AnchorPane prefHeight="325.0" prefWidth="616.0" style="-fx-background-color: #2A5DA8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierCompteController">
     <children>
-        <Label layoutX="14.0" layoutY="54.0" text="Nom" />
-        <TextField fx:id="nom" layoutX="60.0" layoutY="50.0" />
+        <Label layoutX="200.0" layoutY="40.0" style="-fx-font-size: 18px; -fx-text-fill: white;" text="Modifier le Compte" />
 
-        <Label layoutX="14.0" layoutY="93.0" text="Prénom" />
-        <TextField fx:id="prenom" layoutX="77.0" layoutY="89.0" />
+        <Label layoutX="150.0" layoutY="90.0" style="-fx-text-fill: white;" text="Nom" />
+        <TextField fx:id="nom" layoutX="250.0" layoutY="85.0" prefWidth="200.0" />
 
-        <Label layoutX="14.0" layoutY="132.0" text="Email" />
-        <TextField fx:id="email" layoutX="55.0" layoutY="128.0"  />
+        <Label layoutX="150.0" layoutY="130.0" style="-fx-text-fill: white;" text="Prénom" />
+        <TextField fx:id="prenom" layoutX="250.0" layoutY="125.0" prefWidth="200.0" />
 
-        <Label layoutX="14.0" layoutY="178.0" text="Adresse" />
-        <TextField fx:id="adresse" layoutX="87.0" layoutY="174.0" />
+        <Label layoutX="150.0" layoutY="170.0" style="-fx-text-fill: white;" text="Email" />
+        <TextField fx:id="email" layoutX="250.0" layoutY="165.0" prefWidth="200.0" />
 
-        <Label layoutX="14.0" layoutY="223.0" text="Sexe" />
-        <ChoiceBox fx:id="sexe" layoutX="55.0" layoutY="218.0" prefWidth="150.0" />
+        <Label layoutX="150.0" layoutY="210.0" style="-fx-text-fill: white;" text="Adresse" />
+        <TextField fx:id="adresse" layoutX="250.0" layoutY="205.0" prefWidth="200.0" />
 
-        <Label layoutX="14.0" layoutY="265.0" text="Mot de passe" />
-        <PasswordField fx:id="mdp" layoutX="115.0" layoutY="260.0" />
+        <Label layoutX="150.0" layoutY="250.0" style="-fx-text-fill: white;" text="Sexe" />
+        <ChoiceBox fx:id="sexe" layoutX="250.0" layoutY="245.0" prefWidth="200.0" />
 
-        <Label layoutX="22.0" layoutY="305.0" text="Salaire attendu" />
-        <TextField fx:id="salaireAttendu" layoutX="115.0" layoutY="300.0" />
+        <Label fx:id="salaireLabel" layoutX="150.0" layoutY="290.0" style="-fx-text-fill: white;" text="Salaire Attendu" visible="false" />
+        <TextField fx:id="salaireAttendu" layoutX="250.0" layoutY="285.0" prefWidth="200.0" visible="false" />
 
-        <Label layoutX="15.0" layoutY="345.0" text="Image Profil" />
-        <TextField fx:id="ImageProfil" layoutX="88.0" layoutY="340.0" />
+        <Label fx:id="competenceLabel" layoutX="150.0" layoutY="330.0" style="-fx-text-fill: white;" text="Compétence" visible="false" />
+        <TextField fx:id="competence" layoutX="250.0" layoutY="321.0" prefWidth="200.0" visible="false" />
 
-        <Button layoutX="135.0" layoutY="380.0" mnemonicParsing="false" onAction="#saveChanges" text="Enregistrer les modifications" />
+        <Label fx:id="experienceLabel" layoutX="150.0" layoutY="370.0" style="-fx-text-fill: white;" text="Expérience Travail" visible="false" />
+        <TextField fx:id="experienceTravail" layoutX="250.0" layoutY="365.0" prefWidth="200.0" visible="false" />
 
-        <ImageView fx:id="imagePreview" fitHeight="150.0" fitWidth="200.0" layoutX="326.0" layoutY="18.0"
-                   pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="projetLabel" layoutX="150.0" layoutY="410.0" style="-fx-text-fill: white;" text="Nombre de Projets" visible="false" />
+        <TextField fx:id="nombreProjet" layoutX="250.0" layoutY="405.0" prefWidth="200.0" visible="false" />
+
+        <Label fx:id="anneeExpLabel" layoutX="150.0" layoutY="450.0" style="-fx-text-fill: white;" text="Années d'expérience" visible="false" />
+        <TextField fx:id="anneeExperience" layoutX="250.0" layoutY="445.0" prefWidth="200.0" visible="false" />
+
+        <Label fx:id="specialisationLabel" layoutX="150.0" layoutY="490.0" style="-fx-text-fill: white;" text="Spécialisation" visible="false" />
+        <TextField fx:id="specialisation" layoutX="250.0" layoutY="485.0" prefWidth="200.0" visible="false" />
+
+        <Button layoutX="205.0" layoutY="313.0" mnemonicParsing="false" onAction="#saveChanges" style="-fx-background-color: #ffffff; -fx-text-fill: #2A5DA8; -fx-font-weight: bold;" text="Enregistrer les modifications" />
     </children>
 </AnchorPane>

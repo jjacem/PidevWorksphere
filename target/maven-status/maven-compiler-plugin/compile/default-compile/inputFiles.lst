@@ -1,9 +1,15 @@
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherReclamationsController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherUser.java
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterReclamationController.java
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterReponseController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterUser.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardCandidat.java
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardEmploye.java
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ForgotpasswordController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\LoginContoller.java
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModiferReponseController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierCompteController.java
-C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ReclamationsController.java
+C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierReclamationController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Reclamation.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Reponse.java
 C:\Users\yassi\OneDrive\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Role.java

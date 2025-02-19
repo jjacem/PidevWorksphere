@@ -35,7 +35,7 @@ public class DashboardCandidat {
 
     public void consulterreclamation(ActionEvent actionEvent) {
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamations.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
