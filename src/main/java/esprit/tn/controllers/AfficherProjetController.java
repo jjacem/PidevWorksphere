@@ -249,6 +249,17 @@ public class AfficherProjetController {
     }
 
 
+    @FXML
+    public void versProjet() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) projetListView.getScene().getWindow();
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     private void applyAlertStyle(Alert alert) {

@@ -186,6 +186,19 @@ public class AfficherEquipeController {
         }
     }
 
+
+    @FXML
+    public void versProjet() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherProjet.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) equipesContainer.getScene().getWindow();
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());

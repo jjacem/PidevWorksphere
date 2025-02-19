@@ -128,7 +128,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
     }
 
 
-    public List<User> getEmployesDisponibles() throws SQLException {
+  public List<User> getEmployesDisponibles() throws SQLException {
         List<User> employesDisponibles = new ArrayList<>();
         String req = "SELECT id_user, nom, prenom, role FROM user WHERE role = 'Employe'";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
