@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.entities.Reservation;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceReservation;
+import esprit.tn.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class AjouterReservationController {
@@ -55,7 +57,7 @@ public class AjouterReservationController {
     private final ServiceReservation reservationService = new ServiceReservation();
 
     @FXML
-    public void Onajouterreservation(ActionEvent actionEvent) {
+    public void Onajouterreservation(ActionEvent actionEvent) throws SQLException {
         // Vérification des champs
         if (prenomID.getText().isEmpty() || nomID.getText().isEmpty() || emailID.getText().isEmpty() || dateID.getValue() == null) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs doivent être remplis.");
@@ -71,7 +73,7 @@ public class AjouterReservationController {
         // Créer une instance de réservation
         Reservation reservation = new Reservation();
         reservation.setDate(date);
-        reservation.setUserId(userId); // Utiliser l'ID de l'utilisateur passé par le contrôleur
+        reservation.setUserId(SessionManager.extractuserfromsession().getIdUser()); // Utiliser l'ID de l'utilisateur passé par le contrôleur
         reservation.setFormationId(formationId); // Utiliser l'ID de la formation
 
         // Appel au service pour ajouter la réservation

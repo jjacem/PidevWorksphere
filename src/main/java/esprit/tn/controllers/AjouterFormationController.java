@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.entities.Formation;
 import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
+import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -117,8 +118,8 @@ public class AjouterFormationController implements Initializable {
                 }
             }
 
-            int userId = 1;
-            Formation formation = new Formation(description, titre, date, heureDebut, heureFin, nbPlaces, typeFormation, photo, userId);
+
+            Formation formation = new Formation(description, titre, date, heureDebut, heureFin, nbPlaces, typeFormation, photo, SessionManager.extractuserfromsession().getIdUser());
 
             ServiceFormation serviceFormation = new ServiceFormation();
             serviceFormation.ajouterFormation(formation);

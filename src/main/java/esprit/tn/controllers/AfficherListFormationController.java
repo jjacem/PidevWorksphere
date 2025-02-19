@@ -5,6 +5,7 @@ import esprit.tn.services.ServiceFormation;
 
 import esprit.tn.entities.Formation;
 import esprit.tn.entities.Reservation;
+import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,13 +105,15 @@ public class AfficherListFormationController {
                                     AjouterReservationController controller = loader.getController();
                                     controller.setUser(formation.getUser());
                                     // Passer l'ID de la formation et l'ID utilisateur
-                                    controller.setFormationId(16);  // Passer l'ID de la formation
-                                    controller.setUserId(1); // Remplacer par l'ID de l'utilisateur connecté
+                                    controller.setFormationId(1);  // Passer l'ID de la formation
+                                    controller.setUserId(SessionManager.extractuserfromsession().getIdUser()); // Remplacer par l'ID de l'utilisateur connecté
                                     // Changer de scène
                                     Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                                     stage.getScene().setRoot(root);
                                 } catch (IOException e) {
                                     System.out.println("Erreur de chargement de la page de réservation : " + e.getMessage());
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
                                 }
                             });
 

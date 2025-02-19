@@ -70,4 +70,8 @@ private ImageView img;
     public void Effectuerevennement(ActionEvent actionEvent) {
         loadPage("/AfficherEvenement.fxml");
     }
+
+    public void Formation(ActionEvent actionEvent) {
+        loadPage("/AfficherFormation.fxml");
+    }
 }

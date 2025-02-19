@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.entities.Formation;
 import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
+import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -107,7 +108,7 @@ public class ModifierFormationController implements Initializable {
             formation.setHeure_fin(heureFin);
             formation.setNb_place(nbPlace);
             formation.setPhoto(photo);
-            formation.setId_user(userId);
+            formation.setId_user(SessionManager.extractuserfromsession().getIdUser());
 
             // Appel du service pour modifier la formation
             serviceFormation.modifierFormation(formation);

@@ -106,7 +106,7 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
 
             // Création de l'objet User
             User user = new User();
-            user.setId(rs.getInt("id_user"));
+            user.setIdUser(rs.getInt("id_user"));
             user.setNom(rs.getString("nom"));
             user.setPrenom(rs.getString("prenom"));
             user.setEmail(rs.getString("email"));
@@ -153,7 +153,7 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
 
                 // Création de l'objet User
                 User user = new User();
-                user.setId(rs.getInt("id_user"));
+                user.setIdUser(rs.getInt("id_user"));
                 user.setNom(rs.getString("nom"));
                 user.setPrenom(rs.getString("prenom"));
                 user.setEmail(rs.getString("email"));
