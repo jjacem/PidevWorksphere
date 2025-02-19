@@ -72,6 +72,11 @@ public class ModifierFeedback {
             String message = tf_message.getText();
             int rate = (int) sp_rate.getValue();
 
+
+            if (!validateInput(message, rate)) {
+                return;
+            }
+
             Feedback feedback = feedbackService.getFeedbackById(feedbackId);
 
             feedback.setMessage(message);
@@ -123,4 +128,52 @@ public class ModifierFeedback {
         }
 
 
-    } }
+    }
+
+
+
+
+    private boolean validateInput(String message, Integer rate) {
+        if (message.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champ manquant", "Le message ne peut pas être vide.");
+            return false;
+        }
+        if (message.length() < 10) {
+            showAlert(Alert.AlertType.WARNING, "Message trop court", "Le message doit contenir au moins 10 caractères.");
+            return false;
+        }
+        if (rate == null || rate < 1 || rate > 5) {
+            showAlert(Alert.AlertType.WARNING, "Note invalide", "La note doit être comprise entre 1 et 5.");
+            return false;
+        }
+        return true;
+    }
+
+
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

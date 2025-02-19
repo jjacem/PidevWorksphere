@@ -1,6 +1,7 @@
 package controllers;
 
 import entities.Entretien;
+import entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import services.EntretienService;
+import services.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,6 +27,10 @@ public class AffichageEntretineController {
     private ListView<Entretien> lv_entretien;
 
     private EntretienService entretienService = new EntretienService();
+
+    private ServiceUser su = new ServiceUser();
+    User users = new User() ;
+
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
 
@@ -63,7 +69,8 @@ public class AffichageEntretineController {
                 } else {
                     Button btnModifier = new Button("Modifier");
                     Button btnSupprimer = new Button("Supprimer");
-                    Button btnAffecter = new Button("Affecter");
+
+
                     Button btnFeedback;
 
                     if (entretien.getFeedbackId() != 0) {
@@ -78,7 +85,9 @@ public class AffichageEntretineController {
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
                     btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
 
-                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer, btnAffecter);
+
+
+                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
@@ -87,8 +96,25 @@ public class AffichageEntretineController {
                             + "📌 Type: " + entretien.getType_entretien() + "\n"
                             + "✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
 
+                    if (entretien.getEmployeId() != 0) {
+                        try {
+                            User users = su.findbyid(entretien.getEmployeId());
+                            System.out.println(users);
+                            setText(getText() + "\n🔒 Entretien déjà affecté chez  " +  users.getNom() +"  " + users.getPrenom());
+                            setGraphic(buttonBox);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    } else {
+                        Button btnAffecter = new Button("Affecter");
+                        btnAffecter.setOnAction(event -> ouvrirPopupAffectation(entretien));
+
+                        buttonBox.getChildren().add(0, btnAffecter);
+                        setGraphic(buttonBox);
+                    }
+
                     setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
-                    setGraphic(buttonBox);
                 }
             }
         });
@@ -218,6 +244,24 @@ public class AffichageEntretineController {
             afficherEntretien();
 
 
+    }
+
+
+    private void ouvrirPopupAffectation(Entretien entretien) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/affecterEntretien.fxml"));
+            Parent root = loader.load();
+
+            AffecterEntretien controller = loader.getController();
+            controller.setEntretien(entretien);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Affecter un employé à l'entretien");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -57,13 +57,24 @@ public class AjouterEntretineController {
             String typeString = (String) cb_type_entretien.getValue();
             boolean status = cb_status.isSelected();
 
-            // Check if the required fields are filled
+            String titrev = tf_titre.getText().trim();
+            String descriptionv = tf_description.getText().trim();
+
             if (titre.isEmpty() || description.isEmpty() || date == null || typeString == null || typeString.isEmpty()) {
                 showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
                 return;
             }
 
-            // Convert the string to enum, ensure it's not null
+            if (titre.length() < 3) {
+                showAlert("Erreur", "Le titre doit contenir au moins 3 caractères.");
+                return;
+            }
+
+            if (description.length() < 5) {
+                showAlert("Erreur", "La description doit contenir au moins 5 caractères.");
+                return;
+            }
+
             TypeEntretien type;
             try {
                 type = TypeEntretien.valueOf(typeString);

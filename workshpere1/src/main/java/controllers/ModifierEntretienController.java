@@ -123,13 +123,45 @@ public class ModifierEntretienController implements Initializable {
     @javafx.fxml.FXML
     public void modifierEntretien(ActionEvent actionEvent) {
         try {
+
+            String titrev = tf_titre.getText().trim();
+            String descriptionv = tf_description.getText().trim();
+
+            LocalDate dates = dp_date_entretien.getValue();
+            TypeEntretien types = (TypeEntretien) cb_type_entretien.getValue();
+
+
+            if (titrev.isEmpty() || titrev.length() < 3) {
+                showAlert("Erreur", "Le titre doit contenir au moins 3 caractères.");
+                return;
+            }
+
+            if (descriptionv.isEmpty() || descriptionv.length() < 5) {
+                showAlert("Erreur", "La description doit contenir au moins 5 caractères.");
+                return;
+            }
+
+            if (dates == null || types == null) {
+                showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
+
+
+
+
+
+
             LocalDate date = dp_date_entretien.getValue();
             TypeEntretien type = TypeEntretien.valueOf(cb_type_entretien.getValue().toString());
 
             Date dateEntretien = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
             int hour = (int) sp_heure_entretien.getValue();
             Time heureEntretien = Time.valueOf(LocalTime.of(hour, 0));
+
+
+
+
+
 
             entretienActuel.setTitre(tf_titre.getText());
             entretienActuel.setDescription(tf_description.getText());

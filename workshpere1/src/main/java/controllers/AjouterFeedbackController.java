@@ -14,12 +14,13 @@ import services.FeedbackService;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 public class AjouterFeedbackController {
     @FXML
     private Button btnAjouterFeedback;
     @FXML
-    private Spinner<Integer> sp_rate; // ✅ Ensure type safety with <Integer>
+    private Spinner<Integer> sp_rate;
     @FXML
     private TextArea tf_message;
 
@@ -51,10 +52,14 @@ public class AjouterFeedbackController {
         String message = tf_message.getText();
         Integer rate = sp_rate.getValue();
 
-        if (message.isEmpty() || rate == null || rate == 0) {
-            showAlert(Alert.AlertType.WARNING, "Champ manquant", "Veuillez remplir tous les champs !");
+        String messagev = tf_message.getText();
+
+
+        if (!validateInput(messagev, rate)) {
             return;
         }
+
+
 
         Date date = new Date(System.currentTimeMillis());
 
@@ -95,6 +100,21 @@ public class AjouterFeedbackController {
     }
 
 
+    private boolean validateInput(String message, Integer rate) {
+        if (message.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champ manquant", "Le message ne peut pas être vide.");
+            return false;
+        }
+        if (message.length() < 10) {
+            showAlert(Alert.AlertType.WARNING, "Message trop court", "Le message doit contenir au moins 10 caractères.");
+            return false;
+        }
+        if (rate == null || rate < 1 || rate > 5) {
+            showAlert(Alert.AlertType.WARNING, "Note invalide", "La note doit être comprise entre 1 et 5.");
+            return false;
+        }
+        return true;
+    }
 
 
 
