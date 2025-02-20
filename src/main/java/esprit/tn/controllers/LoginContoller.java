@@ -66,7 +66,7 @@ public class LoginContoller {
     }
 
     private boolean isValidPassword(String password) {
-        return password.length() >= 6;
+        return password.length() >= 3;
     }
 
     private void navigate(String role) {

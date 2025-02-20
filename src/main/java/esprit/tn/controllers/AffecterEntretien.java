@@ -50,7 +50,7 @@ public class AffecterEntretien {
 
     private void chargerEmployes() {
         try {
-            List<esprit.tn.entities.User> employes = su.afficher();
+            List<esprit.tn.entities.User> employes = su.getUsersByRoleEmployee();
             cb_employes.setItems(FXCollections.observableArrayList(employes));
 
             cb_employes.setCellFactory(param -> new javafx.scene.control.ListCell<User>() {
