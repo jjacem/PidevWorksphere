@@ -9,20 +9,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="475.0" prefWidth="685.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AjouterCandidatureController">
+<AnchorPane prefHeight="475.0" prefWidth="685.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterCandidatureController">
    <children>
       <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="125.0" style="-fx-background-color: #0086b3;">
          <children>
             <ImageView fitHeight="120.0" fitWidth="126.0" layoutX="2.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/social4_10-removebg-preview.png" />
+                  <Image url="@Images/social4_10-removebg-preview.png" />
                </image>
             </ImageView>
             <Button layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#okpostuler" prefHeight="26.0" prefWidth="90.0" text="OK" />
             <Button fx:id="retourButton" layoutX="17.0" layoutY="432.0" mnemonicParsing="false" onAction="#retourVersOffres" prefHeight="26.0" prefWidth="90.0" text="RETOUR" />
             <ImageView fitHeight="90.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/474188139_2099437073823213_5214087864459817142_n.png" />
+                  <Image url="@Images/474188139_2099437073823213_5214087864459817142_n.png" />
                </image>
             </ImageView>
          </children>

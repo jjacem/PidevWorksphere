@@ -1,4 +1,4 @@
-package tn.esprit.controllers;
+package esprit.tn.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +9,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tn.esprit.entities.OffreEmploi;
-import tn.esprit.services.ServiceOffre;
+import esprit.tn.entities.OffreEmploi;
+import esprit.tn.services.ServiceOffre;
 
 import java.io.IOException;
 import java.sql.SQLException;

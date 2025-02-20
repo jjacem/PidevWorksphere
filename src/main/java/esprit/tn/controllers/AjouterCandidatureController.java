@@ -1,5 +1,8 @@
-package tn.esprit.controllers;
+package esprit.tn.controllers;
 
+import esprit.tn.entities.User;
+import esprit.tn.services.ServiceUser;
+import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,11 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import tn.esprit.entities.Candidature;
-import tn.esprit.entities.OffreEmploi;
-import tn.esprit.entities.User;
-import tn.esprit.services.ServiceCandidature;
-import tn.esprit.services.ServiceUser;
+import esprit.tn.entities.Candidature;
+import esprit.tn.entities.OffreEmploi;
+
+import esprit.tn.services.ServiceCandidature;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -65,7 +68,7 @@ public class AjouterCandidatureController {
         ServiceUser serviceUser = new ServiceUser();
         User candidat = null;
         try {
-            candidat = serviceUser.getCandidat(); // Récupérer le candidat avec le rôle "candidat"
+            candidat = SessionManager.extractuserfromsession(); // Récupérer le candidat avec le rôle "candidat"
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération de l'utilisateur : " + e.getMessage());
         }
@@ -74,8 +77,9 @@ public class AjouterCandidatureController {
             return;
         }
 
+
         // Créer une nouvelle candidature
-        Candidature candidature = new Candidature(selectedOffre,candidat/*Utilisateur connecté*/, cv, lettreMotivation);
+        Candidature candidature = new Candidature(selectedOffre,candidat, cv, lettreMotivation);
 
         // Appeler le service pour ajouter la candidature
         ServiceCandidature serviceCandidature = new ServiceCandidature();

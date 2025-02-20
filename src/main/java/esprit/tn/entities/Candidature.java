@@ -1,16 +1,17 @@
-package tn.esprit.entities;
+package esprit.tn.entities;
+
 
 public class Candidature {
     private int idCandidature;
     private String  cv, lettreMotivation;
     private OffreEmploi idOffre;
-    private User idCandidat;
+    private int idCandidat;
 
 
     public Candidature() {
     }
 
-    public Candidature(int idCandidature, OffreEmploi idOffre, User idCandidat, String cv, String lettreMotivation) {
+    public Candidature(int idCandidature, OffreEmploi idOffre, int idCandidat, String cv, String lettreMotivation) {
         this.idCandidature = idCandidature;
         this.idOffre = idOffre;
         this.idCandidat = idCandidat;
@@ -20,7 +21,7 @@ public class Candidature {
 
     public Candidature(OffreEmploi idOffre, User idCandidat, String cv, String lettreMotivation) {
         this.idOffre = idOffre;
-        this.idCandidat = idCandidat;
+        this.idCandidat = idCandidat.getIdUser();
         this.cv = cv;
         this.lettreMotivation = lettreMotivation;
     }
@@ -41,11 +42,11 @@ public class Candidature {
         this.idOffre = idOffre;
     }
 
-    public User getIdCandidat() {
+    public int getIdCandidat() {
         return idCandidat;
     }
 
-    public void setIdCandidat(User idCandidat) {
+    public void setIdCandidat(int idCandidat) {
         this.idCandidat = idCandidat;
     }
 

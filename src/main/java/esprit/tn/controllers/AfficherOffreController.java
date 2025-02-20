@@ -1,4 +1,4 @@
-package tn.esprit.controllers;
+package esprit.tn.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,9 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import tn.esprit.entities.OffreEmploi;
-import tn.esprit.services.ServiceOffre;
-import java.awt.event.MouseEvent;
+import esprit.tn.entities.OffreEmploi;
+import esprit.tn.services.ServiceOffre;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;

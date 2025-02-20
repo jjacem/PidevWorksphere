@@ -1,5 +1,7 @@
-package tn.esprit.controllers;
+package esprit.tn.controllers;
 
+import esprit.tn.services.ServiceUser;
+import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +13,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tn.esprit.entities.OffreEmploi;
-import tn.esprit.services.ServiceCandidature;
-import tn.esprit.services.ServiceOffre;
-import tn.esprit.services.ServiceUser;
+import esprit.tn.entities.OffreEmploi;
+import esprit.tn.services.ServiceCandidature;
+import esprit.tn.services.ServiceOffre;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -67,7 +68,7 @@ public class AfficherOffreCandidatController {
             ServiceCandidature serviceCandidature = new ServiceCandidature();
             
             // Get the current user (assuming it's a candidate)
-            var currentUser = serviceUser.getCandidat();
+            var currentUser = SessionManager.extractuserfromsession();
             if (currentUser != null) {
                 // Load all offers this user has applied to
                 List<Integer> appliedOffers = serviceCandidature.getAppliedOfferIds(currentUser.getIdUser());

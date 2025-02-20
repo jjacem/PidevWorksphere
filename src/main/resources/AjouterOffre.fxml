@@ -9,13 +9,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AjouterOffreController">
+<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterOffreController">
    <children>
       <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="108.0" style="-fx-background-color: #0086b3;">
          <children>
             <ImageView fitHeight="73.0" fitWidth="108.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/images/474188139_2099437073823213_5214087864459817142_n.png " />
+                  <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png " />
                </image>
             </ImageView>
             <Button layoutX="16.0" layoutY="95.0" mnemonicParsing="false" onAction="#AjouterOffre" prefHeight="26.0" prefWidth="76.0" text="AJOUTER" />

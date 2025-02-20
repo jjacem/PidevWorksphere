@@ -1,7 +1,8 @@
-package tn.esprit.services;
+package esprit.tn.services;
 
-import tn.esprit.entities.OffreEmploi;
-import tn.esprit.utils.MyDatabase;
+import esprit.tn.entities.OffreEmploi;
+import esprit.tn.utils.MyDatabase;
+
 
 import java.sql.*;
 import java.util.ArrayList;

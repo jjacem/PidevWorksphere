@@ -1,5 +1,8 @@
-package tn.esprit.controllers;
+package esprit.tn.controllers;
 
+import esprit.tn.entities.User;
+import esprit.tn.services.ServiceUser;
+import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,10 +18,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import tn.esprit.entities.Candidature;
-import tn.esprit.entities.User;
-import tn.esprit.services.ServiceCandidature;
-import tn.esprit.services.ServiceUser;
+import esprit.tn.entities.Candidature;
+import esprit.tn.services.ServiceCandidature;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,7 +74,7 @@ public class AfficherCandidatureController implements Initializable {
         ServiceCandidature serviceCandidature = new ServiceCandidature();
 
         try {
-            User currentUser = serviceUser.getCandidat();
+            User currentUser = SessionManager.extractuserfromsession();
             if (currentUser != null) {
                 System.out.println("Current user ID: " + currentUser.getIdUser()); // Debug line
                 List<Candidature> candidatures = serviceCandidature.getCandidaturesByUser(currentUser.getIdUser());

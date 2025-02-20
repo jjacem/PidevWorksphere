@@ -18,8 +18,8 @@ public class DashboardHR {
 
     @FXML
     private VBox contentArea;
-@FXML
-private ImageView img;
+    @FXML
+    private ImageView img;
     private void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
@@ -77,5 +77,11 @@ private ImageView img;
 
     public void entretien(ActionEvent actionEvent) {
         loadPage("/AffichageEntretien.fxml");
+    }
+
+    public void offre(ActionEvent actionEvent) {
+        loadPage("/AfficherOffre.fxml");
+
+
     }
 }
