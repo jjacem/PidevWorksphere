@@ -60,13 +60,19 @@ public class AffichageEntretienbyemployeeId {
                     setGraphic(null);
                 } else {
                     Button btnModifier = new Button("Modifier");
+                    btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
                     Button btnFeedback;
 
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄Voir Feedback");
+                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
                     } else {
                         btnFeedback = new Button("➕ Ajouter Feedback");
+                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
                         btnFeedback.setOnAction(event -> {
                             ajouterFeedback(entretien.getId());
                             try {

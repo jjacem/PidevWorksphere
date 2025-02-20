@@ -48,6 +48,7 @@
             <Button fx:id="btnChangeProfile11" layoutX="30.0" layoutY="248.0" onAction="#Formation" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Gestion Formations" />
          <Button fx:id="btnChangeProfile111" layoutX="30.0" layoutY="286.0" onAction="#offre" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="offres emploi" />
          <Button fx:id="btnChangeProfile2" layoutX="30.0" layoutY="81.0" onAction="#Effectuersponsor" onDragDetected="#changemdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 changer mot de passe" />
+         <Button fx:id="btnentretien" onAction="#entretien" onDragDetected="#changemdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="entretien" />
         </VBox>
 
         <!-- Spacer to push logout button to bottom -->
@@ -65,7 +66,7 @@
     </HBox>
 
     <!-- Main Content -->
-    <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+    <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
         <!-- Content will be loaded dynamically here -->
     </VBox>
 

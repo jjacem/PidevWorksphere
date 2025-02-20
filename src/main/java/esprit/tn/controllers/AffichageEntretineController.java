@@ -66,12 +66,18 @@ public class AffichageEntretineController {
                 } else {
                     Button btnModifier = new Button("Modifier");
                     Button btnSupprimer = new Button("Supprimer");
+                    btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+                    btnSupprimer.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
+
 
 
                     Button btnFeedback;
 
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄Voir Feedback");
+                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
 
                         HBox buttonBox = new HBox(10,  btnFeedback);
@@ -86,6 +92,7 @@ public class AffichageEntretineController {
 
                     HBox buttonBox = new HBox(10, btnModifier, btnSupprimer);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
                             + "Description: " + entretien.getDescription() + "\n"
@@ -105,6 +112,9 @@ public class AffichageEntretineController {
 
                     } else {
                         Button btnAffecter = new Button("Affecter");
+                        btnAffecter.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
+
                         btnAffecter.setOnAction(event -> ouvrirPopupAffectation(entretien));
 
                         buttonBox.getChildren().add(0, btnAffecter);
