@@ -50,6 +50,16 @@ public class AjouterCandidatureController {
             alert.showAndWait();
             return; // Arrêter l'exécution si les champs ne sont pas remplis
         }
+        // Vérification du format du CV (doit être un fichier .pdf)
+        if (!cv.endsWith(".pdf")) {
+            System.out.println("Le CV doit être un fichier au format PDF.");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Format de CV invalide");
+            alert.setContentText("Le CV doit être un fichier au format .pdf.");
+            alert.showAndWait();
+            return; // Arrêter l'exécution si le format n'est pas correct
+        }
 
         // Créer une instance de ServiceUser pour récupérer le candidat
         ServiceUser serviceUser = new ServiceUser();

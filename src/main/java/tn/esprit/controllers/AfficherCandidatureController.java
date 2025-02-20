@@ -75,8 +75,8 @@ public class AfficherCandidatureController implements Initializable {
         try {
             User currentUser = serviceUser.getCandidat();
             if (currentUser != null) {
-                System.out.println("Current user ID: " + currentUser.getIdU()); // Debug line
-                List<Candidature> candidatures = serviceCandidature.getCandidaturesByUser(currentUser.getIdU());
+                System.out.println("Current user ID: " + currentUser.getIdUser()); // Debug line
+                List<Candidature> candidatures = serviceCandidature.getCandidaturesByUser(currentUser.getIdUser());
                 System.out.println("Found " + candidatures.size() + " candidatures"); // Debug line
                 
                 candidaturesList.clear();

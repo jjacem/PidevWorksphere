@@ -20,7 +20,7 @@ public class ServiceCandidature implements IService<Candidature> {
     @Override
     public void ajouter(Candidature candidature) throws SQLException {
         String req = "insert into candidature (id_offre, id_candidat, cv, lettre_motivation) " +
-                "values(" + candidature.getIdOffre().getIdOffre() + ", " + candidature.getIdCandidat().getIdU() +
+                "values(" + candidature.getIdOffre().getIdOffre() + ", " + candidature.getIdCandidat().getIdUser() +
                 ", '" + candidature.getCv() + "', '" + candidature.getLettreMotivation() + "')";
 
         Statement statement = connection.createStatement();
@@ -34,7 +34,7 @@ public class ServiceCandidature implements IService<Candidature> {
 
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         preparedStatement.setInt(1, candidature.getIdOffre().getIdOffre());
-        preparedStatement.setInt(2, candidature.getIdCandidat().getIdU());
+        preparedStatement.setInt(2, candidature.getIdCandidat().getIdUser());
         preparedStatement.setString(3, candidature.getCv());
         preparedStatement.setString(4, candidature.getLettreMotivation());
         preparedStatement.setInt(5, candidature.getIdCandidature());
@@ -55,7 +55,7 @@ public class ServiceCandidature implements IService<Candidature> {
     @Override
     public List<Candidature> afficher() throws SQLException {
         List<Candidature> candidatures = new ArrayList<>();
-        String req = "select * from candidature c join offre o on c.id_offre = o.id_offre join user u on c.id_candidat = u.id_u where u.role = 'candidat'";
+        String req = "select * from candidature c join offre o on c.id_offre = o.id_offre join user u on c.id_candidat = u.id_user where u.role = 'candidat'";
 
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(req);
@@ -64,7 +64,9 @@ public class ServiceCandidature implements IService<Candidature> {
             Candidature candidature = new Candidature();
             candidature.setIdCandidature(rs.getInt("id_candidature"));
             candidature.setIdOffre(new OffreEmploi(rs.getInt("id_offre"), rs.getInt("salaire"), rs.getString("titre"), rs.getString("description"), rs.getString("type_contrat"), rs.getString("lieu_travail"), rs.getString("statut_offre"), rs.getString("experience"), rs.getDate("date_publication"), rs.getDate("date_limite")));
-            candidature.setIdCandidat(new User(rs.getInt("id_candidat"), rs.getString("nom_u"), rs.getString("prenom_u"), rs.getString("mdp_u"), rs.getString("email_u"), Role.valueOf(rs.getString("role").toUpperCase())));
+            User candidat = new User();
+            candidat.setIdUser(rs.getInt("id_user"));
+            candidature.setIdCandidat(candidat);
             candidature.setCv(rs.getString("cv"));
             candidature.setLettreMotivation(rs.getString("lettre_motivation"));
 

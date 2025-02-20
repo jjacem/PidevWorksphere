@@ -75,7 +75,7 @@ public class AfficherOffreController {
                         "Lieu de travail : %-15s\n" +
                         "Salaire : %-10s TND\n" +
                         "Statut : %-10s\n" +
-                        "Expérience requise : %-5s (   / an  )\n" +
+                        "Expérience requise : %-5s\n" +
                         "Date de publication : %-15s\n" +
                         "Date limite : %-15s\n" +
                         "-------------------------------\n",
@@ -143,7 +143,7 @@ public class AfficherOffreController {
                                 "Lieu de travail : %-15s\n" +
                                 "Salaire : %-10s TND\n" +
                                 "Statut : %-10s\n" +
-                                "Expérience requise : %-5s (   / an  )\n" +
+                                "Expérience requise : %-5s\n" +
                                 "Date de publication : %-15s\n" +
                                 "Date limite : %-15s\n" +
                                 "-------------------------------\n",

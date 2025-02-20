@@ -14,7 +14,9 @@ import tn.esprit.services.ServiceOffre;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 
 public class ModifierOffreController {
 
@@ -38,7 +40,6 @@ public class ModifierOffreController {
     private DatePicker datelimiteField;
 
     private OffreEmploi offre; // L'offre à modifier
-
     public void remplirChamps(OffreEmploi offre) {
         System.out.println(offre);
         this.offre = offre;
@@ -49,16 +50,63 @@ public class ModifierOffreController {
         lieuTravailField.setText(offre.getLieuTravail());
         experienceField.setText(String.valueOf(offre.getExperience()));
         statutoffreField.setText(offre.getStatutOffre());
-        //datepublicationField.setValue(offre.getDatePublication().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
-        //datelimiteField.setValue(offre.getDateLimite().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        // Gestion de la date de publication
+        if (offre.getDatePublication() != null) {
+            Date datePublication = offre.getDatePublication();
+            LocalDate localDatePublication;
+
+            if (datePublication instanceof java.sql.Date) {
+                localDatePublication = ((java.sql.Date) datePublication).toLocalDate();
+            } else {
+                localDatePublication = datePublication.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+            }
+
+            datepublicationField.setValue(localDatePublication);
+        }
+
+        // Gestion de la date limite
+        if (offre.getDateLimite() != null) {
+            Date dateLimite = offre.getDateLimite();
+            LocalDate localDateLimite;
+
+            if (dateLimite instanceof java.sql.Date) {
+                localDateLimite = ((java.sql.Date) dateLimite).toLocalDate();
+            } else {
+                localDateLimite = dateLimite.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+            }
+
+            datelimiteField.setValue(localDateLimite);
+        }
 
         System.out.println("Date Publication : " + offre.getDatePublication());
         System.out.println("Date Limite : " + offre.getDateLimite());
-
-
-
     }
+
+
+//    public void remplirChamps(OffreEmploi offre) {
+//        System.out.println(offre);
+//        this.offre = offre;
+//        titreField.setText(offre.getTitre());
+//        descriptionField.setText(offre.getDescription());
+//        typeContratField.setText(offre.getTypeContrat());
+//        salaireField.setText(String.valueOf(offre.getSalaire()));
+//        lieuTravailField.setText(offre.getLieuTravail());
+//        experienceField.setText(String.valueOf(offre.getExperience()));
+//        statutoffreField.setText(offre.getStatutOffre());
+//        datepublicationField.setValue(offre.getDatePublication().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//        datelimiteField.setValue(offre.getDateLimite().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//
+//        System.out.println("Date Publication : " + offre.getDatePublication());
+//        System.out.println("Date Limite : " + offre.getDateLimite());
+//
+//
+//
+//    }
 
 
     // Méthode pour appliquer les modifications

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tn.esprit.entities.OffreEmploi;
 import tn.esprit.services.ServiceCandidature;
@@ -31,6 +32,8 @@ public class AfficherOffreCandidatController {
     private Button Postuler;
     @FXML
     private ListView<OffreEmploi> lv_offre;
+    @FXML
+    private TextField searchField;  // Ajout du champ de recherche
 
     @FXML
     void initialize() {
@@ -38,6 +41,11 @@ public class AfficherOffreCandidatController {
         loadAppliedOffers();
         chargerOffres();
         setupListView();
+
+        // Ajouter un listener pour effectuer une recherche en temps réel
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchOffres(newValue);
+        });
     }
     @FXML
     private void voirCandidatures() {
@@ -62,7 +70,7 @@ public class AfficherOffreCandidatController {
             var currentUser = serviceUser.getCandidat();
             if (currentUser != null) {
                 // Load all offers this user has applied to
-                List<Integer> appliedOffers = serviceCandidature.getAppliedOfferIds(currentUser.getIdU());
+                List<Integer> appliedOffers = serviceCandidature.getAppliedOfferIds(currentUser.getIdUser());
                 appliedOfferIds.addAll(appliedOffers);
             }
         } catch (SQLException e) {
@@ -165,6 +173,25 @@ public class AfficherOffreCandidatController {
         OffreEmploi selectedOffer = lv_offre.getSelectionModel().getSelectedItem();
         if (selectedOffer != null) {
             Postuler.setDisable(appliedOfferIds.contains(selectedOffer.getIdOffre()));
+        }
+    }
+
+
+    // Méthode pour rechercher des offres en fonction du terme de recherche
+    private void searchOffres(String searchTerm) {
+        ServiceOffre serviceOffre = new ServiceOffre();
+
+        try {
+            List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
+            offreList.clear();
+
+            for (OffreEmploi offre : resultats) {
+                offreList.add(offre);
+            }
+
+            lv_offre.setItems(offreList);
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche : " + e.getMessage());
         }
     }
 }
