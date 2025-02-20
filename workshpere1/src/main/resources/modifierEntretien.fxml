@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ModifierEntretienController"
+            prefHeight="400.0" prefWidth="600.0">
+
+
+    <children>
+        <VBox alignment="CENTER" layoutX="100.0" layoutY="50.0" spacing="15">
+            <HBox spacing="10">
+                <Label text="Titre :" />
+                <TextField fx:id="tf_titre" promptText="Entrez le titre" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Description :" />
+                <TextField fx:id="tf_description" promptText="Entrez une description" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Date Entretien :" />
+                <DatePicker fx:id="dp_date_entretien" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Heure Entretien :" />
+                <Spinner fx:id="sp_heure_entretien" editable="true" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Type Entretien :" />
+                <ComboBox fx:id="cb_type_entretien" promptText="Sélectionnez un type" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Statut :" />
+                <CheckBox fx:id="cb_status" text="Terminé" />
+            </HBox>
+
+            <HBox spacing="20">
+                <Button fx:id="btnModifier" onAction="#modifierEntretien" text="Modifier" />
+                <Button onAction="#fermerFenetre" text="Annuler" />
+            </HBox>
+        </VBox>
+    </children>
+
+</AnchorPane>
