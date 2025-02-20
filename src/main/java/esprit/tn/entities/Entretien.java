@@ -1,8 +1,7 @@
-package entities;
+package esprit.tn.entities;
 
 import java.sql.Time;
 import java.util.Date;
-import java.util.Timer;
 
 public class Entretien {
 

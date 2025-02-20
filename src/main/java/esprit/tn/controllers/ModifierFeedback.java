@@ -1,6 +1,6 @@
-package controllers;
+package esprit.tn.controllers;
 
-import entities.Feedback;
+import esprit.tn.entities.Feedback;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import services.FeedbackService;
+import esprit.tn.services.FeedbackService;
 
 import java.io.IOException;
 import java.sql.SQLException;

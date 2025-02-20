@@ -1,7 +1,8 @@
-package services;
+package esprit.tn.services;
 
-import entities.Entretien;
-import entities.TypeEntretien;
+import esprit.tn.entities.Entretien;
+import esprit.tn.entities.TypeEntretien;
+import services.Iservice;
 import utils.MyDatabase;
 
 import java.sql.*;

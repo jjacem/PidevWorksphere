@@ -1,7 +1,6 @@
-package controllers;
+package esprit.tn.controllers;
 
-import entities.Entretien;
-import entities.Feedback;
+import esprit.tn.entities.Feedback;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import services.EntretienService;
-import services.FeedbackService;
+import esprit.tn.services.EntretienService;
+import esprit.tn.services.FeedbackService;
 
 import java.io.IOException;
 import java.sql.SQLException;

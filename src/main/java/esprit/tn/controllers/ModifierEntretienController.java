@@ -1,7 +1,7 @@
-package controllers;
+package esprit.tn.controllers;
 
-import entities.Entretien;
-import entities.TypeEntretien;
+import esprit.tn.entities.Entretien;
+import esprit.tn.entities.TypeEntretien;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import services.EntretienService;
+import esprit.tn.services.EntretienService;
 
 import java.io.IOException;
 import java.time.ZoneId;
@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 

@@ -1,6 +1,8 @@
-package controllers;
+package esprit.tn.controllers;
 
-import entities.Entretien;
+import esprit.tn.entities.Entretien;
+import esprit.tn.entities.User;
+import esprit.tn.services.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,17 +13,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import services.EntretienService;
+import esprit.tn.services.EntretienService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AffichageEntretienbyemployeeId {
+public class AffichageEntretineController {
     @FXML
     private ListView<Entretien> lv_entretien;
 
     private EntretienService entretienService = new EntretienService();
+
+    private ServiceUser su = new ServiceUser();
+    esprit.tn.entities.User users = new User() ;
+
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
 
@@ -45,7 +51,7 @@ public class AffichageEntretienbyemployeeId {
     }
 
     private void afficherEntretien() throws SQLException {
-        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(28);
+        List<Entretien> entretiens = entretienService.afficher();
         ObservableList<Entretien> data = FXCollections.observableArrayList(entretiens);
         allEntretiens.setAll(entretiens);
         lv_entretien.setItems(allEntretiens);
@@ -59,26 +65,26 @@ public class AffichageEntretienbyemployeeId {
                     setGraphic(null);
                 } else {
                     Button btnModifier = new Button("Modifier");
+                    Button btnSupprimer = new Button("Supprimer");
+
+
                     Button btnFeedback;
 
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄Voir Feedback");
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
-                    } else {
-                        btnFeedback = new Button("➕ Ajouter Feedback");
-                        btnFeedback.setOnAction(event -> {
-                            ajouterFeedback(entretien.getId());
-                            try {
-                                afficherEntretien();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        });
+
+                        HBox buttonBox = new HBox(10,  btnFeedback);
+
+
                     }
 
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
+                    btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
 
-                    HBox buttonBox = new HBox(10, btnModifier, btnFeedback);
+
+
+                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
@@ -87,8 +93,25 @@ public class AffichageEntretienbyemployeeId {
                             + "📌 Type: " + entretien.getType_entretien() + "\n"
                             + "✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
 
+                    if (entretien.getEmployeId() != 0) {
+                        try {
+                            User users = su.findbyid(entretien.getEmployeId());
+                            System.out.println(users);
+                            setText(getText() + "\n🔒 Entretien déjà affecté chez  " +  users.getNom() +"  " + users.getPrenom());
+                            setGraphic(buttonBox);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    } else {
+                        Button btnAffecter = new Button("Affecter");
+                        btnAffecter.setOnAction(event -> ouvrirPopupAffectation(entretien));
+
+                        buttonBox.getChildren().add(0, btnAffecter);
+                        setGraphic(buttonBox);
+                    }
+
                     setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
-                    setGraphic(buttonBox);
                 }
             }
         });
@@ -177,13 +200,13 @@ public class AffichageEntretienbyemployeeId {
 
             lv_entretien.getScene().setRoot(root);
 
-            voirFeedbackController controller = loader.getController();
+           voirFeedbackController controller = loader.getController();
             controller.chargerFeedback(feedbackId);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Voir Feedback");
-            stage.show();
+           stage.show();
             afficherEntretien();
         } catch (IOException e) {
             e.printStackTrace();
@@ -210,19 +233,81 @@ public class AffichageEntretienbyemployeeId {
             e.printStackTrace();
         }
 
-    }
+}
 
 
     void refreshDatas() throws SQLException {
 
-        afficherEntretien();
+            afficherEntretien();
 
 
+    }
+
+
+    private void ouvrirPopupAffectation(Entretien entretien) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/affecterEntretien.fxml"));
+            Parent root = loader.load();
+
+            AffecterEntretien controller = loader.getController();
+            controller.setEntretien(entretien);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Affecter un employé à l'entretien");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
-package services;
+package esprit.tn.services;
 
-import entities.Feedback;
+import esprit.tn.entities.Feedback;
+import services.Iservice;
 import utils.MyDatabase;
 
 import java.sql.*;

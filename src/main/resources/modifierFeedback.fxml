@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.ModifierFeedback"
+            fx:controller="esprit.tn.controllers.ModifierFeedback"
             prefHeight="400.0" prefWidth="600.0"
             style="-fx-background-color: linear-gradient(to bottom right, #4a90e2, #6a11cb);">
 

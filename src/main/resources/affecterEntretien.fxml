@@ -10,7 +10,7 @@
 
     <VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="controllers.AffecterEntretien">
+          fx:controller="esprit.tn.controllers.AffecterEntretien">
         <Label text="Sélectionnez un employé" />
         <ComboBox fx:id="cb_employes" prefWidth="200"/>
         <HBox spacing="10">

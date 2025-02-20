@@ -1,9 +1,9 @@
-package controllers;
+package esprit.tn.controllers;
 
-import entities.Entretien;
-import entities.User;
+import esprit.tn.entities.Entretien;
+import esprit.tn.entities.User;
+import esprit.tn.services.ServiceUser;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import services.EntretienService;
-import services.ServiceUser;
+import esprit.tn.services.EntretienService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -51,7 +50,7 @@ public class AffecterEntretien {
 
     private void chargerEmployes() {
         try {
-            List<User> employes = su.afficher();
+            List<esprit.tn.entities.User> employes = su.afficher();
             cb_employes.setItems(FXCollections.observableArrayList(employes));
 
             cb_employes.setCellFactory(param -> new javafx.scene.control.ListCell<User>() {
@@ -86,7 +85,7 @@ public class AffecterEntretien {
 
 
     private void affecterEntretien() {
-        User employeSelectionne = (User) cb_employes.getValue();
+        esprit.tn.entities.User employeSelectionne = (esprit.tn.entities.User) cb_employes.getValue();
         if (employeSelectionne != null) {
             entretienService.affecterEntretien(employeSelectionne.getIdUser(), entretien.getId());
             afficherConfirmation();

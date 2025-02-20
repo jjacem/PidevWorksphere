@@ -1,4 +1,4 @@
-package entities;
+package esprit.tn.entities;
 
 public enum TypeEntretien {
 
