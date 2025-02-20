@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainFX extends Application {
 
@@ -20,6 +21,8 @@ public class MainFX extends Application {
         try {
             Parent root =fxmlLoader.load();
             Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("afficher sponsor");
             primaryStage.show();

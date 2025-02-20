@@ -85,7 +85,14 @@ public class AffichageEntretineController {
 
 
                     HBox buttonBox = new HBox(10, btnModifier, btnSupprimer);
-                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+//                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+                    buttonBox.setStyle(
+                            "-fx-padding: 5px; " +
+                                    "-fx-alignment: center-left;" +
+                                    "-fx-text-fill: black; "
+                    );
+
+                    buttonBox.getStyleClass().add("blue-button");
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
                             + "Description: " + entretien.getDescription() + "\n"
@@ -105,6 +112,13 @@ public class AffichageEntretineController {
 
                     } else {
                         Button btnAffecter = new Button("Affecter");
+                        btnAffecter.setStyle(
+                                "-fx-padding: 5px; " +
+                                        "-fx-alignment: center-left; " +
+                                        "-fx-text-fill: black;"
+                        );
+
+                        btnAffecter.getStyleClass().add("blue-button");
                         btnAffecter.setOnAction(event -> ouvrirPopupAffectation(entretien));
 
                         buttonBox.getChildren().add(0, btnAffecter);

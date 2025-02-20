@@ -64,9 +64,21 @@ public class AffichageEntretienbyemployeeId {
 
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄Voir Feedback");
+                        btnFeedback.setStyle(
+                                "-fx-padding: 5px; " +
+                                        "-fx-alignment: center-left; " +
+                                        "-fx-text-fill: black;"
+                        );
+
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
                     } else {
                         btnFeedback = new Button("➕ Ajouter Feedback");
+
+                        btnFeedback.setStyle(
+                                "-fx-padding: 5px; " +
+                                        "-fx-alignment: center-left; " +
+                                        "-fx-text-fill: black;"
+                        );
                         btnFeedback.setOnAction(event -> {
                             ajouterFeedback(entretien.getId());
                             try {
@@ -80,7 +92,16 @@ public class AffichageEntretienbyemployeeId {
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
 
                     HBox buttonBox = new HBox(10, btnModifier, btnFeedback);
-                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+//                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+
+                    buttonBox.setStyle(
+                            "-fx-padding: 5px; " +
+                                    "-fx-alignment: center-left; " +
+                                    "-fx-text-fill: black;"
+                    );
+
+                    buttonBox.getStyleClass().add("blue-button");
+
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
                             + "Description: " + entretien.getDescription() + "\n"

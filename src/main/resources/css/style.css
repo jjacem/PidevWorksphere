@@ -1,0 +1,8 @@
+.blue-button {
+    -fx-padding: 5px;
+    -fx-alignment: center-left;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+
+}
