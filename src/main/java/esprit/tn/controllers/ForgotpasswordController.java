@@ -2,16 +2,14 @@ package esprit.tn.controllers;
 
 import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.Emailsend;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class ForgotpasswordController {
     @FXML
@@ -34,58 +32,73 @@ public class ForgotpasswordController {
     private final ServiceUser serviceUser = new ServiceUser();
     private String generatedCode;
     private String userEmail;
-private int id;
-    public void onSendMail() throws SQLException {
+    private int userId = -1;
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+
+    @FXML
+    private void onSendMail(ActionEvent event) throws SQLException {
         userEmail = mail.getText().trim();
 
-        if (serviceUser.findidbyemail(userEmail) != -1) {
-            Random random = new Random();
-            StringBuilder sb = new StringBuilder(8);
-            for (int i = 0; i < 8; i++) {
-                sb.append(random.nextInt(10));
-            }
-            generatedCode = sb.toString();
+        if (!isValidEmail(userEmail)) {
+            showAlert("Invalid Email", "Please enter a valid email address.", Alert.AlertType.ERROR);
+            return;
+        }
 
+        userId = serviceUser.findidbyemail(userEmail);
 
-            Emailsend.sendEmail(userEmail, "Verification Code", "Your verification code is: " + generatedCode);
+        if (userId != -1) {
+            generatedCode = generateVerificationCode(6);
+            Emailsend.sendEmail(userEmail, "Password Reset Code", "Your verification code is: " + generatedCode);
 
-            // Show verification input field
             verificationBox.setVisible(true);
             showAlert("Success", "A verification code has been sent to your email.", Alert.AlertType.INFORMATION);
         } else {
-            showAlert("Error", "Email not found.", Alert.AlertType.ERROR);
+            showAlert("Error", "Email not found. Please enter a registered email.", Alert.AlertType.ERROR);
         }
     }
 
-    public void onVerifyCode() {
+    @FXML
+    private void onVerifyCode(ActionEvent event) {
         String enteredCode = verificationCodeField.getText().trim();
+
+        if (!isNumeric(enteredCode)) {
+            showAlert("Invalid Code", "Verification code must be numeric.", Alert.AlertType.ERROR);
+            return;
+        }
+
         if (enteredCode.equals(generatedCode)) {
             verificationBox.setVisible(false);
             resetPasswordBox.setVisible(true);
         } else {
-            showAlert("Error", "Incorrect verification code. Try again.", Alert.AlertType.ERROR);
+            showAlert("Error", "Incorrect verification code. Please try again.", Alert.AlertType.ERROR);
         }
     }
 
-    public void onResetPassword() throws SQLException {
+    @FXML
+    private void onResetPassword(ActionEvent event) throws SQLException {
         String newPassword = newPasswordField.getText().trim();
         String repeatPassword = repeatPasswordField.getText().trim();
 
-        if (newPassword.isEmpty() || repeatPassword.isEmpty()) {
-            showAlert("Error", "Please enter your new password in both fields.", Alert.AlertType.ERROR);
+        if (!isValidPassword(newPassword)) {
+            showAlert("Weak Password", "Password must be at least 8 characters long and include:\n- One uppercase letter\n- One lowercase letter\n- One number\n- One special character (@$!%*?&)", Alert.AlertType.ERROR);
             return;
         }
 
         if (!newPassword.equals(repeatPassword)) {
-            showAlert("Error", "Passwords do not match.", Alert.AlertType.ERROR);
+            showAlert("Error", "Passwords do not match. Please try again.", Alert.AlertType.ERROR);
             return;
         }
 
-        // Update password in database
-        serviceUser.changermdp( newPassword,serviceUser.findidbyemail(userEmail));
-        showAlert("Success", "Your password has been updated successfully.", Alert.AlertType.INFORMATION);
+        if (userId == -1) {
+            showAlert("Error", "Invalid session. Please restart the process.", Alert.AlertType.ERROR);
+            return;
+        }
 
-        // Hide the password reset box
+        serviceUser.changermdp(newPassword, userId);
+        showAlert("Success", "Your password has been reset successfully.", Alert.AlertType.INFORMATION);
+
         resetPasswordBox.setVisible(false);
     }
 
@@ -95,5 +108,26 @@ private int id;
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private String generateVerificationCode(int length) {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(random.nextInt(10));
+        }
+        return sb.toString();
+    }
+
+    private boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    private boolean isNumeric(String str) {
+        return str.matches("\\d+");
+    }
+
+    private boolean isValidPassword(String password) {
+        return PASSWORD_PATTERN.matcher(password).matches();
     }
 }

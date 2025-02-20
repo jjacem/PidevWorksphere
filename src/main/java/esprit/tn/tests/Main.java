@@ -19,15 +19,60 @@ public class Main {
         //test
         //user
         ServiceUser serviceUser = new ServiceUser();
-
         User u1 = new User();
-        u1 = u1.RH("kassous", "eya", "eyakassous0@rh.com", "1234", "", Sexe.HOMME, "", 5, "conflicts manager");
+        u1 = u1.RH(
+                "Johnson",
+                "Emily",
+                "emily.johnson@rhcorp.com",
+                "SecurePass123",
+                "01/05/1985",
+                Sexe.FEMME,
+                "New York",
+                10,
+                "Senior HR Manager"
+        );
+
         User u2 = new User();
-        u2 = u2.Candidat("yassine", "bouras", "yassin18.gmail", "1234", "", Sexe.HOMME, "", 500.00);
+        u2 = u2.Candidat(
+                "Smith",
+                "James",
+                "james.smith24@gmail.com",
+                "Candid@t3Pass",
+                "12/11/1992",
+                Sexe.HOMME,
+                "Los Angeles",
+                750.50
+        );
+
         User u3 = new User();
-        u3 = u3.Manager("asma", "sallemi", "asma@gmail.com", "1234", "", Sexe.HOMME, "", "finance", 10, 5000000.00);
+        u3 = u3.Manager(
+                "Davis",
+                "Sophia",
+                "sophia.davis@financepro.com",
+                "Fin@nc3Guru",
+                "23/03/1980",
+                Sexe.FEMME,
+                "Chicago",
+                "Finance",
+                15,
+                2500000.00
+        );
+
         User u4 = new User();
-        u4 = u4.Employe("employeEya", "employeEya", "employeEya@gmail.com", "1234", "", Sexe.HOMME, "", "financier", 1000.00, 5, "finance", "compete");
+        u4 = u4.Employe(
+                "Miller",
+                "Daniel",
+                "daniel.miller@corp.com",
+                "Employ33Pass",
+                "09/09/1990",
+                Sexe.HOMME,
+                "San Francisco",
+                "IT Support",
+                1200.00,
+                8,
+                "Technology",
+                "Technical Support"
+        );
 
 //        try {
 //            serviceUser.ajouter(u4);
@@ -116,6 +161,9 @@ serviceUser.changermdp("1234",3);
 
 
     serviceUser.ajouter(u1);
+        serviceUser.ajouter(u2);
+        serviceUser.ajouter(u3);
+        serviceUser.ajouter(u4);
 
 
 

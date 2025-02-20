@@ -41,7 +41,7 @@
             <Button fx:id="btnProfile" onAction="#goprofile" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👤 Profile" />
             <Button fx:id="btnChangeProfile" onAction="#Equipe" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 Equipe" />
             <Button fx:id="btnGestionSponsor" onAction="#Projet" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📋 Projet" />
-         <Button fx:id="btnGestionSponsor1" layoutX="30.0" layoutY="132.0" onAction="#chagermdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📋 Projet" />
+         <Button fx:id="btnGestionSponsor1" layoutX="30.0" layoutY="132.0" onAction="#chagermdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Changer mot de passe" />
         </VBox>
 
         <!-- Spacer to push logout button to bottom -->

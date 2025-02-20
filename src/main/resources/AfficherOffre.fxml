@@ -13,7 +13,7 @@
          <children>
             <ImageView fitHeight="73.0" fitWidth="108.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/images/474188139_2099437073823213_5214087864459817142_n.png" />
+                  <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png" />
                </image>
             </ImageView>
             <Button layoutX="12.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToModifierOffre" prefHeight="26.0" prefWidth="83.0" text="MODIFIER" />
@@ -23,7 +23,7 @@
       </AnchorPane>
       <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@/images/offre-demploi-visuel-2-removebg-preview.png" />
+            <Image url="@/Images/offre-demploi-visuel-2-removebg-preview.png" />
          </image>
       </ImageView>
       <TextField fx:id="searchField" layoutX="270.0" layoutY="11.0" prefHeight="26.0" prefWidth="300.0" promptText="Rechercher une offre..." />
@@ -32,5 +32,6 @@
       <AnchorPane layoutX="319.0" layoutY="54.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
       <AnchorPane layoutX="370.0" layoutY="64.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
       <AnchorPane layoutX="420.0" layoutY="74.0" prefHeight="5.0" prefWidth="150.0" style="-fx-background-color: #0086b3;" />
+      <Button layoutX="606.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="179.0" style="-fx-font-size: 15px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH" />
    </children>
 </AnchorPane>

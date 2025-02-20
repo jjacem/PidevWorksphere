@@ -28,6 +28,8 @@ public class DashboardManager {
     @FXML
     private Text name;
     public void initialize() throws SQLException {
+
+        loadPage("/AfficherEquipe.fxml");
         User u = SessionManager.extractuserfromsession();
 
         if (u.getImageProfil() != null && !u.getImageProfil().isEmpty()) {

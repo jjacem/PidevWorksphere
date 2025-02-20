@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.Reclamation;
 import esprit.tn.services.ServiceReclamation;
+import esprit.tn.utils.Router;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -43,7 +44,7 @@ public class AjouterReclamationController {
 
 
         Reclamation reclamation = new Reclamation(
-                "En attente",
+                type.getValue(),
                 titre.getText(),
                 description.getText(),
                 type.getValue(),3
@@ -56,6 +57,8 @@ public class AjouterReclamationController {
             serviceReclamation.ajouter(reclamation);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réclamation ajoutée avec succès !");
             clearFields();
+            Router r=new Router();
+            r.navigate();
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter la réclamation.");
             e.printStackTrace();

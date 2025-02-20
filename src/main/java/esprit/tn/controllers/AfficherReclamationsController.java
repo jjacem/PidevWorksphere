@@ -41,7 +41,7 @@ public class AfficherReclamationsController {
     private ChoiceBox<String> statusChoiceBox;
 
     @FXML
-    private AnchorPane mainContainer; // The container where new views will be loaded
+    private AnchorPane mainContainer;
 
     private final ServiceReclamation serviceReclamation = new ServiceReclamation();
     private final ServiceReponse serviceReponse = new ServiceReponse();
@@ -50,6 +50,7 @@ public class AfficherReclamationsController {
     @FXML
     public void initialize() {
         try {
+            checkRole();
             logged = SessionManager.extractuserfromsession();
             setupStatusFilter();
             afficherReclamations();
@@ -108,31 +109,66 @@ public class AfficherReclamationsController {
                     HBox hbox = new HBox(15);
 
 
-                    Label statusLabel = new Label("Status: " + r.getStatus());
-                    Label titleLabel = new Label("Titre: " + r.getTitre());
+                    Label statusLabel = new Label("titre: " + r.getStatus());
+                    Label titleLabel = new Label("Status: " + r.getTitre());
                     Label descriptionLabel = new Label("Description: " + r.getDescription());
                     Label dateLabel = new Label("Date: " + r.getDatedepot());
 
                     hbox.getChildren().addAll( statusLabel, titleLabel, descriptionLabel, dateLabel);
+                    Reponse reponse = serviceReponse.checkForRepInRec(r.getId_reclamation());
+                    if (reponse !=null) {
 
-                    if (logged.getRole() == Role.EMPLOYE) {
-                        Reponse reponse = serviceReponse.checkForRepInRec(r.getId_reclamation());
 
                         Button btnView = new Button();
                         ImageView eyeIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/eye.png")));
-                        eyeIcon.setFitWidth(16); // Set width
-                        eyeIcon.setFitHeight(16); // Set height
+                        eyeIcon.setFitWidth(16);
+                        eyeIcon.setFitHeight(16);
                         btnView.setGraphic(eyeIcon);
 
                         btnView.setOnAction(e -> afficherReponse(r.getId_reclamation(), r.getId_user2()));
 
                         hbox.getChildren().add(btnView);
+                        try {
+                            if (SessionManager.extractuserfromsession().getRole().equals(Role.EMPLOYE)){
+                                Button ajrep = new Button();
+                                ImageView edit = new ImageView(new Image(getClass().getResourceAsStream("/icons/edit.png")));
+                                edit.setFitWidth(16);
+                                edit.setFitHeight(16);
+                                ajrep.setGraphic(edit);
+                                ajrep.setOnAction(e -> ajouterReclamation(r.getId_reclamation(), r.getId_user2()));
+
+                            }
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     setGraphic(hbox);
                 }
             }
         });
+    }
+
+    private void ajouterReclamation(int idReclamation, int idUser2) {
+
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReponse.fxml"));
+            Parent newContent = loader.load();
+
+            AjouterReponseController controller = loader.getController();
+            controller.setIds(idUser2, idReclamation);
+
+            mainContainer.getChildren().setAll(newContent);
+
+
+
+
+
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible d'afficher la réponse.");
+            e.printStackTrace();
+        }
     }
 
     private void afficherReponse(int idReclamation, int id_user) {
@@ -144,6 +180,10 @@ public class AfficherReclamationsController {
             controller.setIds(id_user, idReclamation);
 
             mainContainer.getChildren().setAll(newContent);
+
+
+
+
 
         } catch (IOException e) {
             showAlert("Erreur", "Impossible d'afficher la réponse.");
@@ -161,12 +201,22 @@ public class AfficherReclamationsController {
         alert.showAndWait();
     }
 
+    public void checkRole() throws SQLException {
+
+        if (SessionManager.extractuserfromsession().getRole().equals(Role.CANDIDAT)){
+
+            this.btnAjouter.isVisible();
+this.btnAjouter.isDisabled();
+
+
+
+    }}
+
     public void ajouterReclamation(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReponse.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReclamation.fxml"));
             Parent newContent = loader.load();
 
-            // Get the current stage
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(newContent);
             stage.setScene(scene);

@@ -43,7 +43,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-            <Button fx:id="signupbtn1" layoutX="227.0" layoutY="281.0" mnemonicParsing="false" onAction="#handlesignup" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Inscrire" textFill="WHITE" />
+                <Button fx:id="signupbtn1" layoutX="227.0" layoutY="281.0" mnemonicParsing="false" onAction="#handlesignup" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Inscrire" textFill="WHITE" />
             </children>
         </AnchorPane>
         <Label layoutX="300.0" layoutY="52.0" text="SE CONNECTER" textOverrun="CLIP">
@@ -55,11 +55,11 @@
             </effect>
         </Label>
         <Label layoutX="351.0" layoutY="98.0" text="Connecter à votre profil" textFill="#615c5c" />
-      <ImageView fitHeight="435.0" fitWidth="203.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Images/img_1.png" />
-         </image>
-      </ImageView>
+        <ImageView fitHeight="435.0" fitWidth="203.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/img_1.png" />
+            </image>
+        </ImageView>
     </children>
 
 </AnchorPane>

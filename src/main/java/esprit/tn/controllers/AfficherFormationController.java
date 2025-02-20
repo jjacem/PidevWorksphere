@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.Formation;
 import esprit.tn.services.ServiceFormation;
+import esprit.tn.utils.Router;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,7 +67,6 @@ public class AfficherFormationController {
                             setText(null);
                             setGraphic(null);
                         } else {
-                            // Création des éléments d'affichage
                             ImageView imageView = new ImageView();
                             imageView.setFitHeight(150);
                             imageView.setFitWidth(200);
@@ -74,6 +74,7 @@ public class AfficherFormationController {
                             if (formation.getPhoto() != null) {
                                 imageView.setImage(new Image(formation.getPhoto().toString()));
                             }
+
 
                             Label titreLabel = new Label( formation.getTitre());
                             titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
@@ -93,13 +94,11 @@ public class AfficherFormationController {
                             Button modifierButton = new Button("Modifier");
                             modifierButton.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             modifierButton.setOnAction(event -> {
-                                // Charger la page de modification
                                 try {
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierFormation.fxml"));
                                     Parent root = loader.load();
 
                                     ModifierFormationController controller = loader.getController();
-                                    controller.setFormation(formation);  // Passer l'objet formation à la page de modification
 
                                     Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                                     stage.getScene().setRoot(root);
@@ -113,20 +112,17 @@ public class AfficherFormationController {
                             supprimerButton.setOnAction(event -> deleteFormation(formation));
 
 
-                            // Conteneur pour aligner les boutons à droite
                             HBox buttonContainer = new HBox(10, modifierButton, supprimerButton);
                             buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-                            buttonContainer.setPadding(new Insets(30, 10, 10, 50)); // Marges autour des boutons
+                            buttonContainer.setPadding(new Insets(30, 10, 10, 50));
 
-                            // Conteneur pour les infos
                             VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
 
-                            // Conteneur principal avec l'image, les infos et les boutons
+
                             HBox mainBox = new HBox(5, imageView, infoBox);
                             mainBox.setAlignment(Pos.CENTER_LEFT);
                             mainBox.setPadding(new Insets(10));
 
-                            // Ajout du conteneur des boutons à droite
                             HBox fullBox = new HBox(10, mainBox, buttonContainer);
                             fullBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -142,23 +138,19 @@ public class AfficherFormationController {
 
 
     private void modifyFormation(Formation formation) {
-        System.out.println("Modification de la formation: " + formation.getTitre());
-        // Implémente la modification
+
     }
 
     private void deleteFormation(Formation formation) {
         ServiceFormation serviceFormation = new ServiceFormation();
 
-        // Création de l'alerte de confirmation
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText(null);
         alert.setContentText("Vous êtes sûr de vouloir supprimer cette formation ?");
 
-        // Attente de la réponse de l'utilisateur
         Optional<ButtonType> result = alert.showAndWait();
 
-        // Vérifier si l'utilisateur a cliqué sur OK
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 serviceFormation.supprimeFormation(formation);
@@ -188,7 +180,6 @@ public class AfficherFormationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterFormation.fxml"));
             Parent root = loader.load();
 
-            // Récupérer la scène actuelle et la remplacer
             Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -215,10 +206,20 @@ public class AfficherFormationController {
     }
 
     private void updateFormationListView(List<Formation> filteredFormations) {
-        // Convertir la liste filtrée en ObservableList pour l'affichage
         ObservableList<Formation> observableList = FXCollections.observableArrayList(filteredFormations);
         listformationid.setItems(observableList);
     }
 
 
-}
+
+    public void retourdashRH(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+}}}

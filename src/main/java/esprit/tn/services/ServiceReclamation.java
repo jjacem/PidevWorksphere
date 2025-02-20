@@ -198,7 +198,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     public List<Reclamation> filterbystats(String status) throws SQLException {
         List<Reclamation> responses = this.afficher();
         responses = responses.stream()
-                .filter(r -> r.getStatus().equals(status))
+                .filter(r -> r.getTitre().equals(status))
                 .collect(Collectors.toList());
         return responses;
     }
