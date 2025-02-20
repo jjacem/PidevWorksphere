@@ -10,17 +10,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 public class LoginContoller {
-
 
     @FXML
     private TextField mail;
@@ -31,8 +29,19 @@ public class LoginContoller {
 
     @FXML
     private void handleLogin() {
-        String email = mail.getText();
-        String password = mdp.getText();
+        String email = mail.getText().trim();
+        String password = mdp.getText().trim();
+
+        // Validate email and password
+        if (!isValidEmail(email)) {
+            showAlert("Validation Error", "Veuillez entrer un email valide.");
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            showAlert("Validation Error", "Le mot de passe doit contenir au moins 6 caractères.");
+            return;
+        }
 
         try {
             User user = userService.login(email, password);
@@ -42,12 +51,23 @@ public class LoginContoller {
 
                 navigate(SessionManager.getRole());
             } else {
-                showAlert("Login Failed", "Invalid email or password.");
+                showAlert("Login Failed", "Email ou mot de passe incorrect.");
             }
         } catch (SQLException e) {
-            showAlert("Database Error", "An error occurred while trying to log in.");
+            showAlert("Database Error", "Une erreur est survenue lors de la connexion.");
             System.err.println("Login Error: " + e.getMessage());
         }
+    }
+
+    // Email Validation
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return Pattern.matches(emailRegex, email);
+    }
+
+    // Password Validation (at least 6 characters)
+    private boolean isValidPassword(String password) {
+        return password.length() >= 6;
     }
 
     private void navigate(String role) {
@@ -58,7 +78,7 @@ public class LoginContoller {
             case "RH" -> "/DashboardHR.fxml";
             case "EMPLOYE" -> "/DashboardEmploye.fxml";
             default -> {
-                showAlert("Navigation Error", "Unknown role: " + role);
+                showAlert("Navigation Error", "Rôle inconnu: " + role);
                 yield null;
             }
         };
@@ -73,11 +93,10 @@ public class LoginContoller {
             stage.setTitle(role + " Dashboard");
             stage.show();
         } catch (IOException e) {
-            showAlert("Loading Error", "Error loading FXML: " + e.getMessage());
+            showAlert("Loading Error", "Erreur de chargement de la page: " + e.getMessage());
             System.err.println("Error loading FXML: " + e.getMessage());
         }
     }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -86,35 +105,35 @@ public class LoginContoller {
         alert.setContentText(message);
         alert.showAndWait();
     }
-@FXML
-    public void handlesignup(ActionEvent actionEvent)
-    {
+
+    @FXML
+    public void handlesignup(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterUser.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) mail.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Sign Up");
+            stage.setTitle("Inscription");
             stage.show();
         } catch (IOException e) {
-            showAlert("Loading Error", "Error loading FXML: " + e.getMessage());
+            showAlert("Loading Error", "Erreur de chargement: " + e.getMessage());
             System.err.println("Error loading FXML: " + e.getMessage());
         }
-
     }
-@FXML
-    public void forgotpassword(MouseEvent mouseEvent) {
+
+    @FXML
+    public void forgotpassword(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Forgotpassword.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) mail.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Forgot Password");
+            stage.setTitle("Mot de passe oublié");
             stage.show();
         } catch (IOException e) {
-            showAlert("Loading Error", "Error loading FXML: " + e.getMessage());
+            showAlert("Loading Error", "Erreur de chargement: " + e.getMessage());
             System.err.println("Error loading FXML: " + e.getMessage());
         }
     }

@@ -5,12 +5,16 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.SessionManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class ModifierCompteController {
     @FXML
@@ -23,6 +27,9 @@ public class ModifierCompteController {
     private TextField salaireAttendu, competence, experienceTravail, nombreProjet, anneeExperience, specialisation;
     @FXML
     private Label salaireLabel, competenceLabel, experienceLabel, projetLabel, anneeExpLabel, specialisationLabel;
+
+    private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    private final Pattern numericPattern = Pattern.compile("\\d+"); // Only digits allowed
 
     private String role = SessionManager.getRole();
     private int userId;
@@ -79,8 +86,8 @@ public class ModifierCompteController {
     }
 
     private void positionFieldsAndButton() {
-        double startY = 310.0; // Start placing dynamic fields below fixed inputs
-        double spacing = 40.0; // Space between fields
+        double startY = 310.0;
+        double spacing = 40.0;
 
         List<Node> fields = Arrays.asList(
                 salaireLabel, salaireAttendu,
@@ -91,7 +98,6 @@ public class ModifierCompteController {
                 specialisationLabel, specialisation
         );
 
-        // Position only visible fields properly
         for (int i = 0; i < fields.size(); i += 2) {
             Label label = (Label) fields.get(i);
             TextField input = (TextField) fields.get(i + 1);
@@ -99,15 +105,14 @@ public class ModifierCompteController {
             if (label.isVisible() && input.isVisible()) {
                 label.setLayoutY(startY);
                 input.setLayoutY(startY + 20);
-                startY += spacing; // Move down for next pair
+                startY += spacing;
             }
         }
 
-        // Place the save button after the last visible input field
         savebutton.setLayoutY(startY + 20);
     }
 
-
+    // **Fix: Ensure hideAllFields is properly declared**
     private void hideAllFields() {
         List<Node> allFields = Arrays.asList(
                 salaireAttendu, salaireLabel,
@@ -124,6 +129,7 @@ public class ModifierCompteController {
         }
     }
 
+    // **Fix: Ensure showFields is properly declared**
     private void showFields(Node... nodes) {
         for (Node node : nodes) {
             node.setVisible(true);
@@ -135,9 +141,7 @@ public class ModifierCompteController {
     public void saveChanges() {
         ServiceUser serviceUser = new ServiceUser();
 
-        if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
-                adresse.getText().isEmpty() || sexe.getValue() == null || imageProfil.getText().isEmpty()) {
-            showAlert("Input Error", "Please fill in all fields.");
+        if (!validateInputs()) {
             return;
         }
 
@@ -174,9 +178,44 @@ public class ModifierCompteController {
             serviceUser.modifier(modifiedUser);
             showAlert("Success", "Account updated successfully!");
 
+            // Refresh window after saving
+            refreshWindow();
+
         } catch (SQLException e) {
             showAlert("Database Error", "Failed to update account.");
         }
+    }
+
+    // **Refresh Window Method**
+    private void refreshWindow() {
+        try {
+            Stage stage = (Stage) savebutton.getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/ModifierCompte.fxml"));
+            Scene newScene = new Scene(loader.load());
+
+            stage.setScene(newScene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "Failed to refresh the window.");
+        }
+    }
+
+    private boolean validateInputs() {
+        if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
+                adresse.getText().isEmpty() || sexe.getValue() == null || imageProfil.getText().isEmpty()) {
+            showAlert("Input Error", "Please fill in all required fields.");
+            return false;
+        }
+
+        if (!emailPattern.matcher(email.getText()).matches()) {
+            showAlert("Invalid Email", "Please enter a valid email address.");
+            return false;
+        }
+
+        return true;
     }
 
     private void showAlert(String title, String message) {

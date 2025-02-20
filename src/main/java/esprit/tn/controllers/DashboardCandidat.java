@@ -92,5 +92,10 @@ public class DashboardCandidat {
         loadPage("/AfficherCandidature.fxml");
 
     }
+
+    public void changemdp(ActionEvent actionEvent) {
+        loadPage("/Changermdp.fxml");
+
+    }
 }
 

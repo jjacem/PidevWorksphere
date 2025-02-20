@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
@@ -79,24 +81,42 @@ public class AfficherUser {
                         } else {
                             HBox row = new HBox(10);
                             row.setSpacing(20);
-                            row.setStyle("-fx-padding: 5px; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-background-color: #f9f9f9;");
+                            row.setStyle("-fx-padding: 10px; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-background-color: #ffffff; -fx-alignment: center;");
 
+                            // Always show the default profile image from resources
+                            ImageView profileImageView = new ImageView(new Image(getClass().getResource("/Images/profil.png").toExternalForm()));
+                            profileImageView.setFitWidth(50);
+                            profileImageView.setFitHeight(50);
+                            profileImageView.setPreserveRatio(true);
+
+                            row.getChildren().add(profileImageView);
+
+                            // Display user attributes
                             List<String> userAttributes = getUserAttributes(user);
                             for (String attr : userAttributes) {
                                 Label label = new Label(attr);
-                                label.setStyle("-fx-font-size: 14px; -fx-padding: 2px 5px;");
+                                label.setStyle("-fx-font-size: 14px; -fx-padding: 5px;");
                                 HBox.setHgrow(label, Priority.ALWAYS);
                                 row.getChildren().add(label);
                             }
 
-
-                            Button modifyButton = new Button("Modifier");
+                            // Modify Button with Icon
+                            ImageView modifyIcon = new ImageView(new Image(getClass().getResource("/icons/edit.png").toExternalForm()));
+                            modifyIcon.setFitWidth(16);
+                            modifyIcon.setFitHeight(16);
+                            Button modifyButton = new Button("", modifyIcon);
+                            modifyButton.setStyle("-fx-background-color: transparent;");
                             modifyButton.setOnAction(event -> openModifierUser(user.getIdUser()));
 
-
-                            Button deleteButton = new Button("Supprimer");
+                            // Delete Button with Icon
+                            ImageView deleteIcon = new ImageView(new Image(getClass().getResource("/icons/delete.png").toExternalForm()));
+                            deleteIcon.setFitWidth(16);
+                            deleteIcon.setFitHeight(16);
+                            Button deleteButton = new Button("", deleteIcon);
+                            deleteButton.setStyle("-fx-background-color: transparent;");
                             deleteButton.setOnAction(event -> deleteUser(user));
 
+                            // Button Container
                             HBox buttonsBox = new HBox(5, modifyButton, deleteButton);
                             row.getChildren().add(buttonsBox);
 
@@ -105,6 +125,7 @@ public class AfficherUser {
                     }
                 };
             }
+
         });
     }
 

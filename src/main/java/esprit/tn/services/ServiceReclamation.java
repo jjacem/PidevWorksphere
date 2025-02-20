@@ -132,7 +132,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
-             String   req2 = "SELECT * FROM Response WHERE id_reclamation=?";
+             String   req2 = "SELECT * FROM Reponse WHERE id_reclamation=?";
                 try (PreparedStatement statement2 = connection.prepareStatement(req2)) {
                     statement2.setInt(1, reclamation.getId_reclamation());
                     ResultSet rs2 = statement2.executeQuery();

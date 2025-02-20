@@ -21,7 +21,7 @@ private Reponse reponse;
         this.reponse = reponse;
     }
 
-    public Reclamation(String status, String titre, String description, String type, int id_user, int id_user2) {
+    public Reclamation(String titre, String status, String description, String type, int id_user, int id_user2) {
         this.status = status;
         this.titre = titre;
         this.description = description;

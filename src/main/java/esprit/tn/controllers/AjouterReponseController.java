@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class AjouterReponseController {
@@ -13,14 +14,30 @@ public class AjouterReponseController {
     @FXML
     private TextArea txtMessage;
 
+    @FXML
+    private Button btnAjouter;
+
     private int id_user;
     private int id_reclamation;
-
     private final ServiceReponse serviceReponse = new ServiceReponse();
 
     public void setIds(int id_user, int id_reclamation) {
         this.id_user = id_user;
         this.id_reclamation = id_reclamation;
+    }
+
+    @FXML
+    public void initialize() {
+        // Disable button initially
+        btnAjouter.setDisable(true);
+
+        // Add validation listener
+        txtMessage.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
+    }
+
+    private void validateFields() {
+        String message = txtMessage.getText().trim();
+        btnAjouter.setDisable(message.isEmpty() || message.length() < 5);
     }
 
     /**
@@ -29,19 +46,23 @@ public class AjouterReponseController {
     @FXML
     public void ajouterReponse(ActionEvent event) {
         String message = txtMessage.getText().trim();
+
         if (message.isEmpty()) {
             showAlert("Erreur", "Le message ne peut pas être vide.");
             return;
         }
+        if (message.length() < 5) {
+            showAlert("Erreur", "Le message doit contenir au moins 5 caractères.");
+            return;
+        }
 
         try {
-            // You can change the default status if needed.
-            Reponse reponse = new Reponse(message, id_user, id_reclamation, "en attente");
+            Reponse reponse = new Reponse(message, id_user, id_reclamation, "En attente");
             serviceReponse.ajouter(reponse);
             showAlert("Succès", "Réponse ajoutée avec succès.");
 
             // Close the window after successful addition
-            Stage stage = (Stage) txtMessage.getScene().getWindow();
+            Stage stage = (Stage) btnAjouter.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
             showAlert("Erreur", "Erreur lors de l'ajout de la réponse.");

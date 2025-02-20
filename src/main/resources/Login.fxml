@@ -57,7 +57,7 @@
         <Label layoutX="351.0" layoutY="98.0" text="Connecter à votre profil" textFill="#615c5c" />
       <ImageView fitHeight="435.0" fitWidth="203.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/img_1.png" />
+            <Image url="@Images/img_1.png" />
          </image>
       </ImageView>
     </children>

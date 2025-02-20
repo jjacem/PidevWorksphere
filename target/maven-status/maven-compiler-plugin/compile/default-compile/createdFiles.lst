@@ -22,11 +22,13 @@ esprit\tn\controllers\AfficherListFormationController$1.class
 esprit\tn\entities\Feedback.class
 esprit\tn\controllers\AfficherUser$1$1.class
 esprit\tn\controllers\AfficherListFormationController$1$1.class
+esprit\tn\controllers\ModifierReponseController.class
 esprit\tn\controllers\AjouterEquipeController$1.class
 esprit\tn\controllers\SponsorEventsController.class
 esprit\tn\controllers\AffecterEntretien$1.class
 esprit\tn\controllers\RHMenuController.class
 esprit\tn\entities\EtatProjet.class
+esprit\tn\controllers\AfficherReclamationsController$1.class
 esprit\tn\controllers\AjouterEvenementController.class
 esprit\tn\controllers\AfficherCandidatureController.class
 esprit\tn\services\IServiceReservation.class
@@ -67,6 +69,7 @@ esprit\tn\services\IService.class
 esprit\tn\utils\MyDatabase.class
 esprit\tn\controllers\AjouterReservationController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId.class
+esprit\tn\controllers\Changermdp.class
 esprit\tn\controllers\AffecterEntretien$2.class
 esprit\tn\controllers\DashboardEmploye.class
 esprit\tn\services\ServiceUser.class
@@ -79,7 +82,6 @@ esprit\tn\controllers\AjouterFormationController.class
 esprit\tn\controllers\AjouterReponseController.class
 esprit\tn\services\ServiceOffre.class
 esprit\tn\entities\Status.class
-esprit\tn\controllers\ModiferReponseController.class
 esprit\tn\utils\SessionManager.class
 esprit\tn\controllers\AfficherProjetController.class
 esprit\tn\entities\Sexe.class

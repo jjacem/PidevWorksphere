@@ -1,4 +1,5 @@
 package esprit.tn.controllers;
+import esprit.tn.entities.User;
 import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,18 +7,41 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ImageView;
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+
 public class DashboardEmploye {
     @FXML
     private VBox contentArea;
     @FXML
-    private ImageView img;
+    private ImageView image;
+
+    @FXML
+    private Text name;
+    public void initialize() throws SQLException {
+        User u = SessionManager.extractuserfromsession();
+
+        if (u.getImageProfil() != null && !u.getImageProfil().isEmpty()) {
+            File imageFile = new File(u.getImageProfil());
+            if (imageFile.exists()) {
+                this.image.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                System.out.println("Image file not found: " + u.getImageProfil());
+            }
+        }
+
+        name.setText(u.getNom() + " " + u.getPrenom());
+    }
+
     private void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
@@ -85,4 +109,8 @@ public class DashboardEmploye {
         loadPage("/AffichageEntretienbyemployeeId.fxml");
     }
 
+    public void chng(ActionEvent actionEvent) {
+        loadPage("/Changermdp.fxml");
+
+    }
 }

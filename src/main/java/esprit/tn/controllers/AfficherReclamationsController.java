@@ -12,24 +12,24 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AfficherReclamationsController {
 
     @FXML
-    private ListView<HBox> listView;
+    private ListView<Reclamation> listView;
 
     @FXML
     private Button btnAjouter;
@@ -39,6 +39,9 @@ public class AfficherReclamationsController {
 
     @FXML
     private ChoiceBox<String> statusChoiceBox;
+
+    @FXML
+    private AnchorPane mainContainer; // The container where new views will be loaded
 
     private final ServiceReclamation serviceReclamation = new ServiceReclamation();
     private final ServiceReponse serviceReponse = new ServiceReponse();
@@ -50,6 +53,7 @@ public class AfficherReclamationsController {
             logged = SessionManager.extractuserfromsession();
             setupStatusFilter();
             afficherReclamations();
+            setupListViewCellFactory();
         } catch (SQLException e) {
             showAlert("Erreur", "Erreur lors de la récupération des réclamations.");
             e.printStackTrace();
@@ -57,23 +61,18 @@ public class AfficherReclamationsController {
     }
 
     private void setupStatusFilter() {
-        statusChoiceBox.setItems(FXCollections.observableArrayList("Tous", "Résolu", "En attente", "Refusé"));
+        statusChoiceBox.setItems(FXCollections.observableArrayList("Tous", "Résolu", "en cours", "Refusé"));
         statusChoiceBox.setValue("Tous");
-        statusChoiceBox.setOnAction(event -> {
-            try {
-                afficherReclamations();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
+        statusChoiceBox.setOnAction(event -> refreshList());
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> refreshList());
+    }
 
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                afficherReclamations();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
+    private void refreshList() {
+        try {
+            afficherReclamations();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -81,7 +80,7 @@ public class AfficherReclamationsController {
         String selectedStatus = statusChoiceBox.getValue();
         String searchText = searchField.getText().trim().toLowerCase();
 
-        List<Reclamation> reclamations = logged.getRole() == Role.EMPLOYE
+        List<Reclamation> reclamations = (logged.getRole() == Role.EMPLOYE)
                 ? serviceReclamation.getReclamationsByUser2(logged.getIdUser())
                 : serviceReclamation.getReclamationsByUser(logged.getIdUser());
 
@@ -93,93 +92,64 @@ public class AfficherReclamationsController {
             reclamations = serviceReclamation.filterbytitle(searchText);
         }
 
-        ObservableList<HBox> items = FXCollections.observableArrayList();
-        for (Reclamation r : reclamations) {
-            HBox hbox = new HBox(10);
-            hbox.setUserData(r.getId_reclamation());
-
-            Label label = new Label("ID: " + r.getId_reclamation() +
-                    " | Status: " + r.getStatus() +
-                    " | Message: " + r.getDescription() +
-                    " | Candidat: " + r.getId_user() +
-                    " | Employé: " + r.getId_user2());
-
-            if (logged.getRole() == Role.CANDIDAT) {
-                Button btnModifier = new Button("Modifier");
-                btnModifier.setOnAction(e -> modifierReclamation(r.getId_reclamation()));
-
-                Button btnSupprimer = new Button("Supprimer");
-                btnSupprimer.setOnAction(e -> supprimerReclamation(r.getId_reclamation()));
-
-                hbox.getChildren().addAll(btnModifier, btnSupprimer);
-            }
-
-            if (logged.getRole() == Role.EMPLOYE) {
-                Reponse reponse = serviceReponse.checkForRepInRec(r.getId_reclamation());
-                Button btnReponse = new Button(reponse == null ? "Ajouter Réponse" : "Modifier Réponse");
-                btnReponse.setOnAction(e -> gererReponse(r.getId_reclamation(), reponse != null));
-                hbox.getChildren().add(btnReponse);
-            }
-
-            hbox.getChildren().add(label);
-            items.add(hbox);
-        }
+        ObservableList<Reclamation> items = FXCollections.observableArrayList(reclamations);
         listView.setItems(items);
     }
 
-    private void modifierReclamation(int id) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReclamation.fxml"));
-            Parent root = loader.load();
-            ModifierReclamationController controller = loader.getController();
-            controller.setReclamationId(id);
+    private void setupListViewCellFactory() {
+        listView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Reclamation r, boolean empty) {
+                super.updateItem(r, empty);
+                if (empty || r == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    HBox hbox = new HBox(15);
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
 
-            afficherReclamations();
-        } catch (IOException | SQLException e) {
-            showAlert("Erreur", "Impossible de modifier la réclamation.");
-        }
+                    Label statusLabel = new Label("Status: " + r.getStatus());
+                    Label titleLabel = new Label("Titre: " + r.getTitre());
+                    Label descriptionLabel = new Label("Description: " + r.getDescription());
+                    Label dateLabel = new Label("Date: " + r.getDatedepot());
+
+                    hbox.getChildren().addAll( statusLabel, titleLabel, descriptionLabel, dateLabel);
+
+                    if (logged.getRole() == Role.EMPLOYE) {
+                        Reponse reponse = serviceReponse.checkForRepInRec(r.getId_reclamation());
+
+                        Button btnView = new Button();
+                        ImageView eyeIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/eye.png")));
+                        eyeIcon.setFitWidth(16); // Set width
+                        eyeIcon.setFitHeight(16); // Set height
+                        btnView.setGraphic(eyeIcon);
+
+                        btnView.setOnAction(e -> afficherReponse(r.getId_reclamation(), r.getId_user2()));
+
+                        hbox.getChildren().add(btnView);
+                    }
+
+                    setGraphic(hbox);
+                }
+            }
+        });
     }
 
-    private void supprimerReclamation(int id) {
+    private void afficherReponse(int idReclamation, int id_user) {
         try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous supprimer cette réclamation ?", ButtonType.YES, ButtonType.NO);
-            alert.showAndWait();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReponse.fxml"));
+            Parent newContent = loader.load();
 
-            if (alert.getResult() == ButtonType.YES) {
-                serviceReclamation.supprimer(id);
-                afficherReclamations();
-            }
+            AfficherReponse controller = loader.getController();
+            controller.setIds(id_user, idReclamation);
+
+            mainContainer.getChildren().setAll(newContent);
+
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible d'afficher la réponse.");
+            e.printStackTrace();
         } catch (SQLException e) {
-            showAlert("Erreur", "Impossible de supprimer la réclamation.");
-        }
-    }
-
-    private void gererReponse(int idReclamation, boolean hasReponse) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(hasReponse ? "/ModifierReponse.fxml" : "/AjouterReponse.fxml"));
-            Parent root = loader.load();
-
-            if (hasReponse) {
-                ModiferReponseController controller = loader.getController();
-                controller.setReclamationId(idReclamation);
-            } else {
-                AjouterReponseController controller = loader.getController();
-                controller.setIds(this.logged.getIdUser(), idReclamation);
-            }
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-
-            afficherReclamations();
-        } catch (IOException | SQLException e) {
-            showAlert("Erreur", "Impossible de gérer la réponse.");
+            throw new RuntimeException(e);
         }
     }
 
@@ -192,5 +162,16 @@ public class AfficherReclamationsController {
     }
 
     public void ajouterReclamation(ActionEvent actionEvent) {
-    }
-}
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReponse.fxml"));
+            Parent newContent = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(newContent);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert( "Navigation Error", "Failed to load the page: " + e.getMessage());
+        }
+    }}

@@ -54,7 +54,7 @@
             <TextField fx:id="salaireAttendu" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
             <Label text="Image Profil" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-            <TextField fx:id="ImageProfil" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+            <TextField fx:id="imageProfil" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
 
             <Button GridPane.rowIndex="8" GridPane.columnIndex="1" mnemonicParsing="false"
                     onAction="#ajoutercandidat" text="Ajouter"

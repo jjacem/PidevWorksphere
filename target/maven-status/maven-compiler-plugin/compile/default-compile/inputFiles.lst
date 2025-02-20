@@ -29,13 +29,13 @@ C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterReservationController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterSponsorController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterUser.java
+C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\Changermdp.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardCandidat.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardEmploye.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardHR.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardManager.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ForgotpasswordController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\LoginContoller.java
-C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModiferReponseController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierCompteController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierEntretienController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierEquipeController.java
@@ -45,6 +45,7 @@ C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierOffreController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierProjetController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierReclamationController.java
+C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierReponseController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierSponsorController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\RHMenuController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\java\esprit\tn\controllers\SponsorEventsController.java
