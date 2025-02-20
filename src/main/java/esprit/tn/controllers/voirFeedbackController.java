@@ -49,7 +49,6 @@ public class voirFeedbackController {
             if (feedback != null) {
                 lblMessage.setText(feedback.getMessage());
                 lblDate.setText("Date: " + feedback.getDate_feedback().toString());
-
                 int rating = feedback.getRate();
                 starContainer.getChildren().clear();
 

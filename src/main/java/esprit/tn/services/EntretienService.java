@@ -225,7 +225,7 @@ public class EntretienService implements IService<Entretien> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Return null if no entretien is found
+        return null;
     }
 
 

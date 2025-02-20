@@ -197,12 +197,9 @@ public class AffichageEntretineController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/voirFeedback.fxml"));
             Parent root = loader.load();
-
             lv_entretien.getScene().setRoot(root);
-
            voirFeedbackController controller = loader.getController();
             controller.chargerFeedback(feedbackId);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Voir Feedback");
@@ -224,7 +221,6 @@ public class AffichageEntretineController {
 
             AjouterFeedbackController controller = loader.getController();
             controller.setEntretienId(entretienId);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Ajouter Feedback");
@@ -248,10 +244,8 @@ public class AffichageEntretineController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/affecterEntretien.fxml"));
             Parent root = loader.load();
-
             AffecterEntretien controller = loader.getController();
             controller.setEntretien(entretien);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Affecter un employé à l'entretien");
