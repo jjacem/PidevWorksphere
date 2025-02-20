@@ -38,6 +38,7 @@ esprit\tn\controllers\ModiferReponseController.class
 esprit\tn\utils\SessionManager.class
 esprit\tn\controllers\AfficherProjetController.class
 esprit\tn\entities\Sexe.class
+esprit\tn\controllers\AfficherReponse.class
 esprit\tn\controllers\AfficherListFormationController$1.class
 esprit\tn\controllers\AfficherUser$1$1.class
 esprit\tn\controllers\AfficherEvenementController.class

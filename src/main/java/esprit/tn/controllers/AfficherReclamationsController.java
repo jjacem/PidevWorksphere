@@ -67,7 +67,7 @@ public class AfficherReclamationsController {
                     " | Message: " + r.getDescription() +
                     " | Candidat: " + r.getId_user() +
                     " | Employé: " + r.getId_user2());
-
+            if (SessionManager.getRole()==Role.CANDIDAT.name()){
             Button btnModifier = new Button();
             ImageView editIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/edit.png")));
             editIcon.setFitWidth(20);
@@ -81,8 +81,9 @@ public class AfficherReclamationsController {
             deleteIcon.setFitHeight(20);
             btnSupprimer.setGraphic(deleteIcon);
             btnSupprimer.setOnAction(e -> supprimerReclamation(r.getId_reclamation()));
-
-            hbox.getChildren().addAll(label, btnModifier, btnSupprimer);
+                hbox.getChildren().addAll( btnModifier, btnSupprimer);
+        }
+            hbox.getChildren().addAll(label);
 
             if (logged.getRole() == Role.CANDIDAT) {
                 Button btnVoirReponse = new Button("Voir Réponse");

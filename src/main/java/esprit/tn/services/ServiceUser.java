@@ -108,25 +108,57 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void modifier(User user) throws SQLException {
-        String req = "UPDATE User SET nom=?, prenom=?, email=?, role=?, adresse=?, sexe=? WHERE id_user=?";
- String mdp=BCrypt.hashpw(user.getMdp(),BCrypt.gensalt());
+        String req = "UPDATE User \n" +
+                "SET \n" +
+                "    nom=?, \n" +
+                "    prenom=?, \n" +
+                "    email=?, \n" +
+                "    role=?, \n" +
+                "    adresse=?, \n" +
+                "    sexe=?, \n" +
+                "    image_profil=?, \n" +
+                "    poste=?, \n" +
+                "    departement=?, \n" +
+                "    competence=?, \n" +
+                "    departement_géré=?, \n" +
+                "    specialisation=?, \n" +
+                "    status=?, \n" +
+                "    salaire_attendu=?, \n" +
+                "    salaire=?, \n" +
+                "    budget=?, \n" +
+                "    experience_travail=?, \n" +
+                "    nombreProjet=?, \n" +
+                "    ans_experience=? \n" +
+                "WHERE id_user=?";
 
         try (PreparedStatement statement = connection.prepareStatement(req)) {
             statement.setString(1, user.getNom());
             statement.setString(2, user.getPrenom());
             statement.setString(3, user.getEmail());
-
             statement.setString(4, user.getRole().name());
             statement.setString(5, user.getAdresse());
             statement.setString(6, user.getSexe().name());
-            statement.setInt(7, user.getIdUser());
+            statement.setString(7, user.getImageProfil());
+            statement.setString(8, user.getPoste());
+            statement.setString(9, user.getDepartement());
+            statement.setString(10, user.getCompetence());
+            statement.setString(11, user.getDepartementGere());
+            statement.setString(12, user.getSpecialisation());
+            statement.setString(13, user.getStatus().name());
+            statement.setDouble(14, user.getSalaireAttendu());
+            statement.setDouble(15, user.getSalaire());
+            statement.setDouble(16, user.getBudget());
+            statement.setInt(17, user.getExperienceTravail());
+            statement.setInt(18, user.getNombreProjet());
+            statement.setInt(19, user.getAnsExperience());
+            statement.setInt(20, user.getIdUser());
 
             int rowsUpdated = statement.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("user modifiée avec succès.");
+                System.out.println("User modifié avec succès.");
             } else {
-                System.out.println("Aucune user trouvée avec cet ID.");
+                System.out.println("Aucun user trouvé avec cet ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

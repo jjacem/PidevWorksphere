@@ -5,29 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterSponsorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierSponsorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/SponsorEventsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/SponsorEventsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEvenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEvenement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterSponsor.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEvenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEvenement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierSponsor.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardManager.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReclamations.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherReclamations.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReponse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherReponse.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierCompte.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierCompte.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ModifierCompte.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ModifierCompte.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherReclamationsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherReclamationsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModifierCompteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModifierCompteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -69,24 +61,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
-    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "asma+molka+eya+yassin",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;asma+molka+eya+yassin&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\images" />

@@ -115,7 +115,7 @@ serviceUser.changermdp("1234",3);
 
 
 
-    serviceUser.ajouter(u3);
+    serviceUser.ajouter(u1);
 
 
 

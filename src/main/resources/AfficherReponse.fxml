@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="AfficherReponse"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherReponse">
+    <Label text="Détails de la Réponse" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
-</AnchorPane>
+    <GridPane hgap="10" vgap="10">
+        <Label text="Message:" />
+        <Label fx:id="lblMessage" text="-" />
+
+        <Label text="Status:" />
+        <Label fx:id="lblStatus" text="-" />
+
+        <Label text="Date Dépôt:" />
+        <Label fx:id="lblDateDepot" text="-" />
+
+        <Label text="Utilisateur ID:" />
+        <Label fx:id="lblUserId" text="-" />
+
+        <Label text="Réclamation ID:" />
+        <Label fx:id="lblReclamationId" text="-" />
+    </GridPane>
+</VBox>
