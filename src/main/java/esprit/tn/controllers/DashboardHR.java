@@ -74,4 +74,8 @@ private ImageView img;
     public void Formation(ActionEvent actionEvent) {
         loadPage("/AfficherFormation.fxml");
     }
+
+    public void entretien(ActionEvent actionEvent) {
+        loadPage("/AffichageEntretien.fxml");
+    }
 }

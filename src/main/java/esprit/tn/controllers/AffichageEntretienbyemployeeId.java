@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Entretien;
+import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,7 +46,7 @@ public class AffichageEntretienbyemployeeId {
     }
 
     private void afficherEntretien() throws SQLException {
-        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(28);
+        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(SessionManager.extractuserfromsession().getIdUser());
         ObservableList<Entretien> data = FXCollections.observableArrayList(entretiens);
         allEntretiens.setAll(entretiens);
         lv_entretien.setItems(allEntretiens);

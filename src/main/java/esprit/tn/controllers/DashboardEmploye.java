@@ -80,4 +80,9 @@ public class DashboardEmploye {
     public void evenement(ActionEvent actionEvent) {
         loadPage("/AfficherEvenement.fxml");
     }
+
+    public void entretien(ActionEvent actionEvent) {
+        loadPage("/AffichageEntretienbyemployeeId.fxml");
+    }
+
 }

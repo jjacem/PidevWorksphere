@@ -43,6 +43,7 @@
             <Button fx:id="btnChangeProfile" onAction="#Reclamation" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 Reclamation" />
             <Button fx:id="btnGestionSponsor" onAction="#formation" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📢 Fomation" />
             <Button fx:id="btnGestionUser" onAction="#evenement" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 evenement " />
+         <Button fx:id="btnGestionUser1" layoutX="30.0" layoutY="184.0" onAction="#entretien" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 entretien" />
         </VBox>
 
         <!-- Spacer to push logout button to bottom -->

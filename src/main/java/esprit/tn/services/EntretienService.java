@@ -2,15 +2,14 @@ package esprit.tn.services;
 
 import esprit.tn.entities.Entretien;
 import esprit.tn.entities.TypeEntretien;
-import services.Iservice;
-import utils.MyDatabase;
+import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntretienService implements Iservice<Entretien> {
+public class EntretienService implements IService<Entretien> {
 
 
     private Connection conn;

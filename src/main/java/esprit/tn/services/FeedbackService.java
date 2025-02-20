@@ -1,14 +1,13 @@
 package esprit.tn.services;
 
 import esprit.tn.entities.Feedback;
-import services.Iservice;
-import utils.MyDatabase;
+import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedbackService implements Iservice<Feedback> {
+public class FeedbackService implements IService<Feedback> {
 
     private Connection conn;
 
