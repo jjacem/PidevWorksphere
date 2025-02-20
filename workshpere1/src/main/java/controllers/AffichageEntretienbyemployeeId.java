@@ -45,7 +45,7 @@ public class AffichageEntretienbyemployeeId {
     }
 
     private void afficherEntretien() throws SQLException {
-        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(1);
+        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(28);
         ObservableList<Entretien> data = FXCollections.observableArrayList(entretiens);
         allEntretiens.setAll(entretiens);
         lv_entretien.setItems(allEntretiens);
