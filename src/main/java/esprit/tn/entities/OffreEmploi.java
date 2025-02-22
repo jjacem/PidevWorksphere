@@ -2,11 +2,13 @@ package esprit.tn.entities;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class OffreEmploi {
     private int idOffre, salaire;
     private String titre, description, typeContrat, lieuTravail, statutOffre, experience;
     private Date datePublication, dateLimite;
+    private List<Entretien> entretiens;
 
     public OffreEmploi(int id, String titre, String description, String typeContrat, String lieuTravail, int salaire, String statutOffre, int experience, LocalDate datePublication, LocalDate dateLimite) {
     }
@@ -34,6 +36,21 @@ public class OffreEmploi {
         this.experience = experience;
         this.datePublication = datePublication;
         this.dateLimite = dateLimite;
+    }
+
+
+    public OffreEmploi(int idOffre, int salaire, String titre, String description, String typeContrat, String lieuTravail, String statutOffre, String experience, Date datePublication, Date dateLimite, List<Entretien> entretiens) {
+        this.idOffre = idOffre;
+        this.salaire = salaire;
+        this.titre = titre;
+        this.description = description;
+        this.typeContrat = typeContrat;
+        this.lieuTravail = lieuTravail;
+        this.statutOffre = statutOffre;
+        this.experience = experience;
+        this.datePublication = datePublication;
+        this.dateLimite = dateLimite;
+        this.entretiens = entretiens;
     }
 
     public OffreEmploi() {
@@ -117,6 +134,15 @@ public class OffreEmploi {
 
     public void setDateLimite(Date dateLimite) {
         this.dateLimite = dateLimite;
+    }
+
+
+    public List<Entretien> getEntretiens() {
+        return entretiens;
+    }
+
+    public void setEntretiens(List<Entretien> entretiens) {
+        this.entretiens = entretiens;
     }
 
     @Override

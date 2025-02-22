@@ -19,9 +19,18 @@ public class Entretien {
 
     private boolean status ;
 
+
+    private int candidatId;
+
     private int employeId ;
 
     private int feedbackId ;
+
+    private int idOffre;
+
+    private int idCandidature;
+
+
 
     public Entretien() {
     }
@@ -62,8 +71,6 @@ public class Entretien {
 
 
 
-
-
     public Entretien(int id, String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status) {
         this.id = id;
         this.titre = titre;
@@ -74,6 +81,36 @@ public class Entretien {
         this.status = status;
     }
 
+
+    public Entretien(String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status, int candidatId, int employeId, int feedbackId, int idOffre, int idCandidature) {
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+        this.candidatId = candidatId;
+        this.employeId = employeId;
+        this.feedbackId = feedbackId;
+        this.idOffre = idOffre;
+        this.idCandidature = idCandidature;
+    }
+
+    public Entretien(int id, String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status, int candidatId, int employeId, int feedbackId, int idOffre, int idCandidature) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+        this.candidatId = candidatId;
+        this.employeId = employeId;
+        this.feedbackId = feedbackId;
+        this.idOffre = idOffre;
+        this.idCandidature = idCandidature;
+    }
+
     public int getEmployeId() {
         return employeId;
     }
@@ -82,17 +119,6 @@ public class Entretien {
         this.employeId = employeId;
     }
 
-    @Override
-    public String toString() {
-        return "Entretien{num:" +feedbackId+
-                "titre='" + titre + '\'' +
-                ", description='" + description + '\'' +
-                ", heure_entretien=" + heure_entretien +
-                ", date_entretien=" + date_entretien +
-                ", type_entretien=" + type_entretien +
-                ", status=" + status +
-                '}';
-    }
 
     public int getId() {
         return id;
@@ -157,5 +183,48 @@ public class Entretien {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public int getCandidatId() {
+        return candidatId;
+    }
+
+    public void setCandidatId(int candidatId) {
+        this.candidatId = candidatId;
+    }
+
+    public int getIdOffre() {
+        return idOffre;
+    }
+
+    public void setIdOffre(int idOffre) {
+        this.idOffre = idOffre;
+    }
+
+    public int getIdCandidature() {
+        return idCandidature;
+    }
+
+    public void setIdCandidature(int idCandidature) {
+        this.idCandidature = idCandidature;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Entretien{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", description='" + description + '\'' +
+                ", date_entretien=" + date_entretien +
+                ", heure_entretien=" + heure_entretien +
+                ", type_entretien=" + type_entretien +
+                ", status=" + status +
+                ", candidatId=" + candidatId +
+                ", employeId=" + employeId +
+                ", feedbackId=" + feedbackId +
+                ", idOffre=" + idOffre +
+                ", idCandidature=" + idCandidature +
+                '}';
     }
 }
