@@ -68,7 +68,7 @@ public class AjouterUser {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setContentText("User added successfully!");
+            alert.setContentText("Votre compte a été créé!");
             alert.showAndWait();
             redirectToLogin(actionEvent);
 
@@ -83,7 +83,7 @@ public class AjouterUser {
 
     private void redirectToLogin(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -128,6 +128,9 @@ public class AjouterUser {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+
+
+
     }
 
 
