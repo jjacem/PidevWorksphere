@@ -51,13 +51,5 @@
 
         <!-- Bouton Ajouter -->
         <Button fx:id="ajouterbtn" layoutX="78.0" layoutY="358.0" mnemonicParsing="false" onAction="#AjouterSponsor" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter le sponsor" />
-
-
-
-        <Button fx:id="RetourBtnaListSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListSponso" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Retour" />
-
-
-        <Button layoutX="606.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="179.0" style="-fx-font-size: 15px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH" />
-
     </children>
 </AnchorPane>

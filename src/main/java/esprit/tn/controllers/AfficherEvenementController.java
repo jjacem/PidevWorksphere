@@ -9,11 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -77,7 +79,7 @@ public class AfficherEvenementController {
                             btnModifierEvent.getStyleClass().add("btn-modifierEvent");
                             btnModifierEvent.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             btnModifierEvent.setOnAction(event -> {
-                                try {
+                               /* try {
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvenement.fxml"));
                                     Parent root = loader.load();
 
@@ -90,8 +92,35 @@ public class AfficherEvenementController {
                                     stage.show();
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                }
-                            });
+                                }*/
+
+
+
+                                    try {
+                                        // Charger le fichier FXML pour la modification de l'événement
+                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvenement.fxml"));
+                                        Parent root = loader.load();
+
+                                        // Passer l'événement à modifier au contrôleur ModifierEvenementController
+                                        ModifierEvenementController modifierController = loader.getController();
+                                        modifierController.initData(evenement);
+
+                                        // Créer une nouvelle scène et afficher le popup
+                                        Stage popupStage = new Stage();
+                                        popupStage.setTitle("Modifier l'Événement");
+                                        popupStage.setScene(new Scene(root));
+                                        popupStage.initModality(Modality.APPLICATION_MODAL); // Empêcher l'interaction avec la fenêtre principale
+                                        popupStage.showAndWait(); // Attendre que l'utilisateur ferme la fenêtre de modification
+
+                                        // Rafraîchir la liste des événements après la modification
+                                        reloadEvenementsList();
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+
+
 
                             Button btnSupprimerEvent = new Button("Supprimer");
                             btnSupprimerEvent.getStyleClass().add("btn-supprimerEvent");
@@ -136,20 +165,47 @@ public class AfficherEvenementController {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
+    private DashboardHR dashboard;
 
-    @FXML
-    public void OnajouterEvent(ActionEvent actionEvent) {
+    DashboardHR dhr=new DashboardHR();
+
+
+  @FXML
+  public void OnajouterEvent(ActionEvent actionEvent) {
+      try {
+          // Charger le fichier FXML du formulaire d'ajout
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenement.fxml"));
+          Parent root = loader.load();
+
+          // Créer une nouvelle scène
+          Stage popupStage = new Stage();
+          popupStage.setTitle("Ajouter un Événement");
+          popupStage.setScene(new Scene(root));
+
+          // Empêcher l'interaction avec la fenêtre principale tant que la popup est ouverte
+          popupStage.initModality(Modality.APPLICATION_MODAL);
+
+          // Afficher la popup
+          popupStage.showAndWait();
+
+          // Rafraîchir la liste des événements après la fermeture du popup
+          reloadEvenementsList();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+  }
+
+    private void reloadEvenementsList() {
+        ServiceEvenement serviceEvenement = new ServiceEvenement();
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenement.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            List<Evenement> evenementList = serviceEvenement.afficher();
+            observableList = FXCollections.observableList(evenementList);
+            lv_event.setItems(observableList);
+        } catch (SQLException e) {
+            System.out.println("Erreur : " + e.getMessage());
         }
     }
+
 
     @FXML
     public void OnchercherEvent(ActionEvent actionEvent) throws SQLException {
@@ -169,19 +225,4 @@ public class AfficherEvenementController {
         lv_event.setItems(observableList);
     }
 
-
-
-    public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

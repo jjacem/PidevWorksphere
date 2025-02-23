@@ -1,86 +1,4 @@
-/*package esprit.tn.controllers;
 
-import esprit.tn.entities.Evenement;
-import esprit.tn.services.ServiceEvenement;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-
-public class ModifierEvenementController {
-
-    @FXML
-    private TextField tfNomEvent;
-    @FXML
-    private TextField tfDescEvent;
-    @FXML
-    private DatePicker dpDateEvent;
-    @FXML
-    private TextField tfHeureEvent;
-
-    @FXML
-
-    private TextField tfLieuEvent;
-    @FXML
-    private TextField tfCapaciteEvent;
-    @FXML
-    private Button btnModifier;
-
-    private Evenement evenement;
-    private final ServiceEvenement serviceEvenement = new ServiceEvenement();
-
-    public void initData(Evenement evenement) {
-        this.evenement = evenement;
-        tfNomEvent.setText(evenement.getNomEvent());
-        tfDescEvent.setText(evenement.getDescEvent());
-        dpDateEvent.setValue(evenement.getDateEvent().toLocalDate());
-        tfHeureEvent.setText(evenement.getDateEvent().toLocalTime().toString());
-        tfLieuEvent.setText(evenement.getLieuEvent());
-        tfCapaciteEvent.setText(String.valueOf(evenement.getCapaciteEvent()));
-    }
-
-    @FXML
-    public void initialize() {
-        btnModifier.setOnAction(event -> modifierEvenement());
-    }
-
-    private void modifierEvenement() {
-        try {
-            evenement.setNomEvent(tfNomEvent.getText());
-            evenement.setDescEvent(tfDescEvent.getText());
-            evenement.setDateEvent(dpDateEvent.getValue().atStartOfDay());
-            evenement.setDateEvent(dpDateEvent.getValue().atTime(LocalTime.parse(tfHeureEvent.getText())));
-            evenement.setLieuEvent(tfLieuEvent.getText());
-            evenement.setCapaciteEvent(Integer.parseInt(tfCapaciteEvent.getText()));
-
-            serviceEvenement.modifier(evenement);
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText("Modification réussie");
-            alert.setContentText("L'événement a été mis à jour avec succès !");
-            alert.showAndWait();
-
-            ((Stage) btnModifier.getScene().getWindow()).close(); // Fermer la fenêtre
-
-        } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur lors de la modification");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-    }
-}
-*/
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Evenement;
@@ -90,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -145,7 +60,7 @@ public class ModifierEvenementController {
         btnModifier.setOnAction(event -> modifierEvenement());
     }
 
-    private void modifierEvenement() {
+   /* private void modifierEvenement() {
         // Masquer tous les labels d'erreur au début
         resetErrorLabels();
 
@@ -197,7 +112,66 @@ public class ModifierEvenementController {
             lblErrorNom.setText("Erreur lors de la modification.");
             lblErrorNom.setVisible(true);
         }
-    }
+    }*/
+   private void modifierEvenement() {
+       // Masquer tous les labels d'erreur au début
+       resetErrorLabels();
+
+       // Vérifier la description
+       if (tfDescEvent.getText().length() < 10) {
+           lblErrorDesc.setText("La description doit contenir au moins 10 caractères.");
+           lblErrorDesc.setVisible(true);
+           return;
+       }
+
+       // Vérifier la date de l'événement
+       if (dpDateEvent.getValue() == null || dpDateEvent.getValue().isBefore(LocalDate.now())) {
+           lblErrorDate.setText("La date doit être dans le futur.");
+           lblErrorDate.setVisible(true);
+           return;
+       }
+
+       // Vérifier l'heure
+       if (!isValidTime(tfHeureEvent.getText())) {
+           lblErrorHeure.setText("L'heure doit être au format HH:mm:ss.");
+           lblErrorHeure.setVisible(true);
+           return;
+       }
+
+       // Vérifier la capacité
+       int capacite;
+       try {
+           capacite = Integer.parseInt(tfCapaciteEvent.getText());
+       } catch (NumberFormatException e) {
+           lblErrorCapacite.setText("La capacité doit être un nombre entier.");
+           lblErrorCapacite.setVisible(true);
+           return;
+       }
+
+       // Mettre à jour l'objet evenement avec les nouvelles valeurs
+       try {
+           evenement.setNomEvent(tfNomEvent.getText());
+           evenement.setDescEvent(tfDescEvent.getText());
+           evenement.setDateEvent(dpDateEvent.getValue().atTime(LocalTime.parse(tfHeureEvent.getText())));
+           evenement.setLieuEvent(tfLieuEvent.getText());
+           evenement.setCapaciteEvent(capacite);
+
+           serviceEvenement.modifier(evenement);
+
+           // Afficher un message de succès
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Succès");
+           alert.setHeaderText("Modification réussie");
+           alert.setContentText("L'événement a été mis à jour avec succès !");
+           alert.showAndWait();
+
+           // Fermer la fenêtre de popup modif
+           ((Stage) btnModifier.getScene().getWindow()).close();
+       } catch (SQLException e) {
+           lblErrorNom.setText("Erreur lors de la modification.");
+           lblErrorNom.setVisible(true);
+       }
+   }
 
     // Méthode pour vérifier si l'heure est valide (format HH:mm:ss et heures/minutes valides)
     private boolean isValidTime(String time) {
@@ -233,35 +207,4 @@ public class ModifierEvenementController {
         lblErrorNom.setTextFill(javafx.scene.paint.Color.GREEN);
         lblErrorNom.setVisible(true);
     }
-
-
-
-    @FXML
-    public void RetourListEvenement(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvenement.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
-
-    public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}

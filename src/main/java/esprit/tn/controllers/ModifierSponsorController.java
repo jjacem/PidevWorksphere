@@ -128,6 +128,8 @@ public class ModifierSponsorController {
         try {
             serviceSponsor.modifier(sponsor);
             showAlert("Succès", "Sponsor modifié avec succès.", Alert.AlertType.INFORMATION);
+            // Fermer la fenêtre de popup modif
+            ((Stage) btnModifier.getScene().getWindow()).close();
         } catch (SQLException ex) {
             showAlert("Erreur", "Erreur lors de la modification : " + ex.getMessage(), Alert.AlertType.ERROR);
         }
@@ -150,34 +152,4 @@ public class ModifierSponsorController {
         return matcher.matches();
     }
 
-
-
-    @FXML
-    public void RetourListSponso(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSponsor.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

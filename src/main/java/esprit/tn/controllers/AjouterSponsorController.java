@@ -44,6 +44,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -67,7 +68,7 @@ public class AjouterSponsorController {
     @FXML
     private Label budgetErrorLabel; // Label pour le budget
 
-    @FXML
+   /* @FXML
     public void AjouterSponsor(ActionEvent actionEvent) {
         // Réinitialiser les messages d'erreur
         emailErrorLabel.setText("");
@@ -103,7 +104,52 @@ public class AjouterSponsorController {
             System.out.println(e.getMessage());
             // Vous pouvez également afficher un message d'erreur ici si nécessaire.
         }
-    }
+    }*/
+   @FXML
+   public void AjouterSponsor(ActionEvent actionEvent) {
+       // Réinitialiser les messages d'erreur
+       emailErrorLabel.setText("");
+       budgetErrorLabel.setText("");
+
+       String email = emailtextfield.getText();
+       String budgetText = budgettextfield.getText();
+
+       // Validation de l'email
+       if (!isValidEmail(email)) {
+           emailErrorLabel.setText("L'email doit être au format valide.");
+           return;
+       }
+
+       double budget = 0;
+       try {
+           budget = Double.parseDouble(budgetText);
+       } catch (NumberFormatException e) {
+           budgetErrorLabel.setText("Le budget doit être un nombre valide.");
+           return;
+       }
+
+       // Si tout est valide, procéder à l'ajout
+       ServiceSponsor serviceSponsor = new ServiceSponsor();
+       Sponsor sponsor = new Sponsor(nomtextfield.getText(), prenomtextfield.getText(), email, budget);
+
+       try {
+           serviceSponsor.ajouter(sponsor);
+           emailErrorLabel.setText(""); // Réinitialiser après succès
+           budgetErrorLabel.setText(""); // Réinitialiser après succès
+
+           // Afficher un message de succès
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+           alert.setTitle("Succès");
+           alert.setContentText("Sponsor ajouté avec succès !");
+           alert.showAndWait();
+
+           // Fermer la fenêtre après succès
+           ((Stage) nomtextfield.getScene().getWindow()).close();
+       } catch (SQLException e) {
+           System.out.println(e.getMessage());
+           // Afficher un message d'erreur si nécessaire
+       }
+   }
 
     // Méthode pour valider l'email
     private boolean isValidEmail(String email) {
@@ -113,34 +159,4 @@ public class AjouterSponsorController {
 
 
 
-    @FXML
-    public void RetourListSponso(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSponsor.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

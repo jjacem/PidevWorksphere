@@ -143,6 +143,7 @@ import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -266,7 +267,8 @@ public class AjouterEvenementController {
 
             // Afficher un message de succès
             showAlert(AlertType.INFORMATION, "Succès", "Événement ajouté avec succès !");
-
+// Fermer la fenêtre de popup ajout
+           // ((Stage) ajouterBtn.getScene().getWindow()).close();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Erreur", "Une erreur s'est produite : " + e.getMessage());
         }
@@ -291,24 +293,11 @@ public class AjouterEvenementController {
     }
 
 
-
-    @FXML
-    public void RetourListEvenement(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvenement.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    //private DashboardHR dashboard;
 
 
-    public void retourdashRH(ActionEvent actionEvent) {
+
+    /*public void retourdashRH(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
             Parent root = loader.load();
@@ -320,6 +309,6 @@ public class AjouterEvenementController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
 
