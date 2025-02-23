@@ -71,8 +71,5 @@
       <!-- Bouton Ajouter -->
 
       <Button fx:id="ajouterbtn" layoutX="160.0" layoutY="420.0" mnemonicParsing="false" onAction="#ajouterEvenement" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter evenement" />
-      <!-- Bouton Ajouter -->
-      <Button fx:id="RetourBtnaListEvent" layoutX="500.0" layoutY="420.0" mnemonicParsing="false" onAction="#RetourListEvenement" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Retour" />
-      <Button layoutX="811.0" layoutY="38.0" mnemonicParsing="false" style="-fx-font-size: 24px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH"/>
    </children>
 </AnchorPane>

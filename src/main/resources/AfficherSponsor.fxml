@@ -13,8 +13,7 @@
 
     <children>
         <!-- Liste des sponsors -->
-        <ListView fx:id="lv_sponsor" layoutX="10.0" layoutY="150.0" prefHeight="230.0" prefWidth="580.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
-
+        <ListView fx:id="lv_sponsor" layoutX="10.0" layoutY="150.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
         <!-- Titre -->
         <Label layoutX="14.0" layoutY="110.0" text="Liste des sponsors" textFill="#0086b3" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
             <font>
@@ -22,19 +21,21 @@
             </font>
         </Label>
 
-        <!-- Bouton Ajouter -->
-        <Button fx:id="btnAjouterSponsor" layoutX="420.0" layoutY="100.0" onAction="#Onajoutersponso" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #000000;" text="Ajouter Sponsor" textFill="WHITE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0" />
-
         <!-- Barre de recherche -->
         <HBox layoutX="0.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
                 <TextField fx:id="txtRechercheSponso" prefHeight="30.0" prefWidth="400.0" promptText="Rechercher..." />
                 <Button fx:id="btnRechercheSponsor" onAction="#OnchercherSponsor" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Rechercher" />
+
+
+
+              <!-- Bouton Ajouter -->
+              <Button fx:id="btnAjouterSponsor" onAction="#Onajoutersponso" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #000000;" text="Ajouter Sponsor" textFill="WHITE" />
             </children>
             <padding>
                 <Insets left="50.0" top="10.0" />
             </padding>
         </HBox>
-        <Button layoutX="811.0" layoutY="38.0" mnemonicParsing="false" style="-fx-font-size: 24px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH" />
+        <Label fx:id="eventsLabel" layoutX="583.0" layoutY="79.0" prefHeight="62.0" prefWidth="286.0" style="-fx-font-size: 14px;" />
     </children>
 </AnchorPane>

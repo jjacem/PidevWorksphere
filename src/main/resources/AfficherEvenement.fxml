@@ -38,6 +38,5 @@
                 <Insets left="50.0" top="10.0" />
             </padding>
         </HBox>
-        <Button fx:id="btnretourdashRH" layoutX="811.0" layoutY="38.0" mnemonicParsing="false" style="-fx-font-size: 24px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH"/>
     </children>
 </AnchorPane>

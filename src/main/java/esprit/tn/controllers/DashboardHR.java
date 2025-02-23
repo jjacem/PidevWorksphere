@@ -59,6 +59,11 @@ public class DashboardHR {
     @FXML
     private Button btnChangeProfile11;
 
+    public void setRoute(String s){
+        if(s=="evenement"){
+            loadPage("/AfficherEvenement.fxml");
+        }
+    }
     public void initialize() throws SQLException {
         User u = SessionManager.extractuserfromsession();
 
@@ -74,7 +79,7 @@ public class DashboardHR {
         name.setText(u.getNom() + " " + u.getPrenom());
     }
 
-    private void loadPage(String page) {
+    public void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
             Parent newPage = loader.load(); // Use Parent instead of AnchorPane
@@ -151,5 +156,18 @@ public class DashboardHR {
     public void changemdp(MouseEvent mouseEvent) {
         loadPage("/Changermdp.fxml");
 
+    }
+
+    public  void setroute(String s){
+        if (s=="event"){
+            loadPage("/AfficherEvenement.fxml");
+
+
+        }
+        if (s=="ajoutevent"){
+            loadPage("/AjouterEvenement.fxml");
+
+
+        }
     }
 }

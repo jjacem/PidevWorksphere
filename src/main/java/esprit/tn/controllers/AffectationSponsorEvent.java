@@ -1,58 +1,9 @@
 package esprit.tn.controllers;
 
-/*import esprit.tn.services.ServiceSponsor;
-import esprit.tn.services.ServiceEvenement;
-import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
-import java.sql.SQLException;
-import java.util.List;
-
-public class AffectationSponsorEvent {
-    @FXML
-    private ComboBox<Integer> eventComboBox;
-    @FXML
-    private ComboBox<Integer> sponsorComboBox;
-
-    private ServiceSponsor serviceSponsor = new ServiceSponsor();
-    private ServiceEvenement serviceEvenement = new ServiceEvenement();
-
-    @FXML
-    public void initialize() {
-        // Remplir les ComboBox avec les données des événements et des sponsors
-        eventComboBox.getItems().addAll(serviceEvenement.getEventIds());
-        sponsorComboBox.getItems().addAll(serviceSponsor.getSponsorIds());
-    }
-
-    @FXML
-    private void associerEvenementASponsor() {
-        Integer evenementId = eventComboBox.getValue();
-        Integer sponsorId = sponsorComboBox.getValue();
-
-        if (evenementId != null && sponsorId != null) {
-            try {
-                serviceSponsor.ajouterEvenementASponsor(sponsorId, evenementId);
-                showAlert("Succès", "Événement associé avec succès.");
-            } catch (SQLException e) {
-                showAlert("Erreur", "Erreur lors de l'association de l'événement au sponsor.");
-            }
-        } else {
-            showAlert("Erreur", "Veuillez sélectionner un événement et un sponsor.");
-        }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-}*/
 
 
+
+import esprit.tn.entities.Sponsor;
 import esprit.tn.services.ServiceSponsor;
 import esprit.tn.services.ServiceEvenement;
 import javafx.event.ActionEvent;
@@ -79,7 +30,7 @@ public class AffectationSponsorEvent {
     private ServiceSponsor serviceSponsor = new ServiceSponsor();
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
 
-    @FXML
+   /* @FXML
     public void initialize() {
         // Remplir les ComboBox avec les noms des événements et les emails des sponsors
         eventComboBox.getItems().addAll(serviceEvenement.getEventNames());
@@ -149,4 +100,58 @@ public class AffectationSponsorEvent {
         }
     }
 }
+*/
 
+
+    private Sponsor selectedSponsor;  // Sponsor sélectionné dans la fenêtre principale
+
+
+
+    public void setSponsor(Sponsor sponsor) {
+        this.selectedSponsor = sponsor;
+    }
+
+    @FXML
+    public void initialize() {
+        // Remplir les ComboBox avec les noms des événements et les emails des sponsors
+        eventComboBox.getItems().addAll(serviceEvenement.getEventNames());
+        sponsorComboBox.getItems().addAll(serviceSponsor.getSponsorEmails());
+
+        // Si un sponsor est sélectionné, pré-remplir le ComboBox des sponsors
+        if (selectedSponsor != null) {
+            sponsorComboBox.setValue(selectedSponsor.getEmailSponso());
+        }
+    }
+
+    @FXML
+    private void associerEvenementASponsor() {
+        String evenementName = eventComboBox.getValue();
+        String sponsorEmail = sponsorComboBox.getValue();
+
+        if (evenementName != null && sponsorEmail != null) {
+            try {
+                // Récupérer les IDs correspondants à partir des noms/emails
+                int evenementId = serviceEvenement.getEventIdByName(evenementName);
+                int sponsorId = serviceSponsor.getSponsorIdByEmail(sponsorEmail);
+
+                // Ajouter l'association
+                serviceSponsor.ajouterEvenementASponsor(sponsorId, evenementId);
+
+                // Afficher un message de succès
+                showAlert("Succès", "Événement associé avec succès.");
+            } catch (SQLException e) {
+                showAlert("Erreur", "Erreur lors de l'association de l'événement au sponsor.");
+            }
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner un événement et un sponsor.");
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}
