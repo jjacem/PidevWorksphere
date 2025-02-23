@@ -91,9 +91,11 @@ public class AfficherListFormationController {
                             heureFinLabel.setStyle("-fx-font-size: 14px");
                             Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
                             nbPlacesLabel.setStyle("-fx-font-size: 14px");
+                            Button detailButton = new Button("Detail");
+                            detailButton.getStyleClass().addAll("card-button","details-button");
 
                             Button reservationButton = new Button("Reserver");
-                            reservationButton .setStyle("-fx-background-color: #22859c; -fx-text-fill: white;");
+                            reservationButton.getStyleClass().addAll("card-button","res-button");
                             reservationButton.setOnAction(event -> {
                                 // Récupérer la formation sélectionnée (assurez-vous que `formationId` est disponible)
                                 try {
@@ -118,7 +120,7 @@ public class AfficherListFormationController {
                             });
 
                             // Conteneur pour aligner les boutons à droite
-                            HBox buttonContainer = new HBox(10,reservationButton);
+                            HBox buttonContainer = new HBox(10,detailButton,reservationButton);
                             buttonContainer.setAlignment(Pos.CENTER_RIGHT);
                             buttonContainer.setPadding(new Insets(30, 10, 10, 50)); // Marges autour des boutons
 

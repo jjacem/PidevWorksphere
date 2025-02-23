@@ -53,6 +53,10 @@
     -fx-background-color: #0086b3;
 }
 
+
+.res-button {
+    -fx-background-color: #e395cf;
+}
 .details-button:hover {
     -fx-background-color: #006699;
 }

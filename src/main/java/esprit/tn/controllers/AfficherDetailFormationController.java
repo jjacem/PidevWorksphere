@@ -4,6 +4,7 @@ import esprit.tn.entities.Formation;
 import esprit.tn.services.ServiceFormation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
 
@@ -23,6 +24,8 @@ public class AfficherDetailFormationController {
     @FXML
     private Label DateID;
 
+    @FXML
+    private VBox formationContainer;
 
     private Formation formation;
 

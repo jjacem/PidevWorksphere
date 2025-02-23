@@ -55,10 +55,10 @@ public class AjouterFormationController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         typeID.setItems(FXCollections.observableArrayList(Typeformation.values()));
 
-      //  Platform.runLater(() -> {
-         //   Stage stage = (Stage) listformationid.getScene().getWindow();
-         //   stage.setMaximized(true);
-        //});
+        Platform.runLater(() -> {
+           Stage stage = (Stage) FormAj.getScene().getWindow();
+           stage.setMaximized(true);
+        });
     }
 
     @FXML
