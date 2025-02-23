@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEntretineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEntretineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Entretien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Entretien.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EntretienService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EntretienService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEntretien.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEntretien.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
-    </list>
+    <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +108,7 @@
       <workItem from="1740027211613" duration="1954000" />
       <workItem from="1740029181800" duration="24183000" />
       <workItem from="1740052763997" duration="1268000" />
-      <workItem from="1740305126728" duration="8934000" />
+      <workItem from="1740305126728" duration="9530000" />
     </task>
     <servers />
   </component>
