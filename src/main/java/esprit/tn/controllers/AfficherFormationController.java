@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.entities.Formation;
 import esprit.tn.services.ServiceFormation;
 import esprit.tn.utils.Router;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -47,6 +49,12 @@ public class AfficherFormationController {
         try {
             ObservableList<Formation> formationsList = FXCollections.observableArrayList(formationService.getListFormation());
             listformationid.setItems(formationsList);
+
+            // Attendre que la scène soit initialisée pour maximiser la fenêtre
+            Platform.runLater(() -> {
+                Stage stage = (Stage) listformationid.getScene().getWindow();
+                stage.setMaximized(true);
+            });
 
             setupListView();
         } catch (SQLException e) {
@@ -90,29 +98,79 @@ public class AfficherFormationController {
                             Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
                             nbPlacesLabel.setStyle("-fx-font-size: 14px");
 
+                            Button detailButton = new Button("Detail");
+                            detailButton.getStyleClass().addAll("card-button","details-button");
+                            detailButton.setOnAction(event -> {
+                                // Récupérer la formation sélectionnée
+                                Formation selectedFormation = listformationid.getSelectionModel().getSelectedItem();
+
+                                if (selectedFormation != null) {
+                                    try {
+                                        // Charger le fichier FXML de la popup
+                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailFormation.fxml"));
+                                        Parent root = loader.load();
+
+                                        // Obtenir le contrôleur de la popup
+                                        AfficherDetailFormationController controller = loader.getController();
+
+                                        // Passer l'objet Formation au contrôleur
+                                        controller.setFormation(selectedFormation);
+
+                                        // Créer une nouvelle fenêtre (Stage) pour la popup
+                                        Stage stage = new Stage();
+                                        stage.setTitle("Détails de la Formation");
+
+                                        // Définir la scène et l'ajouter au Stage
+                                        Scene scene = new Scene(root);
+                                        stage.setScene(scene);
+
+                                        // Rendre la popup modale
+                                        stage.initModality(Modality.APPLICATION_MODAL);
+
+                                        // Afficher la popup et attendre qu'elle se ferme
+                                        stage.showAndWait();
+
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    System.out.println("Aucune formation sélectionnée !");
+                                }
+                            });
 
                             Button modifierButton = new Button("Modifier");
-                            modifierButton.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+                            modifierButton.getStyleClass().addAll("card-button", "modifier-button");
                             modifierButton.setOnAction(event -> {
+                                // Charger la page de modification
                                 try {
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierFormation.fxml"));
                                     Parent root = loader.load();
 
                                     ModifierFormationController controller = loader.getController();
+                                    controller.setFormation(formation);  // Passer l'objet formation à la page de modification
+                                    Stage stage = new Stage();
+                                    stage.setTitle("Modifier Formation");
 
-                                    Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                                    stage.getScene().setRoot(root);
+                                    // Créer une scène et l'ajouter au Stage
+                                    Scene scene = new Scene(root);
+                                    stage.setScene(scene);
+
+                                    // Rendre le Stage modale pour empêcher l'interaction avec la fenêtre principale
+                                    stage.initModality(Modality.APPLICATION_MODAL);
+
+                                    // Afficher la fenêtre modale
+                                    stage.showAndWait();
                                 } catch (IOException e) {
                                     System.out.println("Erreur de chargement de la page de modification : " + e.getMessage());
                                 }
                             });
 
                             Button supprimerButton = new Button("Supprimer");
-                            supprimerButton.setStyle("-fx-background-color: #FF0000; -fx-text-fill: white;");
+                            supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
                             supprimerButton.setOnAction(event -> deleteFormation(formation));
 
 
-                            HBox buttonContainer = new HBox(10, modifierButton, supprimerButton);
+                            HBox buttonContainer = new HBox(10,detailButton, modifierButton, supprimerButton );
                             buttonContainer.setAlignment(Pos.CENTER_RIGHT);
                             buttonContainer.setPadding(new Insets(30, 10, 10, 50));
 
@@ -148,7 +206,7 @@ public class AfficherFormationController {
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText(null);
         alert.setContentText("Vous êtes sûr de vouloir supprimer cette formation ?");
-
+        applyAlertStyle(alert);
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -197,7 +255,7 @@ public class AfficherFormationController {
 
         // Filtrer les formations avec Stream en fonction du texte de recherche
         List<Formation> filteredFormations = allFormations.stream()
-                .filter(formation -> formation.getDescription().toLowerCase().contains(searchText.toLowerCase()))
+                .filter(formation -> formation.getTitre().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
 
         // Mettre à jour l'affichage des résultats de la recherche
@@ -222,4 +280,15 @@ public class AfficherFormationController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-}}}
+}}
+
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+    }
+
+
+}
+
+
