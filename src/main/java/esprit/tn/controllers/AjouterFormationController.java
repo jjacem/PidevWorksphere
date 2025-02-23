@@ -4,6 +4,7 @@ import esprit.tn.entities.Formation;
 import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
 import esprit.tn.utils.SessionManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +54,11 @@ public class AjouterFormationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeID.setItems(FXCollections.observableArrayList(Typeformation.values()));
+
+      //  Platform.runLater(() -> {
+         //   Stage stage = (Stage) listformationid.getScene().getWindow();
+         //   stage.setMaximized(true);
+        //});
     }
 
     @FXML
@@ -156,6 +162,7 @@ public class AjouterFormationController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+        applyAlertStyle(alert);
     }
 
     @FXML
@@ -171,5 +178,12 @@ public class AjouterFormationController implements Initializable {
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
         }
+    }
+
+
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
     }
 }

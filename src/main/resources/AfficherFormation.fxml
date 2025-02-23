@@ -9,27 +9,27 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="681.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherFormationController">
+<AnchorPane prefHeight="681.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" stylesheets="@Formation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherFormationController">
 
     <children>
         <!-- Liste des formations -->
         <ListView fx:id="listformationid" layoutX="19.2" layoutY="191.2" prefHeight="475.0" prefWidth="735.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="191.0" />
 
         <!-- Titre -->
-        <Label layoutX="261.0" layoutY="104.0" text="Liste des formations" textFill="#0086b3" AnchorPane.leftAnchor="261.0" AnchorPane.topAnchor="104.0">
+        <Label layoutX="42.0" layoutY="145.0" text="Liste des formations" textFill="#0086b3" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="145.0">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
 
         <!-- Bouton Ajouter -->
-        <Button fx:id="btnajouterID" layoutX="624.0" layoutY="122.0" onAction="#Onajouterformation" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #000000" text="Ajouter Formation" textFill="WHITE" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="122.0" />
-        <Button layoutX="606.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="179.0" style="-fx-font-size: 15px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH" />
-      <HBox fx:id="Vrechcerche" layoutX="-204.0" prefHeight="86.0" prefWidth="989.0">
+        <Button fx:id="btnajouterID" layoutX="1280.0" layoutY="106.0" onAction="#Onajouterformation" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #000000" text="Ajouter Formation" textFill="WHITE" AnchorPane.rightAnchor="25.799999999999955" AnchorPane.topAnchor="106.0" />
+        <Button layoutX="42.0" layoutY="106.0" mnemonicParsing="false" onAction="#retourdashRH" prefHeight="31.0" prefWidth="22.0" style="-fx-font-size: 15px; -fx-background-color: #0086b3;" text="&lt;" textFill="WHITE" />
+      <HBox fx:id="Vrechcerche" layoutX="-79.0" layoutY="14.0" prefHeight="86.0" prefWidth="1500">
          <children>
             <TextField fx:id="Trecherche" prefHeight="30.0" prefWidth="323.0" promptText="Rechercher....">
                <HBox.margin>
-                  <Insets left="420" top="20.0" />
+                  <Insets left="700" top="20.0" />
                </HBox.margin>
             </TextField>
             <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" prefHeight="31.0" prefWidth="94.0" style="-fx-background-color:#0086b3" text="Rechercher" textFill="WHITE">
