@@ -39,6 +39,10 @@ public class AjouterEntretineController {
     private Spinner<Integer> sp_heure_entretien;
 
     private EntretienService entretienService = new EntretienService();
+    @FXML
+    private ComboBox cb_candidat;
+    @FXML
+    private ComboBox cb_employe;
 
     @FXML
     public void initialize() {
@@ -56,7 +60,6 @@ public class AjouterEntretineController {
             int heure = (int) sp_heure_entretien.getValue();
             String typeString = (String) cb_type_entretien.getValue();
             boolean status = cb_status.isSelected();
-
             String titrev = tf_titre.getText().trim();
             String descriptionv = tf_description.getText().trim();
 

@@ -111,6 +111,30 @@ public class Entretien {
         this.idCandidature = idCandidature;
     }
 
+
+    public Entretien(String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status, int candidatId, int employeId, int idOffre, int idCandidature) {
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+        this.candidatId = candidatId;
+        this.employeId = employeId;
+        this.idOffre = idOffre;
+        this.idCandidature = idCandidature;
+    }
+
+    public Entretien(String titre, String description, Date date_entretien, Time heure_entretien, TypeEntretien type_entretien, boolean status, int employeId) {
+        this.titre = titre;
+        this.description = description;
+        this.date_entretien = date_entretien;
+        this.heure_entretien = heure_entretien;
+        this.type_entretien = type_entretien;
+        this.status = status;
+        this.employeId = employeId;
+    }
+
     public int getEmployeId() {
         return employeId;
     }

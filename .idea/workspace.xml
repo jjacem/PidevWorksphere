@@ -5,50 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/Router.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherOffreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherOffreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReclamationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ForgotpasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ForgotpasswordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEntretineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEntretineController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Entretien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Entretien.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EntretienService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EntretienService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/JwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherFormation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherOffre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherOffre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReclamation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterReclamation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/AjouterReclamation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/AjouterReclamation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DashboardCandidat.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardCandidat.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardManager.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Forgotpassword.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Forgotpassword.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherReclamationsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherReclamationsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterReclamationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterReclamationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ForgotpasswordController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ForgotpasswordController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/LoginContoller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/LoginContoller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceReclamation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceReclamation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEntretien.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEntretien.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffecterEntretien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffecterEntretien.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffichageEntretienbyemployeeId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffichageEntretienbyemployeeId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffichageEntretineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffichageEntretineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" afterDir="false" />
->>>>>>> 63e8ae3caaedaa0ad95deada345530ed66e3a599
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +59,7 @@
     "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
     "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Finalintegration",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -105,7 +69,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "settings.editor.selected.configurable": "preferences.JavaFX",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -130,8 +94,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
       </set>
     </attachedChunks>
   </component>
@@ -149,12 +113,10 @@
       <workItem from="1739982718274" duration="1797000" />
       <workItem from="1739987295880" duration="2273000" />
       <workItem from="1740022418609" duration="622000" />
-<<<<<<< HEAD
       <workItem from="1740027211613" duration="1954000" />
       <workItem from="1740029181800" duration="24183000" />
-=======
       <workItem from="1740052763997" duration="1268000" />
->>>>>>> 63e8ae3caaedaa0ad95deada345530ed66e3a599
+      <workItem from="1740305126728" duration="8934000" />
     </task>
     <servers />
   </component>
@@ -167,7 +129,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/esprit/tn/controllers/RHMenuController.java</url>
           <line>43</line>
-          <properties class="esprit.tn.controllers.RHMenuController">
+          <properties class="esprit.tn.controllers.RHMenuController" method="goprofile">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -179,5 +141,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

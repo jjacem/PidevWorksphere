@@ -11,10 +11,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="800" prefWidth="1000" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterEntretineController">
+<AnchorPane prefHeight="800" prefWidth="1000" style="-fx-background-color: #f4f4f4;"
+            xmlns="http://javafx.com/javafx/17.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AjouterEntretineController">
 
     <children>
-        <VBox alignment="CENTER" layoutX="150.0" layoutY="80.0" spacing="20" style="-fx-padding: 20; -fx-background-radius: 10; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+        <VBox alignment="CENTER" layoutX="150.0" layoutY="80.0" spacing="20"
+              style="-fx-padding: 20; -fx-background-radius: 10; -fx-background-color: white;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
             <Label text="📖 Ajouter un Entretien" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
             <HBox spacing="15">
@@ -43,13 +49,25 @@
             </HBox>
 
             <HBox spacing="15">
+                <Label text="🧑‍💼 Employé :" />
+                <ComboBox fx:id="cb_employe" promptText="Sélectionnez un employé" />
+            </HBox>
+
+            <HBox spacing="15">
+                <Label text="👤 Candidat :" />
+                <ComboBox fx:id="cb_candidat" promptText="Sélectionnez un candidat" />
+            </HBox>
+
+            <HBox spacing="15">
                 <Label text="✅ Statut :" />
                 <CheckBox fx:id="cb_status" text="Terminé" />
             </HBox>
 
             <HBox spacing="30">
-                <Button fx:id="btnAjouter" onAction="#ajouterEntretien" text="📝 Ajouter" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" />
-                <Button onAction="#fermerFenetre" text="❌ Annuler" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" />
+                <Button fx:id="btnAjouter" onAction="#ajouterEntretien" text="📝 Ajouter"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" />
+                <Button onAction="#fermerFenetre" text="❌ Annuler"
+                        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" />
             </HBox>
         </VBox>
     </children>

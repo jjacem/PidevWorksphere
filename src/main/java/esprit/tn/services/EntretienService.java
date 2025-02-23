@@ -35,6 +35,116 @@ public class EntretienService implements IService<Entretien> {
         System.out.println("entretien ajouté avec sucées");
     }
 
+
+
+    public void ajouterwithId_offre(Entretien entretien, int idOffre) throws SQLException {
+        String getCandidatQuery = "SELECT id_candidat, id_candidature FROM candidature WHERE id_Offre = ?";
+        int idCandidat = -1;
+        int idCandidature = -1;
+
+        try (PreparedStatement stmt = conn.prepareStatement(getCandidatQuery)) {
+            stmt.setInt(1, idOffre);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                idCandidat = resultSet.getInt("id_candidat");
+                idCandidature = resultSet.getInt("id_candidature");
+            }
+        }
+
+        if (idCandidat == -1 || idCandidature == -1) {
+            System.out.println("Aucun candidat ou candidature trouvée pour cette offre !");
+            return;
+        }
+
+        String sql = "INSERT INTO entretiens (titre, description, date_entretien, heure_entretien, type_entretien, status, employe_id, idOffre, candidatId, idCandidature) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, entretien.getTitre());
+            pstmt.setString(2, entretien.getDescription());
+            pstmt.setDate(3, new java.sql.Date(entretien.getDate_entretien().getTime()));
+            pstmt.setTime(4, entretien.getHeure_entretien());
+            pstmt.setString(5, entretien.getType_entretien().name());
+            pstmt.setBoolean(6, entretien.isStatus());
+            pstmt.setInt(7, entretien.getEmployeId());
+            pstmt.setInt(8, idOffre);
+            pstmt.setInt(9, idCandidat);
+            pstmt.setInt(10, idCandidature);
+            pstmt.executeUpdate();
+            System.out.println("Entretien ajouté avec succès !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors de l'ajout de l'entretien !");
+        }
+    }
+
+
+
+
+    public void ajouterEntretienAvecCandidature(Entretien entretien, int idOffre) throws SQLException {
+        String insertEntretienSQL = "INSERT INTO entretiens (titre, description, date_entretien, heure_entretien, type_entretien, status, employe_id, idOffre) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        int entretienId = -1;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(insertEntretienSQL, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, entretien.getTitre());
+            pstmt.setString(2, entretien.getDescription());
+            pstmt.setDate(3, new java.sql.Date(entretien.getDate_entretien().getTime()));
+            pstmt.setTime(4, entretien.getHeure_entretien());
+            pstmt.setString(5, entretien.getType_entretien().name());
+            pstmt.setBoolean(6, entretien.isStatus());
+            pstmt.setInt(7, entretien.getEmployeId());
+            pstmt.setInt(8, idOffre);
+
+            pstmt.executeUpdate();
+
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                entretienId = generatedKeys.getInt(1);
+            }
+        }
+
+        if (entretienId == -1) {
+            System.out.println("Erreur lors de l'insertion de l'entretien !");
+            return;
+        }
+
+        int idCandidat = entretien.getCandidatId();
+
+        String selectCandidatureSQL = "SELECT id_candidature FROM candidature WHERE id_Offre = ? AND id_candidat = ? LIMIT 1";
+        int idCandidature = -1;
+
+        try (PreparedStatement stmt = conn.prepareStatement(selectCandidatureSQL)) {
+            stmt.setInt(1, idOffre);
+            stmt.setInt(2, idCandidat);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                idCandidature = resultSet.getInt("id_candidature");
+            }
+        }
+
+        if (idCandidature == -1) {
+            System.out.println("Aucune candidature trouvée pour cette offre et ce candidat !");
+            return;
+        }
+
+        String updateEntretienSQL = "UPDATE entretiens SET candidatId = ?, idCandidature = ? WHERE id = ?";
+
+        try (PreparedStatement updateStmt = conn.prepareStatement(updateEntretienSQL)) {
+            updateStmt.setInt(1, idCandidat);
+            updateStmt.setInt(2, idCandidature);
+            updateStmt.setInt(3, entretienId);
+            updateStmt.executeUpdate();
+
+            System.out.println("Entretien ajouté et mis à jour avec succès !");
+        }
+    }
+
+
+
+
     @Override
     public void modifier(Entretien entretien) throws SQLException {
 
@@ -53,6 +163,54 @@ public class EntretienService implements IService<Entretien> {
 
     }
 
+
+
+    public void updateEntretienWithId_offre(int idEntretienOld, Entretien entretien) throws SQLException {
+        String getCandidatQuery = "SELECT candidatId, idCandidature, idOffre FROM entretiens WHERE id= ?";
+        int idCandidat = -1;
+        int idCandidature = -1;
+        int idOffre = -1;
+
+        try (PreparedStatement stmt = conn.prepareStatement(getCandidatQuery)) {
+            stmt.setInt(1, idEntretienOld);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                idCandidat = resultSet.getInt("candidatId");
+                idCandidature = resultSet.getInt("idCandidature");
+                idOffre = resultSet.getInt("idOffre");
+            }
+        }
+
+        if (idCandidat == -1 || idCandidature == -1) {
+            System.out.println("Aucun candidat ou candidature trouvée pour cet entretien !");
+            return;
+        }
+
+        String sql = "UPDATE entretiens SET titre = ?, description = ?, date_entretien = ?, heure_entretien = ?, type_entretien = ?, " +
+                "status = ?, employe_id = ?, idOffre = ?, idCandidature = ?, candidatId = ? WHERE id = ?";
+
+        // Insert the new entretien details
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, entretien.getTitre());
+            pstmt.setString(2, entretien.getDescription());
+            pstmt.setDate(3, new java.sql.Date(entretien.getDate_entretien().getTime()));
+            pstmt.setTime(4, entretien.getHeure_entretien());
+            pstmt.setString(5, entretien.getType_entretien().name());
+            pstmt.setBoolean(6, entretien.isStatus());
+            pstmt.setInt(7, entretien.getEmployeId());
+            pstmt.setInt(8, idOffre);
+            pstmt.setInt(9, idCandidature);
+            pstmt.setInt(10, idCandidat);
+            pstmt.setInt(11, idEntretienOld);
+            pstmt.executeUpdate();
+            System.out.println("Entretien mis à jour avec succès !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors de la mise à jour de l'entretien !");
+        }
+    }
+
+
     @Override
     public void supprimer(int id) throws SQLException {
 
@@ -68,30 +226,29 @@ public class EntretienService implements IService<Entretien> {
     public List<Entretien> afficher() throws SQLException {
         List<Entretien> entretiens = new ArrayList<>();
         String sql = "SELECT * FROM entretiens";
-        Statement stmt = conn.createStatement();
-        ResultSet resultSet = stmt.executeQuery(sql);
 
-        while (resultSet.next()) {
-            int  id = resultSet.getInt("id");
-            String titre = resultSet.getString("titre");
-            String description = resultSet.getString("description");
-            Date dateEntretien = resultSet.getDate("date_entretien");
-            Time heureEntretien = resultSet.getTime("heure_entretien");
-            TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
-            int feedbackId  = resultSet.getInt("feedbackId");
-            int employe_id  = resultSet.getInt("employe_id");
+        try (Statement stmt = conn.createStatement(); ResultSet resultSet = stmt.executeQuery(sql)) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titre = resultSet.getString("titre");
+                String description = resultSet.getString("description");
+                Date dateEntretien = resultSet.getDate("date_entretien");
+                Time heureEntretien = resultSet.getTime("heure_entretien");
+                TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
+                boolean status = resultSet.getBoolean("status");
+                int feedbackId = resultSet.getInt("feedbackId");
+                int employeId = resultSet.getInt("employe_id");
+                int idOffre = resultSet.getInt("idOffre");
+                int candidatId = resultSet.getInt("candidatId");
+                int idCandidature = resultSet.getInt("idCandidature");
 
-
-
-            boolean status = resultSet.getBoolean("status");
-
-            Entretien entretien = new Entretien( id , titre, description, dateEntretien, heureEntretien, typeEntretien, status , feedbackId , employe_id);
-            entretiens.add(entretien);
+                Entretien entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status, candidatId, employeId, feedbackId, idOffre, idCandidature);
+                entretiens.add(entretien);
+            }
         }
 
         return entretiens;
-}
-
+    }
 
     public List<Entretien> rechercher(String keyword) throws SQLException {
         List<Entretien> entretiens = afficher();
@@ -100,7 +257,6 @@ public class EntretienService implements IService<Entretien> {
                 .filter(entretien -> entretien.getTitre().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
     }
-
 
     public void affecterEntretien(int employeId, int entretienId) {
         String sql = "UPDATE entretiens SET employe_id = ? WHERE id = ?";
@@ -128,23 +284,21 @@ public class EntretienService implements IService<Entretien> {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int  id = resultSet.getInt("id");
+                int id = resultSet.getInt("id_entretien");
                 String titre = resultSet.getString("titre");
                 String description = resultSet.getString("description");
                 Date dateEntretien = resultSet.getDate("date_entretien");
                 Time heureEntretien = resultSet.getTime("heure_entretien");
                 TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
-                int feedbackId  = resultSet.getInt("feedbackId");
-                int employe_id  = resultSet.getInt("employe_id");
-
-
-
                 boolean status = resultSet.getBoolean("status");
-                Entretien entretienss = new Entretien( id , titre, description, dateEntretien, heureEntretien, typeEntretien, status , feedbackId , employe_id);
+                int feedbackId = resultSet.getInt("feedbackId");
+                int idOffre = resultSet.getInt("idOffre");
+                int idCandidature = resultSet.getInt("idCandidature");
+                int idCandidat = resultSet.getInt("candidatId");
 
-
-
-                entretiens.add(entretienss);
+                Entretien entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status, idCandidat
+                        , employeId, feedbackId, idOffre, idCandidature);
+                entretiens.add(entretien);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +306,6 @@ public class EntretienService implements IService<Entretien> {
 
         return entretiens;
     }
-
 
     public Entretien getEntretienById(int id) {
         String sql = "SELECT * FROM entretiens WHERE id = ?";
@@ -169,10 +322,13 @@ public class EntretienService implements IService<Entretien> {
                 Time heureEntretien = resultSet.getTime("heure_entretien");
                 TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
                 boolean status = resultSet.getBoolean("status");
-                int feedbackId  = resultSet.getInt("feedbackId");
-                int employe_id  = resultSet.getInt("employe_id");
+                int feedbackId = resultSet.getInt("feedbackId");
+                int employeId = resultSet.getInt("employe_id");
+                int idOffre = resultSet.getInt("idOffre");
+                int idCandidature = resultSet.getInt("idCandidature");
+                int idCandidat = resultSet.getInt("candidatId");
 
-                entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status , feedbackId  ,employe_id );
+                entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status, idCandidat, employeId, feedbackId, idOffre, idCandidature);
             }
         } catch (SQLException e) {
             e.printStackTrace();
