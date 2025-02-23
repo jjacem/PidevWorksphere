@@ -193,10 +193,13 @@
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
     import javafx.fxml.FXMLLoader;
+    import javafx.geometry.Insets;
+    import javafx.geometry.Pos;
     import javafx.scene.Parent;
     import javafx.scene.Scene;
     import javafx.scene.control.*;
     import javafx.scene.layout.HBox;
+    import javafx.scene.layout.VBox;
     import javafx.scene.text.Text;
     import javafx.stage.Modality;
     import javafx.stage.Stage;
@@ -230,7 +233,7 @@
 
                 // Définir le rendu personnalisé des cellules de la ListView
                 lv_sponsor.setCellFactory(param -> new ListCell<Sponsor>() {
-                    @Override
+                   /* @Override
                     protected void updateItem(Sponsor sponsor, boolean empty) {
                         super.updateItem(sponsor, empty);
                         if (empty || sponsor == null) {
@@ -334,7 +337,137 @@
                                 e.printStackTrace();
                             }
                         }
-                    }
+                    }*/
+                   @Override
+                   protected void updateItem(Sponsor sponsor, boolean empty) {
+                       super.updateItem(sponsor, empty);
+                       if (empty || sponsor == null) {
+                           setText(null);
+                           setGraphic(null);
+                       } else {
+                           try {
+                               // Récupérer les événements associés au sponsor
+                               List<String> eventNames = serviceSponsor.getEventNamesBySponsor(sponsor.getIdSponsor());
+                               String eventsText = String.join(", ", eventNames);
+
+                               // Créer un VBox pour organiser les informations du sponsor
+                               VBox vbox = new VBox(5); // Espacement de 5 entre les éléments
+                               vbox.setPadding(new Insets(10)); // Marge intérieure de 10 pixels
+
+                               // Nom et prénom du sponsor
+                               Text nomPrenomText = new Text(sponsor.getNomSponso() + " " + sponsor.getPrenomSponso());
+                               nomPrenomText.getStyleClass().add("sponsor-name");
+
+                               // Email du sponsor
+                               Text emailText = new Text("Email: " + sponsor.getEmailSponso());
+                               emailText.getStyleClass().add("sponsor-detail");
+
+                               // Budget du sponsor
+                               Text budgetText = new Text("Budget: " + sponsor.getBudgetSponso());
+                               budgetText.getStyleClass().add("sponsor-detail");
+
+                               // Événements associés
+                               Text eventsLabel = new Text("Événements associés :");
+                               eventsLabel.getStyleClass().add("sponsor-detail");
+
+                               Text eventsTextNode = new Text(eventsText.isEmpty() ? "Aucun événement" : eventsText);
+                               eventsTextNode.getStyleClass().add("sponsor-detail");
+
+                               // Ajouter les éléments au VBox
+                               vbox.getChildren().addAll(nomPrenomText, emailText, budgetText, eventsLabel, eventsTextNode);
+
+                               // Créer un HBox pour les boutons
+                               HBox hboxButtons = new HBox(10); // Espacement de 10 entre les boutons
+                               hboxButtons.setAlignment(Pos.CENTER_RIGHT);
+
+                               // Bouton Modifier
+                               Button btnModifier = new Button("Modifier");
+                               btnModifier.getStyleClass().add("btn-modifier");
+                               btnModifier.setOnAction(event -> {
+                                   try {
+                                       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierSponsor.fxml"));
+                                       Parent root = loader.load();
+
+                                       ModifierSponsorController controller = loader.getController();
+                                       controller.setSponsor(sponsor);
+
+                                       Stage popupStage = new Stage();
+                                       popupStage.setTitle("Modifier Sponsor");
+                                       popupStage.setScene(new Scene(root));
+                                       popupStage.initModality(Modality.APPLICATION_MODAL);
+                                       popupStage.showAndWait();
+
+                                       reloadSponsorList();
+                                   } catch (IOException e) {
+                                       e.printStackTrace();
+                                   }
+                               });
+
+                               // Bouton Supprimer
+                               Button btnSupprimer = new Button("Supprimer");
+                               btnSupprimer.getStyleClass().add("btn-supprimer");
+                               btnSupprimer.setOnAction(event -> {
+                                   try {
+                                       Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                                       alertConfirmation.setTitle("Confirmation");
+                                       alertConfirmation.setHeaderText("Voulez-vous vraiment supprimer ce sponsor ?");
+                                       alertConfirmation.setContentText("Cette action est irréversible.");
+
+                                       if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
+                                           serviceSponsor.supprimer(sponsor.getIdSponsor());
+                                           observableList.remove(sponsor);
+
+                                           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                           alert.setTitle("Succès");
+                                           alert.setHeaderText("Suppression réussie");
+                                           alert.setContentText("Le sponsor a été supprimé avec succès.");
+                                           alert.showAndWait();
+                                           reloadSponsorList();
+                                       }
+                                   } catch (SQLException e) {
+                                       Alert alert = new Alert(Alert.AlertType.ERROR);
+                                       alert.setTitle("Erreur");
+                                       alert.setHeaderText("Erreur lors de la suppression du sponsor");
+                                       alert.setContentText("Une erreur est survenue : " + e.getMessage());
+                                       alert.showAndWait();
+                                   }
+                               });
+
+                               // Bouton Supprimer Association
+                               Button btnSupprimerAssociation = new Button("Supprimer Association");
+                               btnSupprimerAssociation.getStyleClass().add("btn-supprimer-association");
+                               btnSupprimerAssociation.setOnAction(event -> {
+                                   try {
+                                       removeSponsorFromEvent(sponsor);
+                                   } catch (SQLException e) {
+                                       e.printStackTrace();
+                                   }
+                               });
+
+                               // Bouton Associer Événement
+                               Button btnAssocierEvenement = new Button("Associer Événement");
+                               btnAssocierEvenement.getStyleClass().add("btn-associer-evenement");
+                               btnAssocierEvenement.setOnAction(event -> {
+                                   try {
+                                       associerEvenement(sponsor);
+                                   } catch (SQLException e) {
+                                       e.printStackTrace();
+                                   }
+                               });
+
+                               // Ajouter les boutons au HBox
+                               hboxButtons.getChildren().addAll(btnModifier, btnSupprimer, btnSupprimerAssociation, btnAssocierEvenement);
+
+                               // Ajouter le VBox et le HBox dans un VBox principal
+                               VBox mainVBox = new VBox(10, vbox, hboxButtons);
+                               mainVBox.getStyleClass().add("sponsor-item");
+
+                               setGraphic(mainVBox);
+                           } catch (SQLException e) {
+                               e.printStackTrace();
+                           }
+                       }
+                   }
                 });
             } catch (SQLException e) {
                 e.printStackTrace();
