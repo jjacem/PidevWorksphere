@@ -30,17 +30,28 @@ public class DashboardEmploye {
     public void initialize() throws SQLException {
         User u = SessionManager.extractuserfromsession();
 
-        if (u.getImageProfil() != null && !u.getImageProfil().isEmpty()) {
-            File imageFile = new File(u.getImageProfil());
-            if (imageFile.exists()) {
-                this.image.setImage(new Image(imageFile.toURI().toString()));
-            } else {
-                System.out.println("Image file not found: " + u.getImageProfil());
-            }
-        }
+        if (u != null) {
+            name.setText(u.getNom() + " " + u.getPrenom());
 
-        name.setText(u.getNom() + " " + u.getPrenom());
+            if (u.getImageProfil() != null && !u.getImageProfil().trim().isEmpty()) {
+                String correctPath = "C:/xampp/htdocs/img/" + new File(u.getImageProfil()).getName();
+                System.out.println(correctPath);
+                File imageFile = new File(correctPath);
+                if (imageFile.exists() && imageFile.isFile()) {
+                    image.setImage(new Image(imageFile.toURI().toString()));
+                } else {
+                    System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                    image.setImage(new Image("/Images/user.png"));
+                }
+            } else {
+                System.out.println("No image path provided.");
+                image.setImage(new Image("/Images/user.png"));
+            }
+        } else {
+            System.out.println("No user found in session.");
+        }
     }
+
 
     private void loadPage(String page) {
         try {
