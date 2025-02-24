@@ -82,6 +82,7 @@ esprit\tn\controllers\DashboardHR.class
 esprit\tn\controllers\AjouterFormationController.class
 esprit\tn\controllers\AjouterReponseController.class
 esprit\tn\services\ServiceOffre.class
+esprit\tn\controllers\AfficherDetailFormationController.class
 esprit\tn\entities\Status.class
 esprit\tn\utils\SessionManager.class
 esprit\tn\controllers\AfficherProjetController.class

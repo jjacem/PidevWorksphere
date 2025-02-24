@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="665.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierFormationController">
+<AnchorPane prefHeight="685.0" prefWidth="603.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierFormationController">
    <children>
       <Label layoutX="181.0" layoutY="26.0" text="Modifier Formation" textFill="#0086b3">
          <font>
@@ -64,6 +64,5 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnretour" layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#Onback" style="-fx-background-color: #000000;" text="&lt;" textFill="WHITE" />
    </children>
 </AnchorPane>

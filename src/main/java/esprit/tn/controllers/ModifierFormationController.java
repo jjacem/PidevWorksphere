@@ -43,8 +43,7 @@ public class ModifierFormationController implements Initializable {
 
     private Formation formation;
     private final ServiceFormation serviceFormation = new ServiceFormation();
-    @FXML
-    private Button btnretour;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -139,21 +138,13 @@ public class ModifierFormationController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+        applyAlertStyle(alert);
     }
 
-    @FXML
-    public void Onback(ActionEvent actionEvent) {
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
-        }
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
     }
 }

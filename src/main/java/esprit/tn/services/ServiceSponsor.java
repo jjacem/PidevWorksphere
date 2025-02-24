@@ -296,5 +296,15 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
 
-
+    public int getEventIdByName(String eventName) throws SQLException {
+        String query = "SELECT idEvent FROM evennement WHERE nomEvent = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, eventName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("idEvent");
+            }
+        }
+        throw new SQLException("Événement non trouvé : " + eventName);
+    }
 }

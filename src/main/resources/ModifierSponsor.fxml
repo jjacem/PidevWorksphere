@@ -29,12 +29,5 @@
         <Button fx:id="btnModifier" layoutX="150.0" layoutY="220.0" text="Modifier"
                 onAction="#modifierSponsor" prefHeight="40.0" prefWidth="120.0"
                 style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 5px;" />
-
-
-
-        <Button fx:id="RetourBtnaListSponsor" layoutX="410.0" layoutY="358.0" mnemonicParsing="false" onAction="#RetourListSponso" text="Retour"
-                prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
-        <Button layoutX="606.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="179.0" style="-fx-font-size: 15px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH"/>
-
     </children>
 </AnchorPane>
