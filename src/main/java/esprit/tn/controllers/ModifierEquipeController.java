@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,9 +10,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import esprit.tn.services.ServiceEquipe;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +52,13 @@ public class ModifierEquipeController {
 
     @FXML
     private Button supprimerUnButton;
+    @FXML
+    private ImageView imagePreview;
 
+    @FXML
+    private Button uploadImageButton;
+
+    private String imagePath = "";
     private ServiceEquipe serviceEquipe;
     private Equipe equipeAModifier;
 
@@ -56,12 +69,31 @@ public class ModifierEquipeController {
         serviceEquipe = new ServiceEquipe();
     }
 
-    public void setEquipeAModifier(Equipe equipe) {
+    /*public void setEquipeAModifier(Equipe equipe) {
         this.equipeAModifier = equipe;
         nomEquipeField.setText(equipe.getNomEquipe());
         employesSelectionnesList.setAll(equipe.getEmployes());
     }
+*/
+    public void setEquipeAModifier(Equipe equipe) {
+        this.equipeAModifier = equipe;
+        nomEquipeField.setText(equipe.getNomEquipe());
+        employesSelectionnesList.setAll(equipe.getEmployes());
 
+        // Charger l'image de l'équipe
+        if (equipe.getImageEquipe() != null && !equipe.getImageEquipe().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(equipe.getImageEquipe()).getName();
+            File imageFile = new File(correctPath);
+            if (imageFile.exists() && imageFile.isFile()) {
+                imagePreview.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                imagePreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+            }
+            imagePath = equipe.getImageEquipe(); // Conserver le chemin de l'image
+        } else {
+            imagePreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+        }
+    }
     @FXML
     public void initialize() {
         try {
@@ -134,7 +166,7 @@ public class ModifierEquipeController {
 
 
 
-    @FXML
+    /*@FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
         List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
@@ -185,6 +217,59 @@ public class ModifierEquipeController {
 
             e.printStackTrace();
         }
+    }*/
+
+    @FXML
+    public void confirmer() {
+        String nomEquipe = nomEquipeField.getText();
+        List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
+
+        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Champ(s) manquant(s)");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
+            applyAlertStyle(alert);
+            alert.showAndWait();
+
+            return;
+        }
+
+        try {
+            if (serviceEquipe.cntrlModifEquipe(nomEquipe, equipeAModifier.getId())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Nom d'équipe existant");
+                alert.setHeaderText(null);
+                alert.setContentText("Une équipe avec ce nom existe déjà. Veuillez choisir un autre nom.");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+
+                return;
+            }
+
+            // Mettre à jour l'équipe avec la nouvelle image
+            equipeAModifier.setNomEquipe(nomEquipe);
+            equipeAModifier.setEmployes(employesSelectionnes);
+            equipeAModifier.setImageEquipe(imagePath); // Mettre à jour le chemin de l'image
+            serviceEquipe.modifierEquipe(equipeAModifier);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setHeaderText(null);
+            alert.setContentText("Équipe modifiée avec succès !");
+            applyAlertStyle(alert);
+            alert.showAndWait();
+
+            // Rediriger vers la vue des équipes
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomEquipeField.getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.setTitle("Liste des équipes");
+
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -232,5 +317,47 @@ public class ModifierEquipeController {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
+    }
+
+    @FXML
+    private void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Définir le répertoire de destination (htdocs/img/)
+                File uploadDir = new File("C:/xampp/htdocs/img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Générer un nom de fichier unique
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copier le fichier vers la destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Stocker le chemin relatif dans la variable
+                imagePath = "img/" + fileName;
+
+                // Afficher l'image dans l'ImageView
+                imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Erreur de fichier");
+                alert.setHeaderText(null);
+                alert.setContentText("Échec de l'upload de l'image");
+                applyAlertStyle(alert);
+                alert.showAndWait();
+            }
+        }
     }
 }

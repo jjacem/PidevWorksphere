@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import esprit.tn.entities.Equipe;
 import esprit.tn.services.ServiceEquipe;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -48,7 +49,7 @@ public class AfficherEquipeController {
     }
 
 
-    private void afficherEquipes(List<Equipe> equipes) {
+    /*private void afficherEquipes(List<Equipe> equipes) {
         equipesContainer.getChildren().clear(); // Vider le conteneur
 
         if (equipes.isEmpty()) {
@@ -80,6 +81,72 @@ public class AfficherEquipeController {
                 HBox.setHgrow(spacer, Priority.ALWAYS);
 
                 card.getChildren().addAll(nomEquipeLabel, spacer, detailsButton, modifierButton, supprimerButton);
+                equipesContainer.getChildren().add(card);
+            }
+        }
+    }*/
+
+    private void afficherEquipes(List<Equipe> equipes) {
+        equipesContainer.getChildren().clear(); // Vider le conteneur
+
+        if (equipes.isEmpty()) {
+            Label messageLabel = new Label("Aucune équipe enregistrée");
+            messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
+            equipesContainer.getChildren().add(messageLabel);
+        } else {
+            for (Equipe equipe : equipes) {
+                HBox card = new HBox(10);
+                card.setStyle("-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+
+                // Ajouter l'image de l'équipe
+                ImageView imageView = new ImageView();
+                if (equipe.getImageEquipe() != null && !equipe.getImageEquipe().trim().isEmpty()) {
+                    // Construire le chemin correct
+                    String correctPath = "C:/xampp/htdocs/img/" + new File(equipe.getImageEquipe()).getName();
+                    System.out.println("Chemin de l'image : " + correctPath);
+
+                    // Vérifier si le fichier existe
+                    File imageFile = new File(correctPath);
+                    if (imageFile.exists() && imageFile.isFile()) {
+                        // Charger l'image depuis le chemin absolu
+                        imageView.setImage(new Image(imageFile.toURI().toString()));
+                    } else {
+                        // Utiliser une image par défaut si le fichier n'existe pas
+                        System.out.println("Fichier image introuvable ou chemin invalide : " + imageFile.getAbsolutePath());
+                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+                    }
+                } else {
+                    // Utiliser une image par défaut si aucune image n'est définie
+                    System.out.println("Aucun chemin d'image fourni pour l'équipe : " + equipe.getNomEquipe());
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+                }
+                imageView.setFitHeight(50); // Ajuster la taille de l'image
+                imageView.setFitWidth(50);
+                imageView.setPreserveRatio(true);
+
+                // Nom de l'équipe
+                Label nomEquipeLabel = new Label(equipe.getNomEquipe());
+                nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+
+                // Boutons
+                Button detailsButton = new Button("Détails");
+                detailsButton.getStyleClass().addAll("card-button", "details-button");
+                detailsButton.setOnAction(event -> afficherDetailsEquipe(equipe));
+
+                Button modifierButton = new Button("Modifier");
+                modifierButton.getStyleClass().addAll("card-button", "modifier-button");
+                modifierButton.setOnAction(event -> modifierEquipe(equipe));
+
+                Button supprimerButton = new Button("Supprimer");
+                supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
+                supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
+
+                // Utilisation d'un Region pour pousser les boutons à droite
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                // Ajouter les éléments à la carte
+                card.getChildren().addAll(imageView, nomEquipeLabel, spacer, detailsButton, modifierButton, supprimerButton);
                 equipesContainer.getChildren().add(card);
             }
         }
