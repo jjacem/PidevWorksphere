@@ -145,6 +145,34 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, departementGere, nombreProjet, budget);
         return u;
     }
+
+    public User(int id, String nom, String prenom,Role role) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+    }
+    public User(int id, String nom, String prenom, Role role, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+        this.imageProfil = imageProfil;
+    }
+
+    public User(int id, String nom, String prenom, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.imageProfil = imageProfil;
+    }
+
+    public User(int id, String nom, String prenom) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+
+    }
     public int getIdUser() { return idUser; }
     public void setIdUser(int idUser) { this.idUser = idUser; }
 
@@ -233,4 +261,6 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
                 ", specialisation='" + specialisation + '\'' +
                 '}';
     }
+
+
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -19,6 +20,15 @@
         <VBox alignment="CENTER_LEFT" spacing="10">
             <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Nom de l'équipe:" />
             <TextField fx:id="nomEquipeField" prefHeight="29.0" prefWidth="400.0" promptText="Entrez le nom de l'équipe" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #0086b3; -fx-border-width: 1px; -fx-padding: 5;" />
+        </VBox>
+
+        <!-- Champ pour l'image de l'équipe -->
+        <VBox alignment="CENTER_LEFT" spacing="10">
+            <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Image de l'équipe:" />
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Button fx:id="uploadImageButton" onAction="#uploadImage" text="Choisir une image" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" />
+                <ImageView fx:id="imagePreview" fitHeight="100" fitWidth="100" style="-fx-border-color: #0086b3; -fx-border-width: 1px; -fx-border-radius: 5;" />
+            </HBox>
         </VBox>
 
         <!-- Conteneur pour les ListView et les boutons -->
