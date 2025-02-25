@@ -82,6 +82,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     }
         public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, salaireAttendu);
+        u.setRole(Role.CANDIDAT);
         return u;
     }
 

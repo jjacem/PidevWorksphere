@@ -33,6 +33,7 @@ esprit\tn\controllers\AfficherReclamationsController$1.class
 esprit\tn\controllers\AjouterEvenementController.class
 esprit\tn\controllers\AfficherCandidatureController.class
 esprit\tn\services\IServiceReservation.class
+esprit\tn\controllers\AfficherUser$2.class
 esprit\tn\services\ServiceFormation.class
 esprit\tn\controllers\AfficherDetailsEquipeController.class
 esprit\tn\entities\Entretien.class
