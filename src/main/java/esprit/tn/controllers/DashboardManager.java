@@ -28,6 +28,9 @@ public class DashboardManager {
     @FXML
     private Text name;
     public void initialize() throws SQLException {
+
+        loadPage("/AfficherEquipe.fxml");
+
         User u = SessionManager.extractuserfromsession();
 
         if (u != null) {
@@ -50,6 +53,7 @@ public class DashboardManager {
         } else {
             System.out.println("No user found in session.");
         }
+
     }
 
     public void loadPage(String page) {
