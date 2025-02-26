@@ -3,6 +3,10 @@ package esprit.tn.controllers;
 import esprit.tn.entities.*;
 import esprit.tn.services.ServiceProjet;
 import javafx.fxml.FXML;
+<<<<<<< Updated upstream
+=======
+import javafx.application.Platform;
+>>>>>>> Stashed changes
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -78,9 +82,14 @@ public class AjouterProjetController {
                 }
             });
 
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Platform.runLater(() -> {
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setMaximized(true);
+        });
     }
 
 

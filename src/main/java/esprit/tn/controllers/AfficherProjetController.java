@@ -8,10 +8,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -123,17 +127,52 @@ public class AfficherProjetController {
                         setText(null);
                         setGraphic(null);
                     } else {
-
+                        // Mettre à jour les labels
                         nomLabel.setText(projet.getNom());
                         nomLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0086b3;");
 
                         descriptionLabel.setText("Description : " + projet.getDescription());
                         descriptionLabel.setStyle("-fx-font-size: 14; -fx-text-fill: #555;");
-                        equipeLabel.setText("Equipe : " + projet.getEquipe().getNomEquipe());
+                        equipeLabel.setText("Équipe : " + projet.getEquipe().getNomEquipe());
 
                         dateCreationLabel.setText("Créé le : " + projet.getDatecréation());
                         deadlineLabel.setText("Deadline : " + projet.getDeadline());
                         etatLabel.setText("État : " + projet.getEtat().name());
+
+                        // Ajouter l'image du projet
+                        ImageView imageView = new ImageView();
+                        if (projet.getImageProjet() != null && !projet.getImageProjet().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(projet.getImageProjet()).getName();
+                            System.out.println("Chemin de l'image : " + correctPath);
+
+                            // Vérifier si le fichier existe
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                // Charger l'image depuis le chemin absolu
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                // Utiliser une image par défaut si le fichier n'existe pas
+                                System.out.println("Fichier image introuvable ou chemin invalide : " + imageFile.getAbsolutePath());
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
+                        } else {
+                            // Utiliser une image par défaut si aucune image n'est définie
+                            System.out.println("Aucun chemin d'image fourni pour le projet : " + projet.getNom());
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                        }
+
+                        // Configuration de l'ImageView
+                        imageView.setFitHeight(80); // Taille de l'image
+                        imageView.setFitWidth(80);
+                        imageView.setPreserveRatio(true);
+
+                        // Ajouter l'image à gauche du contenu
+                        HBox contentBox = new HBox(10); // Utiliser HBox pour aligner l'image et le contenu
+                        contentBox.getChildren().addAll(imageView, leftContent); // Image à gauche, contenu à droite
+
+                        // Ajouter le contenu et les boutons dans le AnchorPane
+                        cellContainer.getChildren().clear();
+                        cellContainer.getChildren().addAll(contentBox, buttonBox);
 
                         setGraphic(cellContainer);
                     }

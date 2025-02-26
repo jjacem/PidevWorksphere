@@ -9,6 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+<<<<<<< Updated upstream
+=======
+import javafx.application.Platform;
+import java.io.File;
+>>>>>>> Stashed changes
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -78,6 +83,11 @@ public class ModifierProjetController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        Platform.runLater(() -> {
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setMaximized(true);
+        });
     }
 
     @FXML

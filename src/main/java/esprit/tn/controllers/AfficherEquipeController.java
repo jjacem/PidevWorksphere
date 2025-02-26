@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.entities.Equipe;
 import esprit.tn.services.ServiceEquipe;
-
+import javafx.application.Platform;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -46,6 +46,10 @@ public class AfficherEquipeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Platform.runLater(() -> {
+            Stage stage = (Stage) equipesContainer.getScene().getWindow();
+            stage.setMaximized(true);
+        });
     }
 
 
