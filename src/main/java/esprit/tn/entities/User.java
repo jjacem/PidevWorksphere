@@ -82,6 +82,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     }
         public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, salaireAttendu);
+        u.setRole(Role.CANDIDAT);
         return u;
     }
 
@@ -144,6 +145,34 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, departementGere, nombreProjet, budget);
         return u;
+    }
+
+    public User(int id, String nom, String prenom,Role role) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+    }
+    public User(int id, String nom, String prenom, Role role, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+        this.imageProfil = imageProfil;
+    }
+
+    public User(int id, String nom, String prenom, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.imageProfil = imageProfil;
+    }
+
+    public User(int id, String nom, String prenom) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+
     }
     public int getIdUser() { return idUser; }
     public void setIdUser(int idUser) { this.idUser = idUser; }
@@ -233,4 +262,6 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
                 ", specialisation='" + specialisation + '\'' +
                 '}';
     }
+
+
 }

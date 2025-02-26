@@ -10,9 +10,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
@@ -24,7 +30,7 @@ public class AjouterUser {
     @FXML
     private TextField email;
     @FXML
-    private TextField mdp;
+    private PasswordField mdp;
     @FXML
     private TextField adresse;
     @FXML
@@ -32,12 +38,13 @@ public class AjouterUser {
     @FXML
     private TextField salaireAttendu;
     @FXML
-    private TextField imageProfil;
+    private ImageView imagePreview;
 
+    private String imagePath = ""; // Store uploaded image path
 
     private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
     private final Pattern numericPattern = Pattern.compile("\\d+(\\.\\d+)?");
-    private final Pattern imageUrlPattern = Pattern.compile("^https://.*$");
+
     @FXML
     public void initialize() {
         sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
@@ -60,7 +67,7 @@ public class AjouterUser {
                     mdp.getText(),
                     adresse.getText(),
                     sexe.getValue(),
-                    imageProfil.getText(),
+                    imagePath, // Store uploaded image path
                     salaire
             );
 
@@ -73,11 +80,46 @@ public class AjouterUser {
             redirectToLogin(actionEvent);
 
             return candidat;
-
-
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add user: " + e.getMessage());
             return null;
+        }
+    }
+
+    @FXML
+    private void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Define upload directory (htdocs/images/)
+                File uploadDir = new File("C:\\xampp\\htdocs\\img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Generate unique filename
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copy file to the destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Store relative path in variable
+                imagePath = "htdocs/images/" + fileName;
+
+                // Display image in ImageView
+                imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "File Error", "Failed to upload image.");
+            }
         }
     }
 
@@ -93,14 +135,12 @@ public class AjouterUser {
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load login page.");
         }
-
-
-}
+    }
 
     private boolean validateInputs() {
         if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
                 mdp.getText().isEmpty() || adresse.getText().isEmpty() || sexe.getValue() == null ||
-                salaireAttendu.getText().isEmpty() || imageProfil.getText().isEmpty()) {
+                salaireAttendu.getText().isEmpty() || imagePath.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill in all fields.");
             return false;
         }
@@ -115,11 +155,6 @@ public class AjouterUser {
             return false;
         }
 
-        if (!imageUrlPattern.matcher(imageProfil.getText()).matches()) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Image URL", "Image URL must start with 'https://' and end with a valid image format (.jpg, .png, etc.).");
-            return false;
-        }
-
         return true;
     }
 
@@ -128,10 +163,5 @@ public class AjouterUser {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-
-
-
     }
-
-
 }

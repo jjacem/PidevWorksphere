@@ -49,7 +49,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
+                ServiceReponse s=new ServiceReponse();
+                reclamation.setReponse(s.checkForRepInRec(reclamation.getId_reclamation()));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -75,7 +77,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
+                ServiceReponse s=new ServiceReponse();
+                reclamation.setReponse(s.checkForRepInRec(reclamation.getId_reclamation()));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -188,11 +192,9 @@ public class ServiceReclamation implements IService<Reclamation> {
         return null;
     }
     public List<Reclamation> filterbytitle(String title) throws SQLException {
-        List<Reclamation> responses = this.afficher();
-        responses = responses.stream()
-                .filter(r -> r.getStatus().equals(title))
+        return this.afficher().stream()
+                .filter(r -> r.getTitre().toLowerCase().contains(title.toLowerCase())) // Case-insensitive search
                 .collect(Collectors.toList());
-        return responses;
     }
 
     public List<Reclamation> filterbystats(String status) throws SQLException {

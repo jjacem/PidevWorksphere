@@ -21,8 +21,7 @@ public class AfficherReponse {
     private Label lblDateDepot;
     @FXML
     private Label lblUserId;
-    @FXML
-    private Label lblReclamationId;
+
     @FXML
     private Label lblReclamationname;
 
@@ -42,14 +41,16 @@ public class AfficherReponse {
         if (reponse != null) {
             ServiceUser us = new ServiceUser();
             User user = us.findbyid(reponse.getId_user());
+            System.out.println(user);
+           String nom=user.getNom() + " " + user.getPrenom();
             ServiceReclamation rec = new ServiceReclamation();
             Reclamation r = rec.getReclamationById(reponse.getId_reclamation());
 
             if (lblMessage != null) lblMessage.setText(safeText(reponse.getMessage()));
             if (lblStatus != null) lblStatus.setText(safeText(reponse.getStatus()));
             if (lblDateDepot != null) lblDateDepot.setText(formatTimestamp(reponse.getDatedepot()));
-            if (lblUserId != null) lblUserId.setText(user.getNom() + " " + user.getPrenom());
-            if (lblReclamationId != null) lblReclamationId.setText(r.getTitre());
+            if (lblUserId != null) lblUserId.setText(safeText(nom));
+
             if (lblReclamationname != null) lblReclamationname.setText(safeText(r.getTitre()));
         } else {
             showNoResponseMessage();
@@ -69,7 +70,7 @@ public class AfficherReponse {
         if (lblStatus != null) lblStatus.setText("-");
         if (lblDateDepot != null) lblDateDepot.setText("-");
         if (lblUserId != null) lblUserId.setText("-");
-        if (lblReclamationId != null) lblReclamationId.setText("-");
+
         if (lblReclamationname != null) lblReclamationname.setText("-");
     }
 }

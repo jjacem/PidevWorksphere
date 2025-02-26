@@ -22,6 +22,7 @@ public class ServiceUser implements IService<User> {
         connection= MyDatabase.getInstance().getConnection();
 
     }
+
     public Sexe changetexttosexe(String text) {
         if (text == "FEMME") {
             return Sexe.FEMME;
@@ -382,6 +383,139 @@ public List<User> chercherparnom(String query) throws SQLException {
                 .collect(Collectors.toList());
         return employees;
     }
+    public void changetoEmploye(User u) {
+        String selectQuery = "SELECT * FROM User WHERE id_user = ?";
+        String updateQuery = "UPDATE user SET role = 'Employe', " +
+                "competence = ?, departement = ?, salaire = ?, experience_travail = ?, " +
+                "status = NULL, salaire_attendu = NULL, poste = NULL, " +
+                "nombreProjet = NULL, budget = NULL, departement_géré = NULL, " +
+                "ans_experience = NULL, specialisation = NULL " +
+                "WHERE id_user = ?";
+
+        try {
+            PreparedStatement selectStmt = connection.prepareStatement(selectQuery);
+            selectStmt.setInt(1, u.getIdUser());
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                String competence = u.getCompetence();
+                String departement = u.getDepartement();
+                double salaire = u.getSalaire();
+                int experience = u.getExperienceTravail();
+                PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                updateStmt.setString(1, competence);
+                updateStmt.setString(2, departement);
+                updateStmt.setDouble(3, salaire);
+                updateStmt.setInt(4, experience);
+                updateStmt.setInt(5, u.getIdUser());
+
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("User successfully updated to Employe role.");
+                } else {
+                    System.out.println("No user updated.");
+                }
+
+                updateStmt.close();
+            } else {
+                System.out.println("User not found.");
+            }
+
+            rs.close();
+            selectStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changetoRH(User u) {
+        String selectQuery = "SELECT * FROM User WHERE id_user = ?";
+        String updateQuery = "UPDATE user SET role = 'RH', " +
+                "competence = NULL, departement = NULL, salaire = NULL, experience_travail = NULL, " +
+                "status = NULL, salaire_attendu = NULL, poste = NULL, " +
+                "nombreProjet = NULL, budget = NULL, departement_géré = NULL, " +
+                "ans_experience = ?, specialisation = ? " +
+                "WHERE id_user = ?";
+
+        try {
+            // Step 1: Check if user exists
+            PreparedStatement selectStmt = connection.prepareStatement(selectQuery);
+            selectStmt.setInt(1, u.getIdUser());
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                // Step 2: Prepare update statement
+                PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                updateStmt.setInt(1, u.getAnsExperience()); // Assign experience
+                updateStmt.setString(2, u.getSpecialisation()); // Assign specialisation
+                updateStmt.setInt(3, u.getIdUser()); // Set user ID condition
+
+                // Step 3: Execute update
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("User successfully updated to RH role.");
+                } else {
+                    System.out.println("No update was made.");
+                }
+                updateStmt.close();
+            } else {
+                System.out.println("User not found.");
+            }
+
+            rs.close();
+            selectStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void changetoManager(User u) {
+        String selectQuery = "SELECT * FROM User WHERE id_user = ?";
+        String updateQuery = "UPDATE user SET role = 'Manager', " +  // Fixed role
+                "competence = NULL, departement = NULL, salaire = NULL, experience_travail = NULL, " +
+                "status = NULL, salaire_attendu = NULL, poste = NULL, " +
+                "nombreProjet = ?, budget = ?, departement_géré = ?, " +
+                "ans_experience = NULL, specialisation = NULL " +
+                "WHERE id_user = ?";
+
+        try {
+            // Step 1: Check if user exists
+            PreparedStatement selectStmt = connection.prepareStatement(selectQuery);
+            selectStmt.setInt(1, u.getIdUser());
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                // Step 2: Prepare update statement
+                PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                updateStmt.setInt(1, u.getNombreProjet()); // Assign nombreProjet
+                updateStmt.setDouble(2, u.getBudget()); // Assign budget
+                updateStmt.setString(3, u.getDepartementGere()); // Assign departement_géré
+                updateStmt.setInt(4, u.getIdUser()); // Set user ID condition
+
+                // Step 3: Execute update
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("User successfully updated to Manager role.");
+                } else {
+                    System.out.println("No update was made.");
+                }
+
+                // Close statements
+                updateStmt.close();
+            } else {
+                System.out.println("User not found.");
+            }
+
+            rs.close();
+            selectStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

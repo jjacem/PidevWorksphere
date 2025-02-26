@@ -30,24 +30,36 @@ public class DashboardManager {
     public void initialize() throws SQLException {
 
         loadPage("/AfficherEquipe.fxml");
+
         User u = SessionManager.extractuserfromsession();
 
-        if (u.getImageProfil() != null && !u.getImageProfil().isEmpty()) {
-            File imageFile = new File(u.getImageProfil());
-            if (imageFile.exists()) {
-                this.image.setImage(new Image(imageFile.toURI().toString()));
+        if (u != null) {
+            name.setText(u.getNom() + " " + u.getPrenom());
+
+            if (u.getImageProfil() != null && !u.getImageProfil().trim().isEmpty()) {
+                String correctPath = "C:/xampp/htdocs/img/" + new File(u.getImageProfil()).getName();
+                System.out.println(correctPath);
+                File imageFile = new File(correctPath);
+                if (imageFile.exists() && imageFile.isFile()) {
+                    image.setImage(new Image(imageFile.toURI().toString()));
+                } else {
+                    System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                    image.setImage(new Image("/images/user.png"));
+                }
             } else {
-                System.out.println("Image file not found: " + u.getImageProfil());
+                System.out.println("No image path provided.");
+                image.setImage(new Image("/images/user.png"));
             }
+        } else {
+            System.out.println("No user found in session.");
         }
 
-        name.setText(u.getNom() + " " + u.getPrenom());
     }
 
     public void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
-            Parent newPage = loader.load(); // Use Parent instead of AnchorPane
+            Parent newPage = loader.load();
             contentArea.getChildren().setAll(newPage);
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,6 +87,7 @@ public class DashboardManager {
     }
 
     public void goprofile(ActionEvent actionEvent) {
+
         loadPage("/ModifierCompte.fxml");
     }
 
@@ -84,6 +97,7 @@ public class DashboardManager {
     }
 
     public void Projet(ActionEvent actionEvent) {
+
         loadPage("/AfficherProjet.fxml");
     }
 

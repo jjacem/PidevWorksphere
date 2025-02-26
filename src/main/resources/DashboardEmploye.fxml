@@ -45,6 +45,7 @@
             <Button fx:id="btnGestionUser" onAction="#evenement" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 evenement " />
          <Button fx:id="btnGestionUser1" layoutX="30.0" layoutY="184.0" onAction="#entretien" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 entretien" />
          <Button fx:id="btnGestionUser11" layoutX="30.0" layoutY="235.0" onAction="#chng" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 changer mot de passe" />
+         <Button fx:id="btnGestionUser111" layoutX="30.0" layoutY="286.0" onAction="#mesreservastion" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Mes Reservations" />
         </VBox>
 
         <!-- Spacer to push logout button to bottom -->

@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,9 +11,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceEquipe;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +50,11 @@ public class AjouterEquipeController {
 
     @FXML
     private Button annulerButton;
+
+    @FXML
+    private ImageView imagePreview;
+
+    private String imagePath = "";
 
     private ServiceEquipe serviceEquipe;
 
@@ -129,6 +141,7 @@ public class AjouterEquipeController {
         String nomEquipe = nomEquipeField.getText();
         List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
 
+
         if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champ manquant");
@@ -138,7 +151,9 @@ public class AjouterEquipeController {
             alert.showAndWait();
             return;
         }
-
+        if (imagePath.isEmpty()) {
+            imagePath = "images/profil.png";
+        }
         try {
             if (serviceEquipe.nomEquipeExiste(nomEquipe)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -150,8 +165,9 @@ public class AjouterEquipeController {
                 return;
             }
 
-            serviceEquipe.ajouterEquipe(new Equipe(0, nomEquipe, employesSelectionnes));
-
+            // Créer une nouvelle équipe avec l'image
+            Equipe equipe = new Equipe(0, nomEquipe, employesSelectionnes, imagePath);
+            serviceEquipe.ajouterEquipe(equipe);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
@@ -159,6 +175,7 @@ public class AjouterEquipeController {
             applyAlertStyle(alert);
             alert.showAndWait();
 
+            // Rediriger vers la vue des équipes
             //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
@@ -198,5 +215,42 @@ public class AjouterEquipeController {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
+    }
+
+    @FXML
+    private void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Définir le répertoire de destination (htdocs/images/)
+                File uploadDir = new File("C:\\xampp\\htdocs\\img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Générer un nom de fichier unique
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copier le fichier vers la destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Stocker le chemin relatif dans la variable
+                imagePath = "img/" + fileName;
+
+                // Afficher l'image dans l'ImageView
+                imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                System.out.println("erreur lors de l'ajout de la photo");
+            }
+        }
     }
 }
