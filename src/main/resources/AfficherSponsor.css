@@ -203,3 +203,47 @@
     -fx-border-color: #e0e0e0; /* Bordure grise */
     -fx-border-radius: 5; /* Coins arrondis */
 }
+
+
+/* Style pour le bouton "Réinitialiser" */
+#btnResetFilter {
+    -fx-background-color: black; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-font-weight: bold; /* Gras */
+    -fx-padding: 10px 20px; /* Espacement interne */
+    -fx-border-radius: 5px; /* Bordure arrondie */
+}
+
+/* Style pour le bouton "Réinitialiser" lorsqu'il est survolé */
+#btnResetFilter:hover {
+    -fx-background-color: black; /* Couleur de fond au survol */
+}
+
+/* Style pour le bouton "Réinitialiser" lorsqu'il est cliqué */
+#btnResetFilter:pressed {
+    -fx-background-color: black; /* Couleur de fond au clic */
+}
+
+/* Style du ComboBox */
+.combo-box {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+/* Style des éléments du menu déroulant */
+.combo-box .list-cell {
+    -fx-text-fill: black; /* Texte noir par défaut */
+}
+
+/* Lorsque l'élément est survolé */
+.combo-box .list-cell:hover {
+    -fx-background-color: #0086b3; /* Couleur de fond bleue */
+    -fx-text-fill: white; /* Texte blanc */
+}
+
+/* Lorsque l'élément est sélectionné */
+.combo-box .list-cell:selected {
+    -fx-background-color: #0086b3; /* Même couleur que le survol */
+    -fx-text-fill: white;
+}
