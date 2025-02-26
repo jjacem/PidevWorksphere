@@ -9,15 +9,15 @@
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="esprit.tn.controllers.voirFeedbackController"
-           style="-fx-background-color: rgba(0, 0, 0, 0.5);">
+           stylesheets="@voirFeedback.css">
 
     <VBox spacing="20" alignment="CENTER" prefWidth="600" prefHeight="400"
-          style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+          styleClass="vbox">
 
         <!-- Close Button in Top-Right Corner -->
         <StackPane alignment="TOP_RIGHT">
             <Button onAction="#fermerFenetre"
-                    style="-fx-background-color: transparent; -fx-cursor: hand; -fx-font-size: 12px; -fx-text-fill: #d9534f;">
+                    styleClass="close-button">
                 <graphic>
                     <Label text="X" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                 </graphic>
@@ -25,31 +25,29 @@
         </StackPane>
 
         <!-- Title -->
-        <Label text="Détails du Feedback" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+        <Label text="Détails du Feedback" styleClass="title-label"/>
 
         <!-- Feedback Message -->
         <TextArea fx:id="lblMessage" editable="false" wrapText="true"
                   prefHeight="120" prefWidth="500"
-                  style="-fx-background-color: #f9f9f9; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10px; -fx-font-size: 14px;"/>
+                  styleClass="text-area"/>
 
         <!-- Rating Section -->
-        <HBox spacing="10" alignment="CENTER">
-            <Label text="Note: " style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #555555;"/>
-            <HBox fx:id="starContainer" spacing="5"/>
+        <HBox spacing="10" alignment="CENTER" styleClass="rating-section">
+            <Label text="Note: " styleClass="rating-label"/>
+            <HBox fx:id="starContainer" spacing="5" styleClass="star-container"/>
             <!-- Added Label for Note Value -->
-            <Label fx:id="lblNoteValue" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #555555;"/>
+            <Label fx:id="lblNoteValue" styleClass="note-value-label"/>
         </HBox>
 
         <!-- Date Label -->
-        <Label fx:id="lblDate" style="-fx-font-size: 14px; -fx-text-fill: #777777;"/>
+        <Label fx:id="lblDate" styleClass="date-label"/>
 
         <!-- Buttons at the Bottom -->
         <HBox spacing="20" alignment="CENTER" style="-fx-padding-top: 20px;">
             <!-- Supprimer Button -->
             <Button text="Supprimer" onAction="#supprimerFeedback"
-                    style="-fx-background-color: #d9534f; -fx-text-fill: white;
-                           -fx-font-weight: bold; -fx-font-size: 14px;
-                           -fx-padding: 10px 20px; -fx-background-radius: 20; -fx-cursor: hand;"/>
+                    styleClass="button delete-button"/>
         </HBox>
 
     </VBox>

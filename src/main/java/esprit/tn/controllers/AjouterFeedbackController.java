@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import esprit.tn.services.EntretienService;
 import esprit.tn.services.FeedbackService;
@@ -64,19 +65,12 @@ public class AjouterFeedbackController {
             entSer.assignerFeedback(entretienId, id);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Feedback ajouté avec succès !");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
-            Parent entretienView = loader.load();
+            refreshAffichageEntretien();
 
-            AffichageEntretienbyemployeeId controller = loader.getController();
-            controller.refreshDatas();
 
-            Scene scene = btnAjouterFeedback.getScene();
-            scene.setRoot(entretienView);
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'ajout du feedback.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -147,6 +141,25 @@ public class AjouterFeedbackController {
         }
 
         return score;
+    }
+
+
+    private void refreshAffichageEntretien() {
+        try {
+            Stage stage = (Stage) btnAjouterFeedback.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
+            Parent root = loader.load();
+            AffichageEntretineController controller = loader.getController();
+            controller.initialize();
+//            Stage stage = (Stage) cb_type_entretien.getScene().getWindow();
+//            stage.getScene().setRoot(root);
+//            stage.setTitle("Liste des Entretiens");
+//            stage.show();
+        } catch (IOException e) {
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

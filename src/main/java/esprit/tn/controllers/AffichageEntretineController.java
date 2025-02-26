@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import esprit.tn.services.EntretienService;
 
@@ -162,24 +163,33 @@ public class AffichageEntretineController {
 
     @FXML
     public void ajouterEntretien(ActionEvent actionEvent) {
-
-
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterEntretien.fxml"));
             Parent root = loader.load();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root));
-//            stage.setTitle("Ajouter un entretien");
-//            stage.show();
 
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Ajouter un Entretien");
 
+
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+
+            popupStage.setWidth(420);
+            popupStage.setHeight(450);
+
+
+            popupStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     private void ouvrirModifierEntretien(Entretien entretien) {

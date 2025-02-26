@@ -1,0 +1,107 @@
+/* Root style for the entire application */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-base: #f4f4f4;
+    -fx-background-color: linear-gradient(to bottom, #f4f4f4, #e2e2e2);
+}
+
+/* StackPane style */
+.stack-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* VBox style */
+.vbox {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-padding: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-border-radius: 15;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+}
+
+/* Close Button style */
+.close-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-text-fill: #d9534f;
+}
+
+.close-button:hover {
+    -fx-text-fill: #c9302c;
+}
+
+/* Title Label style */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* TextArea style */
+.text-area {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.text-area .content {
+    -fx-background-color: #f9f9f9;
+}
+
+/* Rating Section style */
+.rating-section {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.rating-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+.star-container {
+    -fx-spacing: 5;
+}
+
+.note-value-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+/* Date Label style */
+.date-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #777777;
+}
+
+/* Buttons style */
+.button {
+    -fx-background-color: #5cb85c;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #4cae4c;
+}
+
+.delete-button {
+    -fx-background-color: #d9534f;
+}
+
+.delete-button:hover {
+    -fx-background-color: #c9302c;
+}

@@ -59,8 +59,7 @@ public class AffichageEntretienbyemployeeId {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    Button btnModifier = new Button("Modifier");
-                    btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+
 
                     Button btnFeedback;
 
@@ -83,9 +82,8 @@ public class AffichageEntretienbyemployeeId {
                         });
                     }
 
-                    btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
 
-                    HBox buttonBox = new HBox(10, btnModifier, btnFeedback);
+                    HBox buttonBox = new HBox(10, btnFeedback);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"

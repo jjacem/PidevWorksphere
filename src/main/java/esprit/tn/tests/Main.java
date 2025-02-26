@@ -236,39 +236,43 @@ public class Main {
 //        }
 
 
-        User u2 = new User();
-        u2 = u2.Candidat(
-                "houssem",
-                "hbaieb",
-                "hbaieb.houssem@gmail.com",
-                "Candid@t4Pass",
-                "12/11/1992",
-                Sexe.HOMME,
-                "Los Angeles",
-               750.50
-        );
+//        User u2 = new User();
+//        u2 = u2.Candidat(
+//                "houssem",
+//                "hbaieb",
+//                "hbaieb.houssem@gmail.com",
+//                "Candid@t4Pass",
+//                "12/11/1992",
+//                Sexe.HOMME,
+//                "Los Angeles",
+//               750.50
+//        );
+//
+//
+//        User u3 = new User();
+//        u2 = u2.Candidat(
+//                "jecem",
+//                "jouili",
+//                "jecem.jouili@gmail.com",
+//                "Candid@t5Pass",
+//                "12/11/1992",
+//                Sexe.HOMME,
+//                "Los Angeles",
+//                750.50
+//        );
+//
+//        ServiceUser serviceUser = new ServiceUser();
+//
+//        try {
+//            serviceUser.ajouter(u2);
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
 
+        EntretienService entretienService = new EntretienService();
 
-        User u3 = new User();
-        u2 = u2.Candidat(
-                "jecem",
-                "jouili",
-                "jecem.jouili@gmail.com",
-                "Candid@t5Pass",
-                "12/11/1992",
-                Sexe.HOMME,
-                "Los Angeles",
-                750.50
-        );
-
-        ServiceUser serviceUser = new ServiceUser();
-
-        try {
-            serviceUser.ajouter(u2);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        entretienService.getAllCandidatsSansEntretien(3);
 
 
 

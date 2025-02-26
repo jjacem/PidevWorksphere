@@ -35,8 +35,6 @@ public class AjouterEntretineController {
     @FXML
     private DatePicker dp_date_entretien;
     @FXML
-    private CheckBox cb_status;
-    @FXML
     private TextField tf_description;
     @FXML
     private Button btnAjouter;
@@ -66,8 +64,16 @@ public class AjouterEntretineController {
         sp_heure_entretien.setValueFactory(valueFactory);
         cb_candidat.setDisable(true);
         loadEmployes();
-        loadCandidats();
         loadOffres();
+
+        cb_offre.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                cb_candidat.setDisable(false); // Enable the candidat ComboBox
+                loadCandidatsByOffre((Integer) extractIdFromComboBox(newValue.toString()));
+            } else {
+                cb_candidat.setDisable(true);
+            }
+        });
     }
 
 
@@ -113,7 +119,6 @@ public class AjouterEntretineController {
             LocalDate date = dp_date_entretien.getValue();
             int heure = sp_heure_entretien.getValue();
             String typeString = cb_type_entretien.getValue();
-            boolean status = cb_status.isSelected();
 
             if (titre.isEmpty() || description.isEmpty() || date == null || typeString == null || cb_employe.getValue() == null || cb_candidat.getValue() == null || cb_offre.getValue() == null) {
                 showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
@@ -129,12 +134,15 @@ public class AjouterEntretineController {
             Date dateEntretien = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Time heureEntretien = Time.valueOf(LocalTime.of(heure, 0));
 
-            Entretien entretien = new Entretien(titre, description, dateEntretien, heureEntretien, type, status, candidatId, employeId, offreId , 0);
+            Entretien entretien = new Entretien(titre, description, dateEntretien, heureEntretien, type, false, candidatId, employeId, offreId , 0);
             entretienService.ajouterEntretienAvecCandidature(entretien , offreId);
 
+
+
             clearFields();
-            fermerFenetre(actionEvent);
-            ouvrirAffichageEntretien(actionEvent);
+
+            refreshAffichageEntretien();
+
 
         } catch (SQLException e) {
             showAlert("Erreur SQL", "Erreur lors de l'ajout : " + e.getMessage());
@@ -148,7 +156,6 @@ public class AjouterEntretineController {
         tf_description.clear();
         dp_date_entretien.setValue(null);
         cb_type_entretien.setValue(null);
-        cb_status.setSelected(false);
         cb_candidat.setValue(null);
         cb_employe.setValue(null);
         cb_offre.setValue(null);
@@ -163,14 +170,27 @@ public class AjouterEntretineController {
         });
     }
 
+//    @FXML
+//    private void fermerFenetre(ActionEvent actionEvent) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+//            Parent root = loader.load();
+//            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene(root));
+//            stage.show();
+//        } catch (Exception e) {
+//            showAlert("Erreur", "Impossible de fermer la fenêtre.");
+//        }
+//    }
+
+
     @FXML
     private void fermerFenetre(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
+
+            refreshAffichageEntretien();
+
         } catch (Exception e) {
             showAlert("Erreur", "Impossible de fermer la fenêtre.");
         }
@@ -179,13 +199,25 @@ public class AjouterEntretineController {
     private void ouvrirAffichageEntretien(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
-            Parent root = loader.load();
-
+            Parent root1 = loader.load();
             Stage stage = (Stage) btnAjouter.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.getScene().setRoot(root1);
             stage.setTitle("Liste des Entretiens");
             stage.show();
         } catch (IOException e) {
+        }
+    }
+
+
+    public void Onback(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
         }
     }
 
@@ -201,6 +233,39 @@ public class AjouterEntretineController {
         }
         return -1;
     }
+
+
+
+    private void loadCandidatsByOffre(int offreId) {
+        List<User> candidats = entretienService.getAllCandidatsSansEntretien(offreId);
+
+        cb_candidat.getItems().clear();
+
+        for (User candidat : candidats) {
+            cb_candidat.getItems().add(candidat.getIdUser() + " - " + candidat.getNom());
+        }
+    }
+
+
+    private void refreshAffichageEntretien() {
+        try {
+            Stage stage = (Stage) btnAjouter.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+            AffichageEntretineController controller = loader.getController();
+            controller.initialize();
+//            Stage stage = (Stage) cb_type_entretien.getScene().getWindow();
+//            stage.getScene().setRoot(root);
+//            stage.setTitle("Liste des Entretiens");
+//            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de rafraîchir l'affichage : " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 

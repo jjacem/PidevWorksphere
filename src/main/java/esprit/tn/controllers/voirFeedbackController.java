@@ -95,16 +95,16 @@ public class voirFeedbackController {
 
 
     @FXML
-    public void fermerFenetre(ActionEvent actionEvent) {
+    public void fermerFenetre(ActionEvent actionEvent) throws IOException {
 
-         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
-            Parent entretienView = loader.load();
-             lblMessage.getScene().setRoot(entretienView);
-         } catch ( IOException e) {
-            e.printStackTrace();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardEmploye.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) lblMessage.getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.setTitle("Liste des équipes");
         }
-    }
+
 
     @Deprecated
     public void modifierFeedback(ActionEvent actionEvent) {
@@ -149,7 +149,7 @@ public class voirFeedbackController {
 
                 feedbackService.supprimer(currentFeedbackId);
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardEmploye.fxml"));
                 Parent entretienView = loader.load();
 
                 AffichageEntretienbyemployeeId controller = loader.getController();

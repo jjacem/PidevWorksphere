@@ -9,36 +9,25 @@
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="esprit.tn.controllers.AffichageEntretienbyemployeeId"
-            style="-fx-background-color: #F5F5F5;">
+            stylesheets="@AffichageEntretienEmployee.css">
 
     <!-- 🔹 Header -->
     <top>
-        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20px;">
-            <Label text="Liste des Entretiens"
-                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
-
-            <!-- Search Bar with Emoji -->
-            <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10px;">
-                <Label text="🔍" style="-fx-font-size: 18px;"/> <!-- Emoji as a label -->
-                <TextField fx:id="searchField" promptText="🔍 Rechercher un entretien..."
-                           style="-fx-font-size: 14px; -fx-padding: 10px; -fx-border-radius: 25px;
-                                  -fx-background-radius: 25px; -fx-border-color: black;
-                                  -fx-background-color: white; -fx-pref-width: 400px;"/>
+        <VBox spacing="15" alignment="CENTER" id="header">
+            <Label text="Liste des Entretiens" id="titleLabel"/>
+            <HBox alignment="CENTER" spacing="10" id="searchContainer">
+                <Label text="🔍" id="searchIcon"/>
+                <TextField fx:id="searchField" promptText="🔍 Rechercher un entretien..."/>
             </HBox>
         </VBox>
     </top>
 
     <!-- 🔹 Main Content -->
     <center>
-        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20px;">
-            <ListView fx:id="lv_entretien"
-                      prefHeight="400.0" prefWidth="900.0"
-                      style="-fx-border-color: #D1D1D1; -fx-border-radius: 10px;
-                             -fx-background-radius: 10px; -fx-padding: 10px;
-                             -fx-background-color: white;"/>
+        <VBox spacing="20" alignment="CENTER" id="mainContent">
+            <ListView fx:id="lv_entretien"/>
         </VBox>
     </center>
 
-
-
 </BorderPane>
+

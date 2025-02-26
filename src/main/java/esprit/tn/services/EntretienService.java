@@ -389,57 +389,58 @@ public class EntretienService implements IService<Entretien> {
 
 
 
-    public List<User> getAllCandidatsSansEntretien(int idOffre)   {
-
-
+    public List<User> getAllCandidatsSansEntretien(int idOffre) {
         ServiceCandidature serviceCandidature = new ServiceCandidature();
         ServiceUser userService = new ServiceUser();
-
         List<Candidature> candidatures = null;
+        List<Entretien> entretiens = null;
+
+        // Fetching all candidatures
         try {
             candidatures = serviceCandidature.afficher();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error fetching candidatures", e);
         }
 
-        List<Entretien> entretiens = null;
+        // Fetching all interviews
         try {
-            entretiens = afficher();
+            entretiens = afficher();  // Assuming this fetches all interviews
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error fetching interviews", e);
         }
 
-        // Liste des ID des candidats ayant postulé
+        // List of candidate IDs who applied for the offer
         List<Integer> candidatsAyantPostuleIds = candidatures.stream()
-                .filter(c -> c.getIdOffre().getIdOffre() == idOffre)
-                .map(Candidature::getIdCandidat) // Récupère l'ID du candidat
+                .filter(c -> c.getIdOffre().getIdOffre() == idOffre)  // Matching job offer ID
+                .map(Candidature::getIdCandidat)  // Extracting candidate IDs
                 .collect(Collectors.toList());
 
-        // Liste des ID des candidats ayant déjà un entretien pour cette offre
+        // List of candidate IDs who already had an interview for this job offer and candidate
         List<Integer> candidatsAvecEntretienIds = entretiens.stream()
-                .filter(e -> e.getIdOffre() == idOffre)
-                .map(Entretien::getCandidatId) // Récupère l'ID du candidat
+                .filter(e -> e.getIdOffre() == idOffre && candidatsAyantPostuleIds.contains(e.getCandidatId()))  // Check both job offer ID and candidate ID
+                .map(Entretien::getCandidatId)  // Extracting candidate IDs from interviews
                 .collect(Collectors.toList());
 
-        // Filtrer les candidats qui ont postulé mais n'ont pas encore passé d'entretien
+        // Filter candidates who have applied but haven't had an interview
         List<Integer> candidatsSansEntretienIds = candidatsAyantPostuleIds.stream()
-                .filter(id -> !candidatsAvecEntretienIds.contains(id))
+                .filter(id -> !candidatsAvecEntretienIds.contains(id))  // Only candidates without an interview
                 .collect(Collectors.toList());
 
+        // Fetch users for candidates who haven't had an interview
         return candidatsSansEntretienIds.stream()
                 .map(id -> {
                     User user = null;
                     try {
-                        user = userService.findbyid(id);
+                        user = userService.findbyid(id);  // Fetch user by candidate ID
                     } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Error fetching user with ID: " + id, e);
                     }
                     if (user == null) {
-                        System.err.println("Utilisateur introuvable pour l'ID : " + id);
+                        System.err.println("User not found for ID: " + id);  // Log error if user not found
                     }
                     return user;
                 })
-                .filter(user -> user != null)
+                .filter(user -> user != null)  // Only return non-null users
                 .collect(Collectors.toList());
     }
 
@@ -452,7 +453,8 @@ public class EntretienService implements IService<Entretien> {
 
 
 
-    }
+
+}
 
 
 

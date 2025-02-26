@@ -169,10 +169,32 @@ public class ModifierEntretienController implements Initializable {
             entretienActuel.setStatus(cb_status.isSelected());
 
             entretienService.updateEntretienWithId_offre(entretienActuel.getId(),entretienActuel);
-            fermerFenetre();
-            ouvrirAffichageEntretien();
+//            fermerFenetre();
+//            ouvrirAffichageEntretien();
+
+            refreshAffichageEntretien();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    private void refreshAffichageEntretien() {
+        try {
+            Stage stage = (Stage) btnModifier.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+            AffichageEntretineController controller = loader.getController();
+            controller.initialize();
+//            Stage stage = (Stage) cb_type_entretien.getScene().getWindow();
+//            stage.getScene().setRoot(root);
+//            stage.setTitle("Liste des Entretiens");
+//            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de rafraîchir l'affichage : " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

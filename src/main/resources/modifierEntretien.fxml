@@ -11,17 +11,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="800" prefWidth="1000" style="-fx-background-color: #f4f4f4;"
-            xmlns="http://javafx.com/javafx/17.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="esprit.tn.controllers.ModifierEntretienController">
+<AnchorPane prefHeight="427.0" prefWidth="368.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierEntretienController">
 
     <children>
-        <VBox alignment="CENTER" layoutX="150.0" layoutY="80.0" spacing="20"
-              style="-fx-padding: 20; -fx-background-radius: 10; -fx-background-color: white;
-                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+        <VBox alignment="CENTER" layoutY="-2.0" prefHeight="427.0" prefWidth="368.0" spacing="20" style="-fx-padding: 20; -fx-background-radius: 10; -fx-background-color: white;                    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
 
-            <Label text="📝 Modifier un Entretien" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="📝 Modifier un Entretien" />
 
             <HBox spacing="15">
                 <Label text="📄 Titre :" />
@@ -54,10 +49,8 @@
             </HBox>
 
             <HBox spacing="30">
-                <Button fx:id="btnModifier" onAction="#modifierEntretien" text="✔ Modifier"
-                        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" />
-                <Button onAction="#fermerFenetre" text="❌ Annuler"
-                        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" />
+                <Button fx:id="btnModifier" onAction="#modifierEntretien" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" text="✔ Modifier" />
+                <Button onAction="#fermerFenetre" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" text="❌ Annuler" />
             </HBox>
         </VBox>
     </children>
