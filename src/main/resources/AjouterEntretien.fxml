@@ -48,6 +48,12 @@
                 <ComboBox fx:id="cb_type_entretien" promptText="Sélectionnez un type" />
             </HBox>
 
+
+            <HBox spacing="15">
+                <Label text="💼 Offre :" />
+                <ComboBox fx:id="cb_offre" promptText="Sélectionnez une offre" />
+            </HBox>
+
             <HBox spacing="15">
                 <Label text="🧑‍💼 Employé :" />
                 <ComboBox fx:id="cb_employe" promptText="Sélectionnez un employé" />
@@ -57,6 +63,8 @@
                 <Label text="👤 Candidat :" />
                 <ComboBox fx:id="cb_candidat" promptText="Sélectionnez un candidat" />
             </HBox>
+
+
 
             <HBox spacing="15">
                 <Label text="✅ Statut :" />

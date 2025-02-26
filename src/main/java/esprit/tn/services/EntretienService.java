@@ -1,7 +1,9 @@
 package esprit.tn.services;
 
+import esprit.tn.entities.Candidature;
 import esprit.tn.entities.Entretien;
 import esprit.tn.entities.TypeEntretien;
+import esprit.tn.entities.User;
 import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
@@ -14,7 +16,9 @@ public class EntretienService implements IService<Entretien> {
 
     private Connection conn;
 
-    public EntretienService() {
+
+
+    public EntretienService()  {
         conn = MyDatabase.getInstance().getConnection();
     }
 
@@ -189,7 +193,6 @@ public class EntretienService implements IService<Entretien> {
         String sql = "UPDATE entretiens SET titre = ?, description = ?, date_entretien = ?, heure_entretien = ?, type_entretien = ?, " +
                 "status = ?, employe_id = ?, idOffre = ?, idCandidature = ?, candidatId = ? WHERE id = ?";
 
-        // Insert the new entretien details
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, entretien.getTitre());
             pstmt.setString(2, entretien.getDescription());
@@ -284,7 +287,7 @@ public class EntretienService implements IService<Entretien> {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id_entretien");
+                int id = resultSet.getInt("id");
                 String titre = resultSet.getString("titre");
                 String description = resultSet.getString("description");
                 Date dateEntretien = resultSet.getDate("date_entretien");
@@ -386,12 +389,99 @@ public class EntretienService implements IService<Entretien> {
 
 
 
+    public List<User> getAllCandidatsSansEntretien(int idOffre)   {
+
+
+        ServiceCandidature serviceCandidature = new ServiceCandidature();
+        ServiceUser userService = new ServiceUser();
+
+        List<Candidature> candidatures = null;
+        try {
+            candidatures = serviceCandidature.afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<Entretien> entretiens = null;
+        try {
+            entretiens = afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Liste des ID des candidats ayant postulé
+        List<Integer> candidatsAyantPostuleIds = candidatures.stream()
+                .filter(c -> c.getIdOffre().getIdOffre() == idOffre)
+                .map(Candidature::getIdCandidat) // Récupère l'ID du candidat
+                .collect(Collectors.toList());
+
+        // Liste des ID des candidats ayant déjà un entretien pour cette offre
+        List<Integer> candidatsAvecEntretienIds = entretiens.stream()
+                .filter(e -> e.getIdOffre() == idOffre)
+                .map(Entretien::getCandidatId) // Récupère l'ID du candidat
+                .collect(Collectors.toList());
+
+        // Filtrer les candidats qui ont postulé mais n'ont pas encore passé d'entretien
+        List<Integer> candidatsSansEntretienIds = candidatsAyantPostuleIds.stream()
+                .filter(id -> !candidatsAvecEntretienIds.contains(id))
+                .collect(Collectors.toList());
+
+        return candidatsSansEntretienIds.stream()
+                .map(id -> {
+                    User user = null;
+                    try {
+                        user = userService.findbyid(id);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (user == null) {
+                        System.err.println("Utilisateur introuvable pour l'ID : " + id);
+                    }
+                    return user;
+                })
+                .filter(user -> user != null)
+                .collect(Collectors.toList());
+    }
 
 
 
 
 
-}
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

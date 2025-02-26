@@ -211,29 +211,89 @@ public class Main {
 
 
 
+//        try {
+//            EntretienService service = new EntretienService();
+//
+//            int idOffre = 1;
+//
+//            Entretien nouvelEntretien = new Entretien(
+//                    "Entretien RH",
+//                    "Discussion sur le parcours du candidat",
+//                    new java.util.Date(),
+//                    new Time(System.currentTimeMillis()),
+//                    TypeEntretien.EN_PRESENTIEL,
+//                    false,
+//                    2,
+//                    4,
+//                    1,
+//                    0
+//            );
+//
+//            service.ajouterEntretienAvecCandidature(nouvelEntretien, idOffre);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+        User u2 = new User();
+        u2 = u2.Candidat(
+                "houssem",
+                "hbaieb",
+                "hbaieb.houssem@gmail.com",
+                "Candid@t4Pass",
+                "12/11/1992",
+                Sexe.HOMME,
+                "Los Angeles",
+               750.50
+        );
+
+
+        User u3 = new User();
+        u2 = u2.Candidat(
+                "jecem",
+                "jouili",
+                "jecem.jouili@gmail.com",
+                "Candid@t5Pass",
+                "12/11/1992",
+                Sexe.HOMME,
+                "Los Angeles",
+                750.50
+        );
+
+        ServiceUser serviceUser = new ServiceUser();
+
         try {
-            EntretienService service = new EntretienService();
+            serviceUser.ajouter(u2);
 
-            int idOffre = 1;
-
-            Entretien nouvelEntretien = new Entretien(
-                    "Entretien RH",
-                    "Discussion sur le parcours du candidat",
-                    new java.util.Date(),
-                    new Time(System.currentTimeMillis()),
-                    TypeEntretien.EN_PRESENTIEL,
-                    false,
-                    2,
-                    4,
-                    1,
-                    0
-            );
-
-            service.ajouterEntretienAvecCandidature(nouvelEntretien, idOffre);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

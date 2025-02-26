@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="esprit.tn.controllers.voirFeedbackController"
@@ -37,6 +36,8 @@
         <HBox spacing="10" alignment="CENTER">
             <Label text="Note: " style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #555555;"/>
             <HBox fx:id="starContainer" spacing="5"/>
+            <!-- Added Label for Note Value -->
+            <Label fx:id="lblNoteValue" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #555555;"/>
         </HBox>
 
         <!-- Date Label -->
@@ -44,12 +45,6 @@
 
         <!-- Buttons at the Bottom -->
         <HBox spacing="20" alignment="CENTER" style="-fx-padding-top: 20px;">
-            <!-- Modifier Button -->
-            <Button text="Modifier" onAction="#modifierFeedback"
-                    style="-fx-background-color: #f0ad4e; -fx-text-fill: white;
-                           -fx-font-weight: bold; -fx-font-size: 14px;
-                           -fx-padding: 10px 20px; -fx-background-radius: 20; -fx-cursor: hand;"/>
-
             <!-- Supprimer Button -->
             <Button text="Supprimer" onAction="#supprimerFeedback"
                     style="-fx-background-color: #d9534f; -fx-text-fill: white;

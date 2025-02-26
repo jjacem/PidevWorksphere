@@ -21,12 +21,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class voirFeedbackController {
-    @FXML
-    private TextArea lblMessage;
-    @FXML
-    private HBox starContainer;
-    @FXML
-    private Label lblDate;
 
 
     private int currentFeedbackId;
@@ -38,31 +32,50 @@ public class voirFeedbackController {
 
 
     private AffichageEntretineController parentController;
-
+    @FXML
+    private TextArea lblMessage;
+    @FXML
+    private HBox starContainer;
+    @FXML
+    private Label lblDate;
+    @FXML
+    private Label lblNoteValue;
 
 
     public void chargerFeedback(int feedbackId) {
         try {
             Feedback feedback = feedbackService.getFeedbackById(feedbackId);
 
-            currentFeedbackId = feedbackId ;
+            currentFeedbackId = feedbackId;
             if (feedback != null) {
                 lblMessage.setText(feedback.getMessage());
                 lblDate.setText("Date: " + feedback.getDate_feedback().toString());
 
-                int rating = feedback.getRate();
+                float rating = feedback.getRate();
+
+                lblNoteValue.setText(String.format("%.1f", rating));
+
                 starContainer.getChildren().clear();
 
-                for (int i = 0; i < 5; i++) {
+                int fullStars = (int) rating;
+
+                float fraction = rating - fullStars;
+
+                for (int i = 0; i < fullStars; i++) {
                     Label star = new Label("★"); // Unicode star
-                    star.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+                    star.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #d9e56f;");
+                    starContainer.getChildren().add(star);
+                }
 
-                    if (i < rating) {
-                        star.setStyle(star.getStyle() + "-fx-text-fill: #d9e56f;"); // Yellow for rated
-                    } else {
-                        star.setStyle(star.getStyle() + "-fx-text-fill: #D3D3D3;"); // Light gray for unrated
-                    }
+                if (fraction > 0) {
+                    Label partialStar = new Label("★");
+                    partialStar.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: linear-gradient(to right, #d9e56f " + (fraction * 100) + "%, #D3D3D3 " + (fraction * 100) + "%);");
+                    starContainer.getChildren().add(partialStar);
+                }
 
+                for (int i = fullStars + (fraction > 0 ? 1 : 0); i < 5; i++) {
+                    Label star = new Label("★"); // Unicode star
+                    star.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #D3D3D3;");
                     starContainer.getChildren().add(star);
                 }
             }
@@ -93,7 +106,7 @@ public class voirFeedbackController {
         }
     }
 
-    @FXML
+    @Deprecated
     public void modifierFeedback(ActionEvent actionEvent) {
 
         try {

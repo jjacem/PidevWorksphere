@@ -43,10 +43,11 @@ public class ModifierEntretienController implements Initializable {
     private Entretien entretienActuel;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         entretienService = new EntretienService();
-        cb_type_entretien.getItems().addAll(TypeEntretien.values()); // FIXED
+        cb_type_entretien.getItems().addAll(TypeEntretien.values());
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
         sp_heure_entretien.setValueFactory(valueFactory);
@@ -148,8 +149,6 @@ public class ModifierEntretienController implements Initializable {
 
 
 
-
-
             LocalDate date = dp_date_entretien.getValue();
             TypeEntretien type = TypeEntretien.valueOf(cb_type_entretien.getValue().toString());
 
@@ -169,9 +168,8 @@ public class ModifierEntretienController implements Initializable {
             entretienActuel.setType_entretien(type);
             entretienActuel.setStatus(cb_status.isSelected());
 
-            entretienService.modifier(entretienActuel);
+            entretienService.updateEntretienWithId_offre(entretienActuel.getId(),entretienActuel);
             fermerFenetre();
-
             ouvrirAffichageEntretien();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,10 +188,10 @@ public class ModifierEntretienController implements Initializable {
     private void ouvrirAffichageEntretien() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
             Parent root = loader.load();
 
-            AffichageEntretienbyemployeeId controller = loader.getController();
+            AffichageEntretineController controller = loader.getController();
             controller.initialize();
 
             Stage stage = new Stage();

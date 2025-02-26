@@ -373,6 +373,15 @@ public List<User> chercherparnom(String query) throws SQLException {
 
         return employees;
     }
+
+
+    public List<User> getUsersByRoleCandidat() throws SQLException {
+        List<User> allUsers = this.afficher();
+        List<User> employees = allUsers.stream()
+                .filter(user -> user.getRole() == Role.CANDIDAT)
+                .collect(Collectors.toList());
+        return employees;
+    }
 }
 
 

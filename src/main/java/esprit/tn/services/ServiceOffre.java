@@ -84,7 +84,6 @@ public class ServiceOffre implements IService<OffreEmploi> {
         return offres;
     }
 
-    // Méthode pour récupérer toutes les offres
     public List<OffreEmploi> recupererOffres() throws SQLException {
         List<OffreEmploi> offres = new ArrayList<>();
 
@@ -205,5 +204,53 @@ public class ServiceOffre implements IService<OffreEmploi> {
         }
         return offres;
     }
+
+
+    public OffreEmploi getOffreById(int idOffre) throws SQLException {
+        String query = "SELECT * FROM offre WHERE id_offre = ?";
+        OffreEmploi offre = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, idOffre);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                offre = new OffreEmploi(
+                        rs.getInt("id_offre"),
+                        rs.getInt("salaire"),
+                        rs.getString("titre"),
+                        rs.getString("description"),
+                        rs.getString("type_contrat"),
+                        rs.getString("lieu_travail"),
+                        rs.getString("statut_offre"),
+                        rs.getString("experience"),
+                        rs.getDate("date_publication"),
+                        rs.getDate("date_limite")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'offre par ID : " + e.getMessage());
+        }
+
+        return offre;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

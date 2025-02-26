@@ -31,7 +31,6 @@ public class AffichageEntretineController {
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
 
-
     @FXML
     private Button btn_ajouter;
     @FXML
@@ -66,11 +65,10 @@ public class AffichageEntretineController {
                 } else {
                     Button btnModifier = new Button("Modifier");
                     Button btnSupprimer = new Button("Supprimer");
+                    Button btnVoirDetail = new Button("Voir Détails");
                     btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                     btnSupprimer.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
-
-
+                    btnVoirDetail.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
 
                     Button btnFeedback;
 
@@ -87,12 +85,11 @@ public class AffichageEntretineController {
 
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
                     btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
+                    btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
 
 
-
-                    HBox buttonBox = new HBox(10, btnModifier, btnSupprimer);
+                    HBox buttonBox = new HBox(10,btnVoirDetail ,  btnModifier, btnSupprimer);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
-
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
                             + "Description: " + entretien.getDescription() + "\n"
@@ -104,21 +101,12 @@ public class AffichageEntretineController {
                         try {
                             User users = su.findbyid(entretien.getEmployeId());
                             System.out.println(users);
-                            setText(getText() + "\n🔒 Entretien déjà affecté chez  " +  users.getNom() +"  " + users.getPrenom());
+                            setText(getText() + "\n🔒 Entretien  affecté chez  " +  users.getNom() +"  " + users.getPrenom());
                             setGraphic(buttonBox);
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
 
-                    } else {
-                        Button btnAffecter = new Button("Affecter");
-                        btnAffecter.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
-
-                        btnAffecter.setOnAction(event -> ouvrirPopupAffectation(entretien));
-
-                        buttonBox.getChildren().add(0, btnAffecter);
-                        setGraphic(buttonBox);
                     }
 
                     setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
@@ -127,6 +115,40 @@ public class AffichageEntretineController {
         });
 
     }
+
+
+
+
+
+    private void voirDetailEntretien(Entretien entretien) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/voirDetailsEntretien.fxml"));
+            Parent root = loader.load();
+
+            VoirDetailsEntretienController controller = loader.getController();
+            controller.setEntretien(entretien);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Détails de l'Entretien");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     private void filterEntretiens(String keyword) throws SQLException {
         if (keyword == null || keyword.trim().isEmpty()) {
@@ -226,7 +248,6 @@ public class AffichageEntretineController {
     }
 
 
-
     private void ajouterFeedback(int entretienId) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterFeedback.fxml"));
@@ -245,11 +266,9 @@ public class AffichageEntretineController {
 
 }
 
-
     void refreshDatas() throws SQLException {
 
             afficherEntretien();
-
 
     }
 
