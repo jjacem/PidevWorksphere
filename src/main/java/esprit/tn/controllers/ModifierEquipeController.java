@@ -69,18 +69,12 @@ public class ModifierEquipeController {
         serviceEquipe = new ServiceEquipe();
     }
 
-    /*public void setEquipeAModifier(Equipe equipe) {
-        this.equipeAModifier = equipe;
-        nomEquipeField.setText(equipe.getNomEquipe());
-        employesSelectionnesList.setAll(equipe.getEmployes());
-    }
-*/
+
     public void setEquipeAModifier(Equipe equipe) {
         this.equipeAModifier = equipe;
         nomEquipeField.setText(equipe.getNomEquipe());
         employesSelectionnesList.setAll(equipe.getEmployes());
 
-        // Charger l'image de l'équipe
         if (equipe.getImageEquipe() != null && !equipe.getImageEquipe().isEmpty()) {
             String correctPath = "C:/xampp/htdocs/img/" + new File(equipe.getImageEquipe()).getName();
             File imageFile = new File(correctPath);
@@ -164,8 +158,6 @@ public class ModifierEquipeController {
         employesSelectionnesList.clear();
     }
 
-
-
     /*@FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
@@ -196,8 +188,8 @@ public class ModifierEquipeController {
 
             equipeAModifier.setNomEquipe(nomEquipe);
             equipeAModifier.setEmployes(employesSelectionnes);
+            equipeAModifier.setImageEquipe(imagePath);
             serviceEquipe.modifierEquipe(equipeAModifier);
-
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
@@ -207,14 +199,14 @@ public class ModifierEquipeController {
             alert.showAndWait();
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
             stage.getScene().setRoot(root);
             stage.setTitle("Liste des équipes");
 
         } catch (SQLException | IOException e) {
-
             e.printStackTrace();
         }
     }*/
@@ -231,7 +223,6 @@ public class ModifierEquipeController {
             alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
             applyAlertStyle(alert);
             alert.showAndWait();
-
             return;
         }
 
@@ -243,14 +234,12 @@ public class ModifierEquipeController {
                 alert.setContentText("Une équipe avec ce nom existe déjà. Veuillez choisir un autre nom.");
                 applyAlertStyle(alert);
                 alert.showAndWait();
-
                 return;
             }
 
-            // Mettre à jour l'équipe avec la nouvelle image
             equipeAModifier.setNomEquipe(nomEquipe);
             equipeAModifier.setEmployes(employesSelectionnes);
-            equipeAModifier.setImageEquipe(imagePath); // Mettre à jour le chemin de l'image
+            equipeAModifier.setImageEquipe(imagePath);
             serviceEquipe.modifierEquipe(equipeAModifier);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -260,19 +249,16 @@ public class ModifierEquipeController {
             applyAlertStyle(alert);
             alert.showAndWait();
 
-            // Rediriger vers la vue des équipes
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.setTitle("Liste des équipes");
+            // Fermer la fenêtre modale
+            Stage stage = (Stage) confirmerButton.getScene().getWindow();
+            stage.close();
 
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
+   /* @FXML
     public void annuler() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
@@ -283,7 +269,8 @@ public class ModifierEquipeController {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) annulerButton.getScene().getWindow();
                 stage.getScene().setRoot(root);
@@ -292,6 +279,13 @@ public class ModifierEquipeController {
                 e.printStackTrace();
             }
         }
+    }*/
+
+    @FXML
+    public void annuler() {
+        // Fermer la fenêtre modale
+        Stage stage = (Stage) annulerButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

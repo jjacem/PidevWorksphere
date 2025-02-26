@@ -6,8 +6,7 @@ import java.sql.SQLException;
 
 public class MyDatabase {
 
-   final String URL="jdbc:mysql://localhost:3306/worksphere";
-
+    final String URL="jdbc:mysql://localhost:3306/worksphere";
 
     final String USERNAME="root";
     final String PASSWORD="";
@@ -18,7 +17,7 @@ public class MyDatabase {
     private MyDatabase(){
         try {
             connection= DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            System.out.println("Connected !!!");
+            System.out.println("Connexion établie");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -32,7 +31,6 @@ public class MyDatabase {
     }
 
     public Connection getConnection() {
-
         return connection;
     }
 }

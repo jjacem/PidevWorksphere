@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import esprit.tn.entities.Equipe;
 import esprit.tn.entities.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,6 +32,9 @@ public class AfficherDetailsEquipeController {
     @FXML
     private VBox membresContainer;
 
+    @FXML
+    private ImageView imageEquipeView;
+
     private Equipe equipe;
     private ServiceEquipe serviceEquipe = new ServiceEquipe();
 
@@ -43,25 +47,42 @@ public class AfficherDetailsEquipeController {
     private void afficherDetails() {
         nomEquipeLabel.setText(equipe.getNomEquipe());
 
+        // Charger l'image de l'équipe
+        if (equipe.getImageEquipe() != null && !equipe.getImageEquipe().trim().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(equipe.getImageEquipe()).getName();
+            File imageFile = new File(correctPath);
+            if (imageFile.exists() && imageFile.isFile()) {
+                imageEquipeView.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                System.out.println("Fichier image introuvable ou chemin invalide : " + imageFile.getAbsolutePath());
+                imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+            }
+        } else {
+            System.out.println("Aucun chemin d'image fourni pour l'équipe : " + equipe.getNomEquipe());
+            imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+        }
+
+        // Afficher les membres de l'équipe
         for (User user : equipe.getEmployes()) {
             HBox card = new HBox(10);
             card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-            // creation te3 image view
+            // Création de l'image view pour le membre
             ImageView imageView = new ImageView();
             String imageProfil = user.getImageProfil();
 
             if (imageProfil != null && !imageProfil.isEmpty()) {
                 try {
-                    // chargement te3 image mel url
+                    // Charger l'image depuis l'URL
                     Image image = new Image(imageProfil);
                     imageView.setImage(image);
                 } catch (Exception e) {
-
+                    // Utiliser une image par défaut en cas d'erreur
                     Image defaultImage = new Image(getClass().getResource("/images/profil.png").toExternalForm());
                     imageView.setImage(defaultImage);
                 }
             } else {
+                // Utiliser une image par défaut si aucune image n'est définie
                 Image defaultImage = new Image(getClass().getResource("/images/profil.png").toExternalForm());
                 imageView.setImage(defaultImage);
             }
@@ -85,7 +106,8 @@ public class AfficherDetailsEquipeController {
     @FXML
     public void retour() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) membresContainer.getScene().getWindow();
             stage.getScene().setRoot(root);

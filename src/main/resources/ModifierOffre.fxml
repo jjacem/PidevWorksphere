@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierOffreController">
+   <children>
+      <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="108.0" style="-fx-background-color: #0086b3;">
+         <children>
+            <ImageView fitHeight="73.0" fitWidth="108.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/images/474188139_2099437073823213_5214087864459817142_n.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="16.0" layoutY="113.0" mnemonicParsing="false" onAction="#ModifierOffre" prefHeight="26.0" prefWidth="76.0" text="MODIFIER" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="25.0" layoutY="84.0" prefHeight="30.0" prefWidth="112.0" text="Titre Offre :" />
+      <TextField fx:id="titreField" layoutX="152.0" layoutY="86.0" prefHeight="26.0" prefWidth="193.0" />
+      <Label layoutX="363.0" layoutY="82.0" prefHeight="30.0" prefWidth="112.0" text="Description :" />
+      <Label layoutX="23.0" layoutY="212.0" prefHeight="30.0" prefWidth="112.0" text="Lieu Travail :" />
+      <Label layoutX="25.0" layoutY="170.0" prefHeight="30.0" prefWidth="112.0" text="Salaire :" />
+      <Label layoutX="25.0" layoutY="128.0" prefHeight="30.0" prefWidth="112.0" text="Type  de contrat :" />
+      <TextField fx:id="typeContratField" layoutX="151.0" layoutY="130.0" prefHeight="26.0" prefWidth="194.0" />
+      <TextField fx:id="salaireField" layoutX="151.0" layoutY="172.0" prefHeight="26.0" prefWidth="194.0" />
+      <TextField fx:id="lieuTravailField" layoutX="151.0" layoutY="214.0" prefHeight="26.0" prefWidth="194.0" />
+      <Label layoutX="23.0" layoutY="254.0" prefHeight="30.0" prefWidth="112.0" text="Experience :" />
+      <Label layoutX="23.0" layoutY="331.0" prefHeight="30.0" prefWidth="112.0" text="Date de publication :" />
+      <Label layoutX="23.0" layoutY="372.0" prefHeight="30.0" prefWidth="112.0" text="Date limite :" />
+      <Label layoutX="23.0" layoutY="417.0" prefHeight="30.0" prefWidth="112.0" text="Statut Offre :" />
+      <TextField fx:id="experienceField" layoutX="151.0" layoutY="256.0" prefHeight="26.0" prefWidth="194.0" />
+      <TextField fx:id="statutoffreField" layoutX="149.0" layoutY="417.0" prefHeight="26.0" prefWidth="194.0" />
+      <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/images/offre-demploi-visuel-2-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <DatePicker fx:id="datepublicationField" layoutX="149.0" layoutY="331.0" prefHeight="26.0" prefWidth="194.0" />
+      <DatePicker fx:id="datelimiteField" layoutX="149.0" layoutY="372.0" prefHeight="26.0" prefWidth="194.0" />
+      <AnchorPane layoutX="29.0" layoutY="304.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="275.0" layoutY="14.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="324.0" layoutY="25.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="375.0" layoutY="35.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="425.0" layoutY="45.0" prefHeight="5.0" prefWidth="150.0" style="-fx-background-color: #0086b3;" />
+      <TextArea fx:id="descriptionField" layoutX="361.0" layoutY="112.0" prefHeight="330.0" prefWidth="214.0" wrapText="true" />
+   </children>
+</AnchorPane>

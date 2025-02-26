@@ -54,7 +54,7 @@ public class AjouterEquipeController {
     @FXML
     private ImageView imagePreview;
 
-    private String imagePath = ""; // Pour stocker le chemin de l'image
+    private String imagePath = "";
 
     private ServiceEquipe serviceEquipe;
 
@@ -136,52 +136,6 @@ public class AjouterEquipeController {
         employesSelectionnesList.clear();
     }
 
-    /*@FXML
-    public void confirmer() {
-        String nomEquipe = nomEquipeField.getText();
-        List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
-
-        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champ manquant");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
-            applyAlertStyle(alert);
-            alert.showAndWait();
-            return;
-        }
-
-        try {
-            if (serviceEquipe.nomEquipeExiste(nomEquipe)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Équipe existante");
-                alert.setHeaderText(null);
-                alert.setContentText("Une équipe avec ce nom existe déjà.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-
-            serviceEquipe.ajouterEquipe(new Equipe(0, nomEquipe, employesSelectionnes));
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText(null);
-            alert.setContentText("Équipe ajoutée avec succès !");
-            applyAlertStyle(alert);
-            alert.showAndWait();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.setTitle("Liste des équipes");
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     @FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
@@ -198,7 +152,7 @@ public class AjouterEquipeController {
             return;
         }
         if (imagePath.isEmpty()) {
-            imagePath = "images/profil.png"; // Chemin vers une image par défaut
+            imagePath = "images/profil.png";
         }
         try {
             if (serviceEquipe.nomEquipeExiste(nomEquipe)) {
@@ -220,8 +174,10 @@ public class AjouterEquipeController {
             alert.setContentText("Équipe ajoutée avec succès !");
             applyAlertStyle(alert);
             alert.showAndWait();
+
             // Rediriger vers la vue des équipes
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) nomEquipeField.getScene().getWindow();
             stage.getScene().setRoot(root);
@@ -243,7 +199,8 @@ public class AjouterEquipeController {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) annulerButton.getScene().getWindow();
                 stage.getScene().setRoot(root);

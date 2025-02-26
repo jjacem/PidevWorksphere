@@ -24,6 +24,13 @@
     <VBox alignment="CENTER" layoutX="73.0" layoutY="36.0" prefHeight="440.0" prefWidth="555.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
         <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Modifier un Projet" />
 
+        <!-- Image du Projet -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Image du Projet:" />
+            <Button onAction="#uploadImage" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10; -fx-background-radius: 5;" text="Télécharger une image" />
+            <ImageView fx:id="imagePreview" fitHeight="50" fitWidth="50" preserveRatio="true" />
+        </HBox>
+
         <!-- Nom du Projet -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Nom du Projet:" />

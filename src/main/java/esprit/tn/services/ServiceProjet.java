@@ -18,7 +18,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
     }
 
 
-    @Override
+    /*@Override
     public void ajouterProjet(Projet projet) throws SQLException {
         String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id) " +
                 "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
@@ -31,12 +31,27 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         statement.executeUpdate(req);
         System.out.println("projet ajoute");
 
+    }*/
+
+    @Override
+    public void ajouterProjet(Projet projet) throws SQLException {
+        String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id, imageProjet) " +
+                "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
+                new java.sql.Date(projet.getDatecréation().getTime()) + "', '" +
+                new java.sql.Date(projet.getDeadline().getTime()) + "', '" +
+                projet.getEtat().name() + "', " +
+                (projet.getEquipe() != null ? projet.getEquipe().getId() : "NULL") + ", '" +
+                projet.getImageProjet() + "')";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(req);
+        System.out.println("Projet ajouté avec succès.");
     }
 
 
     @Override
     public void modifierProjet(Projet projet) throws SQLException {
-        String req = "update projet set nom=?, description=?, datecréation=?, deadline=?,etat=?, equipe_id=? where id=?";
+        String req = "UPDATE projet SET nom=?, description=?, datecréation=?, deadline=?, etat=?, equipe_id=?, imageProjet=? WHERE id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
 
         preparedStatement.setString(1, projet.getNom());
@@ -45,7 +60,8 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         preparedStatement.setDate(4, new java.sql.Date(projet.getDeadline().getTime()));
         preparedStatement.setString(5, projet.getEtat().name());
         preparedStatement.setInt(6, projet.getEquipe().getId());
-        preparedStatement.setInt(7, projet.getId());
+        preparedStatement.setString(7, projet.getImageProjet());
+        preparedStatement.setInt(8, projet.getId());
 
         preparedStatement.executeUpdate();
         System.out.println("Projet mise à jour avec succès.");
@@ -91,6 +107,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
             projet.setDatecréation(rs.getDate("datecréation"));
             projet.setDeadline(rs.getDate("deadline"));
             projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
+            projet.setImageProjet(rs.getString("imageProjet"));
 
 
             Equipe equipe = new Equipe();
@@ -143,7 +160,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
                 projet.setDatecréation(rs.getDate("datecréation"));
                 projet.setDeadline(rs.getDate("deadline"));
                 projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
-
+                projet.setImageProjet(rs.getString("imageProjet"));
                 Equipe equipe = new Equipe();
                 equipe.setNomEquipe(rs.getString("nom_equipe"));
                 projet.setEquipe(equipe);

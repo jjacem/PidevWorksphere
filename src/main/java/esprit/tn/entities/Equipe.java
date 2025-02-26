@@ -12,12 +12,6 @@ public class Equipe {
 
     public Equipe() {}
 
-    /*public Equipe(int id, String nomEquipe, List<User> employes) {
-        this.id = id;
-        this.nomEquipe = nomEquipe;
-        this.employes = employes;
-    }*/
-
     public Equipe(int id, String nomEquipe, List<User> employes) {
         this.id = id;
         this.nomEquipe = nomEquipe;
@@ -74,5 +68,4 @@ public class Equipe {
                 "}";
     }
 }
-
 

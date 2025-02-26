@@ -1,7 +1,5 @@
 package esprit.tn.controllers;
 
-
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +11,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import esprit.tn.entities.Equipe;
 import esprit.tn.services.ServiceEquipe;
-import javafx.application.Platform;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -46,55 +45,13 @@ public class AfficherEquipeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Platform.runLater(() -> {
-            Stage stage = (Stage) equipesContainer.getScene().getWindow();
-            stage.setMaximized(true);
-        });
     }
-
-
-    /*private void afficherEquipes(List<Equipe> equipes) {
-        equipesContainer.getChildren().clear(); // Vider le conteneur
-
-        if (equipes.isEmpty()) {
-            Label messageLabel = new Label("Aucune équipe enregistrée");
-            messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
-            equipesContainer.getChildren().add(messageLabel);
-        } else {
-            for (Equipe equipe : equipes) {
-                HBox card = new HBox(10);
-                card.setStyle("-fx-background-color: white; -fx-padding: 15;  -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
-
-                Label nomEquipeLabel = new Label(equipe.getNomEquipe());
-                nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
-
-                Button detailsButton = new Button("Détails");
-                detailsButton.getStyleClass().addAll("card-button", "details-button");
-                detailsButton.setOnAction(event -> afficherDetailsEquipe(equipe));
-
-                Button modifierButton = new Button("Modifier");
-                modifierButton.getStyleClass().addAll("card-button", "modifier-button");
-                modifierButton.setOnAction(event -> modifierEquipe(equipe));
-
-                Button supprimerButton = new Button("Supprimer");
-                supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
-                supprimerButton.setOnAction(event -> supprimerEquipe(equipe));
-
-                // Utilisation d'un Region pour pousser les boutons à droite
-                Region spacer = new Region();
-                HBox.setHgrow(spacer, Priority.ALWAYS);
-
-                card.getChildren().addAll(nomEquipeLabel, spacer, detailsButton, modifierButton, supprimerButton);
-                equipesContainer.getChildren().add(card);
-            }
-        }
-    }*/
 
     private void afficherEquipes(List<Equipe> equipes) {
         equipesContainer.getChildren().clear(); // Vider le conteneur
 
         if (equipes.isEmpty()) {
-            Label messageLabel = new Label("Aucune équipe enregistrée");
+            Label messageLabel = new Label("Aucune équipe trouvée");
             messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
             equipesContainer.getChildren().add(messageLabel);
         } else {
@@ -105,7 +62,6 @@ public class AfficherEquipeController {
                 // Ajouter l'image de l'équipe
                 ImageView imageView = new ImageView();
                 if (equipe.getImageEquipe() != null && !equipe.getImageEquipe().trim().isEmpty()) {
-                    // Construire le chemin correct
                     String correctPath = "C:/xampp/htdocs/img/" + new File(equipe.getImageEquipe()).getName();
                     System.out.println("Chemin de l'image : " + correctPath);
 
@@ -117,12 +73,12 @@ public class AfficherEquipeController {
                     } else {
                         // Utiliser une image par défaut si le fichier n'existe pas
                         System.out.println("Fichier image introuvable ou chemin invalide : " + imageFile.getAbsolutePath());
-                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                     }
                 } else {
                     // Utiliser une image par défaut si aucune image n'est définie
                     System.out.println("Aucun chemin d'image fourni pour l'équipe : " + equipe.getNomEquipe());
-                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                 }
                 imageView.setFitHeight(50); // Ajuster la taille de l'image
                 imageView.setFitWidth(50);
@@ -170,7 +126,7 @@ public class AfficherEquipeController {
         }
     }
 
-    private void modifierEquipe(Equipe equipe) {
+    /*private void modifierEquipe(Equipe equipe) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEquipe.fxml"));
             Parent root = loader.load();
@@ -184,8 +140,39 @@ public class AfficherEquipeController {
             e.printStackTrace();
 
         }
-    }
+    }*/
 
+    private void modifierEquipe(Equipe equipe) {
+        try {
+            // Charger le fichier FXML pour la fenêtre de modification
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEquipe.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir le contrôleur de la fenêtre de modification
+            ModifierEquipeController controller = loader.getController();
+            controller.setEquipeAModifier(equipe);
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Modifier une équipe");
+            stage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
+            stage.showAndWait();
+
+            // Rafraîchir la liste des équipes après la modification
+            try {
+                List<Equipe> equipes = serviceEquipe.afficherEquipe();
+                afficherEquipes(equipes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void supprimerEquipe(Equipe equipe) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

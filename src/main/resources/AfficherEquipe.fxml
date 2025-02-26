@@ -22,7 +22,6 @@
 
             <!-- Conteneur pour la barre de recherche et les boutons -->
             <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-search-container">
-               <Button onAction="#versProjet" styleClass="button" text="Projet" />
                 <!-- Barre de recherche -->
                 <TextField fx:id="searchField" onKeyReleased="#rechercherEquipe" promptText="Rechercher une équipe..." styleClass="search-field" />
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.DashboardManager">
+
+    <stylesheets>
+        <URL value="@menu.css" />
+    </stylesheets>
+
+    <!-- Sidebar -->
+    <VBox fx:id="sidebar" prefWidth="200" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+
+        <!-- Logo -->
+        <ImageView fitHeight="88.0" fitWidth="174.0">
+            <Image url="@Images/474188139_2099437073823213_5214087864459817142_n.png" />
+        </ImageView>
+
+        <!-- User Profile Section -->
+        <VBox alignment="CENTER" spacing="10">
+            <!-- Circular Profile Image -->
+            <ImageView fx:id="image" fitHeight="80.0" fitWidth="80.0">
+                <Image url="@/Images/user.png" />
+                <clip>
+                    <Circle centerX="40.0" centerY="40.0" radius="40.0" />
+                </clip>
+            </ImageView>
+            <!-- User Name -->
+            <Text fx:id="name" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <!-- HR Features -->
+        <VBox spacing="10" style="-fx-padding: 20px;">
+            <Button fx:id="btnProfile" onAction="#goprofile" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👤 Profile" />
+            <Button fx:id="btnChangeProfile" onAction="#Equipe" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 Equipe" />
+            <Button fx:id="btnGestionSponsor" onAction="#Projet" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📋 Projet" />
+         <Button fx:id="btnGestionSponsor1" layoutX="30.0" layoutY="132.0" onAction="#chagermdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Changer mot de passe" />
+        </VBox>
+
+        <!-- Spacer to push logout button to bottom -->
+        <VBox VBox.vgrow="ALWAYS" />
+
+        <!-- Log Out Button -->
+        <Button fx:id="btnLogout" onAction="#logout" prefHeight="40.0" prefWidth="201.0" style="-fx-font-size: 14px; -fx-background-color: #ff4444; -fx-text-fill: white; -fx-alignment: CENTER; -fx-padding: 10px; -fx-border-radius: 5px;" text="🚪 Log Out" />
+    </VBox>
+
+    <!-- Main Content -->
+    <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+        <!-- Content will be loaded dynamically here -->
+    </VBox>
+
+</AnchorPane>
