@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<AnchorPane prefHeight="703.0" prefWidth="942.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherSponsorController">
+    <stylesheets>
+        <URL value="@AfficherSponsor.css" />
+    </stylesheets>
+
+    <!-- Contenu de l'interface -->
+    <children>
+        <!-- Liste des sponsors -->
+        <ListView fx:id="lv_sponsor" layoutX="10.0" layoutY="150.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
+
+        <!-- Titre -->
+        <Label layoutX="14.0" layoutY="110.0" text="Liste des sponsors" textFill="#0086b3" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <!-- Barre de recherche -->
+        <HBox layoutX="0.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <TextField fx:id="txtRechercheSponso" prefHeight="30.0" prefWidth="400.0" promptText="Rechercher..." styleClass="search-field" />
+                <Button fx:id="btnRechercheSponsor" onAction="#OnchercherSponsor" prefHeight="30.0" prefWidth="100.0" styleClass="search-button" text="Rechercher" />
+                <Button fx:id="btnAjouterSponsor" onAction="#Onajoutersponso" prefHeight="40.0" prefWidth="160.0" styleClass="add-button" text="Ajouter Sponsor" />
+            </children>
+            <padding>
+                <Insets left="50.0" top="10.0" />
+            </padding>
+        </HBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,47 @@
+/* alert-styles.css */
+
+/* Style général de la boîte de dialogue */
+.dialog-pane {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #cccccc; /* Bordure grise */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 20px;
+}
+
+/* Style du titre de la boîte de dialogue */
+.dialog-pane .header-panel {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Style du contenu de la boîte de dialogue */
+.dialog-pane .content {
+    -fx-text-fill: #666666; /* Couleur du texte */
+    -fx-font-size: 14px;
+}
+
+/* Style des boutons */
+.dialog-pane .button {
+    -fx-background-color: #0086b3; /* Fond bleu */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #006699; /* Fond bleu plus foncé au survol */
+}
+
+/* Style spécifique pour le bouton "Supprimer" */
+.dialog-pane .button:default {
+    -fx-background-color: #f44336; /* Fond rouge */
+}
+
+.dialog-pane .button:default:hover {
+    -fx-background-color: #d32f2f; /* Fond rouge plus foncé au survol */
+}

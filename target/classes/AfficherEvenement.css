@@ -1,0 +1,90 @@
+/* AfficherEvenement.css */
+.title-label {
+    -fx-text-fill: #0086b3;
+}
+
+.search-field {
+    -fx-prompt-text-fill: #a9a9a9;
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #0086b3;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.search-button {
+    -fx-background-color: #0086b3;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+}
+
+.add-button {
+    -fx-background-color: #000000;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+}
+
+.event-list {
+    -fx-border-color: #0086b3;
+    -fx-border-radius: 5;
+    -fx-background-color: #f9f9f9;
+}
+
+/* AfficherEvenement.css */
+
+/* Style pour la ListView */
+.list-view {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #0086b3;
+    -fx-border-radius: 5;
+}
+
+/* Style pour chaque cellule de la ListView */
+.list-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10;
+}
+
+/* Style pour le texte de l'événement */
+.event-text {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: #333333;
+}
+
+/* Style pour les boutons */
+.btn-modifierEvent {
+    -fx-background-color: #ffc400;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+.btn-supprimerEvent {
+    -fx-background-color: #ff4444;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+/* Effets de survol pour les boutons */
+.btn-modifierEvent:hover {
+    -fx-background-color: black;
+}
+
+.btn-supprimerEvent:hover {
+    -fx-background-color: black;
+}
+
+/* Style pour le conteneur HBox dans chaque cellule */
+.hbox-item {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}

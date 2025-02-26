@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom right, #4a90e2, #6a11cb);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterFeedbackController">
+
+    <children>
+        <VBox alignment="CENTER" layoutX="41.0" layoutY="28.0" prefHeight="355.0" prefWidth="530.0" spacing="20" style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-background-radius: 10; -fx-padding: 20;">
+            <!-- Title -->
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Ajouter un Feedback" />
+
+            <!-- Message Input -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Message :" />
+                <TextArea fx:id="tf_message" promptText="Entrez votre feedback" style="-fx-pref-width: 300px; -fx-pref-height: 100px; -fx-font-size: 14px; -fx-background-radius: 5;" />
+            </HBox>
+
+            <!-- Rate Input -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #333333;" text="Note :" />
+                <Spinner fx:id="sp_rate" editable="true" style="-fx-font-size: 14px; -fx-background-radius: 5;" />
+            </HBox>
+
+
+
+            <!-- Buttons -->
+            <HBox alignment="CENTER" spacing="20">
+                <Button fx:id="btnAjouterFeedback" onAction="#ajouterFeedback" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;" text="Ajouter Feedback" />
+                <Button onAction="#fermerFenetre" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;" text="Annuler" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
