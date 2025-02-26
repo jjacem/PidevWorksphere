@@ -182,6 +182,15 @@ public class AffichageEntretineController {
             popupStage.setWidth(420);
             popupStage.setHeight(450);
 
+            popupStage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
 
             popupStage.showAndWait();
 
@@ -203,7 +212,15 @@ public class AffichageEntretineController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Modifier Entretien");
-            stage.show();
+
+            stage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -248,12 +265,19 @@ public class AffichageEntretineController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Voir Feedback");
-           stage.show();
-            afficherEntretien();
+            stage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

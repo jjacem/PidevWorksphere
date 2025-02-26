@@ -152,8 +152,8 @@ public class voirFeedbackController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardEmploye.fxml"));
                 Parent entretienView = loader.load();
 
-                AffichageEntretienbyemployeeId controller = loader.getController();
-                controller.refreshDatas();
+//                AffichageEntretienbyemployeeId controller = loader.getController();
+//                controller.refreshDatas();
 
                 lblMessage.getScene().setRoot(entretienView);
 

@@ -148,16 +148,16 @@ public class AjouterFeedbackController {
         try {
             Stage stage = (Stage) btnAjouterFeedback.getScene().getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
-            Parent root = loader.load();
-            AffichageEntretineController controller = loader.getController();
-            controller.initialize();
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
+//            Parent root = loader.load();
+//            AffichageEntretineController controller = loader.getController();
+//            controller.initialize();
 //            Stage stage = (Stage) cb_type_entretien.getScene().getWindow();
 //            stage.getScene().setRoot(root);
 //            stage.setTitle("Liste des Entretiens");
 //            stage.show();
-        } catch (IOException e) {
-        } catch (SQLException e) {
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

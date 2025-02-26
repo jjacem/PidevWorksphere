@@ -188,12 +188,19 @@ public class AffichageEntretienbyemployeeId {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Voir Feedback");
-            stage.show();
-            afficherEntretien();
+            stage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -210,7 +217,18 @@ public class AffichageEntretienbyemployeeId {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Ajouter Feedback");
-            stage.show();
+            stage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+
+            stage.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
