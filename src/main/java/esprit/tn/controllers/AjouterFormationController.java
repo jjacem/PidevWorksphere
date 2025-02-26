@@ -48,8 +48,6 @@ public class AjouterFormationController implements Initializable {
     private AnchorPane FormAj;
     @FXML
     private TextField photoID;
-    @FXML
-    private Button btnretour;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -165,10 +163,16 @@ public class AjouterFormationController implements Initializable {
         applyAlertStyle(alert);
     }
 
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+    }
+
     @FXML
-    public void Onback(ActionEvent actionEvent) {
+    public void retourdashRH(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
             Parent root = loader.load();
 
             // Récupérer la scène actuelle et la remplacer
@@ -178,12 +182,5 @@ public class AjouterFormationController implements Initializable {
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
         }
-    }
-
-
-    private void applyAlertStyle(Alert alert) {
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
-        dialogPane.getStyleClass().add("dialog-pane");
     }
 }

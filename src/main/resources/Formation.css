@@ -33,15 +33,6 @@
     -fx-prompt-text-fill: #999999;
 }
 
-
-
-/* Style pour les cartes d'équipe */
-.equipes-container {
-    -fx-spacing:5;
-    -fx-background-color: white;
-}
-
-/* Style pour les boutons dans les cartes d'équipe */
 .card-button {
     -fx-background-radius: 5;
     -fx-padding: 5 10;
@@ -91,7 +82,7 @@
     -fx-padding: 5 10;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: #999999;
-    -fx-pref-width: 200; /* Largeur réduite */
+    -fx-pref-width: 400; /* Largeur réduite */
     -fx-pref-height: 35; /* Hauteur réduite */
 }
 
@@ -101,8 +92,8 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
-    -fx-padding: 5 15; /* Padding réduit */
-    -fx-pref-width: 150; /* Largeur réduite */
+    -fx-padding: 5 10; /* Padding réduit */
+    -fx-pref-width: 130; /* Largeur réduite */
     -fx-pref-height: 35; /* Hauteur réduite */
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
@@ -126,3 +117,45 @@
 .supprimer-tout-button:hover {
     -fx-background-color: #d32f2f;
 }
+
+.button-rechercher{
+    -fx-background-color: #000000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15; /* Padding réduit */
+    -fx-pref-width: 100; /* Largeur réduite */
+    -fx-pref-height: 35; /* Hauteur réduite */
+   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+
+}
+
+.button-retour{
+    -fx-background-color: #000000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15; /* Padding réduit */
+    -fx-pref-width: 70; /* Largeur réduite */
+    -fx-pref-height: 35; /* Hauteur réduite */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+
+}
+
+
+.button-reserver {
+    -fx-background-color: #b59bed;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10; /* Padding réduit */
+    -fx-pref-width: 70; /* Largeur réduite */
+    -fx-pref-height: 29; /* Hauteur réduite */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.button-reserver:hover {
+    -fx-background-color: #8853f1;
+}
+
+

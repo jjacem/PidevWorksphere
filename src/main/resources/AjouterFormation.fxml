@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="FormAj" prefHeight="693.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterFormationController">
+<AnchorPane fx:id="FormAj" prefHeight="693.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterFormationController" stylesheets="@Formation.css">
    <children>
       <Label layoutX="227.0" layoutY="25.0" style="-fx-background-color: #Ajouter Formation;" text="Ajouter Formation" textFill="#0086b3">
          <font>
@@ -64,6 +64,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnretour" layoutX="42.0" layoutY="25.0" mnemonicParsing="false" onAction="#Onback" style="-fx-background-color: #000000;" text="&lt;" textFill="WHITE" />
+      <!-- Bouton retour -->
+      <Button layoutX="44.0" layoutY="22.0" mnemonicParsing="false" onAction="#retourdashRH" styleClass="button-retour" text="retour" />
    </children>
 </AnchorPane>

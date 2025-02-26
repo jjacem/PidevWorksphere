@@ -18,14 +18,14 @@ public class Main {
 
 
 //        //test
-//        //user
+        //user
 //        ServiceUser serviceUser = new ServiceUser();
 //        User u1 = new User();
 //        u1 = u1.RH(
-//                "Johnson",
-//                "Emily",
-//                "emily.johnson@rhcorp.com",
-//                "SecurePass123",
+//                "Molka",
+//                "Gharbi",
+//                "gharbimolka4@gamil.com",
+//                "123456",
 //                "01/05/1985",
 //                Sexe.FEMME,
 //                "New York",
@@ -59,21 +59,21 @@ public class Main {
 //                2500000.00
 //        );
 //
-//        User u4 = new User();
-//        u4 = u4.Employe(
-//                "Miller",
-//                "Daniel",
-//                "daniel.miller@corp.com",
-//                "Employ33Pass",
-//                "09/09/1990",
-//                Sexe.HOMME,
-//                "San Francisco",
-//                "IT Support",
-//                1200.00,
-//                8,
-//                "Technology",
-//                "Technical Support"
-//        );
+          User u4 = new User();
+          u4 = u4.Employe(
+                "Eya",
+                "Kassous",
+                "eyakassous55@gmail.com",
+                "123456",
+                "09/09/1990",
+                Sexe.HOMME,
+                "San Francisco",
+                "IT Support",
+                1200.00,
+                8,
+                "Technology",
+                "Technical Support"
+        );
 //
 ////        try {
 ////            serviceUser.ajouter(u4);
@@ -161,10 +161,10 @@ public class Main {
 //
 //
 //
-//    serviceUser.ajouter(u1);
-//        serviceUser.ajouter(u2);
-//        serviceUser.ajouter(u3);
-//        serviceUser.ajouter(u4);
+       //serviceUser.ajouter(u1);
+        //serviceUser.ajouter(u2);
+       // serviceUser.ajouter(u3);
+       // serviceUser.ajouter(u4);
 
         Date currentDate = new Date();
         Time currentTime = new Time(System.currentTimeMillis());

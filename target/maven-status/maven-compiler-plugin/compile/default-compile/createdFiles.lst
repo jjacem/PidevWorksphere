@@ -1,3 +1,4 @@
+esprit\tn\controllers\AjouterReservationController$2.class
 esprit\tn\controllers\AjouterProjetController$2.class
 esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
@@ -7,7 +8,6 @@ esprit\tn\controllers\AjouterEntretineController.class
 esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
 esprit\tn\controllers\AfficherReservationController$1.class
-esprit\tn\controllers\AfficherFormationController$1$1.class
 esprit\tn\tests\Main.class
 esprit\tn\entities\Reservation.class
 esprit\tn\controllers\ModifierSponsorController.class
@@ -18,11 +18,9 @@ esprit\tn\controllers\AfficherSponsorController.class
 esprit\tn\controllers\AjouterCandidatureController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId$1.class
 esprit\tn\controllers\AfficherReponse.class
-esprit\tn\controllers\AfficherListFormationController$1.class
 esprit\tn\entities\Feedback.class
 esprit\tn\utils\Router.class
 esprit\tn\controllers\AfficherUser$1$1.class
-esprit\tn\controllers\AfficherListFormationController$1$1.class
 esprit\tn\controllers\ModifierReponseController.class
 esprit\tn\controllers\AjouterEquipeController$1.class
 esprit\tn\controllers\SponsorEventsController.class
@@ -33,6 +31,7 @@ esprit\tn\controllers\AfficherReclamationsController$1.class
 esprit\tn\controllers\AjouterEvenementController.class
 esprit\tn\controllers\AfficherCandidatureController.class
 esprit\tn\services\IServiceReservation.class
+esprit\tn\controllers\AjouterReservationController$1.class
 esprit\tn\services\ServiceFormation.class
 esprit\tn\controllers\AfficherDetailsEquipeController.class
 esprit\tn\entities\Entretien.class
@@ -90,13 +89,13 @@ esprit\tn\entities\Sexe.class
 esprit\tn\controllers\AfficherEvenementController.class
 esprit\tn\entities\TypeEntretien.class
 esprit\tn\controllers\AfficherEquipeController.class
-esprit\tn\controllers\AfficherFormationController$1.class
 esprit\tn\utils\Emailsend$1.class
 esprit\tn\controllers\AfficherOffreCandidatController.class
 esprit\tn\entities\Formation.class
 esprit\tn\entities\Typeformation.class
 esprit\tn\controllers\AfficherUser.class
 esprit\tn\controllers\AffichageEntretineController.class
+esprit\tn\entities\Langue.class
 esprit\tn\controllers\AfficherOffreController.class
 esprit\tn\services\IServiceEquipe.class
 esprit\tn\controllers\ModifierEquipeController$1.class

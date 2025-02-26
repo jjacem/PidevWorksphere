@@ -2,8 +2,6 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.Formation;
 import esprit.tn.services.ServiceFormation;
-import esprit.tn.utils.Router;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,175 +27,131 @@ import java.util.stream.Collectors;
 
 public class AfficherFormationController {
 
-    @FXML
-    private ListView<Formation> listformationid;
-
+    // Déclaration des éléments FXML
     @FXML
     private Button btnajouterID;
 
-    private final ServiceFormation formationService = new ServiceFormation();
-    @FXML
-    private HBox Vrechcerche;
+    private final ServiceFormation formationService = new ServiceFormation();  // Service pour manipuler les formations
     @FXML
     private Button Btnrecherche;
     @FXML
     private TextField Trecherche;
+    @FXML
+    private VBox formationsContainer;
+    @FXML
+    private HBox mainContainer;
+    @FXML
+    private VBox listformationid;
 
+    // Initialisation de l'interface (remplissage des formations)
     @FXML
     public void initialize() {
+        populateFormations();
+    }
+
+    // Méthode pour remplir la liste des formations
+    private void populateFormations() {
+        formationsContainer.getChildren().clear();  // Nettoyer avant de recharger
+
         try {
-            ObservableList<Formation> formationsList = FXCollections.observableArrayList(formationService.getListFormation());
-            listformationid.setItems(formationsList);
-
-            // Attendre que la scène soit initialisée pour maximiser la fenêtre
-            Platform.runLater(() -> {
-                Stage stage = (Stage) listformationid.getScene().getWindow();
-                stage.setMaximized(true);
-            });
-
-            setupListView();
+            List<Formation> formations = formationService.getListFormation();
+            for (Formation formation : formations) {
+                HBox formationBox = createFormationBox(formation);  // Crée une boîte pour chaque formation
+                formationsContainer.getChildren().add(formationBox);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void setupListView() {
-        listformationid.setCellFactory(new Callback<ListView<Formation>, ListCell<Formation>>() {
-            @Override
-            public ListCell<Formation> call(ListView<Formation> listView) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Formation formation, boolean empty) {
-                        super.updateItem(formation, empty);
+    // Méthode pour créer la boîte de chaque formation avec ses informations
+    private HBox createFormationBox(Formation formation) {
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(150);
+        imageView.setFitWidth(200);
 
-                        if (empty || formation == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            ImageView imageView = new ImageView();
-                            imageView.setFitHeight(150);
-                            imageView.setFitWidth(200);
+        // Si une image est disponible pour la formation, on l'affiche
+        if (formation.getPhoto() != null) {
+            imageView.setImage(new Image(formation.getPhoto().toString()));
+        }
 
-                            if (formation.getPhoto() != null) {
-                                imageView.setImage(new Image(formation.getPhoto().toString()));
-                            }
+        // Création des labels pour les informations de la formation
+        Label titreLabel = new Label(formation.getTitre());
+        titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
 
+        Label descriptionLabel = new Label("Description: " + formation.getDescription());
+        Label dateLabel = new Label("Date: " + formation.getDate().toString());
+        Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
+        Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
+        Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
 
-                            Label titreLabel = new Label( formation.getTitre());
-                            titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
+        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
 
-                            Label descriptionLabel = new Label("Description:"+formation.getDescription());
-                            descriptionLabel.setStyle("-fx-font-size: 14px");
-                            Label dateLabel = new Label("Date: " + formation.getDate().toString());
-                            dateLabel.setStyle("-fx-font-size: 14px");
-                            Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
-                            heureDebutLabel.setStyle("-fx-font-size: 14px");
-                            Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
-                            heureFinLabel.setStyle("-fx-font-size: 14px");
-                            Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
-                            nbPlacesLabel.setStyle("-fx-font-size: 14px");
+        // Création des boutons d'action pour chaque formation
+        Button detailButton = new Button("Détails");
+        detailButton.getStyleClass().addAll("card-button", "details-button");
+        detailButton.setOnAction(event -> afficherDetails(formation));
 
-                            Button detailButton = new Button("Detail");
-                            detailButton.getStyleClass().addAll("card-button","details-button");
-                            detailButton.setOnAction(event -> {
-                                // Récupérer la formation sélectionnée
-                                Formation selectedFormation = listformationid.getSelectionModel().getSelectedItem();
+        Button modifierButton = new Button("Modifier");
+        modifierButton.getStyleClass().addAll("card-button", "modifier-button");
+        modifierButton.setOnAction(event -> modifierFormation(formation));
 
-                                if (selectedFormation != null) {
-                                    try {
-                                        // Charger le fichier FXML de la popup
-                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailFormation.fxml"));
-                                        Parent root = loader.load();
+        Button supprimerButton = new Button("Supprimer");
+        supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
+        supprimerButton.setOnAction(event -> deleteFormation(formation));
 
-                                        // Obtenir le contrôleur de la popup
-                                        AfficherDetailFormationController controller = loader.getController();
+        // Conteneur pour les boutons
+        HBox buttonContainer = new HBox(10, detailButton, modifierButton, supprimerButton);
+        buttonContainer.setAlignment(Pos.CENTER_RIGHT);
+        buttonContainer.setPadding(new Insets(30, 10, 10, 50));
 
-                                        // Passer l'objet Formation au contrôleur
-                                        controller.setFormation(selectedFormation);
+        // Conteneur principal pour chaque formation
+        HBox formationBox = new HBox(10, imageView, infoBox, buttonContainer);
+        formationBox.setAlignment(Pos.CENTER_LEFT);
+        formationBox.setStyle("-fx-padding: 10px; -fx-border-color: lightgray; -fx-border-radius: 5px;");
 
-                                        // Créer une nouvelle fenêtre (Stage) pour la popup
-                                        Stage stage = new Stage();
-                                        stage.setTitle("Détails de la Formation");
-
-                                        // Définir la scène et l'ajouter au Stage
-                                        Scene scene = new Scene(root);
-                                        stage.setScene(scene);
-
-                                        // Rendre la popup modale
-                                        stage.initModality(Modality.APPLICATION_MODAL);
-
-                                        // Afficher la popup et attendre qu'elle se ferme
-                                        stage.showAndWait();
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    System.out.println("Aucune formation sélectionnée !");
-                                }
-                            });
-
-                            Button modifierButton = new Button("Modifier");
-                            modifierButton.getStyleClass().addAll("card-button", "modifier-button");
-                            modifierButton.setOnAction(event -> {
-                                // Charger la page de modification
-                                try {
-                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierFormation.fxml"));
-                                    Parent root = loader.load();
-
-                                    ModifierFormationController controller = loader.getController();
-                                    controller.setFormation(formation);  // Passer l'objet formation à la page de modification
-                                    Stage stage = new Stage();
-                                    stage.setTitle("Modifier Formation");
-
-                                    // Créer une scène et l'ajouter au Stage
-                                    Scene scene = new Scene(root);
-                                    stage.setScene(scene);
-
-                                    // Rendre le Stage modale pour empêcher l'interaction avec la fenêtre principale
-                                    stage.initModality(Modality.APPLICATION_MODAL);
-
-                                    // Afficher la fenêtre modale
-                                    stage.showAndWait();
-                                } catch (IOException e) {
-                                    System.out.println("Erreur de chargement de la page de modification : " + e.getMessage());
-                                }
-                            });
-
-                            Button supprimerButton = new Button("Supprimer");
-                            supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
-                            supprimerButton.setOnAction(event -> deleteFormation(formation));
-
-
-                            HBox buttonContainer = new HBox(10,detailButton, modifierButton, supprimerButton );
-                            buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-                            buttonContainer.setPadding(new Insets(30, 10, 10, 50));
-
-                            VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
-
-
-                            HBox mainBox = new HBox(5, imageView, infoBox);
-                            mainBox.setAlignment(Pos.CENTER_LEFT);
-                            mainBox.setPadding(new Insets(10));
-
-                            HBox fullBox = new HBox(10, mainBox, buttonContainer);
-                            fullBox.setAlignment(Pos.CENTER_LEFT);
-
-                            setGraphic(fullBox);
-                        }
-                    }
-                };
-            }
-        });
+        return formationBox;
     }
 
+    // Afficher les détails de la formation dans une nouvelle fenêtre modale
+    private void afficherDetails(Formation formation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailFormation.fxml"));
+            Parent root = loader.load();
 
+            AfficherDetailFormationController controller = loader.getController();
+            controller.setFormation(formation);
 
-
-    private void modifyFormation(Formation formation) {
-
+            Stage stage = new Stage();
+            stage.setTitle("Détails de la Formation");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    // Méthode pour modifier la formation
+    private void modifierFormation(Formation formation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierFormation.fxml"));
+            Parent root = loader.load();
+
+            ModifierFormationController controller = loader.getController();
+            controller.setFormation(formation);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modifier Formation");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour supprimer la formation
     private void deleteFormation(Formation formation) {
         ServiceFormation serviceFormation = new ServiceFormation();
 
@@ -213,9 +166,7 @@ public class AfficherFormationController {
             try {
                 serviceFormation.supprimeFormation(formation);
                 System.out.println("Suppression réussie pour la formation : " + formation.getTitre());
-
-                // Mise à jour de la ListView
-                listformationid.getItems().remove(formation);
+                populateFormations();  // Recharger la liste après la suppression
             } catch (SQLException e) {
                 System.err.println("Erreur lors de la suppression : " + e.getMessage());
             }
@@ -224,6 +175,44 @@ public class AfficherFormationController {
         }
     }
 
+    // Méthode pour ajouter une nouvelle formation
+    @FXML
+    public void Onajouterformation() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterFormation.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) btnajouterID.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode de recherche de formation par titre
+    @FXML
+    public void OnchercherFormation() {
+        String searchText = Trecherche.getText().toLowerCase();
+
+        try {
+            List<Formation> allFormations = formationService.getListFormation();
+            List<Formation> filteredFormations = allFormations.stream()
+                    .filter(formation -> formation.getTitre().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+
+            formationsContainer.getChildren().clear();
+            for (Formation formation : filteredFormations) {
+                formationsContainer.getChildren().add(createFormationBox(formation));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour afficher une alerte
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -232,56 +221,7 @@ public class AfficherFormationController {
         alert.showAndWait();
     }
 
-    @FXML
-    public void Onajouterformation(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterFormation.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void OnchercherFormation(ActionEvent actionEvent) throws SQLException {
-        String searchText = Trecherche.getText();
-
-        // Liste des formations (vous pouvez remplacer cela par la liste de formations réelle)
-        List<Formation> allFormations = formationService.getListFormation(); // Remplacez par votre méthode pour obtenir la liste des formations
-
-        // Filtrer les formations avec Stream en fonction du texte de recherche
-        List<Formation> filteredFormations = allFormations.stream()
-                .filter(formation -> formation.getTitre().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
-
-        // Mettre à jour l'affichage des résultats de la recherche
-        updateFormationListView(filteredFormations);
-
-    }
-
-    private void updateFormationListView(List<Formation> filteredFormations) {
-        ObservableList<Formation> observableList = FXCollections.observableArrayList(filteredFormations);
-        listformationid.setItems(observableList);
-    }
-
-
-
-    public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-}}
-
+    // Appliquer un style personnalisé aux alertes
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
@@ -289,6 +229,17 @@ public class AfficherFormationController {
     }
 
 
+    @FXML
+    public void retourdashRH() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) btnajouterID.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-

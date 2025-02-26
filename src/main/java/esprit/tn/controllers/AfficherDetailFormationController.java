@@ -24,9 +24,6 @@ public class AfficherDetailFormationController {
     @FXML
     private Label DateID;
 
-    @FXML
-    private VBox formationContainer;
-
     private Formation formation;
 
     public void setFormation(Formation id) {

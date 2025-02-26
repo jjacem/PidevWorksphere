@@ -20,186 +20,156 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AfficherListFormationController {
     @FXML
-    private ListView listformationid;
-    @FXML
-    private HBox Vrechcerche;
-    @FXML
-    private TextField Trecherche;
-    @FXML
-    private Button Btnrecherche;
+    private Button btnajouterID;
 
     private final ServiceFormation formationService = new ServiceFormation();
     @FXML
-    private Button btnD;
+    private Button Btnrecherche;
     @FXML
-    private Button btnP;
+    private TextField Trecherche;
+    @FXML
+    private VBox formationsContainer;
 
     @FXML
     public void initialize() {
-        try {
-            ObservableList<Formation> formationsList = FXCollections.observableArrayList(formationService.getListFormation());
-            listformationid.setItems(formationsList);
+        populateFormations();
+    }
 
-            setupListView();
+    private void populateFormations() {
+        formationsContainer.getChildren().clear();
+
+        try {
+            List<Formation> formations = formationService.getListFormation();
+            for (Formation formation : formations) {
+                HBox formationBox = createFormationBox(formation);
+                formationsContainer.getChildren().add(formationBox);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void setupListView() {
-        listformationid.setCellFactory(new Callback<ListView<Formation>, ListCell<Formation>>() {
-            @Override
-            public ListCell<Formation> call(ListView<Formation> listView) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Formation formation, boolean empty) {
-                        super.updateItem(formation, empty);
+    private HBox createFormationBox(Formation formation) {
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(150);
+        imageView.setFitWidth(200);
 
-                        if (empty || formation == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            // Création des éléments d'affichage
-                            ImageView imageView = new ImageView();
-                            imageView.setFitHeight(150);
-                            imageView.setFitWidth(200);
+        if (formation.getPhoto() != null) {
+            imageView.setImage(new Image(formation.getPhoto().toString()));
+        }
 
-                            if (formation.getPhoto() != null) {
-                                imageView.setImage(new Image(formation.getPhoto().toString()));
-                            }
+        Label titreLabel = new Label(formation.getTitre());
+        titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
 
-                            Label titreLabel = new Label( formation.getDescription());
-                            titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
+        Label descriptionLabel = new Label("Description: " + formation.getDescription());
+        Label dateLabel = new Label("Date: " + formation.getDate().toString());
+        Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
+        Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
+        Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
 
-                            Label descriptionLabel = new Label("Description:"+formation.getTitre());
-                            descriptionLabel.setStyle("-fx-font-size: 14px");
-                            Label dateLabel = new Label("Date: " + formation.getDate().toString());
-                            dateLabel.setStyle("-fx-font-size: 14px");
-                            Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
-                            heureDebutLabel.setStyle("-fx-font-size: 14px");
-                            Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
-                            heureFinLabel.setStyle("-fx-font-size: 14px");
-                            Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
-                            nbPlacesLabel.setStyle("-fx-font-size: 14px");
-                            Button detailButton = new Button("Detail");
-                            detailButton.getStyleClass().addAll("card-button","details-button");
+        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
 
-                            Button reservationButton = new Button("Reserver");
-                            reservationButton.getStyleClass().addAll("card-button","res-button");
-                            reservationButton.setOnAction(event -> {
-                                // Récupérer la formation sélectionnée (assurez-vous que `formationId` est disponible)
-                                try {
-                                    // Charger la scène AjouterReservation.fxml
-                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReservation.fxml"));
-                                    Parent root = loader.load();
+        Button detailButton = new Button("Detail");
+        detailButton.getStyleClass().addAll("card-button", "details-button");
+        detailButton.setOnAction(event -> afficherDetails(formation));
 
-                                    // Récupérer le contrôleur AjouterReservationController
-                                    AjouterReservationController controller = loader.getController();
-                                    controller.setUser(formation.getUser());
-                                    // Passer l'ID de la formation et l'ID utilisateur
-                                    controller.setFormationId(formation.getId_f());
-                                    controller.setUserId(SessionManager.extractuserfromsession().getIdUser()); // Remplacer par l'ID de l'utilisateur connecté
-                                    // Changer de scène
-                                    Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                                    stage.getScene().setRoot(root);
-                                } catch (IOException e) {
-                                    System.out.println("Erreur de chargement de la page de réservation : " + e.getMessage());
-                                } catch (SQLException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            });
+        Button reserverButton = new Button("Reserver");
+        reserverButton.getStyleClass().addAll("card-button", "button-reserver");
+        reserverButton.setOnAction(event -> {
+            // Récupérer la formation sélectionnée (assurez-vous que `formationId` est disponible)
+            try {
+                // Charger la scène AjouterReservation.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReservation.fxml"));
+                Parent root = loader.load();
 
-                            // Conteneur pour aligner les boutons à droite
-                            HBox buttonContainer = new HBox(10,detailButton,reservationButton);
-                            buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-                            buttonContainer.setPadding(new Insets(30, 10, 10, 50)); // Marges autour des boutons
+                // Récupérer le contrôleur AjouterReservationController
+                AjouterReservationController controller = loader.getController();
+                controller.setUser(formation.getUser());
 
-                            // Conteneur pour les infos
-                            VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
+                // Passer l'ID de la formation et l'ID utilisateur
+                controller.setFormationId(formation.getId_f());
+                controller.setUserId(SessionManager.extractuserfromsession().getIdUser()); // ID utilisateur connecté
 
-                            // Conteneur principal avec l'image, les infos et les boutons
-                            HBox mainBox = new HBox(10, imageView, infoBox);
-                            mainBox.setAlignment(Pos.CENTER_LEFT);
-                            mainBox.setPadding(new Insets(10));
+                // Création d'un nouveau Stage pour le popup
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+                popupStage.initStyle(StageStyle.UTILITY); // Style de la fenêtre
+                popupStage.setTitle("Ajouter une réservation");
 
-                            // Ajout du conteneur des boutons à droite
-                            HBox fullBox = new HBox(10, mainBox, buttonContainer);
-                            fullBox.setAlignment(Pos.CENTER_LEFT); // Laisse les boutons à droite automatiquement
+                // Définir la scène du popup
+                Scene scene = new Scene(root);
+                popupStage.setScene(scene);
 
-                            setGraphic(fullBox);
-                        }
-                    }
-                };
+                // Afficher le popup et attendre la fermeture avant de revenir à la fenêtre principale
+                popupStage.showAndWait();
+
+            } catch (IOException e) {
+                System.out.println("Erreur de chargement de la page de réservation : " + e.getMessage());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
+
         });
+
+
+        HBox buttonContainer = new HBox(10,detailButton, reserverButton);
+        buttonContainer.setAlignment(Pos.CENTER_RIGHT);
+        buttonContainer.setPadding(new Insets(10));
+
+        HBox formationBox = new HBox(10, imageView, infoBox, buttonContainer);
+        formationBox.setAlignment(Pos.CENTER_LEFT);
+        formationBox.setStyle("-fx-padding: 10px; -fx-border-color: lightgray; -fx-border-radius: 5px;");
+        return formationBox;
     }
 
-
-    private void ajouterreservation(Reservation reservation) {}
-
-
-    public void setReservation(Reservation reservation) {
-
-    }
-
-
-    public void OnchercherFormation(ActionEvent actionEvent) throws SQLException {
-        String searchText = Trecherche.getText();
-
-        // Liste des formations (vous pouvez remplacer cela par la liste de formations réelle)
-        List<Formation> allFormations = formationService.getListFormation(); // Remplacez par votre méthode pour obtenir la liste des formations
-
-        // Filtrer les formations avec Stream en fonction du texte de recherche
-        List<Formation> filteredFormations = allFormations.stream()
-                .filter(formation -> formation.getDescription().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
-
-        // Mettre à jour l'affichage des résultats de la recherche
-        updateFormationListView(filteredFormations);
-
-    }
-
-    private void updateFormationListView(List<Formation> filteredFormations) {
-        // Convertir la liste filtrée en ObservableList pour l'affichage
-        ObservableList<Formation> observableList = FXCollections.observableArrayList(filteredFormations);
-        listformationid.setItems(observableList);
+    private void afficherDetails(Formation formation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailFormation.fxml"));
+            Parent root = loader.load();
+            AfficherDetailFormationController controller = loader.getController();
+            controller.setFormation(formation);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void Ondis(ActionEvent actionEvent) throws SQLException {
-        List<Formation> allFormations = formationService.getListFormation();
+    public void OnchercherFormation() {
+        String searchText = Trecherche.getText().toLowerCase();
 
-        // Filtrer les formations en présentiel
-        List<Formation> filteredFormations = allFormations.stream()
-                .filter(formation -> formation.getType() == Typeformation.Présentiel)
-                .collect(Collectors.toList());
+        try {
+            List<Formation> allFormations = formationService.getListFormation();
+            List<Formation> filteredFormations = allFormations.stream()
+                    .filter(formation -> formation.getTitre().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
 
-        // Mettre à jour l'affichage
-        updateFormationListView(filteredFormations);
+            formationsContainer.getChildren().clear();
+            for (Formation formation : filteredFormations) {
+                formationsContainer.getChildren().add(createFormationBox(formation));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    @FXML
-    public void Onpres(ActionEvent actionEvent) throws SQLException {
-        List<Formation> allFormations = formationService.getListFormation();
-
-        // Filtrer les formations en distanciel
-        List<Formation> filteredFormations = allFormations.stream()
-                .filter(formation -> formation.getType() == Typeformation.Distanciel)
-                .collect(Collectors.toList());
-
-        // Mettre à jour l'affichage
-        updateFormationListView(filteredFormations);
+    public void retourdashRH(ActionEvent actionEvent) {
     }
-
-
 }
+
