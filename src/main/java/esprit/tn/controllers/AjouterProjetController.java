@@ -151,11 +151,6 @@ public class AjouterProjetController {
             applyAlertStyle(successAlert);
             successAlert.showAndWait();
 
-            /*Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
-            //Parent root = FXMLLoader.load(getClass().getResource("/DashboardManager.fxml"));
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste des Projets");*/
             // Charger le tableau de bord
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
@@ -176,18 +171,6 @@ public class AjouterProjetController {
 
         }
     }
-
-   /*@FXML
-    private void Retour(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
-            //Parent root = FXMLLoader.load(getClass().getResource("/DashboardManager.fxml"));
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @FXML
     private void Retour(ActionEvent event) {

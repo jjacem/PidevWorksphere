@@ -28,6 +28,9 @@ public class DashboardManager {
     @FXML
     private Text name;
     public void initialize() throws SQLException {
+
+        loadPage("/AfficherEquipe.fxml");
+
         User u = SessionManager.extractuserfromsession();
 
         if (u != null) {
@@ -41,21 +44,22 @@ public class DashboardManager {
                     image.setImage(new Image(imageFile.toURI().toString()));
                 } else {
                     System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
-                    image.setImage(new Image("/Images/user.png"));
+                    image.setImage(new Image("/images/user.png"));
                 }
             } else {
                 System.out.println("No image path provided.");
-                image.setImage(new Image("/Images/user.png"));
+                image.setImage(new Image("/images/user.png"));
             }
         } else {
             System.out.println("No user found in session.");
         }
+
     }
 
     public void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
-            Parent newPage = loader.load(); // Use Parent instead of AnchorPane
+            Parent newPage = loader.load();
             contentArea.getChildren().setAll(newPage);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,6 +87,7 @@ public class DashboardManager {
     }
 
     public void goprofile(ActionEvent actionEvent) {
+
         loadPage("/ModifierCompte.fxml");
     }
 
@@ -92,6 +97,7 @@ public class DashboardManager {
     }
 
     public void Projet(ActionEvent actionEvent) {
+
         loadPage("/AfficherProjet.fxml");
     }
 

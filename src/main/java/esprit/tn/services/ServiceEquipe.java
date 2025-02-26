@@ -2,7 +2,7 @@ package esprit.tn.services;
 
 import esprit.tn.entities.Equipe;
 import esprit.tn.entities.Role;
-import esprit.tn.entities.User;
+import esprit.tn.entities.*;
 import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
@@ -16,17 +16,19 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         connection = MyDatabase.getInstance().getConnection();
     }
 
+
     @Override
     public void ajouterEquipe(Equipe equipe) throws SQLException {
-
         // Vérifier si une équipe avec le même nom existe déjà
         if (nomEquipeExiste(equipe.getNomEquipe())) {
             throw new SQLException("Une équipe avec ce nom existe déjà.");
         }
+
         // hne insertion te3 equipe
-        String req = "INSERT INTO equipe (nom_equipe) VALUES (?)";
+        String req = "INSERT INTO equipe (nom_equipe, imageEquipe) VALUES (?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         preparedStatement.setString(1, equipe.getNomEquipe());
+        preparedStatement.setString(2, equipe.getImageEquipe()); // Assurez-vous que cette valeur n'est pas null
         preparedStatement.executeUpdate();
 
         // hne 9a3din ne5dhou f id te3 equipe insérer
@@ -40,10 +42,9 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
         // hne 3malna association bin equipe w user puisque kol equipe feha akthe men user
         for (User user : equipe.getEmployes()) {
-
             if (user.getRole() != Role.EMPLOYE) {
                 System.out.println("L'utilisateur " + user.getNom() + " n'a pas le rôle EMPLOYE. Ajout annulé.");
-                continue; // Ignore cet utilisateur
+                continue;
             }
 
             PreparedStatement assocStatement = connection.prepareStatement("INSERT INTO equipe_employee (equipe_id, id_user) VALUES (?, ?)");
@@ -55,11 +56,11 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
     @Override
     public void modifierEquipe(Equipe equipe) throws SQLException {
-
-        String req = "UPDATE equipe SET nom_equipe = ? WHERE id = ?";
+        String req = "UPDATE equipe SET nom_equipe = ?, imageEquipe = ? WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         preparedStatement.setString(1, equipe.getNomEquipe());
-        preparedStatement.setInt(2, equipe.getId());
+        preparedStatement.setString(2, equipe.getImageEquipe());
+        preparedStatement.setInt(3, equipe.getId());
         preparedStatement.executeUpdate();
 
         // hne fas5na association le9dima
@@ -91,6 +92,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         deleteEquipe.executeUpdate();
     }
 
+
     @Override
     public List<Equipe> afficherEquipe() throws SQLException {
         List<Equipe> equipes = new ArrayList<>();
@@ -101,8 +103,8 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         while (rs.next()) {
             int id = rs.getInt("id");
             String nomEquipe = rs.getString("nom_equipe");
+            String imageEquipe = rs.getString("imageEquipe");
 
-            // Requête pour récupérer les employés de l'équipe, y compris leur image_profil
             String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role, e.image_profil FROM user e " +
                     "JOIN equipe_employee ee ON e.id_user = ee.id_user WHERE ee.equipe_id = ?";
 
@@ -113,23 +115,22 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             List<User> employes = new ArrayList<>();
             while (employesRs.next()) {
                 User user = new User(
-
+                        employesRs.getInt("id_user"),
+                        employesRs.getString("nom"),
+                        employesRs.getString("prenom"),
+                        Role.valueOf(employesRs.getString("role").toUpperCase()),
+                        employesRs.getString("image_profil")
                 );
-                user.setIdUser(employesRs.getInt("id_user"));
-                        user.setNom(employesRs.getString("nom"));
-                        user.setPrenom(employesRs.getString("prenom"));
-                        user.setRole(Role.valueOf(employesRs.getString("role").toUpperCase()));
-                        user.setImageProfil(employesRs.getString("image_profil"));
                 employes.add(user);
             }
 
-            equipes.add(new Equipe(id, nomEquipe, employes));
+            equipes.add(new Equipe(id, nomEquipe, employes, imageEquipe));
         }
         return equipes;
     }
 
 
-  public List<User> getEmployesDisponibles() throws SQLException {
+    public List<User> getEmployesDisponibles() throws SQLException {
         List<User> employesDisponibles = new ArrayList<>();
         String req = "SELECT id_user, nom, prenom, role FROM user WHERE role = 'Employe'";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
@@ -137,13 +138,11 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
         while (rs.next()) {
             User user = new User(
-
+                    rs.getInt("id_user"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    Role.valueOf(rs.getString("role").toUpperCase())
             );
-            user.setIdUser(rs.getInt("id_user"));
-            user.setNom(rs.getString("nom"));
-            user.setPrenom(rs.getString("prenom"));
-            user.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
-
             employesDisponibles.add(user);
         }
         return employesDisponibles;
@@ -161,13 +160,15 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         while (rs.next()) {
             int id = rs.getInt("id");
             String nom = rs.getString("nom_equipe");
-
-            Equipe equipe = new Equipe(id, nom, new ArrayList<>());
+            String imageEquipe = rs.getString("imageEquipe");
+            Equipe equipe = new Equipe(id, nom, new ArrayList<>(), imageEquipe);
             equipes.add(equipe);
         }
 
         return equipes;
     }
+
+
 
     public List<User> rechercherEmployee(int equipeId, String searchText) throws SQLException {
         List<User> employesTrouves = new ArrayList<>();
@@ -184,12 +185,11 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 User user = new User(
-
+                        rs.getInt("id_user"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("image_profil")
                 );
-                user.setIdUser(rs.getInt("id_user"));
-                user.setNom(rs.getString("nom"));
-                user.setPrenom(rs.getString("prenom"));
-                user.setImageProfil(rs.getString("image_profil"));
                 employesTrouves.add(user);
             }
         }

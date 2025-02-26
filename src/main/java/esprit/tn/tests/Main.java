@@ -208,32 +208,61 @@ public class Main {
 //            System.out.println("L'entretien n'existe pas !");
 //        }
 
+        User user= new User();
+
+        user = user.Candidat(
+                "Smith",
+                "James",
+                "nn.smith24@gmail.com",
+                "Candid@t3Pass",
+                "12/11/1992",
+                Sexe.HOMME,
+                "Los Angeles",
+                750.50
+        );
+ServiceUser u=new ServiceUser();
+
+try {
+    System.out.println(user);
+    u.ajouter(user);
+    user.setRole(Role.CANDIDAT);
+    user.setSexe(Sexe.HOMME);
+    user.setSalaire(1500.00);
+    user.setExperienceTravail(5);
+    user.setDepartement("it");
+    user.setCompetence("no comp");
+    user.setIdUser(48);
+u.changetoEmploye(user);
 
 
+} catch (Exception e) {
+    throw new RuntimeException(e);
+}
 
-        try {
-            EntretienService service = new EntretienService();
 
-            int idOffre = 1;
-
-            Entretien nouvelEntretien = new Entretien(
-                    "Entretien RH",
-                    "Discussion sur le parcours du candidat",
-                    new java.util.Date(),
-                    new Time(System.currentTimeMillis()),
-                    TypeEntretien.EN_PRESENTIEL,
-                    false,
-                    2,
-                    4,
-                    1,
-                    0
-            );
-
-            service.ajouterEntretienAvecCandidature(nouvelEntretien, idOffre);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            EntretienService service = new EntretienService();
+//
+//            int idOffre = 1;
+//
+//            Entretien nouvelEntretien = new Entretien(
+//                    "Entretien RH",
+//                    "Discussion sur le parcours du candidat",
+//                    new java.util.Date(),
+//                    new Time(System.currentTimeMillis()),
+//                    TypeEntretien.EN_PRESENTIEL,
+//                    false,
+//                    2,
+//                    4,
+//                    1,
+//                    0
+//            );
+//
+//            service.ajouterEntretienAvecCandidature(nouvelEntretien, idOffre);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 
