@@ -7,21 +7,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e3f2fd;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterReclamationController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #e3f2fd;"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AjouterReclamationController">
+
     <children>
         <!-- Titre Field -->
-        <TextField fx:id="titre" layoutX="197.0" layoutY="76.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px; -fx-padding: 5px;" />
-        <Text layoutX="140.0" layoutY="95.0" fill="#1565C0" text="📌 Titre:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <Text layoutX="140.0" layoutY="95.0" fill="#1565C0" text="📌 Titre:"
+              style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <TextField fx:id="titre" layoutX="197.0" layoutY="76.0" prefHeight="30.0" prefWidth="250.0"
+                   style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px; -fx-padding: 5px;" />
 
-        <TextArea fx:id="description" layoutX="197.0" layoutY="112.0" prefHeight="117.0" prefWidth="250.0" style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px; -fx-padding: 5px;" />
-        <Text layoutX="120.0" layoutY="135.0" fill="#1565C0" text="📝 Description:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <!-- Description Field -->
+        <Text layoutX="120.0" layoutY="135.0" fill="#1565C0" text="📝 Description:"
+              style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <TextArea fx:id="description" layoutX="197.0" layoutY="112.0" prefHeight="117.0" prefWidth="250.0"
+                  style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px; -fx-padding: 5px;" />
 
-        <ChoiceBox fx:id="type" layoutX="197.0" layoutY="254.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px;" />
-        <Text layoutX="145.0" layoutY="270.0" fill="#1565C0" text="🔍 Type:" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <!-- Type ChoiceBox -->
+        <Text layoutX="145.0" layoutY="270.0" fill="#1565C0" text="🔍 Type:"
+              style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <ChoiceBox fx:id="type" layoutX="197.0" layoutY="254.0" prefWidth="200.0"
+                   style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px;" />
 
-        <Button fx:id="ajouterButton" layoutX="230.0" layoutY="333.0" mnemonicParsing="false" onAction="#ajouter" text="➕ Ajouter" style="-fx-background-color: #1976D2; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5px; -fx-padding: 5px;">
+        <!-- Employees ChoiceBox -->
+        <Text layoutX="90.0" layoutY="315.0" fill="#1565C0" text="👤 Employé Responsable:"
+              style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+        <ChoiceBox fx:id="Employees" layoutX="230.0" layoutY="300.0" prefWidth="200.0"
+                   style="-fx-background-color: #ffffff; -fx-border-color: #2196F3; -fx-border-radius: 5px;" />
+
+        <!-- Add Button -->
+        <Button fx:id="ajouterButton" layoutX="230.0" layoutY="350.0" mnemonicParsing="false"
+                onAction="#ajouter" text="➕ Ajouter"
+                style="-fx-background-color: #1976D2; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5px; -fx-padding: 5px;">
             <effect>
                 <DropShadow radius="5.0" color="#1565C0" />
             </effect>

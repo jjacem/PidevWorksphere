@@ -188,11 +188,9 @@ public class ServiceReclamation implements IService<Reclamation> {
         return null;
     }
     public List<Reclamation> filterbytitle(String title) throws SQLException {
-        List<Reclamation> responses = this.afficher();
-        responses = responses.stream()
-                .filter(r -> r.getStatus().equals(title))
+        return this.afficher().stream()
+                .filter(r -> r.getTitre().toLowerCase().contains(title.toLowerCase())) // Case-insensitive search
                 .collect(Collectors.toList());
-        return responses;
     }
 
     public List<Reclamation> filterbystats(String status) throws SQLException {

@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AfficherReclamationsController {
 
@@ -86,7 +87,9 @@ public class AfficherReclamationsController {
         }
 
         if (!searchText.isEmpty()) {
-            reclamations = serviceReclamation.filterbytitle(searchText);
+            reclamations = reclamations.stream()
+                    .filter(r -> r.getTitre().toLowerCase().contains(searchText.toLowerCase()))
+                    .collect(Collectors.toList());;
         }
 
         ObservableList<Reclamation> items = FXCollections.observableArrayList(reclamations);
@@ -103,12 +106,13 @@ public class AfficherReclamationsController {
                     setGraphic(null);
                 } else {
                     HBox hbox = new HBox(15);
-                    Label statusLabel = new Label("Status: " + r.getStatus());
+
                     Label titleLabel = new Label("Titre: " + r.getTitre());
+                    Label statusLabel = new Label("Status: " + r.getStatus());
                     Label descriptionLabel = new Label("Description: " + r.getDescription());
                     Label dateLabel = new Label("Date: " + r.getDatedepot());
 
-                    hbox.getChildren().addAll(statusLabel, titleLabel, descriptionLabel, dateLabel);
+                    hbox.getChildren().addAll( titleLabel,statusLabel, descriptionLabel, dateLabel);
 
                     Reponse reponse = serviceReponse.checkForRepInRec(r.getId_reclamation());
                     if (reponse != null) {
