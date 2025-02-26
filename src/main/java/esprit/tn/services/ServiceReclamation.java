@@ -49,7 +49,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
+                ServiceReponse s=new ServiceReponse();
+                reclamation.setReponse(s.checkForRepInRec(reclamation.getId_reclamation()));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -75,7 +77,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
+                ServiceReponse s=new ServiceReponse();
+                reclamation.setReponse(s.checkForRepInRec(reclamation.getId_reclamation()));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
