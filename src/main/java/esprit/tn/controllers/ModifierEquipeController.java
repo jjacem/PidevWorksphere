@@ -12,6 +12,8 @@ import javafx.collections.ListChangeListener;
 import esprit.tn.services.ServiceEquipe;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -57,6 +59,8 @@ public class ModifierEquipeController {
 
     @FXML
     private Button uploadImageButton;
+    @FXML
+    private StackPane imageContainer;
 
     private String imagePath = "";
     private ServiceEquipe serviceEquipe;
@@ -158,58 +162,7 @@ public class ModifierEquipeController {
         employesSelectionnesList.clear();
     }
 
-    /*@FXML
-    public void confirmer() {
-        String nomEquipe = nomEquipeField.getText();
-        List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
 
-        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champ(s) manquant(s)");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
-            applyAlertStyle(alert);
-            alert.showAndWait();
-
-            return;
-        }
-
-        try {
-            if (serviceEquipe.cntrlModifEquipe(nomEquipe, equipeAModifier.getId())) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Nom d'équipe existant");
-                alert.setHeaderText(null);
-                alert.setContentText("Une équipe avec ce nom existe déjà. Veuillez choisir un autre nom.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-
-                return;
-            }
-
-            equipeAModifier.setNomEquipe(nomEquipe);
-            equipeAModifier.setEmployes(employesSelectionnes);
-            equipeAModifier.setImageEquipe(imagePath);
-            serviceEquipe.modifierEquipe(equipeAModifier);
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText(null);
-            alert.setContentText("Équipe modifiée avec succès !");
-            applyAlertStyle(alert);
-            alert.showAndWait();
-
-
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.setTitle("Liste des équipes");
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @FXML
     public void confirmer() {
@@ -258,7 +211,9 @@ public class ModifierEquipeController {
         }
     }
 
-   /* @FXML
+
+
+    @FXML
     public void annuler() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation");
@@ -266,35 +221,17 @@ public class ModifierEquipeController {
         confirmation.setContentText("Êtes-vous sûr de vouloir annuler la modification de l'équipe ?");
         applyAlertStyle(confirmation);
         Optional<ButtonType> result = confirmation.showAndWait();
-
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) annulerButton.getScene().getWindow();
-                stage.getScene().setRoot(root);
-                stage.setTitle("Liste des équipes");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Stage stage = (Stage) annulerButton.getScene().getWindow();
+            stage.close();
         }
-    }*/
-
-    @FXML
-    public void annuler() {
-        // Fermer la fenêtre modale
-        Stage stage = (Stage) annulerButton.getScene().getWindow();
-        stage.close();
     }
 
     @FXML
     public void supprimerUnEmploye() {
-        // Récupérer l'employé sélectionné dans la liste des employés sélectionnés
         User employeSelectionne = employesSelectionnesListView.getSelectionModel().getSelectedItem();
 
         if (employeSelectionne != null) {
-            // Supprimer l'employé de la liste des employés sélectionnés
             employesSelectionnesList.remove(employeSelectionne);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -314,7 +251,8 @@ public class ModifierEquipeController {
     }
 
     @FXML
-    private void uploadImage(ActionEvent event) {
+    //private void uploadImage(ActionEvent event) {
+    private void uploadImage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(

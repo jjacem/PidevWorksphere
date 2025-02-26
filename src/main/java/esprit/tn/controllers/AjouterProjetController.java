@@ -96,95 +96,6 @@ public class AjouterProjetController {
     }
 
 
-    /*@FXML
-    private void AjouterProjet(ActionEvent event) {
-        try {
-
-            String nom = nomField.getText();
-            String description = descriptionField.getText();
-            LocalDate dateCreationLocal = dateCreationPicker.getValue();
-            LocalDate deadlineLocal = deadlinePicker.getValue();
-            String etat = etatComboBox.getValue();
-            Equipe equipe = equipeComboBox.getValue();
-
-            if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Champs manquants");
-                alert.setHeaderText(null);
-                alert.setContentText("Veuillez remplir tous les champs.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-
-            // Convertir LocalDate en java.sql.Date
-            Date dateCreation = java.sql.Date.valueOf(dateCreationLocal);
-            Date deadline = java.sql.Date.valueOf(deadlineLocal);
-
-            // hne verif te3 date
-            if (dateCreation.after(deadline)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Erreur de date");
-                alert.setHeaderText(null);
-                alert.setContentText("La date de création ne peut pas être postérieure à la deadline.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-
-            // hne verif si fama projet b nafs esm
-            if (serviceProjet.projetExiste(nom)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Nom de projet existant");
-                alert.setHeaderText(null);
-                alert.setContentText("Un projet avec ce nom existe déjà. Veuillez choisir un autre nom.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-            if (imagePath.isEmpty()) {
-                imagePath = "images/profil.png";
-            }
-            // hne creation te3 projet
-            Projet projet = new Projet();
-            projet.setNom(nom);
-            projet.setDescription(description);
-            projet.setDatecréation(dateCreation);
-            projet.setDeadline(deadline);
-            projet.setEtat(EtatProjet.valueOf(etat));
-            projet.setEquipe(equipe);
-
-            // Ajout te3 projet fi bdd
-            serviceProjet.ajouterProjet(projet);
-
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Succès");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("Projet ajouté avec succès !");
-            applyAlertStyle(successAlert);
-            successAlert.showAndWait();
-
-            // Charger le tableau de bord
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir le contrôleur du tableau de bord
-            DashboardManager dashboardController = loader.getController();
-
-            // Charger la page "Projet" dans le tableau de bord
-            dashboardController.loadPage("/AfficherProjet.fxml");
-
-            // Afficher la nouvelle scène
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-
-        }
-    }*/
-
     @FXML
     private void AjouterProjet(ActionEvent event) {
         try {
@@ -272,7 +183,7 @@ public class AjouterProjetController {
         }
     }
 
-    @FXML
+   @FXML
     private void Retour(ActionEvent event) {
         try {
             // Charger le tableau de bord
@@ -293,6 +204,7 @@ public class AjouterProjetController {
             e.printStackTrace();
         }
     }
+
 
 
     private void applyAlertStyle(Alert alert) {

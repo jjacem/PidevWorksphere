@@ -5,39 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96444fdb-225d-44a3-95d9-5344dc28d43d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Equipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Equipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Projet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Projet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reclamation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Sexe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Sexe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/MyDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/MyDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,17 +35,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "gestionEquipeProjet",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/asmas/Desktop/copi3/PidevWorksphere/PidevWorksphere",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gestionEquipeProjet&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/asmas/Desktop/copi3/PidevWorksphere/PidevWorksphere&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -84,7 +68,8 @@
       <updated>1740566465087</updated>
       <workItem from="1740566466192" duration="117000" />
       <workItem from="1740566697967" duration="22000" />
-      <workItem from="1740567588517" duration="25000" />
+      <workItem from="1740567588517" duration="473000" />
+      <workItem from="1740589023015" duration="10114000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,134 @@
+/* Equipe.css */
+
+/* Style de base pour l'AnchorPane */
+.anchor-pane {
+    -fx-background-color: #f0f0f0; /* Fond léger */
+}
+
+/* Style pour le VBox principal */
+.vbox {
+    -fx-background-color: white;
+    -fx-padding: 30px;
+    -fx-spacing: 20px;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 15, 0, 0, 0);
+}
+
+/* Style pour le titre */
+.title-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Couleur sombre */
+}
+
+/* Style pour les champs de texte */
+.text-field {
+    -fx-pref-height: 35px;
+    -fx-pref-width: 400px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #bdc3c7; /* Bordure grise */
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+/* Style pour les ListView */
+.list-view {
+    -fx-pref-height: 200px;
+    -fx-pref-width: 300px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+}
+
+/* Style pour les boutons */
+.button {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 20px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+/* Bouton "Choisir une image" */
+#uploadImageButton {
+    -fx-background-color: #3498db; /* Bleu clair */
+}
+
+/* Bouton "Ajouter un employé" */
+#ajouterUnButton {
+    -fx-background-color: #2ecc71; /* Vert */
+}
+
+/* Bouton "Ajouter tous" */
+#ajouterTousButton {
+    -fx-background-color: #1abc9c; /* Turquoise */
+}
+
+/* Bouton "Supprimer un employé" */
+#supprimerUnButton {
+    -fx-background-color: #e67e22; /* Orange */
+}
+
+/* Bouton "Tout effacer" */
+#clearAllButton {
+    -fx-background-color: #e74c3c; /* Rouge */
+}
+
+/* Bouton "Confirmer" */
+#confirmerButton {
+    -fx-background-color: #27ae60; /* Vert foncé */
+}
+
+/* Bouton "Fermer" */
+#annulerButton {
+    -fx-background-color: #95a5a6; /* Gris */
+}
+
+/* Style pour l'ImageView
+#imagePreview {
+    -fx-fit-height: 100px;
+    -fx-fit-width:100px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+} */
+
+/* Style pour le conteneur d'image */
+#imageContainer {
+    -fx-border-color: #bdc3c7; /* Couleur de la bordure */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-color: #f9f9f9; /* Couleur de fond */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0); /* Ombre légère */
+    -fx-cursor: hand;
+}
+
+/* Style pour l'image */
+#imagePreview {
+    -fx-fit-height: 100px;
+    -fx-fit-width: 100px;
+}
+
+/* Style pour les labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e; /* Couleur sombre */
+}
+
+/* Style pour les HBox */
+.hbox {
+    -fx-spacing: 15px;
+    -fx-alignment: CENTER;
+}
+
+/* Style pour les VBox */
+.vbox {
+    -fx-spacing: 10px;
+}

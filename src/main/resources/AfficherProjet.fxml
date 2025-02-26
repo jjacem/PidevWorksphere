@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@AfficherEquipe.css" fx:controller="esprit.tn.controllers.AfficherProjetController">
+<AnchorPane prefHeight="900.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@AfficherProjet.css" fx:controller="esprit.tn.controllers.AfficherProjetController">
 
     <!-- Titre de la Page -->
     <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Liste des Projets" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
@@ -20,11 +20,13 @@
         <Button onAction="#supprimerTousProjet" style="-fx-background-color: #ff4444; -fx-text-fill: white;" text="Supprimer Tout" />
     </HBox>
 
+
     <!-- Liste des Projets -->
     <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
-        <ListView fx:id="projetListView" style="-fx-background-color: white;">
+        <ListView fx:id="projetListView" styleClass="list-view" AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
             <!-- Chaque projet s'affichera sous forme de VBox via le cellFactory -->
         </ListView>
     </ScrollPane>
+
 
 </AnchorPane>

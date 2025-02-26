@@ -292,7 +292,7 @@ public class ModifierProjetController {
             applyAlertStyle(successAlert);
             successAlert.showAndWait();
 
-            // Rediriger vers la page d'affichage des projets
+           /* // Rediriger vers la page d'affichage des projets
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
             Parent root = loader.load();
             DashboardManager dashboardController = loader.getController();
@@ -300,14 +300,16 @@ public class ModifierProjetController {
 
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");
+            stage.setTitle("Liste Projet");*/
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.close();
 
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
+    /*@FXML
     private void Retour(ActionEvent event) {
         try {
             // Charger le tableau de bord
@@ -327,7 +329,7 @@ public class ModifierProjetController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     private void applyAlertStyle(Alert alert) {

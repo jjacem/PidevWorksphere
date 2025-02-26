@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
 import esprit.tn.services.ServiceProjet;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -84,28 +86,49 @@ public class AfficherProjetController {
                             supprimerProjet(projet.getId());
                         }
                     });
-                    modifierBtn.setOnAction(event -> {
-                        Projet projet = getItem();
-                        if (projet != null) {
-                            try {
 
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
-                                Parent root = loader.load();
+           modifierBtn.setOnAction(event -> {
+               Projet projet = getItem();
+               if (projet != null) {
+                   try {
+                       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
+                       Parent root = loader.load();
 
-                                ModifierProjetController modifierProjetController = loader.getController();
-                                modifierProjetController.setProjetAModifier(projet);
+                       ModifierProjetController modifierProjetController = loader.getController();
+                       modifierProjetController.setProjetAModifier(projet);
 
+                       // Créer une nouvelle Stage (fenêtre modale)
+                       Stage stage = new Stage();
+                       stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+                       stage.setTitle("Modifier un Projet");
+                       stage.setScene(new Scene(root));
+                       stage.showAndWait(); // Affiche la fenêtre et attend sa fermeture
 
-                                Stage stage = (Stage) projetListView.getScene().getWindow();
+                       // Rafraîchir la liste des projets après la modification
+                       try {
+                           List<Projet> projets = serviceProjet.afficherProjet();
+                           projetListView.getItems().clear();
+                           projetListView.getItems().addAll(projets);
+                       } catch (SQLException e) {
+                           // Gérer l'exception SQL
+                           e.printStackTrace();
+                           Alert alert = new Alert(Alert.AlertType.ERROR);
+                           alert.setTitle("Erreur de base de données");
+                           alert.setHeaderText(null);
+                           alert.setContentText("Une erreur s'est produite lors du chargement des projets. Veuillez réessayer.");
+                           alert.showAndWait();
+                       }
 
-
-                                stage.setScene(new Scene(root));
-                                stage.setTitle("Modifier un Projet");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                       Alert alert = new Alert(Alert.AlertType.ERROR);
+                       alert.setTitle("Erreur de chargement");
+                       alert.setHeaderText(null);
+                       alert.setContentText("Une erreur s'est produite lors du chargement de la page de modification.");
+                       alert.showAndWait();
+                   }
+               }
+           });
 
                     buttonBox.getChildren().addAll(modifierBtn, supprimerBtn);
 
@@ -199,6 +222,8 @@ public class AfficherProjetController {
             e.printStackTrace();
         }
     }
+
+
     @FXML
     private void rechercherProjet() {
         String searchText = searchField.getText().trim();

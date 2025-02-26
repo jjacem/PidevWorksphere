@@ -1,7 +1,9 @@
 package esprit.tn.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -30,7 +32,11 @@ public class AfficherEquipeController {
     @FXML
     private TextField searchField;
 
+    @FXML
+    private Pagination pagination;
+
     private ServiceEquipe serviceEquipe;
+
 
     public AfficherEquipeController() {
         serviceEquipe = new ServiceEquipe();
@@ -42,6 +48,12 @@ public class AfficherEquipeController {
         try {
             List<Equipe> equipes = serviceEquipe.afficherEquipe();
             afficherEquipes(equipes);
+
+            Platform.runLater(() -> {
+                Stage stage = (Stage) equipesContainer.getScene().getWindow();
+                stage.setMaximized(true);
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,37 +68,30 @@ public class AfficherEquipeController {
             equipesContainer.getChildren().add(messageLabel);
         } else {
             for (Equipe equipe : equipes) {
-                HBox card = new HBox(10);
-                card.setStyle("-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);");
+                HBox card = new HBox(20);
+                card.getStyleClass().add("card");
+                card.setAlignment(Pos.CENTER_LEFT);
 
                 // Ajouter l'image de l'équipe
                 ImageView imageView = new ImageView();
                 if (equipe.getImageEquipe() != null && !equipe.getImageEquipe().trim().isEmpty()) {
                     String correctPath = "C:/xampp/htdocs/img/" + new File(equipe.getImageEquipe()).getName();
-                    System.out.println("Chemin de l'image : " + correctPath);
-
-                    // Vérifier si le fichier existe
                     File imageFile = new File(correctPath);
                     if (imageFile.exists() && imageFile.isFile()) {
-                        // Charger l'image depuis le chemin absolu
                         imageView.setImage(new Image(imageFile.toURI().toString()));
                     } else {
-                        // Utiliser une image par défaut si le fichier n'existe pas
-                        System.out.println("Fichier image introuvable ou chemin invalide : " + imageFile.getAbsolutePath());
                         imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                     }
                 } else {
-                    // Utiliser une image par défaut si aucune image n'est définie
-                    System.out.println("Aucun chemin d'image fourni pour l'équipe : " + equipe.getNomEquipe());
                     imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                 }
-                imageView.setFitHeight(50); // Ajuster la taille de l'image
-                imageView.setFitWidth(50);
-                imageView.setPreserveRatio(true);
+                imageView.setFitHeight(80);
+                imageView.setFitWidth(80);
+                imageView.getStyleClass().add("card-image");
 
                 // Nom de l'équipe
                 Label nomEquipeLabel = new Label(equipe.getNomEquipe());
-                nomEquipeLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+                nomEquipeLabel.getStyleClass().add("card-label");
 
                 // Boutons
                 Button detailsButton = new Button("Détails");
@@ -112,6 +117,7 @@ public class AfficherEquipeController {
         }
     }
 
+
     @FXML
     public void redirectToAjouterEquipe() {
         try {
@@ -125,22 +131,6 @@ public class AfficherEquipeController {
             e.printStackTrace();
         }
     }
-
-    /*private void modifierEquipe(Equipe equipe) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEquipe.fxml"));
-            Parent root = loader.load();
-            ModifierEquipeController controller = loader.getController();
-            controller.setEquipeAModifier(equipe);
-            Stage stage = (Stage) equipesContainer.getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.setTitle("Modifier une équipe");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-    }*/
 
     private void modifierEquipe(Equipe equipe) {
         try {

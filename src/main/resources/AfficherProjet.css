@@ -1,0 +1,176 @@
+.main-container {
+    -fx-background-color: #f0f4f8;
+    -fx-padding: 20;
+    -fx-border-color: #0086b3;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+.main-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
+}
+
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 20 0;
+}
+
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #999999;
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
+}
+
+.button-ajouter {
+    -fx-background-color: #0086b3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-pref-width: 180;
+    -fx-pref-height: 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.button-ajouter:hover {
+    -fx-background-color: #006699;
+}
+
+.supprimer-tout-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.supprimer-tout-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+.equipes-container {
+    -fx-spacing: 15;
+    -fx-background-color: white;
+}
+
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
+    -fx-spacing: 15;
+}
+
+.card-image {
+    -fx-fit-height: 120;
+    -fx-fit-width: 120;
+    -fx-background-radius: 60;
+    -fx-border-radius: 60;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.card-image:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.card-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.card-button {
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.details-button {
+    -fx-background-color: #0086b3;
+}
+
+.details-button:hover {
+    -fx-background-color: #006699;
+}
+
+.modifier-button {
+    -fx-background-color: #ff9800;
+}
+
+.modifier-button:hover {
+    -fx-background-color: #e68900;
+}
+
+.supprimer-button {
+    -fx-background-color: #f44336;
+}
+
+.supprimer-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* Style pour le ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-border-color: transparent; /* Pas de bordure */
+    -fx-padding: 0; /* Pas de padding */
+}
+
+/* Style pour la viewport du ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Fond transparent */
+}
+
+/* Style pour la barre de défilement */
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent; /* Fond transparent */
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #cccccc; /* Couleur du curseur */
+    -fx-background-radius: 10; /* Coins arrondis */
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #999999; /* Couleur du curseur au survol */
+}
+
+/* Style pour la ListView */
+.list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10;
+    -fx-pref-height: 500;
+}
+
+.list-cell {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 15;
+    -fx-margin: 10;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #f0f4f8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
