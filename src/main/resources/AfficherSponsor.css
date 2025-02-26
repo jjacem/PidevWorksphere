@@ -1,0 +1,205 @@
+/* AfficherSponsor.css */
+
+/* Style général de l'AnchorPane */
+.anchor-pane {
+    -fx-background-color: #ffffff; /* Fond blanc */
+}
+
+/* Style de la ListView */
+.list-view {
+    -fx-background-color: #f9f9f9; /* Fond gris clair */
+    -fx-border-color: #0086b3; /* Bordure bleue */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+/* Style des cellules de la ListView */
+.list-cell {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #e0e0e0; /* Bordure grise */
+    -fx-border-width: 0 0 1 0; /* Bordure uniquement en bas */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+/* Style du texte des sponsors */
+.sponsor-text {
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-fill: #333333; /* Couleur du texte */
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-radius: 5; /* Coins arrondis */
+    -fx-padding: 5 10; /* Espacement intérieur */
+    -fx-font-size: 12px; /* Taille de police */
+    -fx-text-fill: white; /* Texte blanc */
+}
+
+/* Bouton Modifier */
+.btn-modifier {
+    -fx-background-color: #ffc400; /* Couleur jaune */
+}
+
+.btn-modifier:hover {
+    -fx-background-color: #e6b000; /* Couleur jaune foncé au survol */
+}
+
+/* Bouton Supprimer */
+.btn-supprimer {
+    -fx-background-color: #ff4444; /* Couleur rouge */
+}
+
+.btn-supprimer:hover {
+    -fx-background-color: #cc0000; /* Couleur rouge foncé au survol */
+}
+
+/* Bouton Supprimer Association */
+.btn-supprimer-association {
+    -fx-background-color: #ff0000; /* Couleur rouge vif */
+}
+
+.btn-supprimer-association:hover {
+    -fx-background-color: #cc0000; /* Couleur rouge foncé au survol */
+}
+
+/* Bouton Associer Événement */
+.btn-associer-evenement {
+    -fx-background-color: #4CAF50; /* Couleur verte */
+}
+
+.btn-associer-evenement:hover {
+    -fx-background-color: #45a049; /* Couleur verte foncée au survol */
+}
+
+/* Style du HBox dans chaque cellule */
+.hbox-item {
+    -fx-spacing: 10; /* Espacement entre les éléments */
+    -fx-alignment: center-left; /* Alignement des éléments */
+}
+
+/* Style de la barre de recherche */
+.search-field {
+    -fx-prompt-text-fill: #a9a9a9; /* Couleur du texte d'invite */
+    -fx-background-color: #f0f0f0; /* Fond gris clair */
+    -fx-border-color: #0086b3; /* Bordure bleue */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-padding: 5; /* Espacement intérieur */
+}
+
+/* Style du bouton Rechercher */
+.search-button {
+    -fx-background-color: #0086b3; /* Couleur bleue */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-background-radius: 5; /* Coins arrondis */
+    -fx-padding: 5; /* Espacement intérieur */
+}
+
+.search-button:hover {
+    -fx-background-color: #006699; /* Couleur bleue foncée au survol */
+}
+
+/* Style du bouton Ajouter Sponsor */
+.add-button {
+    -fx-background-color: #000000; /* Couleur noire */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-background-radius: 5; /* Coins arrondis */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+.add-button:hover {
+    -fx-background-color: #333333; /* Couleur grise foncée au survol */
+}
+
+/* Style du titre */
+.title-label {
+    -fx-text-fill: #0086b3; /* Couleur bleue */
+    -fx-font-size: 24px; /* Taille de police */
+    -fx-font-weight: bold; /* Texte en gras */
+}
+
+/* AfficherSponsor.css */
+
+/* Style général de la ListView */
+.list-view {
+    -fx-background-color: #f9f9f9; /* Fond gris clair */
+    -fx-border-color: #0086b3; /* Bordure bleue */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+/* Style des cellules de la ListView */
+.list-cell {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #e0e0e0; /* Bordure grise */
+    -fx-border-width: 0 0 1 0; /* Bordure uniquement en bas */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+/* Style du nom et prénom du sponsor */
+.sponsor-name {
+    -fx-font-size: 16px; /* Taille de police */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-fill: #333333; /* Couleur du texte */
+}
+
+/* Style des détails du sponsor */
+.sponsor-detail {
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-fill: #555555; /* Couleur du texte */
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-radius: 5; /* Coins arrondis */
+    -fx-padding: 5 10; /* Espacement intérieur */
+    -fx-font-size: 12px; /* Taille de police */
+    -fx-text-fill: white; /* Texte blanc */
+}
+
+/* Bouton Modifier */
+.btn-modifier {
+    -fx-background-color: #ffc400; /* Couleur jaune */
+}
+
+.btn-modifier:hover {
+    -fx-background-color: #e6b000; /* Couleur jaune foncé au survol */
+}
+
+/* Bouton Supprimer */
+.btn-supprimer {
+    -fx-background-color: #ff4444; /* Couleur rouge */
+}
+
+.btn-supprimer:hover {
+    -fx-background-color: #cc0000; /* Couleur rouge foncé au survol */
+}
+
+/* Bouton Supprimer Association */
+.btn-supprimer-association {
+    -fx-background-color: #ff0000; /* Couleur rouge vif */
+}
+
+.btn-supprimer-association:hover {
+    -fx-background-color: #cc0000; /* Couleur rouge foncé au survol */
+}
+
+/* Bouton Associer Événement */
+.btn-associer-evenement {
+    -fx-background-color: #4CAF50; /* Couleur verte */
+}
+
+.btn-associer-evenement:hover {
+    -fx-background-color: #45a049; /* Couleur verte foncée au survol */
+}
+
+/* Style du conteneur principal */
+.sponsor-item {
+    -fx-spacing: 10; /* Espacement entre les éléments */
+    -fx-padding: 10; /* Marge intérieure */
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #e0e0e0; /* Bordure grise */
+    -fx-border-radius: 5; /* Coins arrondis */
+}
