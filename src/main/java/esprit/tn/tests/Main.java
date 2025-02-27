@@ -22,9 +22,9 @@ public class Main {
 //        ServiceUser serviceUser = new ServiceUser();
 //        User u1 = new User();
 //        u1 = u1.RH(
-//                "Molka",
-//                "Gharbi",
-//                "gharbimolka4@gamil.com",
+//                "jacem",
+//                "jouili",
+//                "jacemjouili@gmail.com",
 //                "123456",
 //                "01/05/1985",
 //                Sexe.FEMME,
@@ -59,21 +59,21 @@ public class Main {
 //                2500000.00
 //        );
 //
-          User u4 = new User();
-          u4 = u4.Employe(
-                "Eya",
-                "Kassous",
-                "eyakassous55@gmail.com",
-                "123456",
-                "09/09/1990",
-                Sexe.HOMME,
-                "San Francisco",
-                "IT Support",
-                1200.00,
-                8,
-                "Technology",
-                "Technical Support"
-        );
+//          User u4 = new User();
+//          u4 = u4.Employe(
+//                "Eya",
+//                "Kassous",
+//                "eyakassous55@gmail.com",
+//                "123456",
+//                "09/09/1990",
+//                Sexe.HOMME,
+//                "San Francisco",
+//                "IT Support",
+//                1200.00,
+//                8,
+//                "Technology",
+//                "Technical Support"
+//        );
 //
 ////        try {
 ////            serviceUser.ajouter(u4);
@@ -161,7 +161,7 @@ public class Main {
 //
 //
 //
-       //serviceUser.ajouter(u1);
+      // serviceUser.ajouter(u1);
         //serviceUser.ajouter(u2);
        // serviceUser.ajouter(u3);
        // serviceUser.ajouter(u4);

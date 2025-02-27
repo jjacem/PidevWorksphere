@@ -100,6 +100,10 @@ public class AfficherFormationController {
         supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
         supprimerButton.setOnAction(event -> deleteFormation(formation));
 
+        Button resButton = new Button("Reservation");
+        resButton.getStyleClass().addAll("card-button", "res-button");
+        resButton.setOnAction(event -> getUsersWhoReservedFormation(formation));
+
         // Conteneur pour les boutons
         HBox buttonContainer = new HBox(10, detailButton, modifierButton, supprimerButton);
         buttonContainer.setAlignment(Pos.CENTER_RIGHT);
@@ -111,6 +115,9 @@ public class AfficherFormationController {
         formationBox.setStyle("-fx-padding: 10px; -fx-border-color: lightgray; -fx-border-radius: 5px;");
 
         return formationBox;
+    }
+
+    private void getUsersWhoReservedFormation(Formation formation) {
     }
 
     // Afficher les détails de la formation dans une nouvelle fenêtre modale

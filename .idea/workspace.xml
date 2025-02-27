@@ -5,24 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Langue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailFormationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReservationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardCandidat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardCandidat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherFormation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterFormation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReservation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterReservation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Formation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Formation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DashboardEmploye.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardEmploye.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/DashboardEmploye.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/DashboardEmploye.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/entities/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +30,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -156,8 +155,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -179,11 +178,25 @@
       <workItem from="1740029181800" duration="24183000" />
       <workItem from="1740052763997" duration="1268000" />
       <workItem from="1740305126728" duration="9530000" />
+      <workItem from="1740559496531" duration="11741000" />
+      <workItem from="1740579823201" duration="1576000" />
+      <workItem from="1740658248675" duration="65000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

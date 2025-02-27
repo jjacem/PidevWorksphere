@@ -122,6 +122,8 @@ public class DashboardEmploye {
 
     public void chng(ActionEvent actionEvent) {
         loadPage("/Changermdp.fxml");
-
+    }
+    public void mesreservastion(ActionEvent actionEvent) {
+        loadPage("/AfficherReservation.fxml");
     }
 }

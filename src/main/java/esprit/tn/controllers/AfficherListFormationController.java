@@ -89,7 +89,6 @@ public class AfficherListFormationController {
         Button reserverButton = new Button("Reserver");
         reserverButton.getStyleClass().addAll("card-button", "button-reserver");
         reserverButton.setOnAction(event -> {
-            // Récupérer la formation sélectionnée (assurez-vous que `formationId` est disponible)
             try {
                 // Charger la scène AjouterReservation.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReservation.fxml"));
@@ -97,33 +96,25 @@ public class AfficherListFormationController {
 
                 // Récupérer le contrôleur AjouterReservationController
                 AjouterReservationController controller = loader.getController();
-                controller.setUser(formation.getUser());
 
-                // Passer l'ID de la formation et l'ID utilisateur
+                // Passer l'ID de la formation
                 controller.setFormationId(formation.getId_f());
-                controller.setUserId(SessionManager.extractuserfromsession().getIdUser()); // ID utilisateur connecté
 
-                // Création d'un nouveau Stage pour le popup
+                // Créer une nouvelle fenêtre (Stage)
                 Stage popupStage = new Stage();
-                popupStage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
-                popupStage.initStyle(StageStyle.UTILITY); // Style de la fenêtre
                 popupStage.setTitle("Ajouter une réservation");
 
-                // Définir la scène du popup
+                // Empêcher l'interaction avec la fenêtre principale tant que le popup est ouvert
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+
+                // Ajouter le formulaire au stage et l'afficher
                 Scene scene = new Scene(root);
                 popupStage.setScene(scene);
-
-                // Afficher le popup et attendre la fermeture avant de revenir à la fenêtre principale
-                popupStage.showAndWait();
-
+                popupStage.showAndWait(); // Attendre la fermeture de la fenêtre
             } catch (IOException e) {
-                System.out.println("Erreur de chargement de la page de réservation : " + e.getMessage());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+                System.out.println("Erreur de chargement du popup : " + e.getMessage());
             }
-
         });
-
 
         HBox buttonContainer = new HBox(10,detailButton, reserverButton);
         buttonContainer.setAlignment(Pos.CENTER_RIGHT);
