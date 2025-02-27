@@ -160,7 +160,6 @@ public class DashboardHR {
     public void offre(ActionEvent actionEvent) {
         loadPage("/AfficherOffre.fxml");
 
-
     }
 
     @FXML

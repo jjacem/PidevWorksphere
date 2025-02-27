@@ -94,6 +94,7 @@ public class DashboardCandidat {
 
 
     public void offreemploi(ActionEvent actionEvent) {
+        loadPage("/AfficherOffreCandidat.fxml");
     }
 
     public void reclamation(ActionEvent actionEvent) {
