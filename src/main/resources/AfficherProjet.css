@@ -85,9 +85,6 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
-.card-image:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
-}
 
 .card-label {
     -fx-font-size: 18px;
@@ -126,33 +123,6 @@
     -fx-background-color: #d32f2f;
 }
 
-/* Style pour le ScrollPane */
-.scroll-pane {
-    -fx-background-color: transparent; /* Fond transparent */
-    -fx-border-color: transparent; /* Pas de bordure */
-    -fx-padding: 0; /* Pas de padding */
-}
-
-/* Style pour la viewport du ScrollPane */
-.scroll-pane .viewport {
-    -fx-background-color: transparent; /* Fond transparent */
-}
-
-/* Style pour la barre de défilement */
-.scroll-pane .scroll-bar:vertical,
-.scroll-pane .scroll-bar:horizontal {
-    -fx-background-color: transparent; /* Fond transparent */
-}
-
-.scroll-pane .scroll-bar .thumb {
-    -fx-background-color: #cccccc; /* Couleur du curseur */
-    -fx-background-radius: 10; /* Coins arrondis */
-}
-
-.scroll-pane .scroll-bar .thumb:hover {
-    -fx-background-color: #999999; /* Couleur du curseur au survol */
-}
-
 /* Style pour la ListView */
 .list-view {
     -fx-background-color: transparent;
@@ -170,7 +140,16 @@
     -fx-margin: 10;
 }
 
-.list-cell:filled:hover {
-    -fx-background-color: #f0f4f8;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+.vbox-container {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.carte-projet {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 15;
+    -fx-margin: 10;
 }

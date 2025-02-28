@@ -6,16 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="96444fdb-225d-44a3-95d9-5344dc28d43d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/stylesEquipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/stylesEquipe.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -76,7 +79,8 @@
       <workItem from="1740567588517" duration="473000" />
       <workItem from="1740589023015" duration="11832000" />
       <workItem from="1740657941496" duration="4654000" />
-      <workItem from="1740737776577" duration="3043000" />
+      <workItem from="1740737776577" duration="6881000" />
+      <workItem from="1740761260522" duration="9622000" />
     </task>
     <servers />
   </component>

@@ -62,7 +62,7 @@ public class AfficherProjetController {
                 private final VBox leftContent = new VBox(10);
                 private final HBox buttonBox = new HBox(10);
                 private final Label nomLabel = new Label();
-                private final Label descriptionLabel = new Label();
+                //private final Label descriptionLabel = new Label();
                 private final Label dateCreationLabel = new Label();
                 private final Label deadlineLabel = new Label();
                 private final Label etatLabel = new Label();
@@ -70,76 +70,86 @@ public class AfficherProjetController {
 
                 private final Button modifierBtn = new Button("Modifier");
                 private final Button supprimerBtn = new Button("Supprimer");
+                private final Button detailsBtn = new Button("Détails");
 
-       {
+                {
 
-           leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, dateCreationLabel, deadlineLabel, etatLabel);
+                    leftContent.getChildren().addAll(nomLabel, equipeLabel, dateCreationLabel, deadlineLabel, etatLabel);
 
 
-            modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
-             supprimerBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                    modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
+                    supprimerBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                    detailsBtn.setStyle("-fx-background-color: #44b1ff; -fx-text-fill: white;");
 
                     // Ajout te3 event lel btn supp w modif"
-              supprimerBtn.setOnAction(event -> {
+                    supprimerBtn.setOnAction(event -> {
                         Projet projet = getItem();
                         if (projet != null) {
                             supprimerProjet(projet.getId());
                         }
                     });
+                    detailsBtn.setOnAction(event -> {
+                        Projet projet = getItem();
+                        if (projet != null) {
+                            afficherDetailsProjet(projet);
+                        }
+                    });
 
-           modifierBtn.setOnAction(event -> {
-               Projet projet = getItem();
-               if (projet != null) {
-                   try {
-                       FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
-                       Parent root = loader.load();
+                    modifierBtn.setOnAction(event -> {
+                        Projet projet = getItem();
+                        if (projet != null) {
+                            try {
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
+                                Parent root = loader.load();
 
-                       ModifierProjetController modifierProjetController = loader.getController();
-                       modifierProjetController.setProjetAModifier(projet);
+                                ModifierProjetController modifierProjetController = loader.getController();
+                                modifierProjetController.setProjetAModifier(projet);
 
-                       // Créer une nouvelle Stage (fenêtre modale)
-                       Stage stage = new Stage();
-                       stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
-                       stage.setTitle("Modifier un Projet");
-                       stage.setScene(new Scene(root));
-                       stage.showAndWait(); // Affiche la fenêtre et attend sa fermeture
+                                // Créer une nouvelle Stage (fenêtre modale)
+                                Stage stage = new Stage();
+                                stage.initModality(Modality.APPLICATION_MODAL); // Rend la fenêtre modale
+                                stage.setTitle("Modifier un Projet");
+                                stage.setScene(new Scene(root));
+                                stage.showAndWait(); // Affiche la fenêtre et attend sa fermeture
 
-                       // Rafraîchir la liste des projets après la modification
-                       try {
-                           List<Projet> projets = serviceProjet.afficherProjet();
-                           projetListView.getItems().clear();
-                           projetListView.getItems().addAll(projets);
-                       } catch (SQLException e) {
-                           // Gérer l'exception SQL
-                           e.printStackTrace();
-                           Alert alert = new Alert(Alert.AlertType.ERROR);
-                           alert.setTitle("Erreur de base de données");
-                           alert.setHeaderText(null);
-                           alert.setContentText("Une erreur s'est produite lors du chargement des projets. Veuillez réessayer.");
-                           alert.showAndWait();
-                       }
+                                // Rafraîchir la liste des projets après la modification
+                                try {
+                                    List<Projet> projets = serviceProjet.afficherProjet();
+                                    projetListView.getItems().clear();
+                                    projetListView.getItems().addAll(projets);
+                                } catch (SQLException e) {
+                                    // Gérer l'exception SQL
+                                    e.printStackTrace();
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Erreur de base de données");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Une erreur s'est produite lors du chargement des projets. Veuillez réessayer.");
+                                    alert.showAndWait();
+                                }
 
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                       Alert alert = new Alert(Alert.AlertType.ERROR);
-                       alert.setTitle("Erreur de chargement");
-                       alert.setHeaderText(null);
-                       alert.setContentText("Une erreur s'est produite lors du chargement de la page de modification.");
-                       alert.showAndWait();
-                   }
-               }
-           });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Erreur de chargement");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Une erreur s'est produite lors du chargement de la page de modification.");
+                                alert.showAndWait();
+                            }
+                        }
+                    });
 
-                    buttonBox.getChildren().addAll(modifierBtn, supprimerBtn);
+                    buttonBox.getChildren().addAll(modifierBtn, supprimerBtn, detailsBtn);
 
                     AnchorPane.setLeftAnchor(leftContent, 10.0);
                     AnchorPane.setRightAnchor(buttonBox, 10.0);
                     AnchorPane.setTopAnchor(leftContent, 10.0);
                     AnchorPane.setTopAnchor(buttonBox, 10.0);
+                    AnchorPane.setLeftAnchor(leftContent, 10.0);
+                    AnchorPane.setRightAnchor(buttonBox, 10.0);
+
 
                     cellContainer.getChildren().addAll(leftContent, buttonBox);
-                    cellContainer.setStyle("-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15;"
-                            + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);");
+
                 }
 
                 @Override
@@ -154,8 +164,8 @@ public class AfficherProjetController {
                         nomLabel.setText(projet.getNom());
                         nomLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0086b3;");
 
-                        descriptionLabel.setText("Description : " + projet.getDescription());
-                        descriptionLabel.setStyle("-fx-font-size: 14; -fx-text-fill: #555;");
+                        /*descriptionLabel.setText("Description : " + projet.getDescription());
+                        descriptionLabel.setStyle("-fx-font-size: 14; -fx-text-fill: #555;");*/
                         equipeLabel.setText("Équipe : " + projet.getEquipe().getNomEquipe());
 
                         dateCreationLabel.setText("Créé le : " + projet.getDatecréation());
@@ -325,7 +335,26 @@ public class AfficherProjetController {
         }
     }
 
+    @FXML
+    private void afficherDetailsProjet(Projet projet) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherdetailsProjet.fxml"));
+            Parent root = loader.load();
 
+            // Passer le projet au contrôleur des détails
+            AfficherdetailsProjetController detailsController = loader.getController();
+            detailsController.setProjet(projet);
+
+            // Créer une nouvelle fenêtre
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Détails du Projet");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());

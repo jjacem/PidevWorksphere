@@ -133,7 +133,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
     public List<User> getEmployesDisponibles() throws SQLException {
         List<User> employesDisponibles = new ArrayList<>();
-        String req = "SELECT id_user, nom, prenom, role FROM user WHERE role = 'Employe'";
+        String req = "SELECT id_user, nom, prenom, role, image_profil  FROM user WHERE role = 'Employe'";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -142,7 +142,8 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
                     rs.getInt("id_user"),
                     rs.getString("nom"),
                     rs.getString("prenom"),
-                    Role.valueOf(rs.getString("role").toUpperCase())
+                    Role.valueOf(rs.getString("role").toUpperCase()),
+                    rs.getString("image_profil")
             );
             employesDisponibles.add(user);
         }

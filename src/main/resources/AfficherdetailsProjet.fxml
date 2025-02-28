@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="esprit.tn.controllers.AfficherdetailsProjetController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@detailsProjet.css"> <!-- Lier le fichier CSS -->
+
+    <!-- Conteneur principal centré avec un fond blanc et une bordure arrondie -->
+    <VBox spacing="20" alignment="TOP_LEFT" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" styleClass="main-card">
+        <!-- Nom du projet avec un style plus grand et noir -->
+        <Label fx:id="nomProjetLabel" styleClass="label-title" />
+
+        <!-- Image du projet -->
+        <ImageView fx:id="imageProjetView" fitWidth="150" fitHeight="150" styleClass="image-projet">
+            <clip>
+                <Circle radius="75" centerX="75" centerY="75" />
+            </clip>
+        </ImageView>
+
+        <!-- Description du projet -->
+        <Label fx:id="descriptionProjetLabel" wrapText="true" styleClass="label-text" />
+
+        <!-- Nom de l'équipe -->
+        <Label fx:id="nomEquipeLabel" styleClass="label-title" />
+
+        <!-- ScrollPane pour la liste des employés -->
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" prefHeight="200"> <!-- Limiter la hauteur du ScrollPane -->
+            <VBox fx:id="employesContainer" spacing="15" styleClass="members-container" />
+        </ScrollPane>
+    </VBox>
+</AnchorPane>

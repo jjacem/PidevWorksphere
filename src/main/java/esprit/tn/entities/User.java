@@ -169,7 +169,13 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.imageProfil = imageProfil;
         this.email = email;
     }
-
+    public User(int id, String nom, String prenom, Role role, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+        this.imageProfil = imageProfil;
+    }
     public User(int id, String nom, String prenom) {
         this.idUser = id;
         this.nom = nom;

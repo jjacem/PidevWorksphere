@@ -109,64 +109,7 @@ public class AfficherDetailsEquipeController {
         }
     }
 
-    @FXML
-    private void rechercherEmployee() {
-        try {
-            String searchText = rechercheField.getText().trim();
-            List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
 
-            membresContainer.getChildren().clear();
-
-            for (User user : resultats) {
-                HBox card = new HBox(10);
-                card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
-
-                // Image du membre
-                ImageView imageView = new ImageView();
-                String imageProfil = user.getImageProfil();
-
-                if (imageProfil != null && !imageProfil.isEmpty()) {
-                    try {
-                        Image image = new Image(imageProfil);
-                        imageView.setImage(image);
-                    } catch (Exception e) {
-                        URL imageUrl = getClass().getResource("/images/profil.png");
-                        if (imageUrl != null) {
-                            Image defaultImage = new Image(imageUrl.toExternalForm());
-                            imageView.setImage(defaultImage);
-                        }
-                    }
-                } else {
-                    URL imageUrl = getClass().getResource("/images/profil.png");
-                    if (imageUrl != null) {
-                        Image defaultImage = new Image(imageUrl.toExternalForm());
-                        imageView.setImage(defaultImage);
-                    }
-                }
-
-                imageView.setFitWidth(50);
-                imageView.setFitHeight(50);
-                imageView.setPreserveRatio(true);
-                imageView.setClip(new Circle(25, 25, 25));
-
-                Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
-                nomPrenomLabel.getStyleClass().add("member-name");
-
-                Label emailLabel = new Label(user.getEmail());
-                emailLabel.getStyleClass().add("member-email");
-
-                // Conteneur pour les informations du membre
-                VBox infoBox = new VBox(5);
-                infoBox.getChildren().addAll(nomPrenomLabel, emailLabel);
-
-
-                card.getChildren().addAll(imageView, infoBox);
-                membresContainer.getChildren().add(card);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

@@ -78,6 +78,7 @@ esprit\tn\controllers\AjouterEquipeController.class
 esprit\tn\entities\Reclamation.class
 esprit\tn\controllers\AfficherUser$1.class
 esprit\tn\entities\Candidature.class
+esprit\tn\controllers\AfficherdetailsProjetController.class
 esprit\tn\controllers\DashboardHR.class
 esprit\tn\controllers\AjouterFormationController.class
 esprit\tn\controllers\AjouterReponseController.class

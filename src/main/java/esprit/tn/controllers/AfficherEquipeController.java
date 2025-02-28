@@ -32,8 +32,6 @@ public class AfficherEquipeController {
     @FXML
     private TextField searchField;
 
-    @FXML
-    private Pagination pagination;
 
     private ServiceEquipe serviceEquipe;
 

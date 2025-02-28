@@ -4,6 +4,7 @@ import esprit.tn.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -13,6 +14,9 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceEquipe;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -77,7 +81,7 @@ public class AjouterEquipeController {
             employesListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
             // Personnaliser l'affichage des employés dans la ListView
-            employesListView.setCellFactory(param -> new ListCell<User>() {
+            /*employesListView.setCellFactory(param -> new ListCell<User>() {
                 @Override
                 protected void updateItem(User user, boolean empty) {
                     super.updateItem(user, empty);
@@ -87,6 +91,36 @@ public class AjouterEquipeController {
                         setText(user.getPrenom() + " " + user.getNom());
                     }
                 }
+            });*/
+            employesListView.setCellFactory(param -> new ListCell<User>() {
+                private final ImageView imageView = new ImageView();
+                private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
+
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    if (empty || user == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        // Charger l'image de profil
+                        if (user.getImageProfil() != null && !user.getImageProfil().isEmpty()) {
+                            Image image = new Image("file:" + user.getImageProfil());
+                            imageView.setImage(image);
+                            imageView.setFitWidth(40); // Ajustez la largeur de l'image
+                            imageView.setFitHeight(40); // Ajustez la hauteur de l'image
+                            imageView.setClip(clip); // Appliquer le clip pour arrondir l'image
+                        } else {
+                            imageView.setImage(null); // Pas d'image si le chemin est vide
+                        }
+
+                        // Afficher le nom et l'image
+                        HBox hbox = new HBox(10); // Espacement entre l'image et le texte
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        hbox.getChildren().addAll(imageView, new Label(user.getPrenom() + " " + user.getNom()));
+                        setGraphic(hbox);
+                    }
+                }
             });
 
             // Initialiser la liste des employés sélectionnés
@@ -94,7 +128,7 @@ public class AjouterEquipeController {
             employesSelectionnesListView.setItems(employesSelectionnesList);
 
             // Personnaliser l'affichage des employés sélectionnés aussi
-            employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
+            /*employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
                 @Override
                 protected void updateItem(User user, boolean empty) {
                     super.updateItem(user, empty);
@@ -102,6 +136,36 @@ public class AjouterEquipeController {
                         setText(null);
                     } else {
                         setText(user.getNom() + " " + user.getPrenom());
+                    }
+                }
+            });*/
+            employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
+                private final ImageView imageView = new ImageView();
+                private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
+
+                @Override
+                protected void updateItem(User user, boolean empty) {
+                    super.updateItem(user, empty);
+                    if (empty || user == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        // Charger l'image de profil
+                        if (user.getImageProfil() != null && !user.getImageProfil().isEmpty()) {
+                            Image image = new Image("file:" + user.getImageProfil());
+                            imageView.setImage(image);
+                            imageView.setFitWidth(40); // Ajustez la largeur de l'image
+                            imageView.setFitHeight(40); // Ajustez la hauteur de l'image
+                            imageView.setClip(clip); // Appliquer le clip pour arrondir l'image
+                        } else {
+                            imageView.setImage(null); // Pas d'image si le chemin est vide
+                        }
+
+                        // Afficher le nom et l'image
+                        HBox hbox = new HBox(10); // Espacement entre l'image et le texte
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        hbox.getChildren().addAll(imageView, new Label(user.getPrenom() + " " + user.getNom()));
+                        setGraphic(hbox);
                     }
                 }
             });
@@ -254,3 +318,4 @@ public class AjouterEquipeController {
         }
     }
 }
+

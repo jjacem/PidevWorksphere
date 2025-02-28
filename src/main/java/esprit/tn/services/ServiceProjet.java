@@ -1,8 +1,6 @@
 package esprit.tn.services;
 
-import esprit.tn.entities.Equipe;
-import esprit.tn.entities.EtatProjet;
-import esprit.tn.entities.Projet;
+import esprit.tn.entities.*;
 import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
@@ -167,5 +165,49 @@ public class ServiceProjet implements IServiceProjet<Projet> {
             }
         }
         return false;
+    }
+
+
+    public Equipe getEquipeAvecEmployesParProjet(int projetId) throws SQLException {
+        Equipe equipe = null;
+
+        // Requête pour récupérer l'équipe associée au projet
+        String equipeReq = "SELECT e.id, e.nom_equipe, e.imageEquipe FROM equipe e " +
+                "JOIN projet p ON e.id = p.equipe_id WHERE p.id = ?";
+        PreparedStatement equipeStmt = connection.prepareStatement(equipeReq);
+        equipeStmt.setInt(1, projetId);
+        ResultSet equipeRs = equipeStmt.executeQuery();
+
+        if (equipeRs.next()) {
+            int equipeId = equipeRs.getInt("id");
+            String nomEquipe = equipeRs.getString("nom_equipe");
+            String imageEquipe = equipeRs.getString("imageEquipe");
+
+            // Requête pour récupérer les employés de l'équipe
+            String employesReq = "SELECT u.id_user, u.nom, u.prenom, u.role, u.image_profil, u.email " +
+                    "FROM user u " +
+                    "JOIN equipe_employee ee ON u.id_user = ee.id_user " +
+                    "WHERE ee.equipe_id = ?";
+            PreparedStatement employesStmt = connection.prepareStatement(employesReq);
+            employesStmt.setInt(1, equipeId);
+            ResultSet employesRs = employesStmt.executeQuery();
+
+            List<User> employes = new ArrayList<>();
+            while (employesRs.next()) {
+                User user = new User(
+                        employesRs.getInt("id_user"),
+                        employesRs.getString("nom"),
+                        employesRs.getString("prenom"),
+                        Role.valueOf(employesRs.getString("role").toUpperCase()),
+                        employesRs.getString("image_profil"),
+                        employesRs.getString("email")
+                );
+                employes.add(user);
+            }
+
+            equipe = new Equipe(equipeId, nomEquipe, employes, imageEquipe);
+        }
+
+        return equipe;
     }
 }
