@@ -2,49 +2,58 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane prefHeight="900.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@AfficherProjet.css" fx:controller="esprit.tn.controllers.AfficherProjetController">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
 
-    <!-- Titre de la Page -->
-    <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Liste des Projets" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
+<?import java.lang.String?>
+<AnchorPane prefHeight="800.0" prefWidth="800.0" stylesheets="@AfficherProjet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherProjetController">
 
-    <!-- Barre de Recherche et Boutons -->
-    <HBox alignment="CENTER_LEFT" spacing="10" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
-        <TextField fx:id="searchField" promptText="Rechercher un projet..." style="-fx-pref-width: 200;" styleClass="search-field" />
+    <!-- Conteneur principal -->
+    <HBox alignment="CENTER" layoutX="15.0" layoutY="21.0" prefHeight="744.0" prefWidth="756.0" spacing="20" styleClass="main-card" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="21.0">
 
-        <ComboBox fx:id="etatFilter" promptText="Filtrer par état">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
+        <HBox alignment="CENTER_LEFT" />
 
-                </FXCollections>
-            </items>
-        </ComboBox>
+        <!-- Contenu principal avec la liste des projets -->
+        <VBox alignment="CENTER" spacing="20" HBox.hgrow="ALWAYS">
+            <!-- Titre de la page -->
+            <Label styleClass="title-label" text="Liste des Projets" textFill="#006699" />
 
-        <Button onAction="#AjouterBTN" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter" />
-        <Button onAction="#supprimerTousProjet" style="-fx-background-color: #ff4444; -fx-text-fill: white;" text="Supprimer Tout" />
-    </HBox>
+            <!-- Conteneur pour la barre de recherche et les boutons -->
+            <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-search-container">
+                <!-- Barre de recherche -->
+                <TextField fx:id="searchField" promptText="Rechercher un projet..." styleClass="search-field" />
 
+                <!-- ComboBox pour le filtre par état -->
+                <ComboBox fx:id="etatFilter" promptText="Filtrer par état" >
 
+                </ComboBox>
 
+                <!-- Bouton Ajouter un projet -->
+                <Button onAction="#AjouterBTN" styleClass="button-ajouter" text="Ajouter un projet">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
 
-    <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
-        <ListView fx:id="projetListView" styleClass="list-view" AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+                <!-- Bouton Supprimer tout -->
+                <Button onAction="#supprimerTousProjet" styleClass="supprimer-tout-button" text="Supprimer tout">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </HBox>
 
-        </ListView>
-    </ScrollPane>
-   <!--   Liste des Projets
-    <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
-        <VBox fx:id="projetsContainer" spacing="10" styleClass="projets-container">
-
+            <!-- ScrollPane pour la liste des projets -->
+            <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <VBox fx:id="projetsContainer" spacing="5" styleClass="projets-container">
+                </VBox>
+            </ScrollPane>
         </VBox>
-    </ScrollPane>-->
+    </HBox>
 </AnchorPane>

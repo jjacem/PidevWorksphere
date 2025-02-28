@@ -1,103 +1,115 @@
-/* projet.css */
-
-/* Style de base pour le AnchorPane */
-.anchor-pane {
-    -fx-background-color: #f0f4f8; /* Couleur de fond douce */
+.main-container {
+    -fx-background-color: #f0f4f8;
+    -fx-padding: 20;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
 }
 
-/* Style pour la VBox principale */
-.vbox {
+.main-card {
     -fx-background-color: white;
-    -fx-background-radius: 15; /* Coins plus arrondis */
-    -fx-padding: 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 15, 0, 0, 10); /* Ombre plus douce */
-    -fx-spacing: 20;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
 }
 
-/* Style pour le titre */
-.label-title {
-    -fx-font-size: 26px;
+.title-label {
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50; /* Couleur de texte plus sombre et élégante */
-    -fx-font-family: 'Segoe UI', sans-serif; /* Police moderne */
+    -fx-text-fill: #333333;
+    -fx-padding: 0 0 20 0;
 }
 
-/* Style pour les labels */
-.label {
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-padding: 10 20;
     -fx-font-size: 14px;
-    -fx-text-fill: #34495e; /* Couleur de texte plus douce */
-    -fx-min-width: 120;
-    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-prompt-text-fill: #999999;
+    -fx-pref-width: 300;
+    -fx-pref-height: 40;
 }
 
-/* Style pour les champs de texte */
-.text-field, .text-area, .combo-box {
-    -fx-pref-width: 300px;
-    -fx-font-size: 14px;
-    -fx-background-radius: 8; /* Coins plus arrondis */
-    -fx-border-color: #dcdcdc; /* Bordure plus subtile */
-    -fx-border-radius: 8;
-    -fx-padding: 8;
-    -fx-font-family: 'Segoe UI', sans-serif;
-}
-
-.text-area {
-    -fx-pref-height: 100px;
-}
-
-/* Style pour les DatePickers */
-.date-picker {
-    -fx-pref-width: 300px;
-    -fx-font-size: 14px;
-    -fx-background-radius: 8;
-    -fx-border-color: #dcdcdc;
-    -fx-border-radius: 8;
-    -fx-padding: 8;
-    -fx-font-family: 'Segoe UI', sans-serif;
-}
-
-.date-picker .arrow-button {
-    -fx-background-color: #0086b3; /* Couleur du bouton de date */
-    -fx-background-radius: 8;
-}
-
-.date-picker .arrow-button:hover {
-    -fx-background-color: #006994; /* Effet de survol */
-}
-
-.date-picker .text-field {
-    -fx-background-color: transparent; /* Champ de texte transparent */
-    -fx-border-color: transparent;
-}
-
-/* Style pour les boutons */
-.button {
+.button-ajouter {
     -fx-background-color: #0086b3;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
-    -fx-background-radius: 8;
-    -fx-cursor: hand;
-    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-pref-width: 180;
+    -fx-pref-height: 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
 
-.button:hover {
-    -fx-background-color: #006994; /* Effet de survol */
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); /* Ombre au survol */
+.button-ajouter:hover {
+    -fx-background-color: #006699;
 }
 
-/* Style pour l'image preview */
-.image-view {
-    -fx-fit-height: 50px;
-    -fx-fit-width: 50px;
-    -fx-preserve-ratio: true;
-    -fx-border-radius: 8;
-    -fx-border-color: #dcdcdc;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 3); /* Ombre légère */
+.supprimer-tout-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
 
-/* Style pour les HBox */
-.hbox {
-    -fx-alignment: center-left;
-    -fx-spacing: 15px; /* Espacement légèrement augmenté */
+.supprimer-tout-button:hover {
+    -fx-background-color: #d32f2f;
 }
+
+.projets-container {
+    -fx-spacing: 15;
+    -fx-background-color: white;
+}
+
+.projet-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 20;
+    -fx-spacing: 15;
+}
+
+.card-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.card-button {
+    -fx-background-radius: 20;
+    -fx-padding: 10 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.details-button {
+    -fx-background-color: #0086b3;
+}
+
+.details-button:hover {
+    -fx-background-color: #006699;
+}
+
+.modifier-button {
+    -fx-background-color: #ff9800;
+}
+
+.modifier-button:hover {
+    -fx-background-color: #e68900;
+}
+
+.supprimer-button {
+    -fx-background-color: #f44336;
+}
+
+.supprimer-button:hover {
+    -fx-background-color: #d32f2f;
+}
+

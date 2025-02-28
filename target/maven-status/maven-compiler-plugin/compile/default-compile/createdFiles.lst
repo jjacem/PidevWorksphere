@@ -113,7 +113,6 @@ esprit\tn\controllers\AjouterUser.class
 esprit\tn\controllers\AfficherSponsorController$1.class
 esprit\tn\services\ServiceReponse.class
 esprit\tn\controllers\AjouterReclamationController.class
-esprit\tn\controllers\AfficherProjetController$1.class
 esprit\tn\controllers\ModifierOffreController.class
 esprit\tn\controllers\ModifierEquipeController$2.class
 esprit\tn\controllers\AfficherEvenementController$1.class
