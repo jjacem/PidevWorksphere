@@ -1,5 +1,6 @@
 package esprit.tn.controllers;
 import esprit.tn.entities.User;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
@@ -65,6 +66,7 @@ public class DashboardHR {
         }
     }
     public void initialize() throws SQLException {
+
         User u = SessionManager.extractuserfromsession();
 
         if (u != null) {
@@ -87,6 +89,8 @@ public class DashboardHR {
         } else {
             System.out.println("No user found in session.");
         }
+
+
     }
 
 

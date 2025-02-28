@@ -102,7 +102,7 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
                 f.setType(Typeformation.valueOf(typeStr));
             }
 
-            f.setPhoto(rs.getURL("photo"));
+            f.setPhoto(rs.getString("photo"));
 
             // Création de l'objet User
             User user = new User();
@@ -149,7 +149,7 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
                     f.setType(Typeformation.valueOf(typeStr));
                 }
 
-                f.setPhoto(rs.getURL("photo"));
+                f.setPhoto(rs.getString("photo"));
 
                 // Création de l'objet User
                 User user = new User();

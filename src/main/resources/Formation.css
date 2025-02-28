@@ -92,9 +92,9 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
-    -fx-padding: 5 10; /* Padding réduit */
-    -fx-pref-width: 130; /* Largeur réduite */
-    -fx-pref-height: 35; /* Hauteur réduite */
+    -fx-padding: 5 10;
+    -fx-pref-width: 140;
+    -fx-pref-height: 35;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
 
@@ -158,4 +158,51 @@
     -fx-background-color: #8853f1;
 }
 
+/*liste*/
 
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+    -fx-pref-width: 400;
+}
+
+/* Style pour les éléments de la liste */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-border-color: transparent;
+}
+
+/* Effet de survol pour les éléments */
+.list-cell:hover {
+    -fx-background-color: #f0f0f0;
+
+}
+
+/* Sélection d'un élément */
+.list-cell:filled:selected {
+    -fx-background-color: #0086b3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.list-cell:even {
+    -fx-background-color: #ffffff;
+}
+
+/* Ajout d'une animation de transition pour la sélection */
+.list-cell:filled:selected {
+    -fx-background-color: linear-gradient(to right, #0086b3, #005f7a);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}

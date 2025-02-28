@@ -20,7 +20,7 @@
     <VBox fx:id="sidebar" prefWidth="200" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
 
         <!-- Logo -->
-        <ImageView fitHeight="88.0" fitWidth="174.0">
+        <ImageView fitHeight="88.0" fitWidth="177.0">
             <Image url="@Images/474188139_2099437073823213_5214087864459817142_n.png" />
         </ImageView>
 

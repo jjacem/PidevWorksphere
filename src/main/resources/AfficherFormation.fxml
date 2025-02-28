@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -19,11 +20,12 @@
         <VBox fx:id="formationsContainer" alignment="CENTER" prefHeight="577.0" prefWidth="599.0" spacing="20" styleClass="card" HBox.hgrow="ALWAYS">
 
             <!-- ScrollPane pour la liste des formations -->
-            <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <VBox fx:id="listformationid" spacing="5" styleClass="formations-container">
-                    <!-- Les formations seront ajoutées dynamiquement ici -->
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <VBox fx:id="listformationid" spacing="5" styleClass="list-view">
+
                 </VBox>
             </ScrollPane>
+
         </VBox>
     </HBox>
       <!-- Titre de la page -->
@@ -31,16 +33,18 @@
 
       <!-- Conteneur pour la barre de recherche et les boutons -->
       <HBox alignment="CENTER_RIGHT" layoutX="292.0" layoutY="69.0" spacing="10" styleClass="button-search-container">
-   
+
           <!-- Barre de recherche -->
-          <TextField fx:id="Trecherche"  onKeyReleased="#OnchercherFormation" promptText="Rechercher une formation..." styleClass="search-field" />
-   
+          <TextField fx:id="Trecherche" onKeyReleased="#OnchercherFormation" promptText="Rechercher une formation..." styleClass="search-field" />
+
           <!-- Bouton Rechercher -->
           <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" styleClass="button-rechercher" text="Rechercher" />
       </HBox>
 
       <!-- Bouton Ajouter -->
-      <Button fx:id="btnajouterID" layoutX="1050" layoutY="123.0" onAction="#Onajouterformation" prefHeight="26.0" prefWidth="144.0" styleClass="button-ajouter" text="Ajouter Formation" />
-       <!-- Bouton retour -->
-       <Button layoutX="44.0" layoutY="22.0" mnemonicParsing="false" onAction="#retourdashRH" styleClass="button-retour" text="retour" />
+      <Button fx:id="btnajouterID" layoutX="1100" layoutY="115.0" onAction="#Onajouterformation" prefHeight="26.0" prefWidth="135.0" styleClass="button-ajouter" text="➕Ajouter Formation">
+      <padding>
+         <Insets left="5.0" right="20.0" />
+      </padding></Button>
+
 </AnchorPane>

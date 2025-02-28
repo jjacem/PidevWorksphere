@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
 public class AfficherDetailFormationController {
@@ -45,6 +46,11 @@ public class AfficherDetailFormationController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void Onlistemployé(ActionEvent actionEvent) {
+
     }
 }
 

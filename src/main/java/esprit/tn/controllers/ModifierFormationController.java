@@ -13,8 +13,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,22 +42,28 @@ public class ModifierFormationController implements Initializable {
     @FXML
     private DatePicker iddate;
     @FXML
-    private TextField idphoto;
-    @FXML
     private TextField idheurefin;
+
 
     private Formation formation;
     private final ServiceFormation serviceFormation = new ServiceFormation();
+    @FXML
+    private AnchorPane FormMod;
+    @FXML
+    private Button modifierfBTN;
+    @FXML
+    private ImageView photoPreview;
+    @FXML
+    private Button ajouterPhotoBtn;
 
-
+    private String imagePath; // Stocke le chemin de l'image sélectionnée
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idtype.setItems(FXCollections.observableArrayList(Typeformation.values()));
     }
-
     public void setFormation(Formation formation) {
         this.formation = formation;
-        // Remplissage des champs avec les valeurs actuelles
+
         idtitre.setText(formation.getTitre());
         iddesc.setText(formation.getDescription());
         idtype.setValue(formation.getType());
@@ -60,13 +71,38 @@ public class ModifierFormationController implements Initializable {
         idheurefin.setText(formation.getHeure_fin().toString());
         idnbplace.setText(String.valueOf(formation.getNb_place()));
         iddate.setValue(formation.getDate());
-        idphoto.setText(formation.getPhoto() != null ? formation.getPhoto().toString() : "");
+
+        // Gestion de l'image de la formation
+        if (formation.getPhoto() != null && !formation.getPhoto().trim().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(formation.getPhoto()).getName();
+            File imageFile = new File(correctPath);
+
+            if (imageFile.exists() && imageFile.isFile()) {
+                photoPreview.setImage(new Image(imageFile.toURI().toString())); // Afficher l'image existante
+            } else {
+                photoPreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png"))); // Image par défaut
+            }
+            imagePath = formation.getPhoto(); // Conserver le chemin de l'image
+        } else {
+            photoPreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png"))); // Image par défaut
+        }
+    }
+
+    @FXML
+    public void OnModifierPhoto(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            imagePath = file.getAbsolutePath(); // Met à jour le chemin de l'image
+            photoPreview.setImage(new Image(file.toURI().toString())); // Afficher la nouvelle image
+        }
     }
 
     @FXML
     public void Onmodifierformation(ActionEvent event) {
         try {
-            // Récupération des données mises à jour
             String titre = idtitre.getText();
             String description = iddesc.getText();
             Typeformation type = idtype.getValue();
@@ -74,9 +110,7 @@ public class ModifierFormationController implements Initializable {
             LocalTime heureDebut = LocalTime.parse(idheuredebut.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             LocalTime heureFin = LocalTime.parse(idheurefin.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             int nbPlace = Integer.parseInt(idnbplace.getText());
-            String photoUrl = idphoto.getText();
 
-            // Vérification des champs obligatoires
             if (titre.isEmpty() || description.isEmpty() || type == null || date == null || heureDebut == null || heureFin == null) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs.");
                 return;
@@ -86,19 +120,7 @@ public class ModifierFormationController implements Initializable {
                 return;
             }
 
-
-
-            // Vérification de l'URL de la photo
-            URL photo = null;
-            try {
-                photo = new URL(photoUrl);
-            } catch (MalformedURLException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "URL de la photo invalide !");
-                return;
-            }
-
-            int userId = 1;
-            // Mise à jour de l'objet formation
+            // Mise à jour de la formation
             formation.setTitre(titre);
             formation.setDescription(description);
             formation.setType(type);
@@ -106,19 +128,15 @@ public class ModifierFormationController implements Initializable {
             formation.setHeure_debut(heureDebut);
             formation.setHeure_fin(heureFin);
             formation.setNb_place(nbPlace);
-            formation.setPhoto(photo);
+            formation.setPhoto(imagePath);
             formation.setId_user(SessionManager.extractuserfromsession().getIdUser());
-
-            // Appel du service pour modifier la formation
             serviceFormation.modifierFormation(formation);
 
-            // Affichage du message de succès
             showAlert(Alert.AlertType.INFORMATION, "Succès", "La formation a été modifiée avec succès.");
 
-            // Redirection vers la liste des formations
+            // Redirection
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -131,7 +149,6 @@ public class ModifierFormationController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
     }
-
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -147,4 +164,6 @@ public class ModifierFormationController implements Initializable {
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
     }
+
+
 }

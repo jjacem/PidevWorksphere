@@ -11,14 +11,14 @@ public class Formation {
     private LocalTime heure_debut, heure_fin;
     private int nb_place;
     private Typeformation type;
-    private URL photo;
+    private String photo;
     private User user;
     private int id_user;
 
     public Formation() {}
 
     public Formation(int id_f, String titre, String description, LocalDate date, LocalTime heure_debut,
-                     LocalTime heure_fin, int nb_place, Typeformation type , URL photo  , User user ) {
+                     LocalTime heure_fin, int nb_place, Typeformation type , String photo  , User user ) {
         this.id_f = id_f;
         this.titre = titre;
         this.description = description;
@@ -35,7 +35,7 @@ public class Formation {
 
 
     public Formation(String titre, String description, LocalDate date, LocalTime heure_debut,
-                     LocalTime heure_fin, int nb_place, Typeformation type , URL photo , User user ) {
+                     LocalTime heure_fin, int nb_place, Typeformation type , String photo , User user ) {
         this.titre = titre;
         this.description = description;
         this.date = date;
@@ -48,7 +48,7 @@ public class Formation {
 
     }
     public Formation(String titre, String description, LocalDate date, LocalTime heure_debut,
-                     LocalTime heure_fin, int nb_place, Typeformation type, URL photo , int id_user ) {
+                     LocalTime heure_fin, int nb_place, Typeformation type, String photo , int id_user ) {
         this.titre = titre;
         this.description = description;
         this.date = date;
@@ -62,7 +62,7 @@ public class Formation {
 
     }
     public Formation( int id_f ,String titre, String description, LocalDate date, LocalTime heure_debut,
-                      LocalTime heure_fin, int nb_place, Typeformation type, URL photo, int id_user ) {
+                      LocalTime heure_fin, int nb_place, Typeformation type, String photo, int id_user ) {
         this.id_f = id_f;
         this.titre = titre;
         this.description = description;
@@ -77,7 +77,7 @@ public class Formation {
 
     }
 
-    public Formation(String titre, String description, LocalDate date, LocalTime heureDebut, LocalTime heureFin, int nbPlace, Typeformation type , URL photo) {
+    public Formation(String titre, String description, LocalDate date, LocalTime heureDebut, LocalTime heureFin, int nbPlace, Typeformation type , String photo) {
         this.titre = titre;
         this.description = description;
         this.date = date;
@@ -161,11 +161,11 @@ public class Formation {
         this.type = type;
     }
 
-    public URL getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(URL photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

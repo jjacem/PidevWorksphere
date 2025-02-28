@@ -13,7 +13,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.LoginContoller">
 
     <children>
-        <AnchorPane layoutX="200.0" layoutY="-1.0"  prefHeight="402.0" prefWidth="399.0" style="-fx-background-color: #ffffff;">
+        <AnchorPane layoutX="200.0" layoutY="0.0"  prefHeight="402.0" prefWidth="399.0" style="-fx-background-color: #ffffff;">
             <children>
                 <Label fx:id="textid1" layoutX="237.0" layoutY="339.0" onMouseClicked="#forgotpassword" prefHeight="16.0" prefWidth="110.0" style="-fx-cursor: hand;" text="Cliquez ici" textFill="#325afa">
                     <font>
