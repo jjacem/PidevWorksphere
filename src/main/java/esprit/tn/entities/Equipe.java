@@ -10,6 +10,7 @@ public class Equipe {
     private String imageEquipe;
 
 
+
     public Equipe() {}
 
     public Equipe(int id, String nomEquipe, List<User> employes) {

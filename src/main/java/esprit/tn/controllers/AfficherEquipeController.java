@@ -21,8 +21,11 @@ import esprit.tn.services.ServiceEquipe;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AfficherEquipeController {
 
@@ -274,5 +277,80 @@ public class AfficherEquipeController {
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
     }
+
+
+
+    @FXML
+    public void genererRapportStatistique() {
+        try {
+            // Récupérer la liste des équipes
+            List<Equipe> equipes = serviceEquipe.afficherEquipe();
+
+            if (equipes.isEmpty()) {
+                showAlert("Aucune équipe trouvée", "Il n'y a aucune équipe à analyser.", Alert.AlertType.INFORMATION);
+                return;
+            }
+
+            // Calcul des statistiques
+            int nombreTotalEquipes = equipes.size();
+            int totalMembres = equipes.stream()
+                    .mapToInt(equipe -> equipe.getEmployes() != null ? equipe.getEmployes().size() : 0)
+                    .sum();
+            double moyenneMembresParEquipe = (double) totalMembres / nombreTotalEquipes;
+
+            // Trouver l'équipe avec le plus de membres
+            Equipe equipeAvecPlusDeMembres = equipes.stream()
+                    .max(Comparator.comparingInt(equipe -> equipe.getEmployes() != null ? equipe.getEmployes().size() : 0))
+                    .orElse(null);
+
+            // Trouver l'équipe avec le moins de membres
+            Equipe equipeAvecMoinsDeMembres = equipes.stream()
+                    .min(Comparator.comparingInt(equipe -> equipe.getEmployes() != null ? equipe.getEmployes().size() : 0))
+                    .orElse(null);
+
+            // Calculer le nombre de projets par équipe
+            /*Map<String, Long> projetsParEquipe = equipes.stream()
+                    .collect(Collectors.groupingBy(
+                            Equipe::getNomEquipe,
+                            Collectors.summingLong(equipe -> equipe.getProjets() != null ? equipe.getProjets().size() : 0)
+                    ));*/
+
+            // Construire le rapport
+            StringBuilder rapport = new StringBuilder();
+            rapport.append("Rapport Statistique des Équipes:\n\n");
+            rapport.append("Nombre total d'équipes: ").append(nombreTotalEquipes).append("\n");
+            rapport.append("Nombre total de membres: ").append(totalMembres).append("\n");
+            rapport.append("Nombre moyen de membres par équipe: ").append(String.format("%.2f", moyenneMembresParEquipe)).append("\n");
+            rapport.append("Équipe avec le plus de membres: ").append(equipeAvecPlusDeMembres != null ? equipeAvecPlusDeMembres.getNomEquipe() : "N/A").append("\n");
+            rapport.append("Équipe avec le moins de membres: ").append(equipeAvecMoinsDeMembres != null ? equipeAvecMoinsDeMembres.getNomEquipe() : "N/A").append("\n");
+
+            rapport.append("\nNombre de projets par équipe:\n");
+            /*projetsParEquipe.forEach((nomEquipe, nombreProjets) ->
+                    rapport.append(nomEquipe).append(": ").append(nombreProjets).append(" projets\n"));*/
+
+            // Afficher le rapport dans une boîte de dialogue
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Rapport Statistique");
+            alert.setHeaderText("Statistiques des Équipes");
+            alert.setContentText(rapport.toString());
+            applyAlertStyle(alert);
+            alert.showAndWait();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Une erreur s'est produite lors de la génération du rapport.", Alert.AlertType.ERROR);
+        }
+    }
+
+    // Méthode utilitaire pour afficher une alerte
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        applyAlertStyle(alert);
+        alert.showAndWait();
+    }
+
 
 }

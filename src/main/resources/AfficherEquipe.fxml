@@ -37,6 +37,8 @@
                <font>
                   <Font size="14.0" />
                </font></Button>
+
+                <Button text="Générer Rapport" onAction="#genererRapportStatistique" styleClass="rapport-button"/>
             </HBox>
 
             <!-- ScrollPane pour la liste des équipes -->

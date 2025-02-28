@@ -4,6 +4,7 @@ esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
 esprit\tn\controllers\ModifierEvenementController.class
 esprit\tn\services\ServiceProjet.class
+esprit\tn\controllers\StatistiquesEquipesController.class
 esprit\tn\controllers\AjouterEntretineController.class
 esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
