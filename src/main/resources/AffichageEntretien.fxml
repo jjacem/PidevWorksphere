@@ -24,7 +24,7 @@
     <!-- 🔹 Main Content -->
     <center>
         <VBox id="mainContent" alignment="CENTER" spacing="20">
-            <ListView fx:id="lv_entretien" prefHeight="416.0" prefWidth="929.0" />
+            <ListView fx:id="lv_entretien" prefHeight="900" prefWidth="929.0" />
         </VBox>
     </center>
 

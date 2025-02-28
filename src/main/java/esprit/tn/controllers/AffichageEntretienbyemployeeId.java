@@ -60,6 +60,13 @@ public class AffichageEntretienbyemployeeId {
                     setGraphic(null);
                 } else {
 
+                    Button btnVoirDetail = new Button("Voir Détails");
+                    btnVoirDetail.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+                    btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
+
+
+
+
 
                     Button btnFeedback;
 
@@ -83,7 +90,7 @@ public class AffichageEntretienbyemployeeId {
                     }
 
 
-                    HBox buttonBox = new HBox(10, btnFeedback);
+                    HBox buttonBox = new HBox(10, btnFeedback , btnVoirDetail);
                     buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
 
                     setText("📝 Titre: " + entretien.getTitre() + "\n"
@@ -241,6 +248,26 @@ public class AffichageEntretienbyemployeeId {
         afficherEntretien();
 
 
+    }
+
+
+    private void voirDetailEntretien(Entretien entretien) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/voirDetailsEntretien.fxml"));
+            Parent root = loader.load();
+
+            VoirDetailsEntretienController controller = loader.getController();
+            controller.setEntretien(entretien);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Détails de l'Entretien");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

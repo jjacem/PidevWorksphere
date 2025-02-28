@@ -402,45 +402,40 @@ public class EntretienService implements IService<Entretien> {
             throw new RuntimeException("Error fetching candidatures", e);
         }
 
-        // Fetching all interviews
         try {
-            entretiens = afficher();  // Assuming this fetches all interviews
+            entretiens = afficher();
         } catch (SQLException e) {
             throw new RuntimeException("Error fetching interviews", e);
         }
 
-        // List of candidate IDs who applied for the offer
         List<Integer> candidatsAyantPostuleIds = candidatures.stream()
-                .filter(c -> c.getIdOffre().getIdOffre() == idOffre)  // Matching job offer ID
-                .map(Candidature::getIdCandidat)  // Extracting candidate IDs
+                .filter(c -> c.getIdOffre().getIdOffre() == idOffre)
+                .map(Candidature::getIdCandidat)
                 .collect(Collectors.toList());
 
-        // List of candidate IDs who already had an interview for this job offer and candidate
         List<Integer> candidatsAvecEntretienIds = entretiens.stream()
-                .filter(e -> e.getIdOffre() == idOffre && candidatsAyantPostuleIds.contains(e.getCandidatId()))  // Check both job offer ID and candidate ID
-                .map(Entretien::getCandidatId)  // Extracting candidate IDs from interviews
+                .filter(e -> e.getIdOffre() == idOffre && candidatsAyantPostuleIds.contains(e.getCandidatId()))
+                .map(Entretien::getCandidatId)
                 .collect(Collectors.toList());
 
-        // Filter candidates who have applied but haven't had an interview
         List<Integer> candidatsSansEntretienIds = candidatsAyantPostuleIds.stream()
-                .filter(id -> !candidatsAvecEntretienIds.contains(id))  // Only candidates without an interview
+                .filter(id -> !candidatsAvecEntretienIds.contains(id))
                 .collect(Collectors.toList());
 
-        // Fetch users for candidates who haven't had an interview
         return candidatsSansEntretienIds.stream()
                 .map(id -> {
                     User user = null;
                     try {
-                        user = userService.findbyid(id);  // Fetch user by candidate ID
+                        user = userService.findbyid(id);
                     } catch (SQLException e) {
                         throw new RuntimeException("Error fetching user with ID: " + id, e);
                     }
                     if (user == null) {
-                        System.err.println("User not found for ID: " + id);  // Log error if user not found
+                        System.err.println("User not found for ID: " + id);
                     }
                     return user;
                 })
-                .filter(user -> user != null)  // Only return non-null users
+                .filter(user -> user != null)
                 .collect(Collectors.toList());
     }
 
