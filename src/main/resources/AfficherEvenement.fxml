@@ -11,6 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import java.net.URL?>
+<?import javafx.scene.web.WebView?>
 <AnchorPane prefHeight="698.0" prefWidth="940.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherEvenementController">
 
     <stylesheets>
@@ -43,5 +44,7 @@
 
         <!-- Liste des événements -->
         <ListView fx:id="lv_event" layoutX="10.0" layoutY="150.0" prefHeight="500.0" prefWidth="920.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" styleClass="event-list" />
+
+
     </children>
 </AnchorPane>

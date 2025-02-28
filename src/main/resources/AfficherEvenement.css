@@ -76,15 +76,21 @@
 
 /* Effets de survol pour les boutons */
 .btn-modifierEvent:hover {
-    -fx-background-color: black;
+    -fx-background-color: #e6b000;
 }
 
 .btn-supprimerEvent:hover {
-    -fx-background-color: black;
+    -fx-background-color: #cc0000;
 }
 
 /* Style pour le conteneur HBox dans chaque cellule */
 .hbox-item {
     -fx-spacing: 10;
     -fx-alignment: center-left;
+}
+
+.btn-afficher-carte {
+    -fx-background-color: #4CAF50; /* Vert */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }

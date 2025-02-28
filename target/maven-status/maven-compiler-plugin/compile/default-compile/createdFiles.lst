@@ -1,4 +1,5 @@
 esprit\tn\controllers\AjouterProjetController$2.class
+esprit\tn\services\QuoteFetcher.class
 esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
 esprit\tn\controllers\ModifierEvenementController.class
@@ -11,6 +12,7 @@ esprit\tn\controllers\AfficherFormationController$1$1.class
 esprit\tn\tests\Main.class
 esprit\tn\entities\Reservation.class
 esprit\tn\controllers\ModifierSponsorController.class
+esprit\tn\controllers\AfficherCarteController.class
 esprit\tn\controllers\AjouterProjetController$1.class
 esprit\tn\controllers\DashboardCandidat.class
 esprit\tn\controllers\AfficherReservationController$1$1.class
@@ -79,6 +81,7 @@ esprit\tn\controllers\AjouterEquipeController.class
 esprit\tn\entities\Reclamation.class
 esprit\tn\controllers\AfficherUser$1.class
 esprit\tn\entities\Candidature.class
+esprit\tn\utils\NominatimAPI.class
 esprit\tn\controllers\DashboardHR.class
 esprit\tn\controllers\AjouterFormationController.class
 esprit\tn\controllers\AjouterReponseController.class
@@ -88,6 +91,7 @@ esprit\tn\entities\Status.class
 esprit\tn\utils\SessionManager.class
 esprit\tn\controllers\AfficherProjetController.class
 esprit\tn\entities\Sexe.class
+esprit\tn\utils\WeatherAPI.class
 esprit\tn\controllers\AfficherEvenementController.class
 esprit\tn\entities\TypeEntretien.class
 esprit\tn\controllers\AfficherEquipeController.class
@@ -96,8 +100,10 @@ esprit\tn\utils\Emailsend$1.class
 esprit\tn\controllers\AfficherOffreCandidatController.class
 esprit\tn\entities\Formation.class
 esprit\tn\entities\Typeformation.class
+esprit\tn\controllers\QuoteController.class
 esprit\tn\controllers\AfficherUser.class
 esprit\tn\controllers\AffichageEntretineController.class
+esprit\tn\entities\Quote.class
 esprit\tn\controllers\AfficherOffreController.class
 esprit\tn\services\IServiceEquipe.class
 esprit\tn\controllers\ModifierEquipeController$1.class
