@@ -105,7 +105,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             String nomEquipe = rs.getString("nom_equipe");
             String imageEquipe = rs.getString("imageEquipe");
 
-            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role, e.image_profil FROM user e " +
+            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role, e.image_profil, e.email FROM user e " +
                     "JOIN equipe_employee ee ON e.id_user = ee.id_user WHERE ee.equipe_id = ?";
 
             PreparedStatement employesStmt = connection.prepareStatement(employesReq);
@@ -119,7 +119,8 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
                         employesRs.getString("nom"),
                         employesRs.getString("prenom"),
                         Role.valueOf(employesRs.getString("role").toUpperCase()),
-                        employesRs.getString("image_profil")
+                        employesRs.getString("image_profil"),
+                        employesRs.getString("email")
                 );
                 employes.add(user);
             }
@@ -172,7 +173,8 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
 
     public List<User> rechercherEmployee(int equipeId, String searchText) throws SQLException {
         List<User> employesTrouves = new ArrayList<>();
-        String req = "SELECT u.id_user, u.nom, u.prenom, u.image_profil " +
+
+        String req = "SELECT u.id_user, u.nom, u.prenom, u.image_profil, u.email " +
                 "FROM user u " +
                 "JOIN equipe_employee ee ON u.id_user = ee.id_user " +
                 "WHERE ee.equipe_id = ? AND (LOWER(u.nom) LIKE ? OR LOWER(u.prenom) LIKE ?)";
@@ -188,7 +190,8 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
                         rs.getInt("id_user"),
                         rs.getString("nom"),
                         rs.getString("prenom"),
-                        rs.getString("image_profil")
+                        rs.getString("image_profil"),
+                        rs.getString("email")
                 );
                 employesTrouves.add(user);
             }

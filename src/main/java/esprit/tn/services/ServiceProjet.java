@@ -17,22 +17,6 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
     }
 
-
-    /*@Override
-    public void ajouterProjet(Projet projet) throws SQLException {
-        String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id) " +
-                "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
-                new java.sql.Date(projet.getDatecréation().getTime()) + "', '" +
-                new java.sql.Date(projet.getDeadline().getTime()) + "', " +
-                "'" + projet.getEtat().name() + "', " +
-                (projet.getEquipe() != null ? projet.getEquipe().getId() : "NULL") + ")";
-
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(req);
-        System.out.println("projet ajoute");
-
-    }*/
-
     @Override
     public void ajouterProjet(Projet projet) throws SQLException {
         String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id, imageProjet) " +

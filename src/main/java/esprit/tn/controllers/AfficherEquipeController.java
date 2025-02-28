@@ -184,7 +184,7 @@ public class AfficherEquipeController {
         }
     }
 
-    private void afficherDetailsEquipe(Equipe equipe) {
+    /*private void afficherDetailsEquipe(Equipe equipe) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailsEquipe.fxml"));
             Parent root = loader.load();
@@ -194,6 +194,30 @@ public class AfficherEquipeController {
             Stage stage = (Stage) equipesContainer.getScene().getWindow();
             stage.setTitle("Détails de l'équipe");
             stage.getScene().setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    private void afficherDetailsEquipe(Equipe equipe) {
+        try {
+            // Charger le fichier FXML pour la fenêtre de détails
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailsEquipe.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir le contrôleur de la fenêtre de détails
+            AfficherDetailsEquipeController controller = loader.getController();
+            controller.setEquipe(equipe);
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Détails de l'équipe");
+            stage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
+            stage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();

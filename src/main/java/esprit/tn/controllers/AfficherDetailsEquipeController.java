@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.services.ServiceEquipe;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -43,7 +44,6 @@ public class AfficherDetailsEquipeController {
         afficherDetails();
     }
 
-
     private void afficherDetails() {
         nomEquipeLabel.setText(equipe.getNomEquipe());
 
@@ -64,8 +64,9 @@ public class AfficherDetailsEquipeController {
 
         // Afficher les membres de l'équipe
         for (User user : equipe.getEmployes()) {
-            HBox card = new HBox(10);
-            card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+            HBox card = new HBox(15);
+            card.getStyleClass().add("member-card");
+            card.setAlignment(Pos.CENTER_LEFT);
 
             // Création de l'image view pour le membre
             ImageView imageView = new ImageView();
@@ -87,35 +88,26 @@ public class AfficherDetailsEquipeController {
                 imageView.setImage(defaultImage);
             }
 
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
+            imageView.setFitWidth(60);
+            imageView.setFitHeight(60);
             imageView.setPreserveRatio(true);
-            imageView.setClip(new Circle(25, 25, 25));
+            imageView.setClip(new Circle(30, 30, 30));
+            imageView.getStyleClass().add("member-image");
+
+            VBox infoBox = new VBox(5);
+            infoBox.setAlignment(Pos.CENTER_LEFT);
 
             Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
-            nomPrenomLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+            nomPrenomLabel.getStyleClass().add("member-name");
 
             Label emailLabel = new Label(user.getEmail());
-            emailLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #666666;");
+            emailLabel.getStyleClass().add("member-email");
 
-            card.getChildren().addAll(imageView, nomPrenomLabel, emailLabel);
+            infoBox.getChildren().addAll(nomPrenomLabel, emailLabel);
+            card.getChildren().addAll(imageView, infoBox);
             membresContainer.getChildren().add(card);
         }
     }
-
-    @FXML
-    public void retour() {
-        try {
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) membresContainer.getScene().getWindow();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @FXML
     private void rechercherEmployee() {
@@ -129,13 +121,12 @@ public class AfficherDetailsEquipeController {
                 HBox card = new HBox(10);
                 card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-
+                // Image du membre
                 ImageView imageView = new ImageView();
                 String imageProfil = user.getImageProfil();
 
                 if (imageProfil != null && !imageProfil.isEmpty()) {
                     try {
-
                         Image image = new Image(imageProfil);
                         imageView.setImage(image);
                     } catch (Exception e) {
@@ -159,9 +150,17 @@ public class AfficherDetailsEquipeController {
                 imageView.setClip(new Circle(25, 25, 25));
 
                 Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
-                nomPrenomLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+                nomPrenomLabel.getStyleClass().add("member-name");
 
-                card.getChildren().addAll(imageView, nomPrenomLabel);
+                Label emailLabel = new Label(user.getEmail());
+                emailLabel.getStyleClass().add("member-email");
+
+                // Conteneur pour les informations du membre
+                VBox infoBox = new VBox(5);
+                infoBox.getChildren().addAll(nomPrenomLabel, emailLabel);
+
+
+                card.getChildren().addAll(imageView, infoBox);
                 membresContainer.getChildren().add(card);
             }
         } catch (SQLException e) {

@@ -153,19 +153,21 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.prenom = prenom;
         this.role = role;
     }
-    public User(int id, String nom, String prenom, Role role, String imageProfil) {
+    public User(int id, String nom, String prenom, Role role, String imageProfil,String email) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
         this.imageProfil = imageProfil;
+        this.email = email;
     }
 
-    public User(int id, String nom, String prenom, String imageProfil) {
+    public User(int id, String nom, String prenom, String imageProfil,String email) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
         this.imageProfil = imageProfil;
+        this.email = email;
     }
 
     public User(int id, String nom, String prenom) {

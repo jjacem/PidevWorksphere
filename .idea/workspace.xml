@@ -5,24 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96444fdb-225d-44a3-95d9-5344dc28d43d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/stylesEquipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/stylesEquipe.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -69,7 +74,9 @@
       <workItem from="1740566466192" duration="117000" />
       <workItem from="1740566697967" duration="22000" />
       <workItem from="1740567588517" duration="473000" />
-      <workItem from="1740589023015" duration="10114000" />
+      <workItem from="1740589023015" duration="11832000" />
+      <workItem from="1740657941496" duration="4654000" />
+      <workItem from="1740737776577" duration="3043000" />
     </task>
     <servers />
   </component>

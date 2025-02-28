@@ -185,8 +185,8 @@ public class AfficherProjetController {
                         }
 
                         // Configuration de l'ImageView
-                        imageView.setFitHeight(80); // Taille de l'image
-                        imageView.setFitWidth(80);
+                        imageView.setFitHeight(120); // Taille de l'image
+                        imageView.setFitWidth(120);
                         imageView.setPreserveRatio(true);
 
                         // Ajouter l'image à gauche du contenu
