@@ -4,10 +4,7 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceFormation;
 
 import esprit.tn.entities.Formation;
-import esprit.tn.entities.Reservation;
-import esprit.tn.utils.SessionManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +29,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AfficherListFormationController {
-    @FXML
-    private Button btnajouterID;
 
     private final ServiceFormation formationService = new ServiceFormation();
     @FXML
@@ -42,37 +37,57 @@ public class AfficherListFormationController {
     private TextField Trecherche;
     @FXML
     private VBox formationsContainer;
+    @FXML
+    private HBox mainContainer;
+    @FXML
+    private VBox listformationid;
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     public void initialize() {
+        scrollPane.setFitToWidth(true);
+        listformationid.getStyleClass().addAll("list", "list-view");
         populateFormations();
     }
 
     private void populateFormations() {
-        formationsContainer.getChildren().clear();
+        listformationid.getChildren().clear();  // Nettoyer avant de recharger
 
         try {
             List<Formation> formations = formationService.getListFormation();
             for (Formation formation : formations) {
                 HBox formationBox = createFormationBox(formation);
-                formationsContainer.getChildren().add(formationBox);
+                formationBox.getStyleClass().addAll("list", "list-cell");
+                listformationid.getChildren().add(formationBox);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    // Méthode pour créer la boîte de chaque formation avec ses informations
     private HBox createFormationBox(Formation formation) {
+        // Création de l'ImageView
         ImageView imageView = new ImageView();
         imageView.setFitHeight(150);
         imageView.setFitWidth(200);
 
-        if (formation.getPhoto() != null) {
-            imageView.setImage(new Image(formation.getPhoto().toString()));
+        // Vérification si le chemin de l'image est valide
+        try {
+            // Chemin de l'image sur le serveur
+            String imagePath = "http://localhost/img/" + formation.getPhoto();
+            Image image = new Image(imagePath, true); // 'true' permet le chargement en arrière-plan
+            imageView.setImage(image);
+        } catch (Exception e) {
+            // En cas d'erreur, charger l'image par défaut
+            Image defaultImage = new Image(getClass().getResourceAsStream("/img/default.png"));
+            imageView.setImage(defaultImage);
         }
 
+        // Création des labels pour les informations de la formation
         Label titreLabel = new Label(formation.getTitre());
-        titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px");
+        titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #22859c;");
 
         Label descriptionLabel = new Label("Description: " + formation.getDescription());
         Label dateLabel = new Label("Date: " + formation.getDate().toString());
@@ -81,7 +96,6 @@ public class AfficherListFormationController {
         Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
 
         VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
-
         Button detailButton = new Button("Detail");
         detailButton.getStyleClass().addAll("card-button", "details-button");
         detailButton.setOnAction(event -> afficherDetails(formation));
@@ -126,13 +140,16 @@ public class AfficherListFormationController {
         return formationBox;
     }
 
-    private void afficherDetails(Formation formation) {
+    public void afficherDetails(Formation formation) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailFormation.fxml"));
             Parent root = loader.load();
+
             AfficherDetailFormationController controller = loader.getController();
             controller.setFormation(formation);
+
             Stage stage = new Stage();
+            stage.setTitle("Détails de la Formation");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
@@ -160,6 +177,7 @@ public class AfficherListFormationController {
         }
     }
 
+    @FXML
     public void retourdashRH(ActionEvent actionEvent) {
     }
 }

@@ -20,9 +20,9 @@
         <VBox fx:id="formationsContainer" alignment="CENTER" prefHeight="577.0" prefWidth="599.0" spacing="20" styleClass="card" HBox.hgrow="ALWAYS">
 
             <!-- ScrollPane pour la liste des formations -->
-            <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <VBox fx:id="listformationid" spacing="5" styleClass="formations-container">
-                    <!-- Les formations seront ajoutées dynamiquement ici -->
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <VBox fx:id="listformationid" spacing="5" styleClass="list-view">
+
                 </VBox>
             </ScrollPane>
         </VBox>
@@ -40,8 +40,4 @@
         <!-- Bouton Rechercher -->
         <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" styleClass="button-rechercher" text="Rechercher" />
     </HBox>
-
-    <!-- Bouton retour -->
-    <Button layoutX="44.0" layoutY="22.0" mnemonicParsing="false" onAction="#retourdashRH" styleClass="button-retour" text="retour" />
-
 </AnchorPane>

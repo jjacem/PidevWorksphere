@@ -7,10 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,6 +29,27 @@ public class DashboardEmploye {
 
     @FXML
     private Text name;
+    @FXML
+    private Button btnLogout;
+    @FXML
+    private Button btnProfile;
+    @FXML
+    private Button btnGestionUser11;
+    @FXML
+    private Button btnGestionUser1;
+    @FXML
+    private Button btnGestionUser;
+    @FXML
+    private Button btnGestionUser111;
+    @FXML
+    private HBox navbar;
+    @FXML
+    private VBox sidebar;
+    @FXML
+    private Button btnGestionFormation;
+    @FXML
+    private Button btnChangeProfile;
+
     public void initialize() throws SQLException {
         User u = SessionManager.extractuserfromsession();
 
@@ -83,10 +106,12 @@ public class DashboardEmploye {
         }
     }
 
+    @FXML
     public void goprofile(ActionEvent actionEvent) {
         loadPage("/ModifierCompte.fxml");
     }
 
+    @FXML
     public void formation(ActionEvent actionEvent) {
         loadPage("/AfficherListFormation.fxml");
 
@@ -103,11 +128,12 @@ public class DashboardEmploye {
     public void Effectuerevennement(ActionEvent actionEvent) {
         loadPage("/AfficherEvenement.fxml");
     }
-
-    public void Formation(ActionEvent actionEvent) {
-        loadPage("/AfficherFormation.fxml");
+@FXML
+public void Formation(ActionEvent actionEvent) {
+        loadPage("/AfficherListFormation.fxml");
     }
 
+    @FXML
     public void Reclamation(ActionEvent actionEvent) {
         loadPage("/AfficherReclamations.fxml");
     }
@@ -116,13 +142,16 @@ public class DashboardEmploye {
         loadPage("/AfficherEvenement.fxml");
     }
 
+    @FXML
     public void entretien(ActionEvent actionEvent) {
         loadPage("/AffichageEntretienbyemployeeId.fxml");
     }
 
+    @FXML
     public void chng(ActionEvent actionEvent) {
         loadPage("/Changermdp.fxml");
     }
+    @FXML
     public void mesreservastion(ActionEvent actionEvent) {
         loadPage("/AfficherReservation.fxml");
     }

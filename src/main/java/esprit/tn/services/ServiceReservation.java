@@ -131,7 +131,7 @@ public class ServiceReservation implements IServiceReservation<Reservation> {
 
             while (rs.next()) {
                 User user = new User();
-                user.setIdUser(rs.getInt("id"));  // Assure-toi que la colonne s'appelle bien "id" dans la table `user`
+                user.setIdUser(rs.getInt("id_user"));  // Assure-toi que la colonne s'appelle bien "id" dans la table `user`
                 user.setNom(rs.getString("nom"));
                 user.setPrenom(rs.getString("prenom"));
                 user.setEmail(rs.getString("email"));
