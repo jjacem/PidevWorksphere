@@ -28,7 +28,13 @@ public class AfficherProjetController {
     private ListView<Projet> projetListView;
 
     @FXML
+    private VBox projetsContainer;
+
+    @FXML
     private TextField searchField;
+
+    @FXML
+    private ComboBox<String> etatFilter;
 
     private ServiceProjet serviceProjet;
 
@@ -42,6 +48,20 @@ public class AfficherProjetController {
             // Charger tous les projets
             List<Projet> projets = serviceProjet.afficherProjet();
             projetListView.getItems().addAll(projets);
+
+
+            // Initialiser le filtre par état
+            etatFilter.getItems().addAll("Tous", "EN_COURS", "Terminé","Annulé");
+            etatFilter.setValue("Tous"); // Valeur par défaut
+
+            // Initialiser le filtre par équipe
+            List<Equipe> equipes = serviceProjet.getEquipes();
+
+            // Ajouter des Listener sur les ComboBox pour la recherche dynamique
+            etatFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
+                appliquerFiltre();
+            });
+
 
             // Ajouter un Listener sur le TextField pour la recherche dynamique
             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -162,7 +182,7 @@ public class AfficherProjetController {
                     } else {
                         // Mettre à jour les labels
                         nomLabel.setText(projet.getNom());
-                        nomLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0086b3;");
+                        nomLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #000000;");
 
                         /*descriptionLabel.setText("Description : " + projet.getDescription());
                         descriptionLabel.setStyle("-fx-font-size: 14; -fx-text-fill: #555;");*/
@@ -323,17 +343,6 @@ public class AfficherProjetController {
     }
 
 
-    @FXML
-    public void versProjet() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) projetListView.getScene().getWindow();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private void afficherDetailsProjet(Projet projet) {
@@ -360,4 +369,24 @@ public class AfficherProjetController {
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
     }
+
+
+    @FXML
+    private void appliquerFiltre() {
+        try {
+            // Récupérer les valeurs des filtres
+            String nomProjet = searchField.getText().trim();
+            String etat = etatFilter.getValue();
+
+            // Appliquer le filtre
+            List<Projet> projetsFiltres = serviceProjet.rechercherProjetParEtat(nomProjet, etat);
+
+            // Mettre à jour la liste des projets
+            projetListView.getItems().clear();
+            projetListView.getItems().addAll(projetsFiltres);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

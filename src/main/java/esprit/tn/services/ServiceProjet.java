@@ -210,4 +210,45 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
         return equipe;
     }
+
+    public List<Projet> rechercherProjetParEtat(String nomProjet, String etat) throws SQLException {
+        List<Projet> projets = new ArrayList<>();
+        StringBuilder req = new StringBuilder("SELECT p.*, e.nom_equipe FROM projet p LEFT JOIN equipe e ON p.equipe_id = e.id WHERE 1=1");
+
+        // Ajouter une condition pour rechercher par nom de projet
+        if (nomProjet != null && !nomProjet.isEmpty()) {
+            req.append(" AND LOWER(p.nom) LIKE LOWER('%").append(nomProjet).append("%')");
+        }
+
+        // Ajouter une condition pour filtrer par état
+        if (etat != null && !etat.equals("Tous")) {
+            req.append(" AND p.etat = '").append(etat).append("'");
+        }
+
+        // Afficher la requête SQL pour le débogage
+        System.out.println("Requête SQL : " + req.toString());
+
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(req.toString())) {
+
+            while (rs.next()) {
+                Projet projet = new Projet();
+                projet.setId(rs.getInt("id"));
+                projet.setNom(rs.getString("nom"));
+                projet.setDescription(rs.getString("description"));
+                projet.setDatecréation(rs.getDate("datecréation"));
+                projet.setDeadline(rs.getDate("deadline"));
+                projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
+                projet.setImageProjet(rs.getString("imageProjet"));
+
+                Equipe equipe = new Equipe();
+                equipe.setNomEquipe(rs.getString("nom_equipe"));
+                projet.setEquipe(equipe);
+
+                projets.add(projet);
+            }
+        }
+
+        return projets;
+    }
 }

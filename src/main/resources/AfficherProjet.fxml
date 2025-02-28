@@ -8,6 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane prefHeight="900.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@AfficherProjet.css" fx:controller="esprit.tn.controllers.AfficherProjetController">
 
     <!-- Titre de la Page -->
@@ -16,17 +20,31 @@
     <!-- Barre de Recherche et Boutons -->
     <HBox alignment="CENTER_LEFT" spacing="10" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
         <TextField fx:id="searchField" promptText="Rechercher un projet..." style="-fx-pref-width: 200;" styleClass="search-field" />
+
+        <ComboBox fx:id="etatFilter" promptText="Filtrer par état">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+
+                </FXCollections>
+            </items>
+        </ComboBox>
+
         <Button onAction="#AjouterBTN" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter" />
         <Button onAction="#supprimerTousProjet" style="-fx-background-color: #ff4444; -fx-text-fill: white;" text="Supprimer Tout" />
     </HBox>
 
 
-    <!-- Liste des Projets -->
-    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
+
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
         <ListView fx:id="projetListView" styleClass="list-view" AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-            <!-- Chaque projet s'affichera sous forme de VBox via le cellFactory -->
+
         </ListView>
     </ScrollPane>
+   <!--   Liste des Projets
+    <ScrollPane fitToWidth="true" fitToHeight="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
+        <VBox fx:id="projetsContainer" spacing="10" styleClass="projets-container">
 
-
+        </VBox>
+    </ScrollPane>-->
 </AnchorPane>
