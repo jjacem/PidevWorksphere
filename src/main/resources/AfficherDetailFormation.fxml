@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="638.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherDetailFormationController">
+<AnchorPane prefHeight="638.0" prefWidth="600.0" stylesheets="@Formation.css" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherDetailFormationController">
    <children>
       <Label layoutX="76.0" layoutY="303.0" text="Nombre de place disponible:" textFill="#0086b3">
          <font>

@@ -21,7 +21,10 @@
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
-
+.label-detail {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
 /* Style pour la barre de recherche */
 .search-field {
     -fx-background-radius: 5;

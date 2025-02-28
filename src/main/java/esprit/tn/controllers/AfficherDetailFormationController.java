@@ -57,8 +57,11 @@ public class AfficherDetailFormationController {
                         if (user != null && !empty) {
                             HBox hbox = new HBox(10); // Espacement de 10 entre les labels
                             Label nomLabel = new Label("Nom: " + user.getNom());
+                            nomLabel.getStyleClass().addAll("label-detail", "label-detail");
                             Label prenomLabel = new Label("Prénom: " + user.getPrenom());
+                            prenomLabel.getStyleClass().addAll("label-detail", "label-detail");
                             Label emailLabel = new Label("Email: " + user.getEmail());
+                            emailLabel.getStyleClass().addAll("label-detail", "label-detail");
                             hbox.getChildren().addAll(nomLabel, prenomLabel, emailLabel);
                             setGraphic(hbox);
                         } else {

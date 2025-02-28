@@ -4,6 +4,7 @@ import esprit.tn.entities.Langue;
 import esprit.tn.entities.Reservation;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceReservation;
+import esprit.tn.services.ServiceFormation;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -31,8 +32,9 @@ public class AjouterReservationController {
 
     private int userId;
     private int formationId;
-
+    private int nbPlacesMax; // Nombre de places disponibles
     private final ServiceReservation reservationService = new ServiceReservation();
+    private final ServiceFormation serviceFormation = new ServiceFormation(); // Service pour récupérer les formations
 
     @FXML
     public void initialize() {
@@ -44,7 +46,7 @@ public class AjouterReservationController {
                 prenomID.setText(user.getPrenom());
                 emailID.setText(user.getEmail());
                 dateID.setValue(LocalDate.now());
-                userId = user.getIdUser(); // Stocker l'ID du user connecté
+                userId = user.getIdUser();
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé. Veuillez vous reconnecter.");
             }
@@ -74,12 +76,33 @@ public class AjouterReservationController {
 
     public void setFormationId(int formationId) {
         this.formationId = formationId;
+        checkAvailability(); // Vérifie la disponibilité dès qu'on définit la formation
+    }
+
+    private void checkAvailability() {
+        try {
+            // Récupérer le nombre total de places pour la formation
+            nbPlacesMax = serviceFormation.getNombrePlaces(formationId);
+
+            // Récupérer le nombre de réservations déjà effectuées pour cette formation
+            int reservationsCount = reservationService.getNombreReservations(formationId);
+
+            // Désactiver le bouton si le nombre de réservations atteint le maximum
+            if (reservationsCount >= nbPlacesMax) {
+                btnReservation.setDisable(true);
+                showAlert(Alert.AlertType.WARNING, "Complet", "Cette formation est complète, aucune réservation possible.");
+            } else {
+                btnReservation.setDisable(false);
+            }
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de vérifier la disponibilité de la formation : " + e.getMessage());
+        }
     }
 
     @FXML
     public void Onajouterreservation(ActionEvent actionEvent) {
         try {
-            // Vérifier que l'utilisateur est connecté
             if (userId == 0) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé. Veuillez vous reconnecter.");
                 return;
@@ -91,7 +114,6 @@ public class AjouterReservationController {
                 return;
             }
 
-            // Vérification de la langue sélectionnée
             if (langid.getValue() == null) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner une langue.");
                 return;
@@ -109,6 +131,10 @@ public class AjouterReservationController {
             // Ajout de la réservation
             reservationService.ajouterReservation(reservation);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès.");
+
+            // Vérifier à nouveau la disponibilité après l'ajout
+            checkAvailability();
+
             redirigerVersListeReservations(actionEvent);
 
         } catch (SQLException e) {
@@ -139,7 +165,6 @@ public class AjouterReservationController {
         }
     }
 
-    // Méthode utilitaire pour afficher une alerte
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

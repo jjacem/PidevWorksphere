@@ -142,6 +142,19 @@ public class ServiceReservation implements IServiceReservation<Reservation> {
         return users;
     }
 
+    public int getNombreReservations(int formationId) throws SQLException {
+        String query = "SELECT COUNT(*) AS total FROM reservation WHERE id_f = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, formationId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("total"); // Retourne le nombre de réservations
+            } else {
+                return 0; // Si aucune réservation n'existe
+            }
+        }
+    }
+
 
 
 }
