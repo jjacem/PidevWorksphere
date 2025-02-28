@@ -103,7 +103,12 @@ public class AfficherOffreController {
             return;
         }
 
-        if (offreSelectionnee != null) {
+        // Show confirmation dialog
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Confirmation de suppression");
+        confirmation.setContentText("Êtes-vous sûr de vouloir supprimer cette offre ?");
+
+        if (confirmation.showAndWait().get() == ButtonType.OK) {
             System.out.println("Suppression de l'offre avec ID : " + offreSelectionnee.getIdOffre());
             ServiceOffre serviceOffre = new ServiceOffre();
             try {

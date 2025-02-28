@@ -41,12 +41,14 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="cvField" layoutX="238.0" layoutY="214.0" prefHeight="26.0" prefWidth="200.0" />
+      <Button layoutX="448.0" layoutY="214.0" mnemonicParsing="false" onAction="#browseFile" prefHeight="26.0" prefWidth="59.0" text="Browse" />
       <Label layoutX="77.0" layoutY="266.0" prefHeight="30.0" prefWidth="150.0" text="Lettre de Motivation :">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="cvField" layoutX="238.0" layoutY="214.0" prefHeight="26.0" prefWidth="269.0" />
-      <TextArea fx:id="lettreMotivationField" layoutX="237.0" layoutY="266.0" prefHeight="134.0" prefWidth="270.0" wrapText="true" />
+      <TextField fx:id="lettreMotivationField" layoutX="237.0" layoutY="266.0" prefHeight="26.0" prefWidth="200.0" />
+      <Button layoutX="447.0" layoutY="266.0" mnemonicParsing="false" onAction="#browseLettreFile" prefHeight="26.0" prefWidth="59.0" text="Browse" />
    </children>
 </AnchorPane>

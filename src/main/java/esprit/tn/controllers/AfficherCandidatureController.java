@@ -5,6 +5,7 @@ import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +16,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.entities.Candidature;
 import esprit.tn.services.ServiceCandidature;
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.text.PDFTextStripper;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -39,33 +50,46 @@ public class AfficherCandidatureController implements Initializable {
 
     private ObservableList<Candidature> candidaturesList = FXCollections.observableArrayList();
 
+    // New helper to generate the first-page preview image from a PDF file.
+    private Image generatePdfPreview(String filePath) {
+        try (PDDocument document = PDDocument.load(new File(filePath))) {
+            PDFRenderer renderer = new PDFRenderer(document);
+            BufferedImage bufferedImage = renderer.renderImageWithDPI(0, 100); // 100 DPI preview
+            return SwingFXUtils.toFXImage(bufferedImage, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Update list cell to display offer info and PDF preview images.
     private void setupListView() {
         lv_candidatures.setCellFactory(lv -> new ListCell<Candidature>() {
             @Override
             protected void updateItem(Candidature candidature, boolean empty) {
                 super.updateItem(candidature, empty);
                 if (empty || candidature == null) {
+                    setGraphic(null);
                     setText(null);
                 } else {
-                    setText(formatCandidature(candidature));
+                    Label offerLabel = new Label("Offre: " + candidature.getIdOffre().getTitre());
+                    Image cvImage = generatePdfPreview(candidature.getCv());
+                    Image lettreImage = generatePdfPreview(candidature.getLettreMotivation());
+                    
+                    ImageView cvView = new ImageView(cvImage);
+                    cvView.setFitWidth(100);
+                    cvView.setFitHeight(100);
+                    ImageView lettreView = new ImageView(lettreImage);
+                    lettreView.setFitWidth(100);
+                    lettreView.setFitHeight(100);
+                    
+                    HBox imagesBox = new HBox(10, new VBox(new Label("CV"), cvView),
+                                                    new VBox(new Label("Lettre"), lettreView));
+                    VBox cellBox = new VBox(offerLabel, imagesBox);
+                    setGraphic(cellBox);
                 }
             }
         });
-    }
-
-    private String formatCandidature(Candidature candidature) {
-        return String.format(
-            "----------------------------------------\n" +
-            "Offre: %s\n" +
-            "----------------------------------------\n" +
-            "CV:\n%s\n" +
-            "----------------------------------------\n" +
-            "Lettre de Motivation:\n%s\n" +
-            "----------------------------------------\n",
-            candidature.getIdOffre().getTitre(),
-            candidature.getCv(),
-            candidature.getLettreMotivation()
-        );
     }
 
     // Méthode pour charger les candidatures depuis la base de données

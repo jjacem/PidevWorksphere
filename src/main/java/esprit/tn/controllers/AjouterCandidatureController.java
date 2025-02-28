@@ -15,7 +15,8 @@ import esprit.tn.entities.Candidature;
 import esprit.tn.entities.OffreEmploi;
 
 import esprit.tn.services.ServiceCandidature;
-
+import javafx.stage.FileChooser;
+import java.io.File;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class AjouterCandidatureController {
     private TextField cvField;
 
     @FXML
-    private TextArea lettreMotivationField;
+    private TextField lettreMotivationField;
 
     @FXML
     private Button retourButton;
@@ -104,6 +105,29 @@ public class AjouterCandidatureController {
         }
     }
 
+    // New method to open a filepicker for selecting a CV file
+    @FXML
+    private void browseFile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select CV PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File selectedFile = fileChooser.showOpenDialog(cvField.getScene().getWindow());
+        if (selectedFile != null) {
+            cvField.setText(selectedFile.getAbsolutePath());
+        }
+    }
+
+    // New method for lettre de motivation file upload
+    @FXML
+    private void browseLettreFile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Lettre de Motivation PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File selectedFile = fileChooser.showOpenDialog(lettreMotivationField.getScene().getWindow());
+        if (selectedFile != null) {
+            lettreMotivationField.setText(selectedFile.getAbsolutePath());
+        }
+    }
 
     @FXML
     public void retourVersOffres(ActionEvent event) {
