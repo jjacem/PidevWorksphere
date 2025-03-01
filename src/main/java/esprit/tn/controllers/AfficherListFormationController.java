@@ -129,8 +129,11 @@ public class AfficherListFormationController {
                 System.out.println("Erreur de chargement du popup : " + e.getMessage());
             }
         });
+        Button favButton = new Button("❤");
+        favButton.getStyleClass().addAll("button-favheart", "button-favheart");
+        //favButton.setOnAction(event -> afficherDetails(formation));
 
-        HBox buttonContainer = new HBox(10,detailButton, reserverButton);
+        HBox buttonContainer = new HBox(10,detailButton, reserverButton , favButton);
         buttonContainer.setAlignment(Pos.CENTER_RIGHT);
         buttonContainer.setPadding(new Insets(10));
 

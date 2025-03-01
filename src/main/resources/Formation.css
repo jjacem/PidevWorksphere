@@ -100,27 +100,6 @@
     -fx-pref-height: 35;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
-
-.button-ajouter:hover {
-    -fx-background-color: #006699;
-}
-
-/* Style pour le bouton Supprimer tout */
-.supprimer-tout-button {
-    -fx-background-color: #f44336;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 5 15; /* Padding réduit */
-    -fx-pref-width: 120; /* Largeur réduite */
-    -fx-pref-height: 35; /* Hauteur réduite */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
-}
-
-.supprimer-tout-button:hover {
-    -fx-background-color: #d32f2f;
-}
-
 .button-rechercher{
     -fx-background-color: #000000;
     -fx-text-fill: white;
@@ -147,7 +126,7 @@
 
 
 .button-reserver {
-    -fx-background-color: #b59bed;
+    -fx-background-color: #245329;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
@@ -158,7 +137,7 @@
 }
 
 .button-reserver:hover {
-    -fx-background-color: #8853f1;
+    -fx-background-color: #213918;
 }
 
 /*liste*/
@@ -209,3 +188,29 @@
     -fx-scale-y: 1.05;
     -fx-scale-x: 1.05;
 }
+
+.button-fav{
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-pref-width: 100;
+    -fx-pref-height: 35;
+    -fx-effect: dropshadow(three-pass-box, rgb(255, 255, 255), 5, 0, 0, 0);
+}
+
+.button-favheart{
+    -fx-background-color:  #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-pref-width:35;
+    -fx-pref-height: 32;
+}
+.button-favheart:hover {
+    -fx-background-color:#d80d27;
+}
+
+

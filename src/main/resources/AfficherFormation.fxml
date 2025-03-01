@@ -42,7 +42,7 @@
       </HBox>
 
       <!-- Bouton Ajouter -->
-      <Button fx:id="btnajouterID" layoutX="1100" layoutY="115.0" onAction="#Onajouterformation" prefHeight="26.0" prefWidth="135.0" styleClass="button-ajouter" text="➕Ajouter Formation">
+      <Button fx:id="btnajouterID" layoutX="1100" layoutY="115.0" onAction="#Onajouterformation" prefHeight="26.0" prefWidth="135.0" styleClass="button-ajouter" text="➕Ajouter Formation" AnchorPane.bottomAnchor="649.8">
       <padding>
          <Insets left="5.0" right="20.0" />
       </padding></Button>

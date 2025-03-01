@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,8 +12,7 @@
 <AnchorPane prefHeight="800.0" prefWidth="800.0" stylesheets="@Formation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherListFormationController">
 
     <!-- Conteneur principal -->
-    <HBox fx:id="mainContainer" alignment="CENTER" layoutX="43.0" layoutY="167.0" prefHeight="618.0" prefWidth="722.0" spacing="20" styleClass="main-card"
-          AnchorPane.bottomAnchor="14.599999999999909" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="35.40000000000009" AnchorPane.topAnchor="167.0">
+    <HBox fx:id="mainContainer" alignment="CENTER" layoutX="39.0" layoutY="174.0" prefHeight="618.0" prefWidth="722.0" spacing="20" styleClass="main-card" AnchorPane.bottomAnchor="7.600000000000023" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="39.40000000000009" AnchorPane.topAnchor="174.0">
 
         <HBox alignment="CENTER_LEFT" />
 
@@ -35,9 +35,13 @@
     <HBox alignment="CENTER_RIGHT" layoutX="292.0" layoutY="69.0" spacing="10" styleClass="button-search-container">
 
         <!-- Barre de recherche -->
-        <TextField fx:id="Trecherche"  onKeyReleased="#OnchercherFormation" promptText="Rechercher une formation..." styleClass="search-field" />
+        <TextField fx:id="Trecherche" onKeyReleased="#OnchercherFormation" promptText="Rechercher une formation..." styleClass="search-field" />
 
         <!-- Bouton Rechercher -->
         <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" styleClass="button-rechercher" text="Rechercher" />
     </HBox>
+   <Button fx:id="Btnfavori" layoutX="1100" layoutY="200.0" mnemonicParsing="false" styleClass="button-fav" text="❤Mes favoris" AnchorPane.bottomAnchor="634.8">
+      <padding>
+         <Insets bottom="5.0" />
+      </padding></Button>
 </AnchorPane>

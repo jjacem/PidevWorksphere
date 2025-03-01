@@ -35,7 +35,6 @@ esprit\tn\controllers\AfficherUser$2.class
 esprit\tn\controllers\AjouterReservationController$1.class
 esprit\tn\services\ServiceFormation.class
 esprit\tn\controllers\AfficherDetailsEquipeController.class
-esprit\tn\entities\Entretien.class
 esprit\tn\controllers\AfficherCandidatureController$1.class
 esprit\tn\controllers\AfficherReclamationsController.class
 esprit\tn\services\ServiceSponsor.class

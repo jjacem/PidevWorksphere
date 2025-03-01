@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailFormationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceFormation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceFormation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailFormation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherFormation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Formation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Formation.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +172,7 @@
       <workItem from="1740579823201" duration="1576000" />
       <workItem from="1740658248675" duration="65000" />
       <workItem from="1740659998041" duration="2617000" />
-      <workItem from="1740737878762" duration="33210000" />
+      <workItem from="1740737878762" duration="37372000" />
     </task>
     <servers />
   </component>
