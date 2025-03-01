@@ -6,6 +6,7 @@ esprit\tn\controllers\ModifierEvenementController.class
 esprit\tn\services\ServiceProjet.class
 esprit\tn\controllers\StatistiquesEquipesController.class
 esprit\tn\controllers\AjouterEntretineController.class
+esprit\tn\utils\PDFGenerator.class
 esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
 esprit\tn\controllers\AfficherReservationController$1.class
@@ -123,3 +124,4 @@ esprit\tn\controllers\LoginContoller.class
 esprit\tn\controllers\AffectationSponsorEvent.class
 esprit\tn\controllers\AffichageEntretineController$1.class
 esprit\tn\services\ServiceEquipe.class
+esprit\tn\utils\CloudinaryUploader.class

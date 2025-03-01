@@ -94,9 +94,11 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceUser.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\Main.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\MainFX.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\CloudinaryUploader.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Emailsend.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\JwtUtil.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\MyDatabase.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\PDFGenerator.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\QRCodeGenerator.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Router.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\SessionManager.java
