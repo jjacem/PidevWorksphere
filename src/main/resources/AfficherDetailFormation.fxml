@@ -74,7 +74,7 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Button layoutX="213.0" layoutY="368.0" mnemonicParsing="false" onAction="#onListeEmploye" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #0086b3;" text="Afficher la liste des employés" textFill="WHITE" />
+      <Button  fx:id="AfficherlistID" layoutX="213.0" layoutY="368.0" mnemonicParsing="false" onAction="#onListeEmploye" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #0086b3;" text="Afficher la liste des employés" textFill="WHITE" />
       <ListView fx:id="userListView" layoutX="53.0" layoutY="415.0" prefHeight="200.0" prefWidth="512.0" />
       <VBox fx:id="contentArea" layoutX="54.0" layoutY="415.0" prefHeight="194.0" prefWidth="512.0" />
    </children>

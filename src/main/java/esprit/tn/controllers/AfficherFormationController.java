@@ -107,7 +107,7 @@ public class AfficherFormationController {
         modifierButton.getStyleClass().addAll("card-button", "modifier-button");
         modifierButton.setOnAction(event -> modifierFormation(formation));
 
-        Button supprimerButton = new Button("❌ Supprimer");
+        Button supprimerButton = new Button("Supprimer");
         supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
         supprimerButton.setOnAction(event -> deleteFormation(formation));
 

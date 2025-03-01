@@ -56,6 +56,7 @@ C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Equipe.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\EtatProjet.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Evenement.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Favoris.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Feedback.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Formation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Langue.java
@@ -75,12 +76,14 @@ C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\FeedbackService.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IService.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceEquipe.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceFavori.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceFormation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceProjet.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceReservation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceCandidature.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceEquipe.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceEvenement.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceFavori.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceFormation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceOffre.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceProjet.java

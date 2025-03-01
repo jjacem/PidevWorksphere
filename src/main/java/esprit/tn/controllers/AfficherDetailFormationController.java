@@ -1,7 +1,10 @@
 package esprit.tn.controllers;
 
+import esprit.tn.entities.Role;
+import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -42,9 +45,16 @@ public class AfficherDetailFormationController {
     private final ServiceReservation serviceReservation = new ServiceReservation();
     @FXML
     private VBox contentArea;
+    @FXML
+    private Button AfficherlistID;
 
     @FXML
     public void initialize() {
+        if (SessionManager.getRole().equals(Role.EMPLOYE.name())) {
+            AfficherlistID.setVisible(false);
+            userListView.setVisible(false);
+            contentArea.setVisible(false);
+        }
         // Initialisation de la ListView
         userListView = new ListView<>();
         userListView.setCellFactory(new Callback<>() {

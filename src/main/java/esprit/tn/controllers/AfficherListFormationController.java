@@ -1,10 +1,13 @@
 package esprit.tn.controllers;
+import esprit.tn.entities.Favoris;
 import esprit.tn.entities.Typeformation;
 import esprit.tn.entities.User;
+import esprit.tn.services.ServiceFavori;
 import esprit.tn.services.ServiceFormation;
 
 import esprit.tn.entities.Formation;
 
+import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +35,7 @@ import java.util.stream.Collectors;
 public class AfficherListFormationController {
 
     private final ServiceFormation formationService = new ServiceFormation();
+    private final ServiceFavori favori = new ServiceFavori();
     private final List<Formation> favoriteList = new ArrayList<>();
     @FXML
     private Button Btnrecherche;
@@ -149,23 +153,43 @@ public class AfficherListFormationController {
 
 
     private void updateFavoriteButtonStyle(Button favButton, Formation formation) {
-        if (favoriteList.contains(formation)) {
-            favButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-        } else {
-            favButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        try {
+            User user = SessionManager.extractuserfromsession();
+            int userId = user.getIdUser();
+            if (favori.estFavori(userId, formation.getId_f())) {
+                favButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            }
+            else {
+                favButton.setStyle("-fx-background-color: black; -fx-text-fill: white;");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
+
     private void toggleFavorite(Formation formation, Button favButton) {
-        if (favoriteList.contains(formation)) {
-            favoriteList.remove(formation);
-            showAlert("Favoris", "Formation supprimée des favoris !");
-        } else {
-            favoriteList.add(formation);
-            showAlert("Favoris", "Formation ajoutée aux favoris !");
+        try {
+            User user = SessionManager.extractuserfromsession();
+            int userId = user.getIdUser();
+
+            // Créer un objet Favoris avec l'utilisateur et la formation
+            Favoris favoris = new Favoris(userId, formation.getId_f());
+
+            if (favori.estFavori(userId, formation.getId_f())) {
+                favori.supprimerFavori(userId, formation.getId_f());
+                showAlert("Favoris", "Formation supprimée des favoris !");
+            } else {
+                favori.ajouterFavori(userId, formation.getId_f());
+                showAlert("Favoris", "Formation ajoutée aux favoris !");
+            }
+
+            // Met à jour le style du bouton pour refléter l'état des favoris
+            updateFavoriteButtonStyle(favButton, formation);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        // Mettre à jour le style du bouton
-        updateFavoriteButtonStyle(favButton, formation);
     }
 
     public void afficherDetails(Formation formation) {
@@ -205,44 +229,83 @@ public class AfficherListFormationController {
         }
     }
 
+    @FXML
     public void OnAfficherFavori(ActionEvent actionEvent) {
-        Stage favStage = new Stage();
-        VBox vbox = new VBox(10);
+        try {
+            User user = SessionManager.extractuserfromsession();
+            int userId = user.getIdUser();
 
-        ListView<Formation> listView = new ListView<>();
-        listView.getItems().addAll(favoriteList);
+            // Récupère la liste des favoris sous forme d'objets 'Favoris'
+            List<Favoris> favoris = favori.getFavoris(userId);
 
-        listView.setCellFactory(param -> new ListCell<>() {
-            private final Button deleteButton = new Button("❌");
+            // Crée une nouvelle fenêtre pour afficher les favoris
+            Stage favStage = new Stage();
+            favStage.setTitle("Favoris");
 
-            {
-                deleteButton.setOnAction(event -> {
-                    Formation item = getItem();
-                    favoriteList.remove(item);
-                    listView.getItems().remove(item);
-                });
+            VBox vbox = new VBox(10);
+            ListView<Formation> listView = new ListView<>();
 
+            // Ajout des formations aux favoris
+            List<Formation> formations = favoris.stream()
+                    .map(Favoris::getFormation) // Récupère la formation de chaque objet Favoris
+                    .collect(Collectors.toList());
 
-    }
-            @Override
-            protected void updateItem(Formation item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    setText(item.getTitre());
-                    setGraphic(new HBox(10, deleteButton));
+            listView.getItems().addAll(formations);  // Ajout des formations dans le ListView
+
+            // Définir le comportement des cellules dans le ListView
+            listView.setCellFactory(param -> new ListCell<Formation>() {
+                private final Button deleteButton = new Button("Supprimer");
+
+                {
+                    // Style du bouton de suppression
+                    deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                    deleteButton.setOnAction(event -> {
+                        Formation item = getItem();
+                        if (item != null) {
+                            try {
+                                // Supprimer le favori de la base de données
+                                favori.supprimerFavori(userId, item.getId_f());
+
+                                // Mettre à jour la vue pour enlever l'élément supprimé
+                                listView.getItems().remove(item);
+                                showAlert("Favoris", "Formation supprimée des favoris !");
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
-            }
-        });
 
-        vbox.getChildren().add(listView);
-        vbox.setStyle("-fx-padding: 20px;");
-        Scene scene = new Scene(vbox, 300, 300);
-        favStage.setScene(scene);
-        favStage.setTitle("Favoris");
-        favStage.show();
+                @Override
+                protected void updateItem(Formation formation, boolean empty) {
+                    super.updateItem(formation, empty);
+                    if (empty || formation == null) {
+                        setGraphic(null);
+                    } else {
+                        // Afficher les informations de la formation et le bouton de suppression
+                        Label titleLabel = new Label("Titre: " + formation.getTitre());
+                        Label dateLabel = new Label("Date: " + formation.getDate().toString());
+                        Label hdLabel = new Label("Heure de début: " + formation.getHeure_debut().toString());
+                        Label hfLabel = new Label("Heure de fin: " + formation.getHeure_fin().toString());
+
+                        HBox hbox = new HBox(10, titleLabel, dateLabel, hdLabel, hfLabel, deleteButton);
+                        setGraphic(hbox);
+                    }
+                }
+            });
+
+            // Ajouter le ListView au VBox
+            vbox.getChildren().add(listView);
+
+            // Créer la scène et afficher la fenêtre modale
+            Scene scene = new Scene(vbox, 550, 300);
+            favStage.setScene(scene);
+            favStage.initModality(Modality.APPLICATION_MODAL);
+            favStage.show();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -251,8 +314,17 @@ public class AfficherListFormationController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        applyAlertStyle(alert);
         alert.showAndWait();
+
     }
+
+    private void applyAlertStyle(Alert alert) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+    }
+
     @FXML
     public void retourdashRH(ActionEvent actionEvent) {
     }

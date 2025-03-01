@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Favoris.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/IServiceFavori.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceFavori.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReservation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterReservation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailFormation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +25,7 @@
       <list>
         <option value="Enum" />
         <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -171,7 +177,7 @@
       <workItem from="1740658248675" duration="65000" />
       <workItem from="1740659998041" duration="2617000" />
       <workItem from="1740737878762" duration="37978000" />
-      <workItem from="1740825321227" duration="1762000" />
+      <workItem from="1740825321227" duration="11993000" />
     </task>
     <servers />
   </component>
