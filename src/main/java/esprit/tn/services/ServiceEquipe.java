@@ -17,7 +17,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
     }
 
 
-    @Override
+    /*@Override
     public void ajouterEquipe(Equipe equipe) throws SQLException {
         // Vérifier si une équipe avec le même nom existe déjà
         if (nomEquipeExiste(equipe.getNomEquipe())) {
@@ -41,6 +41,41 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         int equipeId = rs.getInt("id");
 
         // hne 3malna association bin equipe w user puisque kol equipe feha akthe men user
+        for (User user : equipe.getEmployes()) {
+            if (user.getRole() != Role.EMPLOYE) {
+                System.out.println("L'utilisateur " + user.getNom() + " n'a pas le rôle EMPLOYE. Ajout annulé.");
+                continue;
+            }
+
+            PreparedStatement assocStatement = connection.prepareStatement("INSERT INTO equipe_employee (equipe_id, id_user) VALUES (?, ?)");
+            assocStatement.setInt(1, equipeId);
+            assocStatement.setInt(2, user.getIdUser());
+            assocStatement.executeUpdate();
+        }
+    }*/
+    @Override
+    public void ajouterEquipe(Equipe equipe) throws SQLException {
+        if (nomEquipeExiste(equipe.getNomEquipe())) {
+            throw new SQLException("Une équipe avec ce nom existe déjà.");
+        }
+
+        String req = "INSERT INTO equipe (nom_equipe, imageEquipe, nbrProjet) VALUES (?, ?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setString(1, equipe.getNomEquipe());
+        preparedStatement.setString(2, equipe.getImageEquipe());
+        preparedStatement.setInt(3, 0); // Initialiser nbrProjet à 0
+        preparedStatement.executeUpdate();
+
+        // Récupérer l'ID de l'équipe insérée
+        String selectReq = "SELECT id FROM equipe WHERE nom_equipe = ? ORDER BY id DESC LIMIT 1";
+        PreparedStatement selectStatement = connection.prepareStatement(selectReq);
+        selectStatement.setString(1, equipe.getNomEquipe());
+        ResultSet rs = selectStatement.executeQuery();
+
+        if (!rs.next()) throw new SQLException("Erreur lors de la récupération de l'ID de l'équipe.");
+        int equipeId = rs.getInt("id");
+
+        // Associer les employés à l'équipe
         for (User user : equipe.getEmployes()) {
             if (user.getRole() != Role.EMPLOYE) {
                 System.out.println("L'utilisateur " + user.getNom() + " n'a pas le rôle EMPLOYE. Ajout annulé.");
@@ -93,7 +128,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
     }
 
 
-    @Override
+    /*@Override
     public List<Equipe> afficherEquipe() throws SQLException {
         List<Equipe> equipes = new ArrayList<>();
         String req = "SELECT * FROM equipe";
@@ -129,7 +164,45 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         }
         return equipes;
     }
+*/
 
+    @Override
+    public List<Equipe> afficherEquipe() throws SQLException {
+        List<Equipe> equipes = new ArrayList<>();
+        String req = "SELECT * FROM equipe";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nomEquipe = rs.getString("nom_equipe");
+            String imageEquipe = rs.getString("imageEquipe");
+            int nbrProjet = rs.getInt("nbrProjet"); // Récupérer nbrProjet
+
+            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role, e.image_profil, e.email FROM user e " +
+                    "JOIN equipe_employee ee ON e.id_user = ee.id_user WHERE ee.equipe_id = ?";
+
+            PreparedStatement employesStmt = connection.prepareStatement(employesReq);
+            employesStmt.setInt(1, id);
+            ResultSet employesRs = employesStmt.executeQuery();
+
+            List<User> employes = new ArrayList<>();
+            while (employesRs.next()) {
+                User user = new User(
+                        employesRs.getInt("id_user"),
+                        employesRs.getString("nom"),
+                        employesRs.getString("prenom"),
+                        Role.valueOf(employesRs.getString("role").toUpperCase()),
+                        employesRs.getString("image_profil"),
+                        employesRs.getString("email")
+                );
+                employes.add(user);
+            }
+
+            equipes.add(new Equipe(id, nomEquipe, employes, imageEquipe, nbrProjet));
+        }
+        return equipes;
+    }
 
     public List<User> getEmployesDisponibles() throws SQLException {
         List<User> employesDisponibles = new ArrayList<>();

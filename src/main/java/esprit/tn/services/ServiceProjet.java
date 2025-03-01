@@ -15,7 +15,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
     }
 
-    @Override
+    /*@Override
     public void ajouterProjet(Projet projet) throws SQLException {
         String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id, imageProjet) " +
                 "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
@@ -28,10 +28,33 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         Statement statement = connection.createStatement();
         statement.executeUpdate(req);
         System.out.println("Projet ajouté avec succès.");
-    }
-
+    }*/
 
     @Override
+    public void ajouterProjet(Projet projet) throws SQLException {
+        String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id, imageProjet) " +
+                "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
+                new java.sql.Date(projet.getDatecréation().getTime()) + "', '" +
+                new java.sql.Date(projet.getDeadline().getTime()) + "', '" +
+                projet.getEtat().name() + "', " +
+                (projet.getEquipe() != null ? projet.getEquipe().getId() : "NULL") + ", '" +
+                projet.getImageProjet() + "')";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(req);
+
+        // Incrémenter nbrProjet pour l'équipe associée
+        if (projet.getEquipe() != null) {
+            String updateReq = "UPDATE equipe SET nbrProjet = nbrProjet + 1 WHERE id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateReq);
+            updateStatement.setInt(1, projet.getEquipe().getId());
+            updateStatement.executeUpdate();
+        }
+
+        System.out.println("Projet ajouté avec succès.");
+    }
+
+    /*@Override
     public void modifierProjet(Projet projet) throws SQLException {
         String req = "UPDATE projet SET nom=?, description=?, datecréation=?, deadline=?, etat=?, equipe_id=?, imageProjet=? WHERE id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
@@ -48,10 +71,53 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         preparedStatement.executeUpdate();
         System.out.println("Projet mise à jour avec succès.");
 
+    }*/
+
+    @Override
+    public void modifierProjet(Projet projet) throws SQLException {
+        // Récupérer l'ancienne équipe associée au projet
+        String selectReq = "SELECT equipe_id FROM projet WHERE id = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(selectReq);
+        selectStatement.setInt(1, projet.getId());
+        ResultSet rs = selectStatement.executeQuery();
+
+        int ancienneEquipeId = -1;
+        if (rs.next()) {
+            ancienneEquipeId = rs.getInt("equipe_id");
+        }
+
+        // Mettre à jour le projet
+        String req = "UPDATE projet SET nom=?, description=?, datecréation=?, deadline=?, etat=?, equipe_id=?, imageProjet=? WHERE id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setString(1, projet.getNom());
+        preparedStatement.setString(2, projet.getDescription());
+        preparedStatement.setDate(3, new java.sql.Date(projet.getDatecréation().getTime()));
+        preparedStatement.setDate(4, new java.sql.Date(projet.getDeadline().getTime()));
+        preparedStatement.setString(5, projet.getEtat().name());
+        preparedStatement.setInt(6, projet.getEquipe().getId());
+        preparedStatement.setString(7, projet.getImageProjet());
+        preparedStatement.setInt(8, projet.getId());
+        preparedStatement.executeUpdate();
+
+        // Mettre à jour nbrProjet pour l'ancienne équipe
+        if (ancienneEquipeId != -1) {
+            String updateAncienneReq = "UPDATE equipe SET nbrProjet = nbrProjet - 1 WHERE id = ?";
+            PreparedStatement updateAncienneStatement = connection.prepareStatement(updateAncienneReq);
+            updateAncienneStatement.setInt(1, ancienneEquipeId);
+            updateAncienneStatement.executeUpdate();
+        }
+
+        // Mettre à jour nbrProjet pour la nouvelle équipe
+        String updateNouvelleReq = "UPDATE equipe SET nbrProjet = nbrProjet + 1 WHERE id = ?";
+        PreparedStatement updateNouvelleStatement = connection.prepareStatement(updateNouvelleReq);
+        updateNouvelleStatement.setInt(1, projet.getEquipe().getId());
+        updateNouvelleStatement.executeUpdate();
+
+        System.out.println("Projet mis à jour avec succès.");
     }
 
 
-    @Override
+    /*@Override
     public void supprimerProjet(int id) throws SQLException {
         String req = "DELETE FROM projet WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
@@ -59,6 +125,32 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         preparedStatement.executeUpdate();
         System.out.println("Projet supprimée avec succès.");
 
+    }*/
+
+    @Override
+    public void supprimerProjet(int id) throws SQLException {
+        // Récupérer l'équipe associée au projet
+        String selectReq = "SELECT equipe_id FROM projet WHERE id = ?";
+        PreparedStatement selectStatement = connection.prepareStatement(selectReq);
+        selectStatement.setInt(1, id);
+        ResultSet rs = selectStatement.executeQuery();
+
+        if (rs.next()) {
+            int equipeId = rs.getInt("equipe_id");
+
+            // Décrémenter nbrProjet uniquement s'il est supérieur à 0
+            String updateReq = "UPDATE equipe SET nbrProjet = nbrProjet - 1 WHERE id = ? AND nbrProjet > 0";
+            PreparedStatement updateStatement = connection.prepareStatement(updateReq);
+            updateStatement.setInt(1, equipeId);
+            updateStatement.executeUpdate();
+        }
+
+        // Supprimer le projet
+        String req = "DELETE FROM projet WHERE id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeUpdate();
+        System.out.println("Projet supprimé avec succès.");
     }
 
 

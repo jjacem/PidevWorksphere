@@ -94,6 +94,11 @@ public class AfficherEquipeController {
                 Label nomEquipeLabel = new Label(equipe.getNomEquipe());
                 nomEquipeLabel.getStyleClass().add("card-label");
 
+                // Nombre de projets
+                Label nbrProjetLabel = new Label("Projets : " + equipe.getNbrProjet());
+                nbrProjetLabel.getStyleClass().add("card-label");
+                nbrProjetLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #555555;");
+
                 // Boutons
                 Button detailsButton = new Button("Détails");
                 detailsButton.getStyleClass().addAll("card-button", "details-button");
@@ -112,7 +117,7 @@ public class AfficherEquipeController {
                 HBox.setHgrow(spacer, Priority.ALWAYS);
 
                 // Ajouter les éléments à la carte
-                card.getChildren().addAll(imageView, nomEquipeLabel, spacer, detailsButton, modifierButton, supprimerButton);
+                card.getChildren().addAll(imageView, nomEquipeLabel,nbrProjetLabel, spacer, detailsButton, modifierButton, supprimerButton);
                 equipesContainer.getChildren().add(card);
             }
         }
