@@ -14,10 +14,6 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Connection connection;
 
-        connection = MyDatabase.getInstance().getConnection();
-      ServiceReservation res = new ServiceReservation();
-      System.out.println(res.getUsersWhoReservedFormation(41));
-
 //        //test
         //user
 //        ServiceUser serviceUser = new ServiceUser();

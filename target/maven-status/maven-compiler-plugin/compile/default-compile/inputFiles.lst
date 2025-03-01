@@ -69,6 +69,7 @@ C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Sexe.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Sponsor.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Status.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\TwilioSMS.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\TypeEntretien.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Typeformation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\User.java
@@ -92,6 +93,7 @@ C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceReservation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceSponsor.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceUser.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\SmsService.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\Main.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\MainFX.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Emailsend.java

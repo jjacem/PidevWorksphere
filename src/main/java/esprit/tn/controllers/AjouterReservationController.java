@@ -1,10 +1,9 @@
 package esprit.tn.controllers;
 
-import esprit.tn.entities.Langue;
-import esprit.tn.entities.Reservation;
-import esprit.tn.entities.User;
+import esprit.tn.entities.*;
 import esprit.tn.services.ServiceReservation;
 import esprit.tn.services.ServiceFormation;
+import esprit.tn.services.SmsService;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -34,7 +33,8 @@ public class AjouterReservationController {
     private int formationId;
     private int nbPlacesMax; // Nombre de places disponibles
     private final ServiceReservation reservationService = new ServiceReservation();
-    private final ServiceFormation serviceFormation = new ServiceFormation(); // Service pour récupérer les formations
+    private final ServiceFormation serviceFormation = new ServiceFormation();
+    private final SmsService smsService = new TwilioSMS();
 
     @FXML
     public void initialize() {
@@ -131,6 +131,11 @@ public class AjouterReservationController {
             // Ajout de la réservation
             reservationService.ajouterReservation(reservation);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès.");
+
+            String titreFormation = serviceFormation.getFormationById(formationId).getTitre().toString();
+            String userPhoneNumber = "216"+SessionManager.extractuserfromsession().getNum();
+            String messageText = "Votre réservation pour la formation "+ titreFormation+" a été confirmée. Merci pour votre confiance !";
+            smsService.envoyerSms(userPhoneNumber, messageText);
 
             // Vérifier à nouveau la disponibilité après l'ajout
             checkAvailability();

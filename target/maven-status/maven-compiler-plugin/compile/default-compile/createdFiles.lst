@@ -26,6 +26,7 @@ esprit\tn\controllers\ModifierReponseController.class
 esprit\tn\controllers\AjouterEquipeController$1.class
 esprit\tn\controllers\SponsorEventsController.class
 esprit\tn\entities\Favoris.class
+esprit\tn\services\SmsService.class
 esprit\tn\controllers\AffecterEntretien$1.class
 esprit\tn\controllers\RHMenuController.class
 esprit\tn\entities\EtatProjet.class

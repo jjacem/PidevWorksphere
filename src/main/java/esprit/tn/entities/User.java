@@ -13,6 +13,7 @@ public class User {
     private int experienceTravail, nombreProjet, ansExperience;
     ArrayList <Reclamation> reclamations = new ArrayList<Reclamation>();
     ArrayList <Reponse> reponses = new ArrayList<Reponse>();
+    private int num ;
 
 
    public User testManager(String email){
@@ -237,6 +238,14 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     public String getSpecialisation() { return specialisation; }
     public void setSpecialisation(String specialisation) { this.specialisation = specialisation; }
 
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -261,6 +270,9 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
                 ", ansExperience=" + ansExperience +
                 ", specialisation='" + specialisation + '\'' +
                 '}';
+
+
+
     }
 
 
