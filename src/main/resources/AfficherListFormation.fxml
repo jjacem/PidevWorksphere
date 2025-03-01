@@ -40,7 +40,7 @@
         <!-- Bouton Rechercher -->
         <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" styleClass="button-rechercher" text="Rechercher" />
     </HBox>
-   <Button fx:id="Btnfavori" layoutX="1100" layoutY="200.0" mnemonicParsing="false" styleClass="button-fav" text="❤Mes favoris" AnchorPane.bottomAnchor="634.8">
+   <Button fx:id="Btnfavori" layoutX="1100" layoutY="200.0" onAction="#OnAfficherFavori" mnemonicParsing="false" styleClass="button-fav" text="❤Mes favoris" AnchorPane.bottomAnchor="634.8">
       <padding>
          <Insets bottom="5.0" />
       </padding></Button>

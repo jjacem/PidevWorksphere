@@ -24,6 +24,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 public class AfficherListFormationController {
 
     private final ServiceFormation formationService = new ServiceFormation();
+    private final List<Formation> favoriteList = new ArrayList<>();
     @FXML
     private Button Btnrecherche;
     @FXML
@@ -130,8 +132,10 @@ public class AfficherListFormationController {
             }
         });
         Button favButton = new Button("❤");
-        favButton.getStyleClass().addAll("button-favheart", "button-favheart");
-        //favButton.setOnAction(event -> afficherDetails(formation));
+        favButton.getStyleClass().add("button-favheart");
+        updateFavoriteButtonStyle(favButton, formation);
+
+        favButton.setOnAction(event -> toggleFavorite(formation, favButton));
 
         HBox buttonContainer = new HBox(10,detailButton, reserverButton , favButton);
         buttonContainer.setAlignment(Pos.CENTER_RIGHT);
@@ -141,6 +145,27 @@ public class AfficherListFormationController {
         formationBox.setAlignment(Pos.CENTER_LEFT);
         formationBox.setStyle("-fx-padding: 10px; -fx-border-color: lightgray; -fx-border-radius: 5px;");
         return formationBox;
+    }
+
+
+    private void updateFavoriteButtonStyle(Button favButton, Formation formation) {
+        if (favoriteList.contains(formation)) {
+            favButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        } else {
+            favButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        }
+    }
+
+    private void toggleFavorite(Formation formation, Button favButton) {
+        if (favoriteList.contains(formation)) {
+            favoriteList.remove(formation);
+            showAlert("Favoris", "Formation supprimée des favoris !");
+        } else {
+            favoriteList.add(formation);
+            showAlert("Favoris", "Formation ajoutée aux favoris !");
+        }
+        // Mettre à jour le style du bouton
+        updateFavoriteButtonStyle(favButton, formation);
     }
 
     public void afficherDetails(Formation formation) {
@@ -180,8 +205,57 @@ public class AfficherListFormationController {
         }
     }
 
+    public void OnAfficherFavori(ActionEvent actionEvent) {
+        Stage favStage = new Stage();
+        VBox vbox = new VBox(10);
+
+        ListView<Formation> listView = new ListView<>();
+        listView.getItems().addAll(favoriteList);
+
+        listView.setCellFactory(param -> new ListCell<>() {
+            private final Button deleteButton = new Button("❌");
+
+            {
+                deleteButton.setOnAction(event -> {
+                    Formation item = getItem();
+                    favoriteList.remove(item);
+                    listView.getItems().remove(item);
+                });
+
+
+    }
+            @Override
+            protected void updateItem(Formation item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item.getTitre());
+                    setGraphic(new HBox(10, deleteButton));
+                }
+            }
+        });
+
+        vbox.getChildren().add(listView);
+        vbox.setStyle("-fx-padding: 20px;");
+        Scene scene = new Scene(vbox, 300, 300);
+        favStage.setScene(scene);
+        favStage.setTitle("Favoris");
+        favStage.show();
+    }
+
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     public void retourdashRH(ActionEvent actionEvent) {
     }
+
 }
 
