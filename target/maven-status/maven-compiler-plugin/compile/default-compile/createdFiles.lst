@@ -69,6 +69,7 @@ esprit\tn\controllers\AjouterOffreController.class
 esprit\tn\controllers\AffecterEntretien.class
 esprit\tn\entities\Evenement.class
 esprit\tn\services\IService.class
+esprit\tn\utils\QRCodeGenerator.class
 esprit\tn\utils\MyDatabase.class
 esprit\tn\controllers\AjouterReservationController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId.class

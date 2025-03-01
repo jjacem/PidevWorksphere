@@ -1,6 +1,9 @@
 package esprit.tn.controllers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import esprit.tn.services.ServiceEquipe;
+import esprit.tn.utils.QRCodeGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -12,10 +15,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
+import com.google.gson.Gson;
 import esprit.tn.entities.Equipe;
 import esprit.tn.entities.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +39,8 @@ public class AfficherDetailsEquipeController {
 
     @FXML
     private ImageView imageEquipeView;
+    @FXML
+    private ImageView qrCodeImageView;
 
     private Equipe equipe;
     private ServiceEquipe serviceEquipe = new ServiceEquipe();
@@ -42,6 +48,7 @@ public class AfficherDetailsEquipeController {
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
         afficherDetails();
+        generateQRCodeForEquipe(equipe);
     }
 
     /*private void afficherDetails() {
@@ -244,4 +251,56 @@ public class AfficherDetailsEquipeController {
         }
     }
 
+    public String generateJsonForEquipe(Equipe equipe) {
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+
+        // Ajouter le nom de l'équipe
+        jsonObject.addProperty("nomEquipe", equipe.getNomEquipe());
+        // Ajouter les membres de l'équipe
+        JsonArray membresArray = new JsonArray();
+        for (User user : equipe.getEmployes()) {
+            JsonObject membreObject = new JsonObject();
+            membreObject.addProperty("nom", user.getNom() + " " + user.getPrenom());
+            membreObject.addProperty("email", user.getEmail());
+            membresArray.add(membreObject);
+        }
+        jsonObject.add("membres", membresArray);
+
+        // Ajouter les projets de l'équipe
+        JsonArray projetsArray = new JsonArray();
+        for (Projet projet : equipe.getProjets()) {
+            JsonObject projetObject = new JsonObject();
+            projetObject.addProperty("nomProjet", projet.getNom());
+            projetObject.addProperty("description", projet.getDescription());
+            projetsArray.add(projetObject);
+        }
+        jsonObject.add("projets", projetsArray);
+
+        // Convertir l'objet JSON en chaîne de caractères
+        return gson.toJson(jsonObject);
+    }
+
+    public void generateQRCodeForEquipe(Equipe equipe) {
+        try {
+            // Générer le JSON pour l'équipe
+            String jsonData = generateJsonForEquipe(equipe);
+
+            // Générer le QR code à partir du JSON
+            byte[] qrCodeImageData = QRCodeGenerator.generateQRCode(jsonData);
+
+            // Convertir les données binaires en une image JavaFX
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(qrCodeImageData);
+            Image qrCodeImage = new Image(inputStream);
+
+            // Afficher le QR code dans l'ImageView
+            qrCodeImageView.setImage(qrCodeImage);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            // Afficher une image par défaut en cas d'erreur
+            Image defaultImage = new Image(getClass().getResourceAsStream("/images/profil.png"));
+            qrCodeImageView.setImage(defaultImage);
+        }
+    }
 }

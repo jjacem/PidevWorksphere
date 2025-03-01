@@ -1,5 +1,6 @@
 package esprit.tn.services;
 
+import com.google.gson.Gson;
 import esprit.tn.entities.Equipe;
 import esprit.tn.entities.Role;
 import esprit.tn.entities.*;
@@ -262,6 +263,11 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             equipe.setProjets(projets); // Ajouter les projets à l'équipe
             equipes.add(equipe);
         }
+        // Convertir la liste des équipes en JSON
+        Gson gson = new Gson();
+        String json = gson.toJson(equipes);
+        System.out.println("JSON généré : " + json); // Afficher le JSON pour vérification
+
         return equipes;
     }
 

@@ -10,7 +10,7 @@
 }
 
 .label-title {
-    -fx-font-size: 32px;
+    -fx-font-size: 24px;  /* Reduced font size for the team name */
     -fx-font-weight: bold;
     -fx-text-fill: #0086b3;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
@@ -32,7 +32,9 @@
 }
 
 .image-equipe {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Ombre pour l'image */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Shadow effect */
+    -fx-fit-height: 120px;  /* Reduced image size */
+    -fx-fit-width: 120px;
 }
 
 .members-container {
@@ -52,7 +54,7 @@
 }
 
 .member-image {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Ombre pour l'image */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Shadow for the image */
 }
 
 .member-name {
@@ -67,33 +69,33 @@
 }
 
 .scroll-pane {
-    -fx-background-color: transparent; /* Fond transparent */
+    -fx-background-color: transparent; /* Transparent background */
     -fx-padding: 0;
-    -fx-fit-to-width: true; /* S'adapte à la largeur du conteneur parent */
+    -fx-fit-to-width: true; /* Adjust to parent's width */
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: transparent; /* Fond transparent */
+    -fx-background-color: transparent; /* Transparent background */
 }
 
 .scroll-pane .scroll-bar:vertical {
-    -fx-background-color: transparent; /* Couleur de fond de la barre de défilement */
+    -fx-background-color: transparent; /* Transparent scroll bar background */
 }
 
 .scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-color: #0086b3; /* Couleur du curseur de la barre de défilement */
+    -fx-background-color: #0086b3; /* Scroll bar thumb color */
     -fx-background-radius: 5;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button,
 .scroll-pane .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent; /* Boutons de défilement transparents */
+    -fx-background-color: transparent; /* Transparent scroll buttons */
     -fx-padding: 0;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-arrow,
 .scroll-pane .scroll-bar:vertical .decrement-arrow {
-    -fx-shape: " "; /* Masquer les flèches */
+    -fx-shape: " "; /* Hide arrows */
 }
 
 .projets-label {
