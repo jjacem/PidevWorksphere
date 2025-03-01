@@ -37,7 +37,16 @@ public class Projet {
 
     }
 
+    public Projet(int id, String nom, String description, Date datecréation, Date deadline, EtatProjet etat, String imageProjet) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.datecréation = datecréation;
+        this.deadline = deadline;
+        this.etat = etat;
+        this.imageProjet = imageProjet;
 
+    }
 
     public Equipe getEquipe() {
         return equipe;

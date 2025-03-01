@@ -166,7 +166,7 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
     }
 */
 
-    @Override
+    /*@Override
     public List<Equipe> afficherEquipe() throws SQLException {
         List<Equipe> equipes = new ArrayList<>();
         String req = "SELECT * FROM equipe";
@@ -200,6 +200,67 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
             }
 
             equipes.add(new Equipe(id, nomEquipe, employes, imageEquipe, nbrProjet));
+        }
+        return equipes;
+    }*/
+
+    @Override
+    public List<Equipe> afficherEquipe() throws SQLException {
+        List<Equipe> equipes = new ArrayList<>();
+        String req = "SELECT * FROM equipe";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(req);
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nomEquipe = rs.getString("nom_equipe");
+            String imageEquipe = rs.getString("imageEquipe");
+            int nbrProjet = rs.getInt("nbrProjet");
+
+            // Récupérer les employés de l'équipe
+            String employesReq = "SELECT e.id_user, e.nom, e.prenom, e.role, e.image_profil, e.email FROM user e " +
+                    "JOIN equipe_employee ee ON e.id_user = ee.id_user WHERE ee.equipe_id = ?";
+            PreparedStatement employesStmt = connection.prepareStatement(employesReq);
+            employesStmt.setInt(1, id);
+            ResultSet employesRs = employesStmt.executeQuery();
+
+            List<User> employes = new ArrayList<>();
+            while (employesRs.next()) {
+                User user = new User(
+                        employesRs.getInt("id_user"),
+                        employesRs.getString("nom"),
+                        employesRs.getString("prenom"),
+                        Role.valueOf(employesRs.getString("role").toUpperCase()),
+                        employesRs.getString("image_profil"),
+                        employesRs.getString("email")
+                );
+                employes.add(user);
+            }
+
+            // Récupérer les projets de l'équipe
+            String projetsReq = "SELECT p.id, p.nom, p.description, p.datecréation, p.deadline, p.etat, p.imageProjet FROM projet p " +
+                    "WHERE p.equipe_id = ?";
+            PreparedStatement projetsStmt = connection.prepareStatement(projetsReq);
+            projetsStmt.setInt(1, id);
+            ResultSet projetsRs = projetsStmt.executeQuery();
+
+            List<Projet> projets = new ArrayList<>();
+            while (projetsRs.next()) {
+                Projet projet = new Projet(
+                        projetsRs.getInt("id"),
+                        projetsRs.getString("nom"),
+                        projetsRs.getString("description"),
+                        projetsRs.getDate("datecréation"),
+                        projetsRs.getDate("deadline"),
+                        EtatProjet.valueOf(projetsRs.getString("etat")),
+                        projetsRs.getString("imageProjet")
+                );
+                projets.add(projet);
+            }
+
+            Equipe equipe = new Equipe(id, nomEquipe, employes, imageEquipe, nbrProjet);
+            equipe.setProjets(projets); // Ajouter les projets à l'équipe
+            equipes.add(equipe);
         }
         return equipes;
     }
