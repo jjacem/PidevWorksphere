@@ -9,7 +9,7 @@ public class Equipe {
     private List<User> employes;
     private String imageEquipe;
     private int nbrProjet;
-
+    private List<Projet> projets;
 
     public Equipe() {}
 
@@ -70,7 +70,13 @@ public class Equipe {
     public int getNbrProjet() {
         return nbrProjet;
     }
+    public List<Projet> getProjets() {
+        return projets;
+    }
 
+    public void setProjets(List<Projet> projets) {
+        this.projets = projets;
+    }
     @Override
     public String toString() {
         return "Equipe {\n" +

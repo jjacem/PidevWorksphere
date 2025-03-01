@@ -18,6 +18,7 @@ esprit\tn\controllers\AfficherReservationController$1$1.class
 esprit\tn\controllers\AfficherSponsorController.class
 esprit\tn\controllers\AjouterCandidatureController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId$1.class
+esprit\tn\controllers\StatistiquesEquipeController.class
 esprit\tn\controllers\AfficherReponse.class
 esprit\tn\entities\Feedback.class
 esprit\tn\utils\Router.class

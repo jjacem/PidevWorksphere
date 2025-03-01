@@ -314,11 +314,11 @@ public class AfficherEquipeController {
                     .orElse(null);
 
             // Calculer le nombre de projets par équipe
-            /*Map<String, Long> projetsParEquipe = equipes.stream()
+            Map<String, Long> projetsParEquipe = equipes.stream()
                     .collect(Collectors.groupingBy(
                             Equipe::getNomEquipe,
-                            Collectors.summingLong(equipe -> equipe.getProjets() != null ? equipe.getProjets().size() : 0)
-                    ));*/
+                            Collectors.summingLong(equipe -> equipe.getNbrProjet() == 0 ? 0 : equipe.getNbrProjet())
+                    ));
 
             // Construire le rapport
             StringBuilder rapport = new StringBuilder();
@@ -330,8 +330,8 @@ public class AfficherEquipeController {
             rapport.append("Équipe avec le moins de membres: ").append(equipeAvecMoinsDeMembres != null ? equipeAvecMoinsDeMembres.getNomEquipe() : "N/A").append("\n");
 
             rapport.append("\nNombre de projets par équipe:\n");
-            /*projetsParEquipe.forEach((nomEquipe, nombreProjets) ->
-                    rapport.append(nomEquipe).append(": ").append(nombreProjets).append(" projets\n"));*/
+            projetsParEquipe.forEach((nomEquipe, nombreProjets) ->
+                    rapport.append(nomEquipe).append(": ").append(nombreProjets).append(" projets\n"));
 
             // Afficher le rapport dans une boîte de dialogue
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -347,7 +347,30 @@ public class AfficherEquipeController {
         }
     }
 
-    // Méthode utilitaire pour afficher une alerte
+    /*@FXML
+    public void redirectToStatistiques() {
+        try {
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiquesEquipe.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Statistiques des Équipes");
+
+            // Rendre la fenêtre modale (bloque l'interaction avec la fenêtre parente)
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Définir la scène de la fenêtre
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+            // Afficher la fenêtre
+            popupStage.showAndWait(); // Utilisez showAndWait() pour bloquer jusqu'à ce que la fenêtre soit fermée
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -356,6 +379,7 @@ public class AfficherEquipeController {
         applyAlertStyle(alert);
         alert.showAndWait();
     }
+
 
 
 }

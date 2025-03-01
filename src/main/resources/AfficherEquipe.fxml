@@ -39,9 +39,11 @@
                </font></Button>
 
                 <Button text="Générer Rapport" onAction="#genererRapportStatistique" styleClass="rapport-button"/>
-            </HBox>
+            <!--<Button text="Générer Rapport" onAction="#redirectToStatistiques" styleClass="rapport-button"/>-->
 
-            <!-- ScrollPane pour la liste des équipes -->
+        </HBox>
+
+        <!-- ScrollPane pour la liste des équipes -->
             <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                 <VBox fx:id="equipesContainer" prefHeight="539.0" prefWidth="620.0" spacing="5" styleClass="equipes-container">
                 </VBox>
