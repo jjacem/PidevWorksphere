@@ -27,30 +27,68 @@ public class AjouterReclamationController {
     private final ServiceReclamation serviceReclamation = new ServiceReclamation();
 
     @FXML
+<<<<<<< Updated upstream
     public void initialize() {
         System.out.println("AjouterReclamationController.initialize");
+=======
+    public void initialize() throws SQLException {
+        ServiceUser u = new ServiceUser();
+        Employy = u.getUsersByRoleEmployee();
+
+        List<String> emailList = new ArrayList<>();
+        for (User employee : Employy) {
+            emailList.add(employee.getEmail());
+        }
+        Employees.getItems().addAll(emailList);
+
+>>>>>>> Stashed changes
         List<String> types = Arrays.asList("Technique", "Administratif", "Autre");
         type.getItems().addAll(types);
     }
 
     @FXML
+<<<<<<< Updated upstream
     private void ajouter(ActionEvent event) {
 
         if (titre.getText().isEmpty() || description.getText().isEmpty() || type.getValue() == null) {
+=======
+    private void ajouter(ActionEvent event) throws SQLException {
+        if (titre.getText().isEmpty() || description.getText().isEmpty() || type.getValue() == null || Employees.getValue() == null) {
+>>>>>>> Stashed changes
             showAlert(Alert.AlertType.WARNING, "Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
 
+<<<<<<< Updated upstream
 
         Reclamation reclamation = new Reclamation(
                 "En attente",
                 titre.getText(),
+=======
+        String selectedEmail = Employees.getValue();
+        int selectedEmployeeId = -1;
+        for (User employee : Employy) {
+            if (employee.getEmail().equals(selectedEmail)) {
+                selectedEmployeeId = employee.getIdUser();
+                break;
+            }
+        }
+
+        if (selectedEmployeeId == -1) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Employé non trouvé.");
+            return;
+        }
+
+        Reclamation reclamation = new Reclamation(
+                titre.getText(),
+
+>>>>>>> Stashed changes
                 description.getText(),
                 type.getValue(),3
                 ,
                 13
         );
-
+        System.out.println(reclamation);
         try {
 
             serviceReclamation.ajouter(reclamation);
