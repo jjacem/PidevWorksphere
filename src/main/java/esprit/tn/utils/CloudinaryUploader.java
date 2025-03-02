@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
 
-public class CloudinaryUploader {
+public class  CloudinaryUploader {
 
     private static final String CLOUD_NAME = "dfinw6lmg";
     private static final String API_KEY = "273431972826225";

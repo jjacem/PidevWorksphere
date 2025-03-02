@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
 import esprit.tn.services.*;
+import esprit.tn.utils.PDFGenerator;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -21,6 +22,8 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 public class AfficherdetailsProjetController {
@@ -137,99 +140,18 @@ public class AfficherdetailsProjetController {
             employesContainer.getChildren().add(new Label("Aucun employé dans cette équipe."));
         }
     }
-
+    
     @FXML
     private void convertirEnPDF() {
         try {
-            // Créer un nouveau document PDF
-            PDDocument document = new PDDocument();
-            PDPage page = new PDPage();
-            document.addPage(page);
-
-            // Créer un flux de contenu pour écrire dans le PDF
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
-
-            // Charger le logo
-            PDImageXObject logo = PDImageXObject.createFromFile("C:/xampp/htdocs/img/workshepre.png", document);
-
-            // Ajouter le logo en haut du PDF
-            contentStream.drawImage(logo, 50, 750, 100, 50); // Position et taille du logo
-
-            // Ajouter une bordure autour de la page
-            contentStream.setLineWidth(1.5f);
-            contentStream.setStrokingColor(0, 0, 0); // Couleur de la bordure (noir)
-            contentStream.addRect(40, 40, 520, 740); // Dimensions de la bordure
-            contentStream.stroke();
-
-            // Ajouter un en-tête stylisé
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
-            contentStream.setNonStrokingColor(0, 0, 128); // Couleur du texte (bleu foncé)
-            contentStream.beginText();
-            contentStream.newLineAtOffset(50, 700); // Position du texte
-            contentStream.showText("Détails du Projet");
-            contentStream.endText();
-
-            // Ajouter une ligne de séparation
-            contentStream.setLineWidth(1f);
-            contentStream.setStrokingColor(0, 0, 0); // Couleur de la ligne (noir)
-            contentStream.moveTo(50, 690);
-            contentStream.lineTo(550, 690);
-            contentStream.stroke();
-
-            // Ajouter les informations du projet
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.setNonStrokingColor(0, 0, 0); // Couleur du texte (noir)
-            contentStream.beginText();
-            contentStream.newLineAtOffset(50, 660); // Position du texte
-            contentStream.showText("Nom du projet : " + projet.getNom());
-            contentStream.newLineAtOffset(0, -20); // Décalage pour la ligne suivante
-            contentStream.showText("Description : " + projet.getDescription());
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.showText("Date de création : " + projet.getDatecréation());
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.showText("Deadline : " + projet.getDeadline());
-            contentStream.newLineAtOffset(0, -20);
-            contentStream.showText("État : " + projet.getEtat().name());
-            contentStream.newLineAtOffset(0, -20);
-
-            // Récupérer l'équipe et les employés associés au projet
-            try {
-                Equipe equipe = serviceProjet.getEquipeAvecEmployesParProjet(projet.getId());
-                if (equipe != null) {
-                    contentStream.showText("Équipe : " + equipe.getNomEquipe());
-                    contentStream.newLineAtOffset(0, -20);
-                    contentStream.showText("Membres de l'équipe : ");
-
-                    // Vérifier si la liste des employés est null ou vide
-                    List<User> employes = equipe.getEmployes();
-                    if (employes != null && !employes.isEmpty()) {
-                        for (User membre : employes) {
-                            contentStream.newLineAtOffset(0, -20);
-                            contentStream.showText("- " + membre.getNom() + " " + membre.getPrenom());
-                        }
-                    } else {
-                        contentStream.newLineAtOffset(0, -20);
-                        contentStream.showText("Aucun membre dans cette équipe.");
-                    }
-                } else {
-                    contentStream.showText("Équipe : Aucune équipe assignée");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                contentStream.showText("Erreur lors de la récupération de l'équipe.");
-            }
-
-            contentStream.endText();
-
-            // Fermer le flux de contenu
-            contentStream.close();
+            // Générer le PDF
+            byte[] pdfBytes = PDFGenerator.generateProjetPDF(projet);
 
             // Chemin complet pour enregistrer le PDF
             String filePath = "C:/xampp/htdocs/" + projet.getNom().replace(" ", "_") + "_details.pdf";
 
-            // Sauvegarder le document PDF
-            document.save(filePath);
-            document.close();
+            // Écrire le PDF dans un fichier
+            Files.write(Paths.get(filePath), pdfBytes);
 
             // Afficher un message de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -250,6 +172,7 @@ public class AfficherdetailsProjetController {
             alert.showAndWait();
         }
     }
+
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());

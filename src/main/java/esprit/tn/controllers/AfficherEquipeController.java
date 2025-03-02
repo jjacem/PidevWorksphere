@@ -59,7 +59,6 @@ public class AfficherEquipeController {
             e.printStackTrace();
         }
     }
-
     private void afficherEquipes(List<Equipe> equipes) {
         equipesContainer.getChildren().clear(); // Vider le conteneur
 
@@ -69,7 +68,7 @@ public class AfficherEquipeController {
             equipesContainer.getChildren().add(messageLabel);
         } else {
             for (Equipe equipe : equipes) {
-                HBox card = new HBox(20);
+                HBox card = new HBox(20); // Conteneur principal pour la carte
                 card.getStyleClass().add("card");
                 card.setAlignment(Pos.CENTER_LEFT);
 
@@ -90,14 +89,21 @@ public class AfficherEquipeController {
                 imageView.setFitWidth(80);
                 imageView.getStyleClass().add("card-image");
 
+                // Conteneur pour le nom de l'équipe et le nombre de projets
+                VBox infoBox = new VBox(5); // Espacement de 5 entre les éléments
+                infoBox.setAlignment(Pos.CENTER_LEFT);
+
                 // Nom de l'équipe
                 Label nomEquipeLabel = new Label(equipe.getNomEquipe());
                 nomEquipeLabel.getStyleClass().add("card-label");
 
                 // Nombre de projets
-                Label nbrProjetLabel = new Label("Projets : " + equipe.getNbrProjet());
+                Label nbrProjetLabel = new Label("Nombre de projets : " + equipe.getNbrProjet());
                 nbrProjetLabel.getStyleClass().add("card-label");
                 nbrProjetLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #555555;");
+
+                // Ajouter le nom et le nombre de projets dans le VBox
+                infoBox.getChildren().addAll(nomEquipeLabel, nbrProjetLabel);
 
                 // Boutons
                 Button detailsButton = new Button("Détails");
@@ -117,12 +123,11 @@ public class AfficherEquipeController {
                 HBox.setHgrow(spacer, Priority.ALWAYS);
 
                 // Ajouter les éléments à la carte
-                card.getChildren().addAll(imageView, nomEquipeLabel,nbrProjetLabel, spacer, detailsButton, modifierButton, supprimerButton);
+                card.getChildren().addAll(imageView, infoBox, spacer, detailsButton, modifierButton, supprimerButton);
                 equipesContainer.getChildren().add(card);
             }
         }
     }
-
 
     @FXML
     public void redirectToAjouterEquipe() {
