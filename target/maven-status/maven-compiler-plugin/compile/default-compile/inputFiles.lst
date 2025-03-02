@@ -35,6 +35,8 @@ C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\ma
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardEmploye.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardHR.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardManager.java
+C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\FaceAuthController.java
+C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\FaceRegisterController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\ForgotpasswordController.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\LoginContoller.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\controllers\ModiferReponseController.java
@@ -92,6 +94,7 @@ C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\ma
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\tests\Main.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\tests\MainFX.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\utils\Emailsend.java
+C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\utils\Imageutil.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\utils\JwtUtil.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\utils\MyDatabase.java
 C:\Users\yassi\OneDrive\Documents\GitHub\finalone\safeone\PidevWorksphere\src\main\java\esprit\tn\utils\Router.java
