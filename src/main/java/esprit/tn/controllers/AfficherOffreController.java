@@ -1,4 +1,7 @@
 package esprit.tn.controllers;
+
+import esprit.tn.services.OCRService;
+import esprit.tn.services.TranslationService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,10 +14,17 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
 import esprit.tn.services.ServiceOffre;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AfficherOffreController {
 
@@ -24,6 +34,9 @@ public class AfficherOffreController {
     private ListView<String> lv_offre;
     @FXML
     private TextField searchField;
+
+    private OCRService ocrService = new OCRService();
+    private TranslationService translationService = new TranslationService();
 
     @FXML
     void initialize() {
@@ -283,5 +296,124 @@ public class AfficherOffreController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }}
+    }
 
+    @FXML
+    private void analyzeOffre() {
+        OffreEmploi selectedOffre = lv_offre.getSelectionModel().getSelectedItem() != null ? 
+            recupererOffreParAffichage(lv_offre.getSelectionModel().getSelectedItem()) : null;
+            
+        if (selectedOffre == null) {
+            showAlert(Alert.AlertType.WARNING, "Select an offer", "Please select an offer to analyze.");
+            return;
+        }
+
+        ProgressIndicator progress = new ProgressIndicator();
+        VBox loadingBox = new VBox(10, new Label("Analyzing..."), progress);
+        loadingBox.setAlignment(Pos.CENTER);
+
+        Stage loadingStage = new Stage(StageStyle.UNDECORATED);
+        loadingStage.initModality(Modality.APPLICATION_MODAL);
+        loadingStage.setScene(new Scene(loadingBox, 200, 100));
+        loadingStage.show();
+
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                String description = selectedOffre.getDescription();
+                return String.format("Description Analysis:\n%s", 
+                    ocrService.extractTextFromPDF(description, 
+                        progress1 -> Platform.runLater(() -> progress.setProgress(progress1)))
+                );
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }).whenComplete((result, error) -> {
+            Platform.runLater(() -> {
+                loadingStage.close();
+                if (error != null) {
+                    showAlert(Alert.AlertType.ERROR, "Analysis Error", error.getMessage());
+                } else {
+                    showTextArea("Offer Analysis", result);
+                }
+            });
+        });
+    }
+
+    @FXML
+    private void translateOffre() {
+        OffreEmploi selectedOffre = lv_offre.getSelectionModel().getSelectedItem() != null ? 
+            recupererOffreParAffichage(lv_offre.getSelectionModel().getSelectedItem()) : null;
+            
+        if (selectedOffre == null) {
+            showAlert(Alert.AlertType.WARNING, "Select an offer", "Please select an offer to translate.");
+            return;
+        }
+
+        ChoiceDialog<String> langDialog = new ChoiceDialog<>("English", 
+            Arrays.asList("English", "Spanish", "German", "Arabic"));
+        langDialog.setTitle("Choose Target Language");
+        langDialog.setHeaderText("Select translation language:");
+        
+        langDialog.showAndWait().ifPresent(targetLang -> {
+            String langCode = switch (targetLang) {
+                case "English" -> "en";
+                case "Spanish" -> "es";
+                case "German" -> "de";
+                case "Arabic" -> "ar";
+                default -> "en";
+            };
+
+            ProgressIndicator progress = new ProgressIndicator();
+            VBox loadingBox = new VBox(10, new Label("Translating..."), progress);
+            loadingBox.setAlignment(Pos.CENTER);
+
+            Stage loadingStage = new Stage(StageStyle.UNDECORATED);
+            loadingStage.initModality(Modality.APPLICATION_MODAL);
+            loadingStage.setScene(new Scene(loadingBox, 200, 100));
+            loadingStage.show();
+
+            CompletableFuture.supplyAsync(() -> {
+                try {
+                    String description = selectedOffre.getDescription();
+                    return String.format("Translated Description:\n%s",
+                        translationService.translate(description, "fr", langCode, 
+                            p -> Platform.runLater(() -> progress.setProgress(p)))
+                    );
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }).whenComplete((result, error) -> {
+                Platform.runLater(() -> {
+                    loadingStage.close();
+                    if (error != null) {
+                        showAlert(Alert.AlertType.ERROR, "Translation Error", error.getMessage());
+                    } else {
+                        showTextArea("Translated Offer", result);
+                    }
+                });
+            });
+        });
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void showTextArea(String title, String content) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        
+        TextArea textArea = new TextArea(content);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setPrefWidth(600);
+        textArea.setPrefHeight(400);
+        
+        dialog.getDialogPane().setContent(textArea);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.show();
+    }
+}

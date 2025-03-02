@@ -12,10 +12,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
+import esprit.tn.entities.Bookmark;
 import esprit.tn.services.ServiceCandidature;
 import esprit.tn.services.ServiceOffre;
+import esprit.tn.services.ServiceBookmark;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,28 +31,63 @@ public class AfficherOffreCandidatController {
     private ObservableList<OffreEmploi> offreList = FXCollections.observableArrayList();
     private OffreEmploi offreSelectionnee;
     private List<Integer> appliedOfferIds = new ArrayList<>();
+
+    private List<Integer> bookmarkedOfferIds = new ArrayList<>();
+    
     @FXML
     private Button voirCandidatures;
-
     @FXML
     private Button Postuler;
     @FXML
+    private Button voirFavorisBtn;
+    @FXML
     private ListView<OffreEmploi> lv_offre;
     @FXML
-    private TextField searchField;  // Ajout du champ de recherche
+    private TextField searchField;
+    @FXML
+    private ImageView bookmarkIcon;
+    
+    // Icons for bookmark states
+    private final Image bookmarkEmpty = new Image(getClass().getResourceAsStream("/images/notSaved.png"));
+    private final Image bookmarkFilled = new Image(getClass().getResourceAsStream("/images/Saved.png"));
 
     @FXML
     void initialize() {
         Postuler.setDisable(true);
+
+        bookmarkIcon.setImage(bookmarkEmpty);
+        bookmarkIcon.setVisible(false);
+        
+        refreshData();
+    }
+    
+    /**
+     * Refresh all data from database
+     * Call this when returning from another view
+     */
+    public void refreshData() {
+        // Clear existing lists to avoid duplicates
+        appliedOfferIds.clear();
+        bookmarkedOfferIds.clear();
+        
+        // Load data from database
         loadAppliedOffers();
+        loadBookmarkedOffers();
         chargerOffres();
         setupListView();
-
-        // Ajouter un listener pour effectuer une recherche en temps réel
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            searchOffres(newValue);
-        });
+        
+        // If an offer was selected before refresh, reselect it
+        if (offreSelectionnee != null) {
+            int idToSelect = offreSelectionnee.getIdOffre();
+            for (OffreEmploi offre : offreList) {
+                if (offre.getIdOffre() == idToSelect) {
+                    lv_offre.getSelectionModel().select(offre);
+                    break;
+                }
+            }
+        }
     }
+    
     @FXML
     private void voirCandidatures() {
         try {
@@ -62,9 +102,55 @@ public class AfficherOffreCandidatController {
         }
     }
 
+    @FXML
+    private void voirFavoris() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFavoris.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) voirFavorisBtn.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void toggleBookmark() {
+        if (offreSelectionnee != null) {
+            try {
+                ServiceBookmark serviceBookmark = new ServiceBookmark();
+                var currentUser = SessionManager.extractuserfromsession();
+                
+                if (currentUser != null) {
+                    int userId = currentUser.getIdUser();
+                    int offreId = offreSelectionnee.getIdOffre();
+                    
+                    if (bookmarkedOfferIds.contains(offreId)) {
+                        // Remove bookmark
+                        serviceBookmark.supprimerParUserEtOffre(userId, offreId);
+                        bookmarkedOfferIds.remove(Integer.valueOf(offreId));
+                        bookmarkIcon.setImage(bookmarkEmpty);
+                    } else {
+                        // Add bookmark
+                        Bookmark bookmark = new Bookmark(userId, offreId);
+                        serviceBookmark.ajouter(bookmark);
+                        bookmarkedOfferIds.add(offreId);
+                        bookmarkIcon.setImage(bookmarkFilled);
+                    }
+                    
+                    // Refresh the list view to update styling
+                    lv_offre.refresh();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error toggling bookmark: " + e.getMessage());
+            }
+        }
+    }
+
     private void loadAppliedOffers() {
         try {
-            ServiceUser serviceUser = new ServiceUser();
             ServiceCandidature serviceCandidature = new ServiceCandidature();
             
             // Get the current user (assuming it's a candidate)
@@ -79,6 +165,23 @@ public class AfficherOffreCandidatController {
         }
     }
 
+
+    private void loadBookmarkedOffers() {
+        try {
+            ServiceBookmark serviceBookmark = new ServiceBookmark();
+            
+            // Get the current user
+            var currentUser = SessionManager.extractuserfromsession();
+            if (currentUser != null) {
+                // Load all offers this user has bookmarked
+                List<Integer> bookmarkedOffers = serviceBookmark.getBookmarkedOfferIds(currentUser.getIdUser());
+                bookmarkedOfferIds.addAll(bookmarkedOffers);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading bookmarked offers: " + e.getMessage());
+        }
+    }
+
     private void setupListView() {
         lv_offre.setCellFactory(lv -> new ListCell<OffreEmploi>() {
             @Override
@@ -90,7 +193,10 @@ public class AfficherOffreCandidatController {
                 } else {
                     setText(formaterOffre(offre));
                     if (appliedOfferIds.contains(offre.getIdOffre())) {
-                        setStyle("-fx-background-color: #ADD8E6;");
+
+                        setStyle("-fx-background-color: #ADD8E6;"); // Light blue for applied
+                    } else if (bookmarkedOfferIds.contains(offre.getIdOffre())) {
+                        setStyle("-fx-background-color: #FFFACD;"); // Light yellow for bookmarked
                     } else {
                         setStyle("");
                     }
@@ -102,8 +208,18 @@ public class AfficherOffreCandidatController {
             if (newValue != null) {
                 offreSelectionnee = newValue;
                 Postuler.setDisable(appliedOfferIds.contains(newValue.getIdOffre()));
+
+                bookmarkIcon.setVisible(true);
+                
+                // Update bookmark icon based on status
+                if (bookmarkedOfferIds.contains(newValue.getIdOffre())) {
+                    bookmarkIcon.setImage(bookmarkFilled);
+                } else {
+                    bookmarkIcon.setImage(bookmarkEmpty);
+                }
             } else {
                 Postuler.setDisable(true);
+                bookmarkIcon.setVisible(false);
             }
         });
     }
@@ -176,7 +292,6 @@ public class AfficherOffreCandidatController {
             Postuler.setDisable(appliedOfferIds.contains(selectedOffer.getIdOffre()));
         }
     }
-
 
     // Méthode pour rechercher des offres en fonction du terme de recherche
     private void searchOffres(String searchTerm) {

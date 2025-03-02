@@ -7,22 +7,29 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreCandidatController">
+
+<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreCandidatController">
    <children>
       <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="125.0" style="-fx-background-color: #0086b3;">
          <children>
-            <Button fx:id="Postuler" layoutX="11.0" layoutY="164.0" mnemonicParsing="false" onAction="#postulerOffre" prefHeight="26.0" prefWidth="102.0" text="POSTULER" />
-            <Button fx:id="voirCandidatures" layoutX="11.0" layoutY="205.0" mnemonicParsing="false" onAction="#voirCandidatures" prefHeight="26.0" prefWidth="102.0" text="CANDIDATURES" />
+            <Button fx:id="Postuler" layoutX="11.0" layoutY="199.0" mnemonicParsing="false" onAction="#postulerOffre" prefHeight="26.0" prefWidth="102.0" text="POSTULER" />
+            <Button fx:id="voirCandidatures" layoutX="11.0" layoutY="242.0" mnemonicParsing="false" onAction="#voirCandidatures" prefHeight="26.0" prefWidth="102.0" text="CANDIDATURES" />
+            <ImageView fx:id="bookmarkIcon" fitHeight="32.0" fitWidth="32.0" layoutX="46.0" layoutY="145.0" onMouseClicked="#toggleBookmark" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Images/notSaved.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="voirFavorisBtn" layoutX="11.0" layoutY="287.0" mnemonicParsing="false" onAction="#voirFavoris" prefHeight="26.0" prefWidth="102.0" text="MES FAVORIS" />
             <ImageView fitHeight="90.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/474188139_2099437073823213_5214087864459817142_n.png" />
+                  <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
       <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/offre-demploi-visuel-2-removebg-preview.png" />
+            <Image url="@/Images/offre-demploi-visuel-2-removebg-preview.png" />
          </image>
       </ImageView>
       <ListView fx:id="lv_offre" layoutX="20.0" layoutY="88.0" prefHeight="374.0" prefWidth="550.0" />

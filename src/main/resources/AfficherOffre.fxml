@@ -28,6 +28,9 @@
       </ImageView>
       <TextField fx:id="searchField" layoutX="270.0" layoutY="11.0" prefHeight="26.0" prefWidth="300.0" promptText="Rechercher une offre..." />
       <ListView fx:id="lv_offre" layoutX="20.0" layoutY="88.0" prefHeight="371.0" prefWidth="550.0" />
+
+      <Button fx:id="analyzeButton" layoutX="270.0" layoutY="43.0" mnemonicParsing="false" onAction="#analyzeOffre" text="📝 Analyze" />
+      <Button fx:id="translateButton" layoutX="370.0" layoutY="43.0" mnemonicParsing="false" onAction="#translateOffre" text="🌐 Translate" />
       <AnchorPane layoutX="270.0" layoutY="43.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
       <AnchorPane layoutX="319.0" layoutY="54.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
       <AnchorPane layoutX="370.0" layoutY="64.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
