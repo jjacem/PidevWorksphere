@@ -133,7 +133,8 @@ public class AjouterReservationController {
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès.");
 
             String titreFormation = serviceFormation.getFormationById(formationId).getTitre().toString();
-            String userPhoneNumber = "216"+SessionManager.extractuserfromsession().getNum();
+            String userPhoneNumber = "21653462002";
+                   // SessionManager.extractuserfromsession().getNum();
             String messageText = "Votre réservation pour la formation "+ titreFormation+" a été confirmée. Merci pour votre confiance !";
             smsService.envoyerSms(userPhoneNumber, messageText);
 

@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Formation;
+import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,6 +96,8 @@ public class AfficherFormationController {
         Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
         Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
         Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
+        Label type = new Label("Type: " + formation.getType());
+
 
         VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
 
@@ -111,12 +114,21 @@ public class AfficherFormationController {
         supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
         supprimerButton.setOnAction(event -> deleteFormation(formation));
 
+
+        Button meetButton = new Button("Meet");
+        meetButton.getStyleClass().addAll("res-button", "res-button");
+        if (formation.getType().equals(Typeformation.Distanciel)) {
+            meetButton.setVisible(true);
+        } else {
+            meetButton.setVisible(false);
+        }
+
         Button resButton = new Button("Reservation");
-        resButton.getStyleClass().addAll("card-button", "res-button");
+        resButton.getStyleClass().addAll("button-reserver", "button-reserver");
         resButton.setOnAction(event -> getUsersWhoReservedFormation(formation));
 
         // Conteneur pour les boutons
-        HBox buttonContainer = new HBox(10, detailButton, modifierButton, supprimerButton);
+        HBox buttonContainer = new HBox(10, detailButton, modifierButton, supprimerButton ,meetButton);
         buttonContainer.setAlignment(Pos.CENTER_RIGHT);
         buttonContainer.setPadding(new Insets(30, 10, 10, 300));
 

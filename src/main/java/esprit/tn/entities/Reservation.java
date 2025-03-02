@@ -30,7 +30,15 @@ public class Reservation {
         this.attente = attente;
         this.lang = lang;
     }
-
+    public Reservation(int id_r, LocalDate date, User user, Formation formation , String motif, String attente, Langue lang) {
+        this.id_r = id_r;
+        this.date = date;
+       this.user = user;
+       this.formation = formation;
+        this.motif = motif;
+        this.attente = attente;
+        this.lang = lang;
+    }
 
     public int getId_r() {
         return id_r;

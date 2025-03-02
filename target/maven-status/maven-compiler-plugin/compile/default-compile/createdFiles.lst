@@ -7,13 +7,11 @@ esprit\tn\services\ServiceProjet.class
 esprit\tn\controllers\AjouterEntretineController.class
 esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
-esprit\tn\controllers\AfficherReservationController$1.class
 esprit\tn\tests\Main.class
 esprit\tn\entities\Reservation.class
 esprit\tn\controllers\ModifierSponsorController.class
 esprit\tn\controllers\AjouterProjetController$1.class
 esprit\tn\controllers\DashboardCandidat.class
-esprit\tn\controllers\AfficherReservationController$1$1.class
 esprit\tn\controllers\AfficherSponsorController.class
 esprit\tn\controllers\AjouterCandidatureController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId$1.class

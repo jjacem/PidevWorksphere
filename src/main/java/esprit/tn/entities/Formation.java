@@ -3,6 +3,7 @@ package esprit.tn.entities;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Formation {
     private int id_f;
@@ -193,4 +194,13 @@ public class Formation {
                 ", id_user=" + id_user +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Formation formation)) return false;
+        return id_f == formation.id_f && nb_place == formation.nb_place && id_user == formation.id_user && Objects.equals(titre, formation.titre) && Objects.equals(description, formation.description) && Objects.equals(date, formation.date) && Objects.equals(heure_debut, formation.heure_debut) && Objects.equals(heure_fin, formation.heure_fin) && type == formation.type && Objects.equals(photo, formation.photo) && Objects.equals(user, formation.user);
+    }
+
+
 }

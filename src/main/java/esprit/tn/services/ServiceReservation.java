@@ -1,5 +1,6 @@
 package esprit.tn.services;
 
+import esprit.tn.entities.Formation;
 import esprit.tn.entities.Langue;
 import esprit.tn.entities.Reservation;
 import esprit.tn.entities.User;
@@ -91,7 +92,11 @@ public class ServiceReservation implements IServiceReservation<Reservation> {
     }
     public List<Reservation> getReservationsByUser(int userId) throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservation WHERE id_user = ? OR id_f IN (SELECT id_f FROM formation WHERE id_user = ?)";
+        String query = "SELECT r.*, u.nom AS user_name, u.prenom AS user_prenom, f.titre AS formation_titre " +
+                "FROM reservation r " +
+                "JOIN user u ON r.id_user = u.id_user " +
+                "JOIN formation f ON r.id_f = f.id_f " +
+                "WHERE r.id_user = ? OR f.id_user = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, userId);
@@ -99,11 +104,20 @@ public class ServiceReservation implements IServiceReservation<Reservation> {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                User user = new User();
+                user.setIdUser(rs.getInt("id_user"));
+                user.setNom(rs.getString("user_name"));
+                user.setPrenom(rs.getString("user_prenom")); // Ajout du prénom
+
+                Formation formation = new Formation();
+                formation.setId_f(rs.getInt("id_f"));
+                formation.setTitre(rs.getString("formation_titre"));
+
                 Reservation reservation = new Reservation();
                 reservation.setId_r(rs.getInt("id_r"));
                 reservation.setDate(rs.getDate("date").toLocalDate());
-                reservation.setUserId(rs.getInt("id_user"));
-                reservation.setFormationId(rs.getInt("id_f"));
+                reservation.setUser(user);
+                reservation.setFormation(formation);
                 reservation.setMotif(rs.getString("motif_r"));
                 reservation.setAttente(rs.getString("attente"));
 

@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AfficherReservationController {
 
     @FXML
-    private ListView<Reservation> listReservation;
+    private VBox listReservation;
 
     private final ServiceReservation reservationService = new ServiceReservation();
 
@@ -32,52 +32,46 @@ public class AfficherReservationController {
                 return;
             }
 
-            // Récupérer les réservations faites par l'utilisateur et celles sur ses formations
+            // Récupérer les réservations faites par l'utilisateur
             ObservableList<Reservation> reservationList = FXCollections.observableArrayList(
                     reservationService.getReservationsByUser(user.getIdUser())
             );
 
-            listReservation.setItems(reservationList);
-            setupListView();
+            afficherReservations(reservationList);
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les réservations.");
         }
     }
 
-    private void setupListView() {
-        listReservation.setCellFactory(new Callback<ListView<Reservation>, ListCell<Reservation>>() {
-            @Override
-            public ListCell<Reservation> call(ListView<Reservation> listView) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Reservation reservation, boolean empty) {
-                        super.updateItem(reservation, empty);
+    private void afficherReservations(ObservableList<Reservation> reservations) {
+        listReservation.getChildren().clear();
+        for (Reservation reservation : reservations) {
+            VBox reservationBox = createReservationBox(reservation);
+            listReservation.getChildren().add(reservationBox);
+        }
+    }
 
-                        if (empty || reservation == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            Label dateLabel = new Label("📅 Date : " + reservation.getDate());
-                            Label motifLabel = new Label("📝 Motif : " + reservation.getMotif());
-                            Label attenteLabel = new Label("⏳ Statut : " + reservation.getAttente());
+    private VBox createReservationBox(Reservation reservation) {
+        Label dateLabel = new Label("📅 Date : " + reservation.getDate());
+        Label motifLabel = new Label("📝 Motif : " + reservation.getMotif());
+        Label attenteLabel = new Label("⏳ Attente de la formation : " + reservation.getAttente());
 
-                            Label userLabel = new Label("👤 Réservé par ID : " + reservation.getUserId());
-                            Label formationLabel = new Label("📚 Formation ID : " + reservation.getFormationId());
+        // Afficher le nom de l'utilisateur au lieu de son ID
+        Label userLabel = new Label("👤 Réservé par : " + reservation.getUser().getNom() +" "+ reservation.getUser().getPrenom());
 
-                            Button supprimerButton = new Button("❌ Supprimer");
-                            supprimerButton.setStyle("-fx-background-color: #ff4c4c; -fx-text-fill: white;");
-                            supprimerButton.setOnAction(event -> supprimerReservation(reservation));
+        // Afficher le titre de la formation au lieu de son ID
+        Label formationLabel = new Label("📚 Formation : " + reservation.getFormation().getTitre());
 
-                            VBox vbox = new VBox(5, dateLabel, motifLabel, attenteLabel, userLabel, formationLabel, supprimerButton);
-                            vbox.setPadding(new Insets(10));
+        Button supprimerButton = new Button("Supprimer");
+        supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
+        supprimerButton.setOnAction(event -> supprimerReservation(reservation));
 
-                            setGraphic(vbox);
-                        }
-                    }
-                };
-            }
-        });
+        VBox vbox = new VBox(5, dateLabel, motifLabel, attenteLabel, userLabel, formationLabel, supprimerButton);
+        vbox.setPadding(new Insets(10));
+        vbox.setStyle("-fx-border-color: #cccccc; -fx-border-width: 1px; -fx-padding: 10px; -fx-background-radius: 5px;");
+
+        return vbox;
     }
 
     private void supprimerReservation(Reservation reservation) {
@@ -90,7 +84,7 @@ public class AfficherReservationController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 reservationService.supprimeReservation(reservation);
-                listReservation.getItems().remove(reservation);
+                listReservation.getChildren().removeIf(node -> node instanceof VBox && ((VBox) node).getChildren().contains(new Label("📅 Date : " + reservation.getDate())));
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Réservation supprimée avec succès.");
             } catch (SQLException e) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer la réservation.");
