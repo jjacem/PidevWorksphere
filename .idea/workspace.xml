@@ -1,95 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
-  <component name="ChangeListManager">
-    <list default="true" id="96444fdb-225d-44a3-95d9-5344dc28d43d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherdetailsProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherdetailsProjet.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="FxmlFile" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2tZjPCsH6WlzBUV3xAL99TKYtKp" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.Worksphere [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;gestionEquipeProjet&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/asmas/Desktop/copi3/PidevWorksphere/PidevWorksphere&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="96444fdb-225d-44a3-95d9-5344dc28d43d" name="Changes" comment="" />
-      <created>1740566465087</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1740566465087</updated>
-      <workItem from="1740566466192" duration="117000" />
-      <workItem from="1740566697967" duration="22000" />
-      <workItem from="1740567588517" duration="473000" />
-      <workItem from="1740589023015" duration="11832000" />
-      <workItem from="1740657941496" duration="4654000" />
-      <workItem from="1740737776577" duration="6881000" />
-      <workItem from="1740761260522" duration="13730000" />
-      <workItem from="1740775611441" duration="5899000" />
-      <workItem from="1740784527361" duration="3040000" />
-      <workItem from="1740829083350" duration="15719000" />
-      <workItem from="1740851948637" duration="7000" />
-      <workItem from="1740866832030" duration="5815000" />
-      <workItem from="1740934813912" duration="157000" />
-      <workItem from="1740934986881" duration="104000" />
-      <workItem from="1740935099194" duration="16000" />
-      <workItem from="1740935306151" duration="147000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="PidevWorksphere" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="PidevWorksphere" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
 </project>
