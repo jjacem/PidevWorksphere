@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/JitsiMeetController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/JitsiMeetService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/jitsi_meet.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherFormationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReservationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReservation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherReservation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Formation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Formation.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +191,7 @@
       <workItem from="1740737878762" duration="37978000" />
       <workItem from="1740825321227" duration="16454000" />
       <workItem from="1740861404361" duration="10306000" />
-      <workItem from="1740920130884" duration="8862000" />
+      <workItem from="1740920130884" duration="11065000" />
     </task>
     <servers />
   </component>

@@ -135,12 +135,9 @@ public class AjouterFormationController implements Initializable {
             serviceFormation.ajouterFormation(formation);
 
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Formation ajoutée avec succès !");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-
-            Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.close();
+
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }

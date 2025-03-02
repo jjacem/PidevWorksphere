@@ -191,6 +191,7 @@ public class AfficherFormationController {
             stage.setTitle("Modifier Formation");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHidden(event -> populateFormations());
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -230,6 +231,7 @@ public class AfficherFormationController {
             stage.setTitle("Ajouter");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHidden(event -> populateFormations());
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

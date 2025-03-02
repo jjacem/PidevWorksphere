@@ -135,11 +135,8 @@ public class ModifierFormationController implements Initializable {
             showAlert(Alert.AlertType.INFORMATION, "Succès", "La formation a été modifiée avec succès.");
 
             // Redirection
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
-            Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.close();
 
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez entrer un nombre valide pour les places et respecter le format HH:mm pour les heures.");
