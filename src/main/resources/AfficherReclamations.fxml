@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
+<<<<<<< Updated upstream
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -20,5 +22,28 @@
             <Button text="Supprimer" onAction="#supprimerReclamation" fx:id="btnSupprimer" />
             <Button text="Réponse" onAction="#gererReponse" fx:id="btnReponse" />
         </HBox>
+=======
+<?import java.net.URL?>
+<AnchorPane fx:id="mainContainer" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherReclamationsController">
+    <stylesheets>
+        <URL value="@AFFICHERRECLAMATION.css" />
+    </stylesheets>
+
+    <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <!-- Title -->
+        <Label text="Gestion des Réclamations" styleClass="title-label" />
+
+        <!-- Search and Filter Section -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <TextField fx:id="searchField" promptText="Rechercher par titre..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="statusChoiceBox" prefWidth="150" styleClass="filter-choice-box" />
+        </HBox>
+
+        <!-- List of Reclamations -->
+        <ListView fx:id="listView" styleClass="reclamation-list" VBox.vgrow="ALWAYS" />
+
+        <!-- Add Reclamation Button -->
+        <Button fx:id="btnAjouter" text="Ajouter Réclamation" onAction="#ajouterReclamation" styleClass="button-ajouter" />
+>>>>>>> Stashed changes
     </VBox>
 </AnchorPane>

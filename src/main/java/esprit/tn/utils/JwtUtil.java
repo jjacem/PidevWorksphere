@@ -28,7 +28,7 @@ public class JwtUtil {
     }
     public static int getIdFromToken(String token) {
         Claims claims = validateToken(token);
-        return claims.get("id", Integer.class); // Extracts the id
+        return claims.get("id", Integer.class);
     }
     public static Role getRoleFromToken(String token) {
         Claims claims = validateToken(token);

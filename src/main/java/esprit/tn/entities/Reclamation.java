@@ -6,7 +6,6 @@ public class Reclamation {
     private int id_reclamation;
     private int id_user;
     private int id_user2;
-    private String status;
     private String titre;
     private String description;
     private String type;
@@ -21,8 +20,12 @@ private Reponse reponse;
         this.reponse = reponse;
     }
 
+<<<<<<< Updated upstream
     public Reclamation(String status, String titre, String description, String type, int id_user, int id_user2) {
         this.status = status;
+=======
+    public Reclamation(String titre, String description, String type, int id_user, int id_user2) {
+>>>>>>> Stashed changes
         this.titre = titre;
         this.description = description;
         this.type = type;
@@ -43,7 +46,6 @@ private Reponse reponse;
     public String toString() {
         return "Reclamation{" +
                 "id_reclamation=" + id_reclamation +
-                ", status='" + status + '\'' +
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
@@ -77,13 +79,7 @@ private Reponse reponse;
         this.id_user2 = id_user2;
     }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getTitre() {
         return titre;

@@ -3,7 +3,7 @@ import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.util.Properties;
 public class Emailsend {
-    //pass worksphere123
+   
     public static void sendEmail(String recipient, String subject, String content) {
         final String senderEmail = "worksphere12345@gmail.com";
         final String senderPassword = "ehfp ylcf vrrw cdiz";
