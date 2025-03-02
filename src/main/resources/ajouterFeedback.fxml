@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" fx:id="rootPane"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AjouterFeedbackController"
+            stylesheets="@ajouterFeedback.css">
+
+    <children>
+        <VBox fx:id="mainContainer" alignment="CENTER" layoutX="20.0" layoutY="20.0"
+              prefHeight="460.0" prefWidth="560.0" spacing="15">
+
+            <!-- Title -->
+            <Label fx:id="titleLabel" text="Ajouter un Feedback" />
+
+            <!-- Message Input -->
+            <VBox fx:id="messageBox" spacing="5">
+                <Label fx:id="messageLabel" text="Message :" />
+                <TextArea fx:id="tf_message" promptText="Entrez votre feedback" />
+            </VBox>
+
+            <!-- Quiz Section -->
+            <VBox fx:id="quizContainer" spacing="10">
+                <Label fx:id="quizTitle" text="📝 Évaluation de l'entretien" />
+
+                <!-- Question 1 -->
+                <VBox>
+                    <Label text="1. Le candidat s’est-il bien présenté  ?" />
+                    <HBox spacing="10">
+                        <RadioButton text="Pas du tout" fx:id="q1_r1" userData="0"/>
+                        <RadioButton text="Moyen" fx:id="q1_r2" userData="1"/>
+                        <RadioButton text="Bien" fx:id="q1_r3" userData="2"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Question 2 -->
+                <VBox>
+                    <Label text="2. A-t-il démontré une bonne compréhension du poste  ?" />
+                    <HBox spacing="10">
+                        <RadioButton text="Pas du tout" fx:id="q2_r1" userData="0"/>
+                        <RadioButton text="Moyen" fx:id="q2_r2" userData="1"/>
+                        <RadioButton text="Bien" fx:id="q2_r3" userData="2"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Question 3 -->
+                <VBox>
+                    <Label text="3. Comment a-t-il géré les questions difficiles ?" />
+                    <HBox spacing="10">
+                        <RadioButton text="Pas du tout" fx:id="q3_r1" userData="0"/>
+                        <RadioButton text="Moyen" fx:id="q3_r2" userData="1"/>
+                        <RadioButton text="Bien" fx:id="q3_r3" userData="2"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Question 4 -->
+                <VBox>
+                    <Label text="4. Son attitude et sa communication étaient-elles adaptées ?" />
+                    <HBox spacing="10">
+                        <RadioButton text="Pas du tout" fx:id="q4_r1" userData="0"/>
+                        <RadioButton text="Moyen" fx:id="q4_r2" userData="1"/>
+                        <RadioButton text="Bien" fx:id="q4_r3" userData="2"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <!-- Buttons -->
+            <HBox fx:id="buttonBox" alignment="CENTER" spacing="20">
+                <Button fx:id="btnAjouterFeedback" onAction="#ajouterFeedback" text="Ajouter Feedback" />
+                <Button fx:id="btnAnnuler" onAction="#fermerFenetre" text="Annuler" />
+            </HBox>
+
+        </VBox>
+    </children>
+</AnchorPane>

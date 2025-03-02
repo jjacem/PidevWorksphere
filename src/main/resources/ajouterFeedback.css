@@ -1,0 +1,104 @@
+/* General styling */
+#rootPane {
+    -fx-background-color: linear-gradient(to bottom right, #283E51, #0A2342);
+    -fx-padding: 30px;
+}
+
+/* Main container */
+#mainContainer {
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+    -fx-padding: 25px;
+    -fx-spacing: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 12, 0, 0, 6);
+}
+
+/* Title */
+#titleLabel {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 15px 0;
+}
+
+/* Message Box */
+#messageBox {
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+}
+
+#messageLabel {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+#tf_message {
+    -fx-pref-width: 100%;
+    -fx-pref-height: 100px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #95A5A6;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+    -fx-margin: 5px 0;
+}
+
+/* Quiz Section */
+#quizContainer {
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-background-color: #ECF0F1;
+    -fx-background-radius: 12px;
+}
+
+#quizTitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495E;
+    -fx-padding: 10px 0;
+}
+
+/* Radio Buttons */
+.radio-button {
+    -fx-text-fill: #2C3E50;
+    -fx-font-size: 15px;
+    -fx-padding: 5px;
+    -fx-margin: 5px 0;
+}
+
+/* Buttons */
+#buttonBox {
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+#btnAjouterFeedback {
+    -fx-background-color: #27AE60;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 25px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 255, 0, 0.4), 5, 0, 0, 3);
+    -fx-margin: 10px;
+}
+
+#btnAjouterFeedback:hover {
+    -fx-background-color: #2ECC71;
+}
+
+#btnAnnuler {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 25px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 0, 0.4), 5, 0, 0, 3);
+    -fx-margin: 10px;
+}
+
+#btnAnnuler:hover {
+    -fx-background-color: #C0392B;
+}

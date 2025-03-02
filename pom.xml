@@ -12,7 +12,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>21.0.2</javafx.version>
     </properties>
 
     <dependencies>
@@ -42,7 +41,7 @@
 
             <artifactId>javafx-fxml</artifactId>
 
-            <version>${javafx.version}</version>
+            <version>21.0.2</version>
 
         </dependency>
 
@@ -54,7 +53,7 @@
 
             <artifactId>javafx-controls</artifactId>
 
-            <version>${javafx.version}</version>
+            <version>21.0.2</version>
 
         </dependency>
         <dependency>
@@ -82,21 +81,31 @@
 
 
         <dependency>
-            <groupId>jakarta.mail</groupId>
-            <artifactId>jakarta.mail-api</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>2.0.1</version>
-        </dependency>
+                <groupId>jakarta.mail</groupId>
+                <artifactId>jakarta.mail-api</artifactId>
+                <version>2.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>jakarta.mail</artifactId>
+                <version>2.0.1</version>
+            </dependency>
 
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.27</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>21.0.2</version>
         </dependency>
     </dependencies>
     <build>
@@ -113,7 +122,7 @@
 
                 <configuration>
 
-                    <mainClass>tn.esprit.MainFX</mainClass>
+                    <mainClass>esprit.tn.tests.MainFX</mainClass>
 
                 </configuration>
 
