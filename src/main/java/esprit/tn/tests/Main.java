@@ -16,6 +16,8 @@ public class Main {
 
         connection = MyDatabase.getInstance().getConnection();
 
+        EventSponsorService sspos=new EventSponsorService();
+        sspos.afficher();
 
 //        //test
 //        //user
@@ -166,8 +168,8 @@ public class Main {
 //        serviceUser.ajouter(u3);
 //        serviceUser.ajouter(u4);
 
-        Date currentDate = new Date();
-        Time currentTime = new Time(System.currentTimeMillis());
+     //   Date currentDate = new Date();
+       // Time currentTime = new Time(System.currentTimeMillis());
 
 //        Entretien entretien = new Entretien(
 //                "Entretien java hhhhhhhhhh  ",
@@ -208,7 +210,7 @@ public class Main {
 //            System.out.println("L'entretien n'existe pas !");
 //        }
 
-        User user= new User();
+     /*   User user= new User();
 
         user = user.Candidat(
                 "Smith",
@@ -237,7 +239,7 @@ u.changetoEmploye(user);
 
 } catch (Exception e) {
     throw new RuntimeException(e);
-}
+}*/
 
 
 //        try {
@@ -263,21 +265,9 @@ u.changetoEmploye(user);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

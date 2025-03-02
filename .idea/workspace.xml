@@ -5,55 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-<<<<<<< Updated upstream
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icons/promotion.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Equipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Equipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" afterDir="false" />
-=======
-=======
->>>>>>> Stashed changes
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" afterDir="false" />
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/QuoteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Quote.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/QuoteFetcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/NominatimAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/WeatherAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Quote.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/DureeContrat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/EvenementSponsor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EventSponsorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" afterDir="false" />
->>>>>>> Stashed changes
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceSponsor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceSponsor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Quote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Quote.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,20 +42,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;eyakassous5&quot;
-  }
-}</component>
+        &quot;lastFilter&quot;: {
+        &quot;state&quot;: &quot;OPEN&quot;,
+        &quot;assignee&quot;: &quot;eyakassous5&quot;
+        }
+        }</component>
   <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/jjacem/PidevWorksphere.git&quot;,
-    &quot;accountId&quot;: &quot;d900a9a0-bcb0-4c7e-8d3e-d23966fe9f26&quot;
-  }
-}</component>
+        &quot;selectedUrlAndAccountId&quot;: {
+        &quot;url&quot;: &quot;https://github.com/jjacem/PidevWorksphere.git&quot;,
+        &quot;accountId&quot;: &quot;669d9986-2012-4d27-a05c-bc4e299fb965&quot;
+        }
+        }</component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
+        &quot;associatedIndex&quot;: 0
+        }</component>
   <component name="ProjectId" id="2swK9t2r5wrfi7epNoWJixnezhw" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -94,53 +64,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainFX.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Finalintegration&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere&quot;,
-=======
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere/src/main/resources/icons&quot;,
->>>>>>> Stashed changes
-=======
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere/src/main/resources/icons&quot;,
->>>>>>> Stashed changes
-=======
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mega Pc/Desktop/esprit_3eme_sem1/pi_dev/leaflet4j-master&quot;,
->>>>>>> Stashed changes
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
-=======
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
->>>>>>> Stashed changes
-=======
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
->>>>>>> Stashed changes
-=======
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
->>>>>>> Stashed changes
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Debug",
+    "Application.MainFX.executor": "Run",
+    "Maven.Worksphere [javafx:run].executor": "Run",
+    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
+    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "eya2emePartie",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere/src/main/resources/icons",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\resources\icons" />
@@ -149,7 +98,20 @@
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="esprit.tn.tests.Main" />
+      <module name="Worksphere" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="esprit.tn.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -193,6 +155,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Maven.Worksphere [javafx:run]" />
       </list>
     </recent_temporary>
@@ -222,43 +185,23 @@
       <workItem from="1740027211613" duration="1954000" />
       <workItem from="1740029181800" duration="24183000" />
       <workItem from="1740052763997" duration="1268000" />
+      <workItem from="1740305126728" duration="10009000" />
+      <workItem from="1740432346383" duration="39666000" />
+      <workItem from="1740609808741" duration="31000" />
       <workItem from="1740305126728" duration="9530000" />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
       <workItem from="1740512254126" duration="986000" />
       <workItem from="1740518870774" duration="4639000" />
-=======
-=======
->>>>>>> Stashed changes
       <workItem from="1740478367588" duration="5759000" />
       <workItem from="1740521199311" duration="125000" />
       <workItem from="1740521332217" duration="870000" />
       <workItem from="1740524383985" duration="1434000" />
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
-      <workItem from="1740516910373" duration="6199000" />
-      <workItem from="1740572169588" duration="6644000" />
->>>>>>> Stashed changes
+      <workItem from="1740611391682" duration="1100000" />
+      <workItem from="1740644917890" duration="2829000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -274,8 +217,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardCandidat.java</url>
-          <line>32</line>
-          <properties class="esprit.tn.controllers.DashboardCandidat" method="initialize">
+          <line>33</line>
+          <properties class="esprit.tn.controllers.DashboardCandidat">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

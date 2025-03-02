@@ -36,6 +36,7 @@ C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\contro
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardEmploye.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardHR.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardManager.java
+C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\EvenementSponsorController.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ForgotpasswordController.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\LoginContoller.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierCompteController.java
@@ -54,10 +55,12 @@ C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\contro
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\SponsorEventsController.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\voirFeedbackController.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Candidature.java
+C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\DureeContrat.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Entretien.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Equipe.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\EtatProjet.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Evenement.java
+C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\EvenementSponsor.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Feedback.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Formation.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\OffreEmploi.java
@@ -74,6 +77,7 @@ C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entiti
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Typeformation.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\User.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\EntretienService.java
+C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\EventSponsorService.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\FeedbackService.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IService.java
 C:\Users\Mega Pc\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceEquipe.java

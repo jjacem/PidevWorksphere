@@ -1,4 +1,4 @@
-package esprit.tn.controllers;
+/*package esprit.tn.controllers;
 
 
 
@@ -100,7 +100,7 @@ public class AffectationSponsorEvent {
         }
     }
 }
-*/
+
 
 
     private Sponsor selectedSponsor;  // Sponsor sélectionné dans la fenêtre principale
@@ -155,3 +155,4 @@ public class AffectationSponsorEvent {
         alert.showAndWait();
     }
 }
+*/
