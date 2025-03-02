@@ -54,14 +54,19 @@ public class AfficherReservationController {
 
     private VBox createReservationBox(Reservation reservation) {
         Label dateLabel = new Label("📅 Date : " + reservation.getDate());
+        dateLabel.getStyleClass().addAll("label-detail", "label-detail");
         Label motifLabel = new Label("📝 Motif : " + reservation.getMotif());
+        motifLabel.getStyleClass().addAll("label-detail", "label-detail");
         Label attenteLabel = new Label("⏳ Attente de la formation : " + reservation.getAttente());
+        attenteLabel.getStyleClass().addAll("label-detail", "label-detail");
 
         // Afficher le nom de l'utilisateur au lieu de son ID
         Label userLabel = new Label("👤 Réservé par : " + reservation.getUser().getNom() +" "+ reservation.getUser().getPrenom());
+        userLabel.getStyleClass().addAll("label-detail", "label-detail");
 
         // Afficher le titre de la formation au lieu de son ID
         Label formationLabel = new Label("📚 Formation : " + reservation.getFormation().getTitre());
+        formationLabel.getStyleClass().addAll("label-detail", "label-detail");
 
         Button supprimerButton = new Button("Supprimer");
         supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");

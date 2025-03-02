@@ -26,7 +26,7 @@
         </VBox>
     </HBox>
     <!-- Titre de la page -->
-    <Label layoutX="265.0" layoutY="29.0" styleClass="title-label" text="Liste des Réservations" textFill="#22889e">
+    <Label layoutX="500.0" layoutY="28.0" styleClass="title-label" text="Liste des Réservations" textFill="#22889e">
       <font>
          <Font name="System Bold" size="18.0" />
       </font></Label>

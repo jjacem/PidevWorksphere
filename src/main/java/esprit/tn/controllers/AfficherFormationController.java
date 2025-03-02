@@ -122,6 +122,7 @@ public class AfficherFormationController {
         } else {
             meetButton.setVisible(false);
         }
+        meetButton.setOnAction(event-> afficherMeet());
 
         Button resButton = new Button("Reservation");
         resButton.getStyleClass().addAll("button-reserver", "button-reserver");
@@ -138,6 +139,21 @@ public class AfficherFormationController {
         formationBox.setStyle("-fx-padding: 10px; -fx-border-color: lightgray; -fx-border-radius: 5px;");
 
         return formationBox;
+    }
+
+    private void afficherMeet() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/jitsi_meet.fxml"));
+            Parent root = loader.load();
+            JitsiMeetController controller = loader.getController();
+            Stage stage = new Stage();
+            stage.setTitle("Meet");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getUsersWhoReservedFormation(Formation formation) {

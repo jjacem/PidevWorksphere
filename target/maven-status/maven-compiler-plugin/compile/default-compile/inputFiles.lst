@@ -36,6 +36,7 @@ C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controlle
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardHR.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardManager.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ForgotpasswordController.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\JitsiMeetController.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\LoginContoller.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierCompteController.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierEntretienController.java
@@ -81,6 +82,7 @@ C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceFormation.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceProjet.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IServiceReservation.java
+C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\JitsiMeetService.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceCandidature.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceEquipe.java
 C:\Users\USER\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceEvenement.java
