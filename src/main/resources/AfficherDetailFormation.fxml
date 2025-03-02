@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherDetailFormationController" >
+   <children>
+      <Label layoutX="76.0" layoutY="303.0" text="Nombre de place disponible:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="198.0" layoutY="21.0" text="Detail de la Formation" textAlignment="CENTER" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="78.0" layoutY="86.0" text="Titre:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="titreID" layoutX="132.0" layoutY="91.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="78.0" layoutY="190.0" text="Heure de début:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="78.0" layoutY="152.0" text="Date:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="76.0" layoutY="226.0" text="Heure de fin:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="122.0" text="Description:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="76.0" layoutY="263.0" text="Type de la formation:" textFill="#0086b3">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="DescID" layoutX="185.0" layoutY="127.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="DateID" layoutX="132.0" layoutY="157.0" text="Label" />
+      <Label fx:id="hdID" layoutX="230.0" layoutY="195.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="hfID" layoutX="198.0" layoutY="231.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="tfID" layoutX="272.0" layoutY="268.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="nbplaceID" layoutX="332.0" layoutY="308.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

@@ -28,11 +28,21 @@ public class LoginContoller {
     private PasswordField mdp;
 
     private final ServiceUser userService = new ServiceUser();
-
     @FXML
     private void handleLogin() {
-        String email = mail.getText();
-        String password = mdp.getText();
+        String email = mail.getText().trim();
+        String password = mdp.getText().trim();
+
+        // Validate email and password
+        if (!isValidEmail(email)) {
+            showAlert("Validation Error", "Veuillez entrer un email valide.");
+            return;
+        }
+
+        if (!isValidPassword(password)) {
+            showAlert("Validation Error", "Le mot de passe doit contenir au moins 6 caractères.");
+            return;
+        }
 
         try {
             User user = userService.login(email, password);
@@ -42,12 +52,21 @@ public class LoginContoller {
 
                 navigate(SessionManager.getRole());
             } else {
-                showAlert("Login Failed", "Invalid email or password.");
+                showAlert("Login Failed", "Email ou mot de passe incorrect.");
             }
         } catch (SQLException e) {
-            showAlert("Database Error", "An error occurred while trying to log in.");
+            showAlert("Database Error", "Une erreur est survenue lors de la connexion.");
             System.err.println("Login Error: " + e.getMessage());
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(emailRegex);
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.length() >= 3;
     }
 
     private void navigate(String role) {
@@ -86,7 +105,7 @@ public class LoginContoller {
         alert.setContentText(message);
         alert.showAndWait();
     }
-@FXML
+    @FXML
     public void handlesignup(ActionEvent actionEvent)
     {
         try {
@@ -103,7 +122,7 @@ public class LoginContoller {
         }
 
     }
-@FXML
+    @FXML
     public void forgotpassword(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Forgotpassword.fxml"));

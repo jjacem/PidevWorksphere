@@ -1,16 +1,13 @@
 package esprit.tn.controllers;
 import javafx.geometry.Insets;
 
+import esprit.tn.entities.Role;
 import esprit.tn.entities.User;
 import esprit.tn.services.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-<<<<<<< Updated upstream
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-=======
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -20,19 +17,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
->>>>>>> Stashed changes
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
-<<<<<<< Updated upstream
-=======
 import java.util.*;
->>>>>>> Stashed changes
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,11 +89,6 @@ public class AfficherUser {
                             setText(null);
                             setGraphic(null);
                         } else {
-<<<<<<< Updated upstream
-                            HBox row = new HBox(10);
-                            row.setSpacing(20);
-                            row.setStyle("-fx-padding: 5px; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-background-color: #f9f9f9;");
-=======
                             HBox row = new HBox(15);
                             row.setPadding(new Insets(10));
                             row.setAlignment(Pos.CENTER_LEFT);
@@ -114,36 +103,18 @@ public class AfficherUser {
                             // User Info VBox (to keep multiple labels aligned)
                             VBox userInfoBox = new VBox(5);
                             userInfoBox.setAlignment(Pos.CENTER_LEFT);
->>>>>>> Stashed changes
 
                             List<String> userAttributes = getUserAttributes(user);
                             for (String attr : userAttributes) {
                                 Label label = new Label(attr);
-<<<<<<< Updated upstream
-                                label.setStyle("-fx-font-size: 14px; -fx-padding: 2px 5px;");
-                                HBox.setHgrow(label, Priority.ALWAYS);
-                                row.getChildren().add(label);
-=======
                                 label.setStyle("-fx-font-size: 14px;");
                                 userInfoBox.getChildren().add(label);
->>>>>>> Stashed changes
                             }
 
                             // Buttons HBox (aligned to the right)
                             HBox buttonsBox = new HBox(10);
                             buttonsBox.setAlignment(Pos.CENTER_RIGHT);
 
-<<<<<<< Updated upstream
-                            Button modifyButton = new Button("Modifier");
-                            modifyButton.setOnAction(event -> openModifierUser(user.getIdUser()));
-
-
-                            Button deleteButton = new Button("Supprimer");
-                            deleteButton.setOnAction(event -> deleteUser(user));
-
-                            HBox buttonsBox = new HBox(5, modifyButton, deleteButton);
-                            row.getChildren().add(buttonsBox);
-=======
                             // Modify Button
                             ImageView modifyIcon = new ImageView(new Image(getClass().getResource("/icons/edit.png").toExternalForm()));
                             modifyIcon.setFitWidth(16);
@@ -174,7 +145,6 @@ public class AfficherUser {
                             // Add all elements to row
                             HBox.setHgrow(userInfoBox, Priority.ALWAYS);
                             row.getChildren().addAll(profileImageView, userInfoBox, buttonsBox);
->>>>>>> Stashed changes
 
                             setGraphic(row);
                         }
@@ -218,8 +188,6 @@ public class AfficherUser {
         updateListView(allUsers);
     }
 
-<<<<<<< Updated upstream
-=======
     public void PromoteUser(User u) {
         Role userRole = u.getRole();
         ArrayList<String> s = new ArrayList<>();
@@ -350,7 +318,6 @@ public class AfficherUser {
     }
 
 
->>>>>>> Stashed changes
     private void deleteUser(User user) {
         // Create a confirmation dialog
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -6,6 +6,7 @@ import esprit.tn.utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceReclamation implements IService<Reclamation> {
     private final Connection connection;
@@ -45,11 +46,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-<<<<<<< Updated upstream
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
-=======
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
->>>>>>> Stashed changes
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -73,7 +70,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
+                ServiceReponse s=new ServiceReponse();
+                reclamation.setReponse(s.checkForRepInRec(reclamation.getId_reclamation()));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -128,20 +127,6 @@ public class ServiceReclamation implements IService<Reclamation> {
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
-<<<<<<< Updated upstream
-             String   req2 = "SELECT * FROM Response WHERE id_reclamation=?";
-                try (PreparedStatement statement2 = connection.prepareStatement(req2)) {
-                    statement2.setInt(1, reclamation.getId_reclamation());
-                    ResultSet rs2 = statement2.executeQuery();
-                    while (rs2.next()) {
-                        ServiceReponse serviceReponse = new ServiceReponse();
-                        reclamation.setReponse(serviceReponse.getresponsebyid( rs2.getInt("id_reponse")));
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-=======
->>>>>>> Stashed changes
                 reclamations.add(reclamation);
             }
         }
@@ -185,12 +170,9 @@ public class ServiceReclamation implements IService<Reclamation> {
         return null;
     }
 
-<<<<<<< Updated upstream
-=======
     public List<Reclamation> filterbytitle(String title) throws SQLException {
         return this.afficher().stream()
                 .filter(r -> r.getTitre().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
     }
->>>>>>> Stashed changes
 }

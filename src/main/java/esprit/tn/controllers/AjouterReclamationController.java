@@ -1,12 +1,17 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Reclamation;
+import esprit.tn.entities.User;
 import esprit.tn.services.ServiceReclamation;
+import esprit.tn.services.ServiceUser;
+import esprit.tn.utils.Router;
+import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,15 +27,16 @@ public class AjouterReclamationController {
     private ChoiceBox<String> type;
 
     @FXML
+    private ChoiceBox<String> Employees;
+
+    @FXML
     private Button ajouterButton;
+
+    private List<User> Employy;
 
     private final ServiceReclamation serviceReclamation = new ServiceReclamation();
 
     @FXML
-<<<<<<< Updated upstream
-    public void initialize() {
-        System.out.println("AjouterReclamationController.initialize");
-=======
     public void initialize() throws SQLException {
         ServiceUser u = new ServiceUser();
         Employy = u.getUsersByRoleEmployee();
@@ -41,30 +47,17 @@ public class AjouterReclamationController {
         }
         Employees.getItems().addAll(emailList);
 
->>>>>>> Stashed changes
         List<String> types = Arrays.asList("Technique", "Administratif", "Autre");
         type.getItems().addAll(types);
     }
 
     @FXML
-<<<<<<< Updated upstream
-    private void ajouter(ActionEvent event) {
-
-        if (titre.getText().isEmpty() || description.getText().isEmpty() || type.getValue() == null) {
-=======
     private void ajouter(ActionEvent event) throws SQLException {
         if (titre.getText().isEmpty() || description.getText().isEmpty() || type.getValue() == null || Employees.getValue() == null) {
->>>>>>> Stashed changes
             showAlert(Alert.AlertType.WARNING, "Champs vides", "Veuillez remplir tous les champs.");
             return;
         }
 
-<<<<<<< Updated upstream
-
-        Reclamation reclamation = new Reclamation(
-                "En attente",
-                titre.getText(),
-=======
         String selectedEmail = Employees.getValue();
         int selectedEmployeeId = -1;
         for (User employee : Employy) {
@@ -82,18 +75,18 @@ public class AjouterReclamationController {
         Reclamation reclamation = new Reclamation(
                 titre.getText(),
 
->>>>>>> Stashed changes
                 description.getText(),
-                type.getValue(),3
-                ,
-                13
+                type.getValue(),
+                SessionManager.extractuserfromsession().getIdUser(),
+                selectedEmployeeId
         );
         System.out.println(reclamation);
         try {
-
             serviceReclamation.ajouter(reclamation);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réclamation ajoutée avec succès !");
             clearFields();
+            Router r = new Router();
+            r.navigate();
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter la réclamation.");
             e.printStackTrace();
@@ -104,6 +97,7 @@ public class AjouterReclamationController {
         titre.clear();
         description.clear();
         type.getSelectionModel().clearSelection();
+        Employees.getSelectionModel().clearSelection();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {

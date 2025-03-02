@@ -5,38 +5,35 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.SessionManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-<<<<<<< Updated upstream
-=======
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
->>>>>>> Stashed changes
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ModifierCompteController {
     @FXML
-<<<<<<< Updated upstream
-    private TextField nom, prenom, email, adresse, imageProfil;
-=======
     private Button savebutton;
     @FXML
     private TextField nom, prenom, email, adresse;
->>>>>>> Stashed changes
     @FXML
     private ChoiceBox<Sexe> sexe;
     @FXML
     private TextField salaireAttendu, competence, experienceTravail, nombreProjet, anneeExperience, specialisation;
     @FXML
     private Label salaireLabel, competenceLabel, experienceLabel, projetLabel, anneeExpLabel, specialisationLabel;
-<<<<<<< Updated upstream
-=======
     @FXML
     private ImageView imagePreview;
 
@@ -45,10 +42,9 @@ public class ModifierCompteController {
     private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
     private final Pattern numericPattern = Pattern.compile("\\d+(\\.\\d+)?");
 
->>>>>>> Stashed changes
     private String role = SessionManager.getRole();
     private int userId;
-User us=new User();
+
     public void initData(int userId) {
         this.userId = userId;
     }
@@ -61,60 +57,11 @@ User us=new User();
 
     }
     @FXML
-<<<<<<< Updated upstream
-    public void initialize() throws SQLException {
-=======
 
     public void initialize() {
->>>>>>> Stashed changes
         sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
-
         ServiceUser serviceUser = new ServiceUser();
-        User u = serviceUser.findbyid(userId);
 
-<<<<<<< Updated upstream
-        if (u != null) {
-            nom.setText(u.getNom());
-            prenom.setText(u.getPrenom());
-            email.setText(u.getEmail());
-            adresse.setText(u.getAdresse());
-            sexe.setValue(u.getSexe());
-            imageProfil.setText(u.getImageProfil());
-
-            switch (role) {
-                case "CANDIDAT":
-                    salaireAttendu.setText(String.valueOf(u.getSalaireAttendu()));
-                    salaireAttendu.setVisible(true);
-                    salaireLabel.setVisible(true);
-                  String stuts=  u.getStatus().name(); //can't be edited
-                    break;
-                case "EMPLOYE":
-                    competence.setVisible(true);
-                    experienceTravail.setVisible(true);
-                    competenceLabel.setVisible(true);
-                    experienceLabel.setVisible(true);
-                    String poste = u.getPoste();
-                    Double salaire=u.getSalaire();
-                    String competence=u.getCompetence();
-
-
-                break;
-                case "MANAGER":
-                    nombreProjet.setVisible(true);
-                    projetLabel.setVisible(true);
-                    double budget=u.getBudget();
-                    String dep=u.getDepartementGere();
-
-                    break;
-                case "RH":
-                    anneeExperience.setVisible(true);
-                    specialisation.setVisible(true);
-                    anneeExpLabel.setVisible(true);
-                    specialisationLabel.setVisible(true);
-                    break;
-            }
-            System.out.println("role et"+role);
-=======
         try {
             // Admin flag logic
             if (b) {
@@ -239,7 +186,6 @@ User us=new User();
         for (Node node : nodes) {
             node.setVisible(true);
             node.setManaged(true);
->>>>>>> Stashed changes
         }
     }
 
@@ -247,16 +193,11 @@ User us=new User();
     public void saveChanges() {
         ServiceUser serviceUser = new ServiceUser();
 
-        if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
-                adresse.getText().isEmpty() || sexe.getValue() == null || imageProfil.getText().isEmpty()) {
-            showAlert("Input Error", "Please fill in all fields.");
+        if (!validateInputs()) {
             return;
         }
 
         try {
-<<<<<<< Updated upstream
-            User modifiedUser;
-=======
             User modifiedUser = SessionManager.extractuserfromsession();
             modifiedUser.setIdUser(SessionManager.extractuserfromsession().getIdUser());
             modifiedUser.setNom(nom.getText());
@@ -266,46 +207,37 @@ User us=new User();
             modifiedUser.setSexe(sexe.getValue());
             modifiedUser.setImageProfil(imagePath);
 
->>>>>>> Stashed changes
             switch (role) {
                 case "CANDIDAT":
-                    double salaire = Double.parseDouble(salaireAttendu.getText());
-                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
-                            adresse.getText(), sexe.getValue(), imageProfil.getText(), salaire);
+                    modifiedUser.setSalaireAttendu(Double.parseDouble(salaireAttendu.getText()));
                     break;
                 case "EMPLOYE":
-                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
-                            adresse.getText(), sexe.getValue(), imageProfil.getText(), "", 0.0,
-                            Integer.parseInt(experienceTravail.getText()), "", competence.getText());
+                    modifiedUser.setCompetence(competence.getText());
+                    modifiedUser.setExperienceTravail(Integer.parseInt(experienceTravail.getText()));
                     break;
                 case "MANAGER":
-                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
-                            adresse.getText(), sexe.getValue(), imageProfil.getText(), "",
-                            Integer.parseInt(nombreProjet.getText()), 0.0);
+                    modifiedUser.setNombreProjet(Integer.parseInt(nombreProjet.getText()));
                     break;
                 case "RH":
-                    modifiedUser = new User(nom.getText(), prenom.getText(), email.getText(), "11",
-                            adresse.getText(), sexe.getValue(), imageProfil.getText(),
-                            Integer.parseInt(anneeExperience.getText()), specialisation.getText());
+                    modifiedUser.setAnsExperience(Integer.parseInt(anneeExperience.getText()));
+                    modifiedUser.setSpecialisation(specialisation.getText());
                     break;
                 default:
                     showAlert("Error", "Invalid role.");
                     return;
             }
 
-            modifiedUser.setIdUser(SessionManager.extractuserfromsession().getIdUser());
             serviceUser.modifier(modifiedUser);
-
             showAlert("Success", "Account updated successfully!");
-        } catch (NumberFormatException e) {
-            showAlert("Input Error", "Invalid number format.");
+
+            // Refresh window after saving
+            refreshWindow();
+
         } catch (SQLException e) {
             showAlert("Database Error", "Failed to update account.");
         }
     }
 
-<<<<<<< Updated upstream
-=======
     @FXML
     private void uploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -374,7 +306,6 @@ User us=new User();
         return true;
     }
 
->>>>>>> Stashed changes
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);

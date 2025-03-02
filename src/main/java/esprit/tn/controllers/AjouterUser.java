@@ -5,9 +5,22 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 public class AjouterUser {
     @FXML
@@ -17,7 +30,7 @@ public class AjouterUser {
     @FXML
     private TextField email;
     @FXML
-    private TextField mdp;
+    private PasswordField mdp;
     @FXML
     private TextField adresse;
     @FXML
@@ -25,7 +38,12 @@ public class AjouterUser {
     @FXML
     private TextField salaireAttendu;
     @FXML
-    private TextField ImageProfil;
+    private ImageView imagePreview;
+
+    private String imagePath = ""; // Store uploaded image path
+
+    private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    private final Pattern numericPattern = Pattern.compile("\\d+(\\.\\d+)?");
 
     @FXML
     public void initialize() {
@@ -33,47 +51,40 @@ public class AjouterUser {
     }
 
     @FXML
-    public void ajoutercandidat(ActionEvent actionEvent) {
+    public User ajoutercandidat(ActionEvent actionEvent) {
         ServiceUser serviceUser = new ServiceUser();
 
-        if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
-                mdp.getText().isEmpty() || adresse.getText().isEmpty() || sexe.getValue() == null ||
-                salaireAttendu.getText().isEmpty() || ImageProfil.getText().isEmpty()) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Input Error");
-            alert.setContentText("Please fill in all fields.");
-            alert.showAndWait();
-            return;
+        if (!validateInputs()) {
+            return null;
         }
 
         try {
-            double salaire = Double.parseDouble(salaireAttendu.getText()); // Ensure valid double input
-            User candidat = new User(nom.getText(), prenom.getText(), email.getText(),
-                    mdp.getText(), adresse.getText(), sexe.getValue(),
-                    ImageProfil.getText(), salaire);
+            double salaire = Double.parseDouble(salaireAttendu.getText());
+            User candidat = new User(
+                    nom.getText(),
+                    prenom.getText(),
+                    email.getText(),
+                    mdp.getText(),
+                    adresse.getText(),
+                    sexe.getValue(),
+                    imagePath, // Store uploaded image path
+                    salaire
+            );
 
             serviceUser.ajouter(candidat);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setContentText("User added successfully!");
+            alert.setContentText("Votre compte a été créé!");
             alert.showAndWait();
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Error");
-            alert.setContentText("Invalid salary value. Please enter a valid number.");
-            alert.showAndWait();
+            redirectToLogin(actionEvent);
+
+            return candidat;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Database Error");
-            alert.setContentText("Failed to add user: " + e.getMessage());
-            alert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add user: " + e.getMessage());
+            return null;
         }
     }
-<<<<<<< Updated upstream
-=======
 
     @FXML
     private void uploadImage(ActionEvent event) {
@@ -165,5 +176,4 @@ public class AjouterUser {
             e.printStackTrace(); // Print error if the file is not found
         }
     }
->>>>>>> Stashed changes
 }

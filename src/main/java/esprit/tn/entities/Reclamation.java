@@ -20,12 +20,7 @@ private Reponse reponse;
         this.reponse = reponse;
     }
 
-<<<<<<< Updated upstream
-    public Reclamation(String status, String titre, String description, String type, int id_user, int id_user2) {
-        this.status = status;
-=======
     public Reclamation(String titre, String description, String type, int id_user, int id_user2) {
->>>>>>> Stashed changes
         this.titre = titre;
         this.description = description;
         this.type = type;

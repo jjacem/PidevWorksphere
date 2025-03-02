@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="AfficherReponse"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox alignment="CENTER" spacing="30" style="-fx-background-color: #ecf0f1; -fx-padding: 40px; -fx-alignment: CENTER;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherReponse">
 
-</AnchorPane>
+    <!-- Title -->
+    <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="📜 Détails de la Réponse" />
+
+    <!-- Response Card -->
+    <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30px; -fx-background-color: white;                  -fx-border-radius: 15px; -fx-border-color: #bdc3c7;                  -fx-border-width: 2px;                  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);                  -fx-max-width: 600px; -fx-alignment: CENTER;">
+      <GridPane hgap="30" layoutX="42.0" layoutY="89.0" style="-fx-padding: 20px;" vgap="20">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="180" />
+            <ColumnConstraints halignment="LEFT" minWidth="300" />
+         </columnConstraints>
+         <children>
+            <Label prefHeight="27.0" prefWidth="0.0" style="-fx-font-size: 18px; -fx-text-fill: #2980b9;" text="-" GridPane.columnIndex="1" />
+      
+                     <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2980b9;" text="👤 Employee:" />
+            <Label fx:id="lblUserId" style="-fx-font-size: 18px; -fx-text-fill: #2c3e50; -fx-max-width: 300px;" text="-" wrapText="true" GridPane.columnIndex="1" />
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <GridPane hgap="30" layoutX="42.0" layoutY="365.0" style="-fx-padding: 20px;" vgap="20">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="180" />
+            <ColumnConstraints halignment="LEFT" minWidth="300" />
+         </columnConstraints>
+         <children>
+            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="📩 Message:" />
+            <Label layoutX="108.0" layoutY="30.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495e;" text="📩 Message:" />
+               <Label fx:id="lblMessage" style="-fx-font-size: 18px; -fx-text-fill: #2c3e50; -fx-max-width: 300px;" text="-" wrapText="true" GridPane.columnIndex="1" />
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <GridPane hgap="30" layoutX="42.0" layoutY="365.0" style="-fx-padding: 20px;" vgap="20">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="180" />
+            <ColumnConstraints halignment="LEFT" minWidth="300" />
+         </columnConstraints>
+         <children>
+      
+                     <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #d35400;" text="📌 Reclamation" />
+               <Label fx:id="lblReclamationname" style="-fx-font-size: 18px; -fx-text-fill: #d35400;" text="-" GridPane.columnIndex="1" />
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <GridPane hgap="30" layoutX="42.0" layoutY="540.0" style="-fx-padding: 20px;" vgap="20">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="180" />
+            <ColumnConstraints halignment="LEFT" minWidth="300" />
+         </columnConstraints>
+         <children>
+            <Label fx:id="lblStatus" style="-fx-font-size: 18px; -fx-text-fill: #27ae60;" text="-" GridPane.columnIndex="1" />
+      
+               <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="✅ Status:" />
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <GridPane hgap="30" layoutX="42.0" layoutY="452.0" style="-fx-padding: 20px;" vgap="20">
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" minWidth="180" />
+            <ColumnConstraints halignment="LEFT" minWidth="300" />
+         </columnConstraints>
+         <children>
+      
+               <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="📅 Date Dépôt:" />
+            <Label fx:id="lblDateDepot" style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d;" text="-" GridPane.columnIndex="1" />
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+    </VBox>
+</VBox>

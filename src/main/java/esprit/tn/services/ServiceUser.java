@@ -22,6 +22,7 @@ public class ServiceUser implements IService<User> {
         connection= MyDatabase.getInstance().getConnection();
 
     }
+
     public Sexe changetexttosexe(String text) {
         if (text == "FEMME") {
             return Sexe.FEMME;
@@ -108,25 +109,57 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void modifier(User user) throws SQLException {
-        String req = "UPDATE User SET nom=?, prenom=?, email=?, role=?, adresse=?, sexe=? WHERE id_user=?";
- String mdp=BCrypt.hashpw(user.getMdp(),BCrypt.gensalt());
+        String req = "UPDATE User \n" +
+                "SET \n" +
+                "    nom=?, \n" +
+                "    prenom=?, \n" +
+                "    email=?, \n" +
+                "    role=?, \n" +
+                "    adresse=?, \n" +
+                "    sexe=?, \n" +
+                "    image_profil=?, \n" +
+                "    poste=?, \n" +
+                "    departement=?, \n" +
+                "    competence=?, \n" +
+                "    departement_géré=?, \n" +
+                "    specialisation=?, \n" +
+                "    status=?, \n" +
+                "    salaire_attendu=?, \n" +
+                "    salaire=?, \n" +
+                "    budget=?, \n" +
+                "    experience_travail=?, \n" +
+                "    nombreProjet=?, \n" +
+                "    ans_experience=? \n" +
+                "WHERE id_user=?";
 
         try (PreparedStatement statement = connection.prepareStatement(req)) {
             statement.setString(1, user.getNom());
             statement.setString(2, user.getPrenom());
             statement.setString(3, user.getEmail());
-
             statement.setString(4, user.getRole().name());
             statement.setString(5, user.getAdresse());
             statement.setString(6, user.getSexe().name());
-            statement.setInt(7, user.getIdUser());
+            statement.setString(7, user.getImageProfil());
+            statement.setString(8, user.getPoste());
+            statement.setString(9, user.getDepartement());
+            statement.setString(10, user.getCompetence());
+            statement.setString(11, user.getDepartementGere());
+            statement.setString(12, user.getSpecialisation());
+            statement.setString(13, user.getStatus().name());
+            statement.setDouble(14, user.getSalaireAttendu());
+            statement.setDouble(15, user.getSalaire());
+            statement.setDouble(16, user.getBudget());
+            statement.setInt(17, user.getExperienceTravail());
+            statement.setInt(18, user.getNombreProjet());
+            statement.setInt(19, user.getAnsExperience());
+            statement.setInt(20, user.getIdUser());
 
             int rowsUpdated = statement.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("user modifiée avec succès.");
+                System.out.println("User modifié avec succès.");
             } else {
-                System.out.println("Aucune user trouvée avec cet ID.");
+                System.out.println("Aucun user trouvé avec cet ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -330,6 +363,151 @@ public List<User> chercherparnom(String query) throws SQLException {
             return false;
         }
     }
+
+
+    public List<User> getUsersByRoleEmployee() throws SQLException {
+        List<User> allUsers = this.afficher();
+
+        List<User> employees = allUsers.stream()
+                .filter(user -> user.getRole() == Role.EMPLOYE)
+                .collect(Collectors.toList());
+
+        return employees;
+    }
+
+    public void changetoEmploye(User u) {
+        String selectQuery = "SELECT * FROM User WHERE id_user = ?";
+        String updateQuery = "UPDATE user SET role = 'Employe', " +
+                "competence = ?, departement = ?, salaire = ?, experience_travail = ?, " +
+                "status = NULL, salaire_attendu = NULL, poste = NULL, " +
+                "nombreProjet = NULL, budget = NULL, departement_géré = NULL, " +
+                "ans_experience = NULL, specialisation = NULL " +
+                "WHERE id_user = ?";
+
+        try {
+            PreparedStatement selectStmt = connection.prepareStatement(selectQuery);
+            selectStmt.setInt(1, u.getIdUser());
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                String competence = u.getCompetence();
+                String departement = u.getDepartement();
+                double salaire = u.getSalaire();
+                int experience = u.getExperienceTravail();
+                PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                updateStmt.setString(1, competence);
+                updateStmt.setString(2, departement);
+                updateStmt.setDouble(3, salaire);
+                updateStmt.setInt(4, experience);
+                updateStmt.setInt(5, u.getIdUser());
+
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("User successfully updated to Employe role.");
+                } else {
+                    System.out.println("No user updated.");
+                }
+
+                updateStmt.close();
+            } else {
+                System.out.println("User not found.");
+            }
+
+            rs.close();
+            selectStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changetoRH(User u) {
+        String selectQuery = "SELECT * FROM User WHERE id_user = ?";
+        String updateQuery = "UPDATE user SET role = 'RH', " +
+                "competence = NULL, departement = NULL, salaire = NULL, experience_travail = NULL, " +
+                "status = NULL, salaire_attendu = NULL, poste = NULL, " +
+                "nombreProjet = NULL, budget = NULL, departement_géré = NULL, " +
+                "ans_experience = ?, specialisation = ? " +
+                "WHERE id_user = ?";
+
+        try {
+            // Step 1: Check if user exists
+            PreparedStatement selectStmt = connection.prepareStatement(selectQuery);
+            selectStmt.setInt(1, u.getIdUser());
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                // Step 2: Prepare update statement
+                PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                updateStmt.setInt(1, u.getAnsExperience()); // Assign experience
+                updateStmt.setString(2, u.getSpecialisation()); // Assign specialisation
+                updateStmt.setInt(3, u.getIdUser()); // Set user ID condition
+
+                // Step 3: Execute update
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("User successfully updated to RH role.");
+                } else {
+                    System.out.println("No update was made.");
+                }
+                updateStmt.close();
+            } else {
+                System.out.println("User not found.");
+            }
+
+            rs.close();
+            selectStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void changetoManager(User u) {
+        String selectQuery = "SELECT * FROM User WHERE id_user = ?";
+        String updateQuery = "UPDATE user SET role = 'Manager', " +  // Fixed role
+                "competence = NULL, departement = NULL, salaire = NULL, experience_travail = NULL, " +
+                "status = NULL, salaire_attendu = NULL, poste = NULL, " +
+                "nombreProjet = ?, budget = ?, departement_géré = ?, " +
+                "ans_experience = NULL, specialisation = NULL " +
+                "WHERE id_user = ?";
+
+        try {
+            // Step 1: Check if user exists
+            PreparedStatement selectStmt = connection.prepareStatement(selectQuery);
+            selectStmt.setInt(1, u.getIdUser());
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                // Step 2: Prepare update statement
+                PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                updateStmt.setInt(1, u.getNombreProjet()); // Assign nombreProjet
+                updateStmt.setDouble(2, u.getBudget()); // Assign budget
+                updateStmt.setString(3, u.getDepartementGere()); // Assign departement_géré
+                updateStmt.setInt(4, u.getIdUser()); // Set user ID condition
+
+                // Step 3: Execute update
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("User successfully updated to Manager role.");
+                } else {
+                    System.out.println("No update was made.");
+                }
+
+                // Close statements
+                updateStmt.close();
+            } else {
+                System.out.println("User not found.");
+            }
+
+            rs.close();
+            selectStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

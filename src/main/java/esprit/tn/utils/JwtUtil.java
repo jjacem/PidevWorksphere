@@ -32,7 +32,7 @@ public class JwtUtil {
     }
     public static Role getRoleFromToken(String token) {
         Claims claims = validateToken(token);
-        return Role.valueOf(claims.get("role", String.class)); // Convert string back to enum
+        return Role.valueOf(claims.get("role", String.class));
     }
 
     public static Claims validateToken(String token) {

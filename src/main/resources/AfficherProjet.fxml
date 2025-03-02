@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@AfficherEquipe.css" fx:controller="esprit.tn.controllers.AfficherProjetController">
+
+    <!-- Titre de la Page -->
+    <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Liste des Projets" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
+
+    <!-- Barre de Recherche et Boutons -->
+    <HBox alignment="CENTER_LEFT" spacing="10" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <TextField fx:id="searchField" promptText="Rechercher un projet..." style="-fx-pref-width: 200;" styleClass="search-field" />
+        <Button onAction="#AjouterBTN" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter" />
+        <Button onAction="#supprimerTousProjet" style="-fx-background-color: #ff4444; -fx-text-fill: white;" text="Supprimer Tout" />
+    </HBox>
+
+    <!-- Liste des Projets -->
+    <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="80">
+        <ListView fx:id="projetListView" style="-fx-background-color: white;">
+            <!-- Chaque projet s'affichera sous forme de VBox via le cellFactory -->
+        </ListView>
+    </ScrollPane>
+
+</AnchorPane>
