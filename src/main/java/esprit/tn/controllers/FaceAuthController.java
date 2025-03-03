@@ -28,7 +28,7 @@ public class FaceAuthController {
     public void initialize() {
         capture = new VideoCapture(0);
         frame = new Mat();
-        faceDetector = new CascadeClassifier("resources/haarcascade_frontalface_alt.xml");
+        faceDetector = new CascadeClassifier("C:\\Users\\yassi\\OneDrive\\Documents\\GitHub\\finalone\\safeone\\PidevWorksphere\\target\\classes\\haarcascade_frontalface_alt.xml");
         startCamera();
     }
 

@@ -21,7 +21,8 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/faceauth.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/faceregister.fxml"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Face Authentication");
             primaryStage.show();

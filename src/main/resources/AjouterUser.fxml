@@ -64,6 +64,7 @@
                   <Image url="/Images/profil.png" />
                </image>
             </ImageView>
+
             <Button GridPane.rowIndex="8" GridPane.columnIndex="1" text="Ajouter" onAction="#ajoutercandidat" styleClass="button-ajouter"/>
             <Button GridPane.rowIndex="8" GridPane.columnIndex="2" text="Retour" onAction="#retourner" styleClass="button-ajouter"/>
 
