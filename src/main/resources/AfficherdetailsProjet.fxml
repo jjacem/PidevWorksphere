@@ -41,7 +41,7 @@
         <!-- Conteneur pour la description et le nom du projet alignés à gauche -->
         <VBox alignment="TOP_LEFT" spacing="10" styleClass="description-container">
             <!-- Description du projet alignée à gauche -->
-            <Label fx:id="descriptionProjetLabel" wrapText="true" styleClass="label-text" />
+            <Label fx:id="descriptionProjetLabel" wrapText="true" styleClass="label-text"  />
             <!-- Nom du projet aligné à gauche -->
             <Label fx:id="nomProjetLabel" styleClass="label-title" />
         </VBox>

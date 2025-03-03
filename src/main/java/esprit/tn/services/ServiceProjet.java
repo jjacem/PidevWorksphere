@@ -30,28 +30,40 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         System.out.println("Projet ajouté avec succès.");
     }*/
 
+
     @Override
     public void ajouterProjet(Projet projet) throws SQLException {
         String req = "INSERT INTO projet (nom, description, datecréation, deadline, etat, equipe_id, imageProjet) " +
-                "VALUES ('" + projet.getNom() + "', '" + projet.getDescription() + "', '" +
-                new java.sql.Date(projet.getDatecréation().getTime()) + "', '" +
-                new java.sql.Date(projet.getDeadline().getTime()) + "', '" +
-                projet.getEtat().name() + "', " +
-                (projet.getEquipe() != null ? projet.getEquipe().getId() : "NULL") + ", '" +
-                projet.getImageProjet() + "')";
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(req);
+        try (PreparedStatement statement = connection.prepareStatement(req)) {
+            // Définir les paramètres
+            statement.setString(1, projet.getNom());
+            statement.setString(2, projet.getDescription());
+            statement.setDate(3, new java.sql.Date(projet.getDatecréation().getTime()));
+            statement.setDate(4, new java.sql.Date(projet.getDeadline().getTime()));
+            statement.setString(5, projet.getEtat().name());
+            if (projet.getEquipe() != null) {
+                statement.setInt(6, projet.getEquipe().getId());
+            } else {
+                statement.setNull(6, java.sql.Types.INTEGER); // Gérer le cas où equipe est null
+            }
+            statement.setString(7, projet.getImageProjet());
 
-        // Incrémenter nbrProjet pour l'équipe associée
-        if (projet.getEquipe() != null) {
-            String updateReq = "UPDATE equipe SET nbrProjet = nbrProjet + 1 WHERE id = ?";
-            PreparedStatement updateStatement = connection.prepareStatement(updateReq);
-            updateStatement.setInt(1, projet.getEquipe().getId());
-            updateStatement.executeUpdate();
+            // Exécuter la requête
+            statement.executeUpdate();
+
+            // Incrémenter nbrProjet pour l'équipe associée
+            if (projet.getEquipe() != null) {
+                String updateReq = "UPDATE equipe SET nbrProjet = nbrProjet + 1 WHERE id = ?";
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateReq)) {
+                    updateStatement.setInt(1, projet.getEquipe().getId());
+                    updateStatement.executeUpdate();
+                }
+            }
+
+            System.out.println("Projet ajouté avec succès.");
         }
-
-        System.out.println("Projet ajouté avec succès.");
     }
 
     /*@Override

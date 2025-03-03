@@ -168,16 +168,9 @@ public class AjouterProjetController {
             applyAlertStyle(successAlert);
             successAlert.showAndWait();
 
-            /*// Rediriger vers la page d'affichage des projets
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            DashboardManager dashboardController = loader.getController();
-            dashboardController.loadPage("/AfficherProjet.fxml");*/
-
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.close();
-            //stage.setScene(new Scene(root));
-            //stage.setTitle("Liste Projet");
+
 
         } catch (SQLException  e) {
             e.printStackTrace();

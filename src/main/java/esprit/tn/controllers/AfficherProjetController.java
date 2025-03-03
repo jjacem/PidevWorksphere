@@ -68,84 +68,6 @@ public class AfficherProjetController {
         }
     }
 
-   /* // Méthode pour afficher les projets dans la VBox
-    private void afficherProjets(List<Projet> projets) {
-        projetsContainer.getChildren().clear(); // Vider le conteneur
-
-        if (projets.isEmpty()) {
-            Label messageLabel = new Label("Aucun projet trouvé");
-            messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
-            projetsContainer.getChildren().add(messageLabel);
-        } else {
-            for (Projet projet : projets) {
-                // Créer une carte pour chaque projet
-                HBox card = new HBox(20);
-                card.getStyleClass().add("card");
-                card.setAlignment(Pos.CENTER_LEFT);
-
-                // Ajouter l'image du projet
-                ImageView imageView = new ImageView();
-                if (projet.getImageProjet() != null && !projet.getImageProjet().trim().isEmpty()) {
-                    String correctPath = "C:/xampp/htdocs/img/" + new File(projet.getImageProjet()).getName();
-                    File imageFile = new File(correctPath);
-                    if (imageFile.exists() && imageFile.isFile()) {
-                        imageView.setImage(new Image(imageFile.toURI().toString()));
-                    } else {
-                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
-                    }
-                } else {
-                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
-                }
-                imageView.setFitHeight(80);
-                imageView.setFitWidth(80);
-                imageView.getStyleClass().add("card-image");
-
-                // Informations du projet
-                VBox infoBox = new VBox(5);
-                infoBox.setAlignment(Pos.CENTER_LEFT);
-
-                Label nomLabel = new Label(projet.getNom());
-                nomLabel.getStyleClass().add("card-label");
-
-                Label equipeLabel = new Label("Équipe : " + projet.getEquipe().getNomEquipe());
-                equipeLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
-
-                Label dateCreationLabel = new Label("Créé le : " + projet.getDatecréation());
-                dateCreationLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
-
-                Label deadlineLabel = new Label("Deadline : " + projet.getDeadline());
-                deadlineLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
-
-                Label etatLabel = new Label("État : " + projet.getEtat().name());
-                etatLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
-
-                infoBox.getChildren().addAll(nomLabel, equipeLabel, dateCreationLabel, deadlineLabel, etatLabel);
-
-                // Boutons pour les actions
-                Button detailsButton = new Button("Détails");
-                detailsButton.getStyleClass().addAll("card-button", "details-button");
-                detailsButton.setOnAction(event -> afficherDetailsProjet(projet));
-
-                Button modifierButton = new Button("Modifier");
-                modifierButton.getStyleClass().addAll("card-button", "modifier-button");
-                modifierButton.setOnAction(event -> modifierProjet(projet));
-
-                Button supprimerButton = new Button("Supprimer");
-                supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
-                supprimerButton.setOnAction(event -> supprimerProjet(projet.getId()));
-
-                // Utiliser un Region pour pousser les boutons à droite
-                Region spacer = new Region();
-                HBox.setHgrow(spacer, Priority.ALWAYS);
-
-                // Ajouter les éléments à la carte
-                card.getChildren().addAll(imageView, infoBox, spacer, detailsButton, modifierButton, supprimerButton);
-                projetsContainer.getChildren().add(card);
-            }
-        }
-    }
-*/
-
     private void afficherProjets(List<Projet> projets) {
         projetsContainer.getChildren().clear(); // Vider le conteneur
 
@@ -379,17 +301,7 @@ public class AfficherProjetController {
         }
     }
 
-    @FXML
-    public void versProjet() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) projetsContainer.getScene().getWindow();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @FXML
     private void afficherDetailsProjet(Projet projet) {

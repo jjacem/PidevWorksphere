@@ -1,115 +1,72 @@
-.main-container {
-    -fx-background-color: #f0f4f8;
-    -fx-padding: 20;
-    -fx-border-width: 1;
-    -fx-border-radius: 10;
+/* styles.css */
+
+/* Style pour les ComboBox */
+.combo-box-filter {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #cccccc; /* Bordure grise */
+    -fx-border-radius: 20; /* Coins arrondis */
+    -fx-background-radius: 20; /* Coins arrondis */
+    -fx-padding: 5 10; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+    -fx-pref-width: 150; /* Largeur préférée */
+    -fx-pref-height: 40; /* Hauteur préférée */
 }
 
-.main-card {
-    -fx-background-color: white;
-    -fx-background-radius: 15;
-    -fx-border-radius: 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
-    -fx-padding: 20;
+.combo-box-filter .arrow-button {
+    -fx-background-color: transparent; /* Fond transparent pour le bouton flèche */
 }
 
-.title-label {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-    -fx-padding: 0 0 20 0;
+.combo-box-filter .arrow {
+    -fx-background-color: #333333; /* Couleur de la flèche */
 }
 
-.search-field {
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1;
-    -fx-padding: 10 20;
-    -fx-font-size: 14px;
-    -fx-prompt-text-fill: #999999;
-    -fx-pref-width: 300;
-    -fx-pref-height: 40;
+.combo-box-filter .list-cell {
+    -fx-background-color: white; /* Fond des cellules de la liste */
+    -fx-text-fill: #333333; /* Couleur du texte */
 }
 
-.button-ajouter {
-    -fx-background-color: #0086b3;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20;
-    -fx-padding: 10 20;
-    -fx-pref-width: 180;
-    -fx-pref-height: 40;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+.combo-box-filter .list-cell:hover {
+    -fx-background-color: #0086b3; /* Fond au survol */
+    -fx-text-fill: white; /* Couleur du texte au survol */
 }
 
-.button-ajouter:hover {
-    -fx-background-color: #006699;
+.combo-box-filter .list-view {
+    -fx-background-color: white; /* Fond de la liste déroulante */
+    -fx-border-color: #cccccc; /* Bordure de la liste déroulante */
+    -fx-border-radius: 10; /* Coins arrondis pour la liste déroulante */
+    -fx-background-radius: 10; /* Coins arrondis pour la liste déroulante */
 }
 
-.supprimer-tout-button {
-    -fx-background-color: #f44336;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20;
-    -fx-padding: 10 20;
-    -fx-pref-width: 150;
-    -fx-pref-height: 40;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+/* Style pour les TextField */
+.text-field-filter {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #cccccc; /* Bordure grise */
+    -fx-border-radius: 20; /* Coins arrondis */
+    -fx-background-radius: 20; /* Coins arrondis */
+    -fx-padding: 3 8; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+    -fx-pref-width: 300; /* Largeur préférée */
+    -fx-pref-height: 40; /* Hauteur préférée */
 }
 
-.supprimer-tout-button:hover {
-    -fx-background-color: #d32f2f;
+/* Style pour les TextArea */
+.text-area-filter {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #cccccc; /* Bordure grise */
+    -fx-border-radius: 20; /* Coins arrondis */
+    -fx-background-radius: 20; /* Coins arrondis */
+    -fx-padding: 10; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+    -fx-pref-width:300; /* Largeur préférée */
+    -fx-pref-height: 150; /* Hauteur préférée */
+    -fx-wrap-text: true; /* Retour à la ligne automatique */
 }
 
-.projets-container {
-    -fx-spacing: 15;
-    -fx-background-color: white;
+.text-area-filter .content {
+    -fx-background-color: #ffffff; /* Fond du contenu */
+    -fx-border-radius: 20; /* Coins arrondis */
+    -fx-background-radius: 20; /* Coins arrondis */
 }
-
-.projet-card {
-    -fx-background-color: white;
-    -fx-background-radius: 15;
-    -fx-border-radius: 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
-    -fx-padding: 20;
-    -fx-spacing: 15;
-}
-
-.card-label {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-}
-
-.card-button {
-    -fx-background-radius: 20;
-    -fx-padding: 10 20;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.details-button {
-    -fx-background-color: #0086b3;
-}
-
-.details-button:hover {
-    -fx-background-color: #006699;
-}
-
-.modifier-button {
-    -fx-background-color: #ff9800;
-}
-
-.modifier-button:hover {
-    -fx-background-color: #e68900;
-}
-
-.supprimer-button {
-    -fx-background-color: #f44336;
-}
-
-.supprimer-button:hover {
-    -fx-background-color: #d32f2f;
-}
-

@@ -6,8 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherdetailsProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherdetailsProjetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterProjetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherdetailsProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherdetailsProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/alert-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/alert-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/projet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/projet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +85,7 @@
       <workItem from="1740935930028" duration="96000" />
       <workItem from="1740948105561" duration="16640000" />
       <workItem from="1740989358558" duration="668000" />
-      <workItem from="1741029141314" duration="3306000" />
+      <workItem from="1741029141314" duration="7163000" />
     </task>
     <servers />
   </component>

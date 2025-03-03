@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -9,57 +10,59 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane prefHeight="568.0" prefWidth="700.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierProjetController">
-
+<AnchorPane prefHeight="681.0" prefWidth="619.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierProjetController">
+    <stylesheets>
+        <URL value="@projet.css" /> <!-- Lien vers le fichier CSS -->
+    </stylesheets>
     <!-- Carte Blanche pour le Formulaire -->
-    <VBox alignment="CENTER" layoutX="71.0" layoutY="36.0" prefHeight="471.0" prefWidth="557.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
+    <VBox alignment="CENTER" layoutX="32.0" layoutY="10.0" prefHeight="646.0" prefWidth="566.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
         <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Modifier un Projet" />
 
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Image du Projet:" />
             <!-- Conteneur cliquable pour choisir une image -->
             <StackPane fx:id="imageContainer" onMouseClicked="#uploadImage" style="-fx-border-color: #bdc3c7; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-cursor: hand;">
-                <ImageView fx:id="imagePreview" fitHeight="120" fitWidth="120" preserveRatio="true" />
+                <ImageView fx:id="imagePreview" fitHeight="102.0" fitWidth="108.0" preserveRatio="true" />
             </StackPane>
         </HBox>
 
         <!-- Nom du Projet -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Nom du Projet:" />
-            <TextField fx:id="nomField" promptText="Entrez le nom du projet" style="-fx-pref-width: 300;" />
+            <TextField fx:id="nomField" promptText="Entrez le nom du projet" styleClass="text-field-filter" />
         </HBox>
 
         <!-- Description du Projet -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Description:" />
-            <TextArea fx:id="descriptionField" promptText="Entrez la description du projet" style="-fx-pref-width: 300; -fx-pref-height: 100; " />
+            <TextArea fx:id="descriptionField" promptText="Entrez la description du projet" styleClass="text-area-filter" />
         </HBox>
 
         <!-- Date de Création -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Date de Création:" />
-            <DatePicker fx:id="dateCreationPicker" style="-fx-pref-width: 300; " />
+            <DatePicker fx:id="dateCreationPicker" style="-fx-pref-width: 300;" styleClass="combo-box-filter " />
         </HBox>
 
         <!-- Deadline -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Deadline:" />
-            <DatePicker fx:id="deadlinePicker" style="-fx-pref-width: 300; " />
+            <DatePicker fx:id="deadlinePicker" style="-fx-pref-width: 300;" styleClass="combo-box-filter" />
         </HBox>
 
         <!-- État du Projet -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="État du Projet:" />
-            <ComboBox fx:id="etatComboBox" style="-fx-pref-width: 300; " />
+            <ComboBox fx:id="etatComboBox" style="-fx-pref-width: 300;" styleClass="combo-box-filter" />
         </HBox>
 
         <!-- Équipe -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Équipe:" />
-            <ComboBox fx:id="equipeComboBox" style="-fx-pref-width: 300;" />
+            <ComboBox fx:id="equipeComboBox" style="-fx-pref-width: 300;" styleClass="combo-box-filter" />
         </HBox>
 
         <!-- Bouton Modifier -->
