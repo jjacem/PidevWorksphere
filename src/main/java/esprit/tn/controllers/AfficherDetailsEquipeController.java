@@ -15,13 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import esprit.tn.entities.Equipe;
 import esprit.tn.entities.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.Base64;
 import java.util.List;
 
 public class AfficherDetailsEquipeController {
@@ -48,7 +45,7 @@ public class AfficherDetailsEquipeController {
         afficherDetails();
         generateQRCodeForEquipe(equipe);
     }
-    
+
     private void afficherDetails() {
         nomEquipeLabel.setText(equipe.getNomEquipe());
 
@@ -130,36 +127,32 @@ public class AfficherDetailsEquipeController {
             String searchText = rechercheField.getText().trim();
             List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
 
+            // Vider le conteneur avant d'ajouter de nouveaux éléments
             membresContainer.getChildren().clear();
 
             for (User user : resultats) {
                 HBox card = new HBox(10);
                 card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-
-                // Image du membre
+                // Création de l'image view pour le membre
                 ImageView imageView = new ImageView();
                 String imageProfil = user.getImageProfil();
 
-                if (imageProfil != null && !imageProfil.isEmpty()) {
-                    try {
-
-                        Image image = new Image(imageProfil);
-                        imageView.setImage(image);
-                    } catch (Exception e) {
-                        URL imageUrl = getClass().getResource("/images/profil.png");
-                        if (imageUrl != null) {
-                            Image defaultImage = new Image(imageUrl.toExternalForm());
-                            imageView.setImage(defaultImage);
-                        }
+                if (imageProfil != null && !imageProfil.trim().isEmpty()) {
+                    String correctPath = "C:/xampp/htdocs/img/" + new File(imageProfil).getName();
+                    System.out.println(correctPath); // Debug : afficher le chemin
+                    File imageFile = new File(correctPath);
+                    if (imageFile.exists() && imageFile.isFile()) {
+                        imageView.setImage(new Image(imageFile.toURI().toString()));
+                    } else {
+                        System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                     }
                 } else {
-                    URL imageUrl = getClass().getResource("/images/profil.png");
-                    if (imageUrl != null) {
-                        Image defaultImage = new Image(imageUrl.toExternalForm());
-                        imageView.setImage(defaultImage);
-                    }
+                    System.out.println("No image path provided.");
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                 }
+
 
                 imageView.setFitWidth(50);
                 imageView.setFitHeight(50);
@@ -178,6 +171,7 @@ public class AfficherDetailsEquipeController {
                 card.getChildren().addAll(imageView, infoBox);
                 membresContainer.getChildren().add(card);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

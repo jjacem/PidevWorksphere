@@ -100,14 +100,18 @@ public class AfficherdetailsProjetController {
                 ImageView imageView = new ImageView();
                 String imageProfil = employe.getImageProfil();
 
-                if (imageProfil != null && !imageProfil.isEmpty()) {
-                    try {
-                        Image image = new Image(imageProfil);
-                        imageView.setImage(image);
-                    } catch (Exception e) {
+                if (imageProfil != null && !imageProfil.trim().isEmpty()) {
+                    String correctPath = "C:/xampp/htdocs/img/" + new File(imageProfil).getName();
+                    System.out.println(correctPath); // Debug : afficher le chemin
+                    File imageFile = new File(correctPath);
+                    if (imageFile.exists() && imageFile.isFile()) {
+                        imageView.setImage(new Image(imageFile.toURI().toString()));
+                    } else {
+                        System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
                         imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                     }
                 } else {
+                    System.out.println("No image path provided.");
                     imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                 }
 
@@ -136,37 +140,7 @@ public class AfficherdetailsProjetController {
         }
     }
 
-    /*@FXML
-    private void convertirEnPDF() {
-        try {
-            // Générer le PDF
-            byte[] pdfBytes = PDFGenerator.generateProjetPDF(projet);
 
-            // Chemin complet pour enregistrer le PDF
-            String filePath = "C:/xampp/htdocs/" + projet.getNom().replace(" ", "_") + ".pdf";
-
-            // Écrire le PDF dans un fichier
-            Files.write(Paths.get(filePath), pdfBytes);
-
-            // Afficher un message de succès
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText(null);
-            alert.setContentText("Le PDF a été généré avec succès : " + filePath);
-            applyAlertStyle(alert);
-            alert.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Afficher un message d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Une erreur s'est produite lors de la génération du PDF.");
-            applyAlertStyle(alert);
-            alert.showAndWait();
-        }
-    }*/
     @FXML
     private void convertirEnPDF() {
         try {
