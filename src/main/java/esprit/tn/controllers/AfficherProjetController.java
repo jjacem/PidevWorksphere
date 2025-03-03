@@ -145,13 +145,31 @@ public class AfficherProjetController {
         }
     }
 
+
     @FXML
     private void AjouterBTN() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterProjet.fxml"));
-            Stage stage = (Stage) projetsContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            // Charger le fichier FXML pour la fenêtre d'ajout
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterProjet.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
             stage.setTitle("Ajouter un Projet");
+            stage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
+            stage.showAndWait();
+
+            // Rafraîchir la liste des projets après l'ajout
+            try {
+                List<Projet> projets = serviceProjet.afficherProjet();
+                afficherProjets(projets); // Rafraîchir la liste des projets
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
