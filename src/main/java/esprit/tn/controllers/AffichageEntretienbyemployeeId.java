@@ -128,7 +128,6 @@ public class AffichageEntretienbyemployeeId {
                     Label typeLabel = new Label("📌 Type: " + entretien.getType_entretien());
                     typeLabel.getStyleClass().add("type-label");
 
-                    // Statut
                     Label statutLabel = new Label("✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
                     statutLabel.getStyleClass().add("statut-label");
 
