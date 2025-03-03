@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -42,6 +44,8 @@ public class ModifierProjetController {
     @FXML
     private ImageView imagePreview;
 
+    @FXML
+    private StackPane imageContainer;
 
     @FXML
     private ComboBox<String> equipeComboBox;
@@ -54,26 +58,6 @@ public class ModifierProjetController {
     public ModifierProjetController() {
         serviceProjet = new ServiceProjet();
     }
-
-   /* public void setProjetAModifier(Projet projet) {
-        this.projetAModifier = projet;
-
-        // Convertir java.sql.Date en java.time.LocalDate
-        LocalDate dateCreation = new java.sql.Date(projet.getDatecréation().getTime()).toLocalDate();
-        LocalDate deadline = new java.sql.Date(projet.getDeadline().getTime()).toLocalDate();
-
-        // Initialiser les champs avec les données du projet
-        nomField.setText(projet.getNom());
-        descriptionField.setText(projet.getDescription());
-        dateCreationPicker.setValue(dateCreation);
-        deadlinePicker.setValue(deadline);
-        etatComboBox.setValue(projet.getEtat().name());
-
-        // Sélectionner l'équipe associée au projet dans la ComboBox
-        if (projet.getEquipe() != null) {
-            equipeComboBox.setValue(projet.getEquipe().getNomEquipe());
-        }
-    }*/
 
     public void setProjetAModifier(Projet projet) {
         this.projetAModifier = projet;
@@ -94,13 +78,16 @@ public class ModifierProjetController {
             equipeComboBox.setValue(projet.getEquipe().getNomEquipe());
         }
 
-        // Charger l'image du projet
         if (projet.getImageProjet() != null && !projet.getImageProjet().isEmpty()) {
-            imagePath = projet.getImageProjet();
-            Image image = new Image("file:" + imagePath);
-            imagePreview.setImage(image);
+            String correctPath = "C:/xampp/htdocs/img/" + new File(projet.getImageProjet()).getName();
+            File imageFile = new File(correctPath);
+            if (imageFile.exists() && imageFile.isFile()) {
+                imagePreview.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                imagePreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+            }
+            imagePath = projet.getImageProjet(); // Conserver le chemin de l'image
         } else {
-            // Utiliser une image par défaut si aucune image n'est définie
             imagePreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
         }
     }
@@ -120,101 +107,7 @@ public class ModifierProjetController {
         }
     }
 
-    /*@FXML
-    private void ModifierProjet(ActionEvent event) {
-        try {
 
-            String nom = nomField.getText();
-            String description = descriptionField.getText();
-            LocalDate dateCreationLocal = dateCreationPicker.getValue();
-            LocalDate deadlineLocal = deadlinePicker.getValue();
-            String etat = etatComboBox.getValue();
-            String nomEquipe = equipeComboBox.getValue();
-
-            Equipe equipe = null;
-            List<Equipe> equipes = serviceProjet.getEquipes();
-            for (Equipe e : equipes) {
-                if (e.getNomEquipe().equals(nomEquipe)) {
-                    equipe = e;
-                    break;
-                }
-            }
-
-
-            if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Champs manquants");
-                alert.setHeaderText(null);
-                alert.setContentText("Veuillez remplir tous les champs.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-
-
-            Date dateCreation = java.sql.Date.valueOf(dateCreationLocal);
-            Date deadline = java.sql.Date.valueOf(deadlineLocal);
-
-
-            if (dateCreation.after(deadline)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Erreur de date");
-                alert.setHeaderText(null);
-                alert.setContentText("La date de création ne peut pas être postérieure à la deadline.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-
-            if (serviceProjet.projetExiste(nom) && !nom.equals(projetAModifier.getNom())) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Nom de projet existant");
-                alert.setHeaderText(null);
-                alert.setContentText("Un projet avec ce nom existe déjà. Veuillez choisir un autre nom.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
-                return;
-            }
-
-            projetAModifier.setNom(nom);
-            projetAModifier.setDescription(description);
-            projetAModifier.setDatecréation(dateCreation);
-            projetAModifier.setDeadline(deadline);
-            projetAModifier.setEtat(EtatProjet.valueOf(etat));
-            projetAModifier.setEquipe(equipe);
-
-            serviceProjet.modifierProjet(projetAModifier);
-
-
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Succès");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("Projet modifié avec succès !");
-            applyAlertStyle(successAlert);
-            successAlert.showAndWait();
-
-
-            // Charger le tableau de bord
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir le contrôleur du tableau de bord
-            DashboardManager dashboardController = loader.getController();
-
-            // Charger la page "Projet" dans le tableau de bord
-            dashboardController.loadPage("/AfficherProjet.fxml");
-
-            // Afficher la nouvelle scène
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-
-        }
-    }
-*/
 
     @FXML
     private void ModifierProjet(ActionEvent event) {
@@ -292,15 +185,6 @@ public class ModifierProjetController {
             applyAlertStyle(successAlert);
             successAlert.showAndWait();
 
-           /* // Rediriger vers la page d'affichage des projets
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            DashboardManager dashboardController = loader.getController();
-            dashboardController.loadPage("/AfficherProjet.fxml");
-
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");*/
             Stage stage = (Stage) nomField.getScene().getWindow();
             stage.close();
 
@@ -308,28 +192,6 @@ public class ModifierProjetController {
             e.printStackTrace();
         }
     }
-
-    /*@FXML
-    private void Retour(ActionEvent event) {
-        try {
-            // Charger le tableau de bord
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir le contrôleur du tableau de bord
-            DashboardManager dashboardController = loader.getController();
-
-            // Charger la page "Projet" dans le tableau de bord
-            dashboardController.loadPage("/AfficherProjet.fxml");
-
-            // Afficher la nouvelle scène
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
     private void applyAlertStyle(Alert alert) {
@@ -339,7 +201,8 @@ public class ModifierProjetController {
     }
 
     @FXML
-    private void uploadImage(ActionEvent event) {
+    //private void uploadImage(ActionEvent event) {
+    private void uploadImage(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(

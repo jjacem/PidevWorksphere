@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierProjetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierProjet.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740935928311</updated>
       <workItem from="1740935930028" duration="96000" />
-      <workItem from="1740948105561" duration="13559000" />
+      <workItem from="1740948105561" duration="14385000" />
     </task>
     <servers />
   </component>

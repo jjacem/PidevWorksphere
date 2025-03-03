@@ -11,17 +11,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.StackPane?>
 <AnchorPane prefHeight="568.0" prefWidth="700.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierProjetController">
 
     <!-- Carte Blanche pour le Formulaire -->
     <VBox alignment="CENTER" layoutX="71.0" layoutY="36.0" prefHeight="471.0" prefWidth="557.0" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
         <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Modifier un Projet" />
 
-        <!-- Image du Projet -->
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label minWidth="120" style="-fx-font-size: 14; -fx-text-fill: #555;" text="Image du Projet:" />
-            <Button onAction="#uploadImage" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10; -fx-background-radius: 5;" text="Télécharger une image" />
-            <ImageView fx:id="imagePreview" fitHeight="50" fitWidth="50" preserveRatio="true" />
+            <!-- Conteneur cliquable pour choisir une image -->
+            <StackPane fx:id="imageContainer" onMouseClicked="#uploadImage" style="-fx-border-color: #bdc3c7; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-cursor: hand;">
+                <ImageView fx:id="imagePreview" fitHeight="120" fitWidth="120" preserveRatio="true" />
+            </StackPane>
         </HBox>
 
         <!-- Nom du Projet -->
