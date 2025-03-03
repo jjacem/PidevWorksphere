@@ -11,7 +11,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.DashboardHR">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f4f4f4;"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.DashboardHR">
 
     <stylesheets>
         <URL value="@menu.css" />
@@ -70,7 +72,8 @@
 
     <!-- Main Content -->
     <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
-        <!-- Content will be loaded dynamically here -->
+        <VBox fx:id="quoteContainer" />
+
     </VBox>
 
 </AnchorPane>

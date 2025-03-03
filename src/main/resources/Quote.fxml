@@ -3,8 +3,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="663.0" prefWidth="1028.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.QuoteController">
-    <Label fx:id="quoteLabel" text="Click the button to get a random quote!" wrapText="true" />
-    <Button fx:id="fetchButton" text="Get Quote" />
+<VBox alignment="CENTER" prefHeight="663.0" prefWidth="1028.0" spacing="20"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="esprit.tn.controllers.QuoteController" stylesheets="@Quote.css">
+    <Label fx:id="quoteLabel" text="Click the button to get a random quote!" wrapText="true" styleClass="quote-label" />
+    <Button fx:id="fetchButton" text="Get Quote" styleClass="fetch-button" />
 </VBox>

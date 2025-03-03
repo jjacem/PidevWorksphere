@@ -104,18 +104,20 @@ public class AfficherEvenementController {
 
                        // Coordonnées géographiques du lieu
                        String coordinates = NominatimAPI.getCoordinates(evenement.getLieuEvent());
-                       Text coordonneesText = new Text("Coordonnées: " + coordinates);
-                       coordonneesText.getStyleClass().add("event-text");
+                       //Text coordonneesText = new Text("Coordonnées: " + coordinates);
+                      // coordonneesText.getStyleClass().add("event-text");
 
                        // Ajouter les éléments au VBox
-                       vbox.getChildren().addAll(nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent, coordonneesText);
+                       vbox.getChildren().addAll(nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent);
 
                        // Créer un HBox pour les boutons
                        HBox hboxButtons = new HBox(10);
                        hboxButtons.setAlignment(Pos.CENTER_RIGHT);
 
 
-                       Button btnAfficherCarte = new Button("Afficher sur la carte");
+                       Button btnAfficherCarte = new Button("\uD83D\uDCCD");
+                       btnAfficherCarte.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white;");
+
                        btnAfficherCarte.setOnAction(event -> {
                            try {
                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCarte.fxml"));
@@ -237,7 +239,7 @@ public class AfficherEvenementController {
 
             // Créer une nouvelle scène
             Stage popupStage = new Stage();
-            popupStage.setTitle("Ajouter un Événement");
+            popupStage.setTitle("➕ Ajouter un Événement");
             popupStage.setScene(new Scene(root));
 
             // Empêcher l'interaction avec la fenêtre principale tant que la popup est ouverte
