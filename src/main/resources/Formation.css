@@ -225,4 +225,41 @@
     -fx-background-color:#d80d27;
 }
 
+.combo-box-filter {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #cccccc; /* Bordure grise */
+    -fx-border-radius: 20; /* Coins arrondis */
+    -fx-background-radius: 20; /* Coins arrondis */
+    -fx-padding: 5 10; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+    -fx-pref-width: 150; /* Largeur préférée */
+    -fx-pref-height: 20; /* Hauteur préférée */
+}
+
+.combo-box-filter .arrow-button {
+    -fx-background-color: transparent; /* Fond transparent pour le bouton flèche */
+}
+
+.combo-box-filter .arrow {
+    -fx-background-color: #333333; /* Couleur de la flèche */
+}
+
+.combo-box-filter .list-cell {
+    -fx-background-color: white; /* Fond des cellules de la liste */
+    -fx-text-fill: #333333; /* Couleur du texte */
+}
+
+.combo-box-filter .list-cell:hover {
+    -fx-background-color: #0086b3; /* Fond au survol */
+    -fx-text-fill: white; /* Couleur du texte au survol */
+}
+
+.combo-box-filter .list-view {
+    -fx-background-color: white; /* Fond de la liste déroulante */
+    -fx-border-color: #cccccc; /* Bordure de la liste déroulante */
+    -fx-border-radius: 10; /* Coins arrondis pour la liste déroulante */
+    -fx-background-radius: 10; /* Coins arrondis pour la liste déroulante */
+}
+
 

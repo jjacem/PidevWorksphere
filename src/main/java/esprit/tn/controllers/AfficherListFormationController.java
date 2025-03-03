@@ -8,6 +8,7 @@ import esprit.tn.services.ServiceFormation;
 import esprit.tn.entities.Formation;
 
 import esprit.tn.utils.SessionManager;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,8 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,12 +52,70 @@ public class AfficherListFormationController {
     private VBox listformationid;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private Button Btnfavori;
+    @FXML
+    private ComboBox <String> typeFilter;
+    @FXML
+    private ComboBox <String>  dateFilter;
+
 
     @FXML
     public void initialize() {
         scrollPane.setFitToWidth(true);
         listformationid.getStyleClass().addAll("list", "list-view");
         populateFormations();
+        initializeFilters();
+    }
+    private void initializeFilters() {
+        typeFilter.setItems(FXCollections.observableArrayList("Tous", "Distanciel", "Présentiel"));
+        typeFilter.setValue("Tous");
+
+        dateFilter.setItems(FXCollections.observableArrayList(
+                "Toutes dates", "Semaine prochaine", "15 jours prochains", "Mois prochain"
+        ));
+        dateFilter.setValue("Toutes dates");
+
+        typeFilter.setOnAction(event -> filterFormations());
+        dateFilter.setOnAction(event -> filterFormations());
+    }
+    private void filterFormations() {
+        String searchText = Trecherche.getText().toLowerCase();
+        String selectedType = typeFilter.getValue();
+        String selectedDate = dateFilter.getValue();
+        LocalDate today = LocalDate.now();
+
+        try {
+            List<Formation> formations = formationService.getListFormation();
+
+            List<Formation> filteredFormations = formations.stream()
+                    .filter(f -> searchText.isEmpty() || f.getTitre().toLowerCase().contains(searchText))
+                    .filter(f -> {
+                        if ("Tous".equals(selectedType)) return true;
+                        return "Distanciel".equals(selectedType) ? f.getType() == Typeformation.Distanciel : f.getType() == Typeformation.Présentiel;
+                    })
+                    .filter(f -> {
+                        LocalDate formationDate = f.getDate();
+                        long daysBetween = ChronoUnit.DAYS.between(today, formationDate);
+                        switch (selectedDate) {
+                            case "Semaine prochaine": return daysBetween >= 0 && daysBetween <= 7;
+                            case "15 jours prochains": return daysBetween >= 0 && daysBetween <= 15;
+                            case "Mois prochain": return daysBetween >= 0 && daysBetween <= 30;
+                            default: return true;
+                        }
+                    })
+                    .collect(Collectors.toList());
+
+            displayFormations(filteredFormations);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void displayFormations(List<Formation> formations) {
+        listformationid.getChildren().clear();
+        for (Formation formation : formations) {
+            listformationid.getChildren().add(createFormationBox(formation));
+        }
     }
 
     private void populateFormations() {
@@ -325,7 +386,9 @@ public class AfficherListFormationController {
         dialogPane.getStyleClass().add("dialog-pane");
     }
 
-    @FXML
+
+
+    @Deprecated
     public void retourdashRH(ActionEvent actionEvent) {
     }
 
