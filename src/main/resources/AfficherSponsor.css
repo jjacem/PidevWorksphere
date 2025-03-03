@@ -106,7 +106,7 @@
     -fx-text-fill: white; /* Texte blanc */
     -fx-border-radius: 5; /* Coins arrondis */
     -fx-background-radius: 5; /* Coins arrondis */
-    -fx-padding: 10; /* Espacement intérieur */
+
 }
 
 .add-button:hover {
@@ -117,10 +117,10 @@
 .title-label {
     -fx-text-fill: #0086b3; /* Couleur bleue */
     -fx-font-size: 24px; /* Taille de police */
-    -fx-font-weight: bold; /* Texte en gras */
+
 }
 
-/* AfficherSponsor.css */
+
 
 /* Style général de la ListView */
 .list-view {
@@ -147,7 +147,7 @@
 
 /* Style des détails du sponsor */
 .sponsor-detail {
-    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-size: 12px; /* Taille de police */
     -fx-fill: #555555; /* Couleur du texte */
 }
 
@@ -207,12 +207,11 @@
 
 /* Style pour le bouton "Réinitialiser" */
 #btnResetFilter {
-    -fx-background-color: black; /* Couleur de fond */
-    -fx-text-fill: white; /* Couleur du texte */
-    -fx-font-size: 14px; /* Taille de la police */
-    -fx-font-weight: bold; /* Gras */
-    -fx-padding: 10px 20px; /* Espacement interne */
-    -fx-border-radius: 5px; /* Bordure arrondie */
+    -fx-background-color: black; /* Couleur bleue */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-background-radius: 5; /* Coins arrondis */
+    -fx-padding: 5; /* Espacement intérieur */
 }
 
 /* Style pour le bouton "Réinitialiser" lorsqu'il est survolé */
@@ -246,4 +245,80 @@
 .combo-box .list-cell:selected {
     -fx-background-color: #0086b3; /* Même couleur que le survol */
     -fx-text-fill: white;
+}
+/* Style du VBox dans chaque cellule */
+.vbox-item {
+    -fx-spacing: 10; /* Espacement entre les éléments */
+    -fx-padding: 10; /* Marge intérieure */
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #e0e0e0; /* Bordure grise */
+    -fx-border-radius: 5; /* Coins arrondis */
+}
+
+/* Style des boutons dans le VBox */
+.vbox-item .button {
+    -fx-min-width: 150; /* Largeur minimale des boutons */
+    -fx-max-width: 150; /* Largeur maximale des boutons */
+    -fx-alignment: center; /* Centrer le texte dans les boutons */
+}
+
+
+/* Style du texte des sponsors */
+.sponsor-text {
+    -fx-font-size: 14px; /* Taille de police */
+
+    -fx-fill: #333333; /* Couleur du texte */
+    -fx-wrap-text: true; /* Retour à la ligne si le texte dépasse la largeur */
+}
+
+/* Style du HBox pour les boutons */
+.hbox-buttons {
+    -fx-spacing: 10; /* Espacement entre les boutons */
+    -fx-alignment: center-left; /* Alignement des boutons */
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-radius: 5; /* Coins arrondis */
+    -fx-padding: 5 10; /* Espacement intérieur */
+    -fx-font-size: 12px; /* Taille de police */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-min-width: 120; /* Largeur minimale des boutons */
+    -fx-max-width: 120; /* Largeur maximale des boutons */
+}
+
+/* Bouton Modifier */
+.btn-modifier {
+    -fx-background-color: #ffc400; /* Couleur jaune */
+}
+
+.btn-modifier:hover {
+    -fx-background-color: #e6b000; /* Couleur jaune foncé au survol */
+}
+
+/* Bouton Supprimer */
+.btn-supprimer {
+    -fx-background-color: #ff4444; /* Couleur rouge */
+}
+
+.btn-supprimer:hover {
+    -fx-background-color: #cc0000; /* Couleur rouge foncé au survol */
+}
+
+/* Bouton Supprimer Association */
+.btn-supprimer-association {
+    -fx-background-color: #ff0000; /* Couleur rouge vif */
+}
+
+.btn-supprimer-association:hover {
+    -fx-background-color: #cc0000; /* Couleur rouge foncé au survol */
+}
+
+/* Bouton Associer Événement */
+.btn-associer-evenement {
+    -fx-background-color: #4CAF50; /* Couleur verte */
+}
+
+.btn-associer-evenement:hover {
+    -fx-background-color: #45a049; /* Couleur verte foncée au survol */
 }

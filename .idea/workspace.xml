@@ -5,21 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/DureeContrat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/EvenementSponsor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EventSponsorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contrat_Sponsoring_sponsor3_nabeul event.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Contrat_Sponsoring_sponsor3_nabeul event.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/SponsorEventsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/EvenementSponsor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/EvenementSponsor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EventSponsorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/EventSponsorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceSponsor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceSponsor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Quote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Quote.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
@@ -33,26 +37,27 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-        &quot;lastFilter&quot;: {
-        &quot;state&quot;: &quot;OPEN&quot;,
-        &quot;assignee&quot;: &quot;eyakassous5&quot;
-        }
-        }</component>
-  <component name="GithubPullRequestsUISettings">{
-        &quot;selectedUrlAndAccountId&quot;: {
-        &quot;url&quot;: &quot;https://github.com/jjacem/PidevWorksphere.git&quot;,
-        &quot;accountId&quot;: &quot;669d9986-2012-4d27-a05c-bc4e299fb965&quot;
-        }
-        }</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "eyakassous5"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jjacem/PidevWorksphere.git",
+    "accountId": "d900a9a0-bcb0-4c7e-8d3e-d23966fe9f26"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
         &quot;associatedIndex&quot;: 0
         }</component>
@@ -66,8 +71,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
     "Application.MainFX.executor": "Run",
+    "Maven.Worksphere [clean].executor": "Run",
     "Maven.Worksphere [javafx:run].executor": "Run",
     "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
     "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor": "Run",
@@ -78,6 +84,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere/src/main/resources/icons",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -197,6 +204,7 @@
       <workItem from="1740524383985" duration="1434000" />
       <workItem from="1740611391682" duration="1100000" />
       <workItem from="1740644917890" duration="2829000" />
+      <workItem from="1740947082369" duration="14784000" />
     </task>
     <servers />
   </component>
@@ -232,6 +240,15 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEvenement.java</url>
+          <line>144</line>
+          <properties class="esprit.tn.services.ServiceEvenement" method="getEventIdByName">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.ClassCastException" package="java.lang" />

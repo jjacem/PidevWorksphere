@@ -16,8 +16,17 @@ public class Main {
 
         connection = MyDatabase.getInstance().getConnection();
 
-        EventSponsorService sspos=new EventSponsorService();
-        sspos.afficher();
+        ServiceSponsor sspos=new ServiceSponsor();
+        System.out.println(sspos.getSponsorEmailById(1));
+        /*try {
+            ServiceEvenement serviceEvenement = new ServiceEvenement();
+            Integer eventId = serviceEvenement.getEventIdByName("Université de Tunis El Manar");
+            System.out.println("ID de l'événement : " + eventId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+        /*EventSponsorService sspos=new EventSponsorService();
+        sspos.afficher();*/
 
 //        //test
 //        //user

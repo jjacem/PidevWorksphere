@@ -1,0 +1,63 @@
+/* Style global pour le texte */
+.text {
+    -fx-font-size: 14px;
+    -fx-font-family: "System";
+    -fx-fill: #333333;
+    -fx-font-weight: normal;
+}
+
+/* Style pour le titre */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0086b3; /* Couleur bleue */
+    -fx-padding: 10 0 10 0; /* Espacement autour du titre */
+}
+
+/* Style pour la ListView */
+.custom-list-view {
+    -fx-background-color: #f9f9f9; /* Fond gris clair */
+    -fx-border-color: #0086b3; /* Bordure bleue */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+/* Style pour les cellules de la ListView */
+.custom-list-view .list-cell {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #e0e0e0; /* Bordure grise */
+    -fx-border-width: 0 0 1 0; /* Bordure uniquement en bas */
+    -fx-padding: 10; /* Espacement intérieur */
+}
+
+/* Style pour les cellules sélectionnées */
+.custom-list-view .list-cell:selected {
+    -fx-background-color: #0086b3; /* Fond bleu */
+    -fx-text-fill: white; /* Texte blanc */
+}
+
+/* Style pour les cellules survolées */
+.custom-list-view .list-cell:hover {
+    -fx-background-color: #f0f0f0; /* Fond gris clair */
+}
+
+/* Style pour le bouton de rafraîchissement */
+.refresh-button {
+    -fx-background-color: #0086b3; /* Fond bleu */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20; /* Espacement intérieur */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-background-radius: 5; /* Coins arrondis */
+}
+
+/* Effet de survol pour le bouton */
+.refresh-button:hover {
+    -fx-background-color: #006699; /* Fond bleu foncé */
+}
+
+/* Effet de clic pour le bouton */
+.refresh-button:pressed {
+    -fx-background-color: #004466; /* Fond bleu encore plus foncé */
+}

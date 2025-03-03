@@ -51,11 +51,11 @@ public class EvenementSponsor {
 
     @Override
     public String toString() {
-        return "EvenementSponsor{" +
-                "evenementId=" + evenementId +
-                ", sponsorId=" + sponsorId +
-                ", datedebutContrat=" + datedebutContrat +
-                ", duree='" + duree + '\'' +
-                '}';
+        return
+                "\uD83D\uDCC5 evenementId=" + evenementId + "\n" +
+                "\uD83E\uDD1D sponsorId=" + sponsorId + "\n"+
+                "\uD83D\uDE80 datedebutContrat=" + datedebutContrat + "\n"+
+                "⏳ duree='" + duree +  "\n"
+                ;
     }
 }

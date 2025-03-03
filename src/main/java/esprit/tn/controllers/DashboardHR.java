@@ -127,7 +127,7 @@ public class DashboardHR {
 
     @FXML
     public void Effectuersponsor(ActionEvent actionEvent) {
-        loadPage("/Sponsor_events.fxml");
+        loadPage("/EvenementSponsor.fxml");
 
     }
 

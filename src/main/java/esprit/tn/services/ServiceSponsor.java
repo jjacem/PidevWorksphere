@@ -168,51 +168,7 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
 
-    public List<Integer> getSponsorIds() {
-        List<Integer> sponsorIds = new ArrayList<>();
-        String query = "SELECT idSponsor FROM sponsor";
 
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) { // Use the existing connection
-
-            while (resultSet.next()) {
-                sponsorIds.add(resultSet.getInt("idSponsor"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des IDs des sponsors: " + e.getMessage());
-        }
-
-        return sponsorIds;
-    }
-
-
-    public List<String> getSponsorEmails() {
-        List<String> sponsorEmails = new ArrayList<>();
-        String query = "SELECT emailSponso FROM sponsor";
-
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) { // Utiliser la connexion existante
-
-            while (resultSet.next()) {
-                sponsorEmails.add(resultSet.getString("emailSponso"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des emails des sponsors: " + e.getMessage());
-        }
-
-        return sponsorEmails;
-    }
-    public Integer getSponsorIdByEmail(String sponsorEmail) throws SQLException {
-        String query = "SELECT idSponsor FROM sponsor WHERE emailSponso = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, sponsorEmail);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt("idSponsor");
-            }
-        }
-        return null; // Retourner null si aucun résultat trouvé
-    }
 
 
 
@@ -234,24 +190,7 @@ public class ServiceSponsor implements IService<Sponsor> {
         return null;
     }
 
-    /*public List<String> getEventNamesBySponsor(int sponsorId) throws SQLException {
-        List<String> eventNames = new ArrayList<>();
-        String query = "SELECT e.nomEvent FROM evennement e " +
-                "JOIN evenement_sponsor es ON e.idEvent = es.evenement_id " +
-                "WHERE es.sponsor_id = ?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, sponsorId); // On passe l'id du sponsor à la requête
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                eventNames.add(resultSet.getString("nomEvent")); // Ajout du nom de l'événement à la liste
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des événements sponsorisés : " + e.getMessage());
-        }
-
-        return eventNames; // Retourne la liste des noms d'événements
-    }*/
 
     public List<String> getEventNamesBySponsor(int sponsorId) throws SQLException {
         List<String> eventNames = new ArrayList<>();
@@ -276,44 +215,7 @@ public class ServiceSponsor implements IService<Sponsor> {
     }
 
 
-  /*  public void supprimerAssociationEventSponsor(int sponsorId, int evenementId) throws SQLException {
-        // Vérification de l'existence de l'événement
-        String checkEventQuery = "SELECT COUNT(*) FROM evennement WHERE idEvent = ?";
-        try (PreparedStatement psCheckEvent = connection.prepareStatement(checkEventQuery)) {
-            psCheckEvent.setInt(1, evenementId);
-            ResultSet rs = psCheckEvent.executeQuery();
-            if (!rs.next() || rs.getInt(1) == 0) {
-                System.out.println("Erreur : L'événement n'existe pas.");
-                return;
-            }
-        }
 
-        // Vérification de l'existence du sponsor
-        String checkSponsorQuery = "SELECT COUNT(*) FROM sponsor WHERE idSponsor = ?";
-        try (PreparedStatement psCheckSponsor = connection.prepareStatement(checkSponsorQuery)) {
-            psCheckSponsor.setInt(1, sponsorId);
-            ResultSet rs = psCheckSponsor.executeQuery();
-            if (!rs.next() || rs.getInt(1) == 0) {
-                System.out.println("Erreur : Le sponsor n'existe pas.");
-                return;
-            }
-        }
-
-        // Suppression de l'association dans la table evenement_sponsor
-        String deleteAssociationQuery = "DELETE FROM evenement_sponsor WHERE evenement_id = ? AND sponsor_id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteAssociationQuery)) {
-            preparedStatement.setInt(1, evenementId);
-            preparedStatement.setInt(2, sponsorId);
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Association supprimée avec succès !");
-            } else {
-                System.out.println("Aucune association trouvée pour cet événement et ce sponsor.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression de l'association : " + e.getMessage());
-        }
-    }*/
 
 
 
@@ -346,5 +248,22 @@ public class ServiceSponsor implements IService<Sponsor> {
             }
         }
         throw new SQLException("Événement non trouvé : " + eventName);
+    }
+
+
+    public String getSponsorEmailById(int sponsorId) throws SQLException {
+        String query = "SELECT emailSponso FROM sponsor WHERE idSponsor = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, sponsorId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("emailSponso");
+            } else {
+                throw new SQLException("Aucun sponsor trouvé avec l'ID : " + sponsorId);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'e-mail du sponsor : " + e.getMessage());
+            throw e;
+        }
     }
 }
