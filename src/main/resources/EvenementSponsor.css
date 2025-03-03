@@ -4,6 +4,7 @@
     -fx-font-family: "System";
     -fx-fill: #333333;
     -fx-font-weight: normal;
+
 }
 .combo-box {
     -fx-background-color: #0086b3; /* Couleur de fond */

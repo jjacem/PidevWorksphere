@@ -68,114 +68,7 @@ public class AfficherSponsorController {
 
         // Configurer la ListView
         lv_sponsor.setCellFactory(param -> new ListCell<Sponsor>() {
-           /* @Override
-            protected void updateItem(Sponsor sponsor, boolean empty) {
-                super.updateItem(sponsor, empty);
-                if (empty || sponsor == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    try {
-                        // Récupérer les événements associés au sponsor
-                        List<String> eventNames = serviceSponsor.getEventNamesBySponsor(sponsor.getIdSponsor());
-                        String eventsText = String.join(", ", eventNames);
 
-                        // Créer un texte pour afficher les informations du sponsor
-                        Text sponsorText = new Text(sponsor.getNomSponso() + " " + sponsor.getPrenomSponso() + " - " +
-                                sponsor.getEmailSponso() + " - Budget: " + sponsor.getBudgetSponso() +
-                                "\nÉvénements associés : " + (eventsText.isEmpty() ? "Aucun événement" : eventsText));
-                        sponsorText.getStyleClass().add("sponsor-text");
-
-                        // Boutons pour modifier et supprimer
-                        Button btnModifier = new Button("Modifier");
-                        btnModifier.getStyleClass().add("btn-modifier");
-                        btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
-                        btnModifier.setOnAction(event -> {
-                            try {
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierSponsor.fxml"));
-                                Parent root = loader.load();
-
-                                ModifierSponsorController controller = loader.getController();
-                                controller.setSponsor(sponsor);
-
-                                Stage popupStage = new Stage();
-                                popupStage.setTitle("Modifier Sponsor");
-                                popupStage.setScene(new Scene(root));
-                                popupStage.initModality(Modality.APPLICATION_MODAL);
-                                popupStage.showAndWait();
-
-                                reloadSponsorList();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-
-                        Button btnSupprimer = new Button("Supprimer");
-                        btnSupprimer.getStyleClass().add("btn-supprimer");
-                        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-
-                        btnSupprimer.setOnAction(event -> {
-                            try {
-                                Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
-                                alertConfirmation.setTitle("Confirmation");
-                                alertConfirmation.setHeaderText("Voulez-vous vraiment supprimer ce sponsor ?");
-                                alertConfirmation.setContentText("Cette action est irréversible.");
-
-                                if (alertConfirmation.showAndWait().get() == ButtonType.OK) {
-                                    serviceSponsor.supprimer(sponsor.getIdSponsor());
-                                    reloadSponsorList();
-
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setTitle("Succès");
-                                    alert.setHeaderText("Suppression réussie");
-                                    alert.setContentText("Le sponsor a été supprimé avec succès.");
-                                    alert.showAndWait();
-                                }
-                            } catch (SQLException e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("Erreur");
-                                alert.setHeaderText("Erreur lors de la suppression du sponsor");
-                                alert.setContentText("Une erreur est survenue : " + e.getMessage());
-                                alert.showAndWait();
-                            }
-                        });
-
-                        // Bouton Supprimer Association
-                        Button btnSupprimerAssociation = new Button("Supprimer Association");
-                        btnSupprimerAssociation.getStyleClass().add("btn-supprimer-association");
-                        btnSupprimerAssociation.setStyle("-fx-background-color: #ff0000; -fx-text-fill: white;");
-
-                        btnSupprimerAssociation.setOnAction(event -> {
-                            try {
-                                removeSponsorFromEvent(sponsor);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        });
-
-                        // Bouton Associer Événement
-                        Button btnAssocierEvenement = new Button("Associer Événement");
-                        btnAssocierEvenement.getStyleClass().add("btn-associer-evenement");
-                        btnAssocierEvenement.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-
-                        btnAssocierEvenement.setOnAction(event -> {
-                            try {
-                                associerEvenement(sponsor);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        });
-
-                        // Ajouter les éléments dans un HBox
-                        HBox hbox = new HBox(10, sponsorText, btnModifier, btnSupprimer, btnSupprimerAssociation, btnAssocierEvenement);
-                        hbox.getStyleClass().add("hbox-item");
-                        setGraphic(hbox);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }*/
            @Override
            protected void updateItem(Sponsor sponsor, boolean empty) {
                super.updateItem(sponsor, empty);
@@ -189,17 +82,17 @@ public class AfficherSponsorController {
                        String eventsText = String.join(", ", eventNames);
 
                        // Créer un texte pour afficher les informations du sponsor
-                       Text sponsorText = new Text(sponsor.getNomSponso() + " " + sponsor.getPrenomSponso() + " - " +
-                               sponsor.getEmailSponso() + " - Budget: " + sponsor.getBudgetSponso() +
-                               "\nÉvénements associés : " + (eventsText.isEmpty() ? "Aucun événement" : eventsText));
+                       Text sponsorText = new Text("\uD83D\uDCB0 "+sponsor.getNomSponso() + " " + sponsor.getPrenomSponso()  + "\n" +
+                               "   Email: " + sponsor.getEmailSponso() + "\n"+
+                               "   Budget: " + sponsor.getBudgetSponso()  + "\n"+  "\n"+
+                               "\n \uD83D\uDCC5 Événements associés : " + "\n"+ (eventsText.isEmpty() ? "Aucun événement" : eventsText));
                        sponsorText.getStyleClass().add("sponsor-text");
                        sponsorText.setWrappingWidth(500); // Définir une largeur maximale pour le texte
-
+                       sponsorText.setStyle("-fx-font-weight: normal;");
                        // Boutons pour modifier et supprimer
-                       Button btnModifier = new Button("Modifier");
+                       Button btnModifier = new Button("\uD83D\uDCDD");
                        btnModifier.getStyleClass().add("btn-modifier");
                        btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
                        btnModifier.setOnAction(event -> {
                            try {
                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierSponsor.fxml"));
@@ -220,7 +113,7 @@ public class AfficherSponsorController {
                            }
                        });
 
-                       Button btnSupprimer = new Button("Supprimer");
+                       Button btnSupprimer = new Button("❌");
                        btnSupprimer.getStyleClass().add("btn-supprimer");
                        btnSupprimer.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 
@@ -443,8 +336,108 @@ public class AfficherSponsorController {
     }
     // Méthode pour associer un sponsor à un événement
 
-
     private void associerEvenement(Sponsor sponsor) throws SQLException {
+        // Récupérer la liste des événements disponibles
+        List<String> eventNames = serviceEvenement.getEventNames();
+
+        if (eventNames.isEmpty()) {
+            showAlert("Aucun événement disponible", "Il n'y a aucun événement à associer.");
+            return;
+        }
+
+        // Créer une nouvelle fenêtre (popup)
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Associer un événement");
+
+        // Créer un conteneur pour la popup
+        VBox popupLayout = new VBox(10);
+        popupLayout.setPadding(new Insets(10));
+
+        // ComboBox pour sélectionner l'événement
+        ComboBox<String> cbEvent = new ComboBox<>(FXCollections.observableArrayList(eventNames));
+        cbEvent.setPromptText("Sélectionnez un événement");
+
+        // DatePicker pour choisir la date de début du contrat
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText("Date de début du contrat");
+
+        // ComboBox pour choisir la durée du contrat
+        ComboBox<String> cbDuree = new ComboBox<>(FXCollections.observableArrayList("troisMois", "sixMois", "unAns"));
+        cbDuree.setPromptText("Choisissez la durée");
+
+        // Label pour afficher les erreurs
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(javafx.scene.paint.Color.RED);
+
+        // Bouton pour valider l'association
+        Button btnValider = new Button("Valider");
+        btnValider.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+
+        // Gérer le clic sur le bouton Valider
+        btnValider.setOnAction(event -> {
+            // Réinitialiser le message d'erreur
+            errorLabel.setText("");
+
+            // Vérifier que tous les champs sont remplis
+            if (cbEvent.getValue() == null || datePicker.getValue() == null || cbDuree.getValue() == null) {
+                errorLabel.setText("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            // Vérifier que la date de début est supérieure à la date d'aujourd'hui
+            if (datePicker.getValue().isBefore(java.time.LocalDate.now())) {
+                errorLabel.setText("La date de début doit être supérieure à la date d'aujourd'hui.");
+                return;
+            }
+
+            try {
+                // Récupérer les valeurs saisies
+                String selectedEventName = cbEvent.getValue();
+                Date datedebutContrat = Date.valueOf(datePicker.getValue()); // Convertir LocalDate en java.sql.Date
+                String duree = cbDuree.getValue();
+
+                // Récupérer l'ID de l'événement sélectionné
+                int eventId = serviceEvenement.getEventIdByName(selectedEventName);
+
+                // Vérifier si l'événement est déjà associé au sponsor
+                boolean isAlreadyAssociated = serviceSponsor.isEventAssociatedWithSponsor(sponsor.getIdSponsor(), eventId);
+
+                if (isAlreadyAssociated) {
+                    // Mettre à jour l'association existante
+                    serviceSponsor.updateAssociation(sponsor.getIdSponsor(), eventId, datedebutContrat, duree);
+                    showAlert("Mise à jour réussie", "L'association a été mise à jour avec succès.");
+                } else {
+                    // Ajouter une nouvelle association
+                    serviceSponsor.ajouterEvenementASponsor(sponsor.getIdSponsor(), eventId, datedebutContrat, duree);
+                    showAlert("Association réussie", "L'événement a été associé au sponsor avec succès.");
+                }
+
+                // Recharger la liste des sponsors
+                reloadSponsorList();
+
+                // Fermer la popup
+                popupStage.close();
+            } catch (SQLException e) {
+                showAlert("Erreur", "Une erreur est survenue : " + e.getMessage());
+            }
+        });
+
+        // Ajouter les éléments à la popup
+        popupLayout.getChildren().addAll(
+                new Label("Événement :"), cbEvent,
+                new Label("Date de début du contrat :"), datePicker,
+                new Label("Durée du contrat :"), cbDuree,
+                btnValider,
+                errorLabel
+        );
+
+        // Configurer la scène et afficher la popup
+        Scene popupScene = new Scene(popupLayout, 300, 250);
+        popupStage.setScene(popupScene);
+        popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquer l'interaction avec la fenêtre principale
+        popupStage.showAndWait(); // Attendre que la popup se ferme
+    }
+    /*private void associerEvenement(Sponsor sponsor) throws SQLException {
         // Récupérer la liste des événements disponibles
         List<String> eventNames = serviceEvenement.getEventNames();
 
@@ -530,5 +523,5 @@ public class AfficherSponsorController {
         popupStage.setScene(popupScene);
         popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquer l'interaction avec la fenêtre principale
         popupStage.showAndWait(); // Attendre que la popup se ferme
-    }
+    }*/
 }

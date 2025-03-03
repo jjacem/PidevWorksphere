@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contrat_Sponsoring_sponsor1_nabeul event.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Contrat_Sponsoring_sponsor1_nabeul event.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/EvenementSponsor.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +187,7 @@
       <workItem from="1740611391682" duration="1100000" />
       <workItem from="1740644917890" duration="2829000" />
       <workItem from="1740947082369" duration="15129000" />
-      <workItem from="1741031179823" duration="6386000" />
+      <workItem from="1741031179823" duration="9934000" />
     </task>
     <servers />
   </component>

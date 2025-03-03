@@ -44,11 +44,11 @@
 
 
 
-        <HBox layoutX="10.0" layoutY="86.0" prefHeight="50.0" prefWidth="600.0" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="86.0">
+        <HBox layoutX="10.0" layoutY="86.0" prefHeight="50.0" prefWidth="600.0" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="86.0" alignment="CENTER_RIGHT">
             <children>
                 <!-- ComboBox pour le filtrage par budget -->
                 <ComboBox fx:id="cbBudgetFilter" prefWidth="200.0" promptText="Filtrer par budget" />
-                <Button fx:id="btnAjouterSponsor" onAction="#Onajoutersponso" prefHeight="31.0" prefWidth="120.0" styleClass="add-button" text="Ajouter Sponsor" />
+                <Button fx:id="btnAjouterSponsor" onAction="#Onajoutersponso" prefHeight="31.0" prefWidth="120.0" styleClass="add-button" text="➕ Ajouter" />
             </children>
             <padding>
                 <Insets left="50.0" top="10.0" />

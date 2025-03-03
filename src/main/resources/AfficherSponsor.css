@@ -255,12 +255,7 @@
     -fx-border-radius: 5; /* Coins arrondis */
 }
 
-/* Style des boutons dans le VBox */
-.vbox-item .button {
-    -fx-min-width: 150; /* Largeur minimale des boutons */
-    -fx-max-width: 150; /* Largeur maximale des boutons */
-    -fx-alignment: center; /* Centrer le texte dans les boutons */
-}
+
 
 
 /* Style du texte des sponsors */
@@ -277,15 +272,7 @@
     -fx-alignment: center-left; /* Alignement des boutons */
 }
 
-/* Style des boutons */
-.button {
-    -fx-background-radius: 5; /* Coins arrondis */
-    -fx-padding: 5 10; /* Espacement intérieur */
-    -fx-font-size: 12px; /* Taille de police */
-    -fx-text-fill: white; /* Texte blanc */
-    -fx-min-width: 120; /* Largeur minimale des boutons */
-    -fx-max-width: 120; /* Largeur maximale des boutons */
-}
+
 
 /* Bouton Modifier */
 .btn-modifier {
