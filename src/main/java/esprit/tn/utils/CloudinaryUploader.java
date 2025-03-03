@@ -28,8 +28,7 @@ public class  CloudinaryUploader {
 
             // Upload the PDF file to Cloudinary and make it publicly accessible
             Map<?, ?> uploadResult = cloudinary.uploader().upload(tempFile, ObjectUtils.asMap(
-                    "resource_type", "raw", // Set resource type to "raw" for non-image files
-                    "public_id", "equipe_pdf", // Optional: Set a custom public ID
+
                     "access_mode", "public" // Make the file publicly accessible
             ));
 

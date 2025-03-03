@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
 import esprit.tn.services.*;
+import esprit.tn.utils.CloudinaryUploader;
 import esprit.tn.utils.PDFGenerator;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -135,7 +136,7 @@ public class AfficherdetailsProjetController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void convertirEnPDF() {
         try {
             // Générer le PDF
@@ -162,6 +163,39 @@ public class AfficherdetailsProjetController {
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Une erreur s'est produite lors de la génération du PDF.");
+            applyAlertStyle(alert);
+            alert.showAndWait();
+        }
+    }*/
+    @FXML
+    private void convertirEnPDF() {
+        try {
+            // Générer le PDF
+            byte[] pdfBytes = PDFGenerator.generateProjetPDF(projet);
+
+            // 1. Enregistrer le PDF sur le disque local
+            String filePath = "C:/xampp/htdocs/" + projet.getNom().replace(" ", "_") + ".pdf";
+            Files.write(Paths.get(filePath), pdfBytes);
+
+            // 2. Enregistrer le PDF sur Cloudinary
+            String cloudinaryUrl = CloudinaryUploader.uploadPdfToCloudinary(pdfBytes);
+
+            // Afficher un message de succès avec les détails
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setHeaderText(null);
+            alert.setContentText("Le PDF a été généré et enregistré avec succès.");
+
+            applyAlertStyle(alert);
+            alert.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Afficher un message d'erreur
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Une erreur s'est produite lors de la génération ou de l'enregistrement du PDF.");
             applyAlertStyle(alert);
             alert.showAndWait();
         }
