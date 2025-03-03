@@ -29,9 +29,7 @@
                 <!-- Barre de recherche -->
                 <TextField fx:id="searchField" promptText="Rechercher un projet..." styleClass="search-field" />
 
-                <!-- ComboBox pour le filtre par état -->
-                <ComboBox fx:id="etatFilter" promptText="Filtrer par état" >
-
+                <ComboBox fx:id="etatFilter" promptText="Filtrer par état" styleClass="combo-box-filter">
                 </ComboBox>
 
                 <!-- Bouton Ajouter un projet -->

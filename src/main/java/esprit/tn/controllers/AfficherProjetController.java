@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public class AfficherProjetController {
     @FXML
-    private VBox projetsContainer; // Remplace la ListView par une VBox
+    private VBox projetsContainer;
 
     @FXML
     private TextField searchField;

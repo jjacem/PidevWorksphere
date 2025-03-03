@@ -313,7 +313,7 @@ public class ServiceProjet implements IServiceProjet<Projet> {
         }
 
         // Ajouter une condition pour filtrer par état
-        if (etat != null && !etat.equals("Tous")) {
+        if (etat != null && !etat.equals("TOUS")) {
             req.append(" AND p.etat = '").append(etat).append("'");
         }
 
