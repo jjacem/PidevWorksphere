@@ -8,17 +8,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -140,7 +134,7 @@ public class AfficherdetailsProjetController {
             employesContainer.getChildren().add(new Label("Aucun employé dans cette équipe."));
         }
     }
-    
+
     @FXML
     private void convertirEnPDF() {
         try {
@@ -148,7 +142,7 @@ public class AfficherdetailsProjetController {
             byte[] pdfBytes = PDFGenerator.generateProjetPDF(projet);
 
             // Chemin complet pour enregistrer le PDF
-            String filePath = "C:/xampp/htdocs/" + projet.getNom().replace(" ", "_") + "_details.pdf";
+            String filePath = "C:/xampp/htdocs/" + projet.getNom().replace(" ", "_") + ".pdf";
 
             // Écrire le PDF dans un fichier
             Files.write(Paths.get(filePath), pdfBytes);

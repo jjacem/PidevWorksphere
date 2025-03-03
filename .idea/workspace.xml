@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherdetailsProjetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherdetailsProjetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/CloudinaryUploader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/CloudinaryUploader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/PDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/PDFGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherdetailsProjet.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherdetailsProjet.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/detailsProjet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/detailsProjet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1740935928311</updated>
       <workItem from="1740935930028" duration="96000" />
-      <workItem from="1740948105561" duration="8639000" />
+      <workItem from="1740948105561" duration="10549000" />
     </task>
     <servers />
   </component>

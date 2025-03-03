@@ -8,40 +8,71 @@
     -fx-background-color: white;
     -fx-background-radius: 15;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 0);
-    -fx-padding: 30;
-    -fx-alignment: top-left; /* Aligner le contenu à gauche */
+    -fx-padding: 20;
+    -fx-spacing: 20;
+    -fx-alignment: top-center; /* Centrer le contenu */
 }
 
+/* Style pour le header (nom de l'équipe et bouton) */
+
+.header-box {
+    -fx-alignment: center-left; /* Aligner le contenu à gauche */
+    -fx-spacing: 10;
+    -fx-padding: 0 0 10 0; /* Espacement en bas */
+}
 /* Style pour le titre du projet */
 .label-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #0086b3;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-alignment: top-left; /* Aligner le texte à gauche */
 }
 
 /* Style pour la description du projet */
 .label-text {
-    -fx-font-size: 10px;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
     -fx-text-fill: #333333;
-    -fx-wrap-text: true; /* Assurez-vous que le texte est multiligne */
-    -fx-padding: 10;
+    -fx-wrap-text: true;
+    -fx-padding: 10 0 10 0;
+    -fx-alignment: top-left; /* Aligner le texte à gauche */
 }
 
 /* Style pour l'image du projet */
 .image-projet {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Ombre pour l'image */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Style pour le bouton Convertir en PDF */
+.pdf-button {
+    -fx-background-color: #ca0303;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-margin-left: 20;
+
+}
+
+.pdf-button:hover {
+    -fx-background-color: #ff3838;
+}
+
+.pdf-button:pressed {
+    -fx-background-color: #a82222;
 }
 
 /* Style pour le conteneur des employés */
 .members-container {
+    -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-border-color: #e0e0e0;
     -fx-border-width: 1px;
     -fx-padding: 15;
-    -fx-alignment: top-left; /* Aligner les employés à gauche */
+    -fx-spacing: 15;
 }
 
 /* Style pour chaque carte d'employé */
@@ -50,56 +81,68 @@
     -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
     -fx-padding: 10;
-    -fx-spacing: 6;
-    -fx-alignment: center-left; /* Aligner le contenu de la carte à gauche */
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
 }
 
 /* Style pour l'image de l'employé */
 .member-image {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Ombre pour l'image */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
 /* Style pour le nom et prénom de l'employé */
 .member-name {
-    -fx-font-size: 11px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
 
 /* Style pour l'email de l'employé */
 .member-email {
-    -fx-font-size: 9px;
+    -fx-font-size: 12px;
     -fx-text-fill: #666666;
 }
 
 /* Style pour le ScrollPane */
 .scroll-pane {
-    -fx-background-color: transparent; /* Fond transparent */
+    -fx-background-color: transparent;
     -fx-padding: 0;
-    -fx-fit-to-width: true; /* S'adapte à la largeur du conteneur parent */
-    -fx-pref-height: 200; /* Limiter la hauteur du ScrollPane */
+    -fx-fit-to-width: true;
+    -fx-vbar-policy: AS_NEEDED;
+    -fx-hbar-policy: NEVER;
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: transparent; /* Fond transparent */
+    -fx-background-color: transparent;
 }
 
 .scroll-pane .scroll-bar:vertical {
-    -fx-background-color: transparent; /* Couleur de fond de la barre de défilement */
+    -fx-background-color: transparent;
 }
 
 .scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-color: #0086b3; /* Couleur du curseur de la barre de défilement */
+    -fx-background-color: #0086b3;
     -fx-background-radius: 5;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button,
 .scroll-pane .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent; /* Boutons de défilement transparents */
+    -fx-background-color: transparent;
     -fx-padding: 0;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-arrow,
 .scroll-pane .scroll-bar:vertical .decrement-arrow {
-    -fx-shape: " "; /* Masquer les flèches */
+    -fx-shape: " ";
+}
+
+
+.image-description-container {
+    -fx-alignment: center; /* Centrer l'ensemble du conteneur */
+    -fx-spacing: 20; /* Espacement entre l'image et la description */
+}
+.description-container {
+    -fx-alignment: top-left;/* Aligner le contenu à droite */
+    -fx-spacing: 10; /* Espacement entre la description et le nom du projet */
+    -fx-padding: 0 20 0 0; /* Ajouter un padding à droite */
 }

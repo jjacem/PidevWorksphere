@@ -13,9 +13,6 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import esprit.tn.entities.*;
 import esprit.tn.services.ServiceProjet;
-import javafx.scene.control.Cell;
-import javafx.scene.image.Image;
-
 import java.io.*;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
