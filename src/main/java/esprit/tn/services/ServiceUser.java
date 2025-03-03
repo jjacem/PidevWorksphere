@@ -82,7 +82,7 @@ public class ServiceUser implements IService<User> {
         return -1;
     }
     @Override
-        public void ajouter(User user) throws SQLException {
+    public void ajouter(User user) throws SQLException {
         String hashpass= BCrypt.hashpw(user.getMdp(),BCrypt.gensalt());
         String req = "INSERT INTO User (nom, prenom, email, mdp, role, adresse, sexe, image_profil, status, salaire_attendu, poste, salaire, experience_travail, departement, competence, nombreProjet, budget, departement_géré, ans_experience, specialisation) " +
                 "VALUES ('" + user.getNom() + "', '" + user.getPrenom() + "', '" + user.getEmail() + "', '" +
@@ -103,9 +103,9 @@ public class ServiceUser implements IService<User> {
 
 
         Statement statement=connection.createStatement();
-            statement.executeUpdate(req);
-            System.out.println("user ajoute");
-        }
+        statement.executeUpdate(req);
+        System.out.println("user ajoute");
+    }
 
     @Override
     public void modifier(User user) throws SQLException {
@@ -165,7 +165,7 @@ public class ServiceUser implements IService<User> {
             e.printStackTrace();
         }
     }
-public void changermdp(String mdp, int id){
+    public void changermdp(String mdp, int id){
         String hashpass=BCrypt.hashpw(mdp,BCrypt.gensalt());
         String req="update User set mdp=? where id_user=?";
         try {
@@ -177,13 +177,13 @@ public void changermdp(String mdp, int id){
         } catch (SQLException e) {
             e.printStackTrace();
         }
-}
+    }
     @Override
     public void supprimer(int id) throws SQLException {
-String req="delete from User where id_user=?";
-PreparedStatement statement= connection.prepareStatement(req);
-statement.setInt(1,id);
-statement.executeUpdate();
+        String req="delete from User where id_user=?";
+        PreparedStatement statement= connection.prepareStatement(req);
+        statement.setInt(1,id);
+        statement.executeUpdate();
         System.out.println("User supprimee");
     }
 
@@ -195,11 +195,11 @@ statement.executeUpdate();
 
         ResultSet rs= statement.executeQuery(req);
         while (rs.next()){
-Role role = changetexttorole(rs.getString("role"));
-      Sexe      sexe = changetexttosexe(rs.getString("sexe"));
-      Status status = changetexttostatus(rs.getString("status"));
+            Role role = changetexttorole(rs.getString("role"));
+            Sexe      sexe = changetexttosexe(rs.getString("sexe"));
+            Status status = changetexttostatus(rs.getString("status"));
 
-                    User user = new User(
+            User user = new User(
                     rs.getString("nom"),
                     role,
                     rs.getString("prenom"),
@@ -221,7 +221,7 @@ Role role = changetexttorole(rs.getString("role"));
                     rs.getInt("ans_experience"),
                     rs.getString("specialisation")
             );
-user.setIdUser(rs.getInt("id_user"));
+            user.setIdUser(rs.getInt("id_user"));
 
 
             Users.add(user);
@@ -230,12 +230,12 @@ user.setIdUser(rs.getInt("id_user"));
 
         return Users;
     }
-public User extractuser(Object o){
+    public User extractuser(Object o){
         if(o instanceof User){
             return (User) o;
         }
         return null;
-}
+    }
     public User findbyid(int id) throws SQLException {
         String req = "SELECT * FROM User WHERE id_user=?";
         PreparedStatement statement = connection.prepareStatement(req);
@@ -250,7 +250,7 @@ public User extractuser(Object o){
 
             User user = new User(
                     rs.getString("nom"),
-                   role,
+                    role,
                     rs.getString("prenom"),
                     rs.getString("email"),
                     rs.getString("mdp"),
@@ -277,14 +277,14 @@ public User extractuser(Object o){
         }
 
         return null;
-}
-public int findidbyemail(String email) throws SQLException {
+    }
+    public int findidbyemail(String email) throws SQLException {
         String req="select id_user from User where email=?";
         PreparedStatement statement= connection.prepareStatement(req);
         statement.setString(1,email);
         ResultSet rs= statement.executeQuery();
         while (rs.next()){
-           return (rs.getInt("id_user"));
+            return (rs.getInt("id_user"));
         }
         return -1;}
     public User login(String email, String mdp) throws SQLException {
@@ -322,27 +322,27 @@ public int findidbyemail(String email) throws SQLException {
         Emailsend e = new Emailsend();
         e.sendEmail(email, subject, content);
     }
-public void sendforgot(String email)throws SQLException{
+    public void sendforgot(String email)throws SQLException{
         int i1= this.findidbyemail(email);
         User u1=this.findbyid(i1);
-    String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    Random rand = new Random();
-    StringBuilder password = new StringBuilder();
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random rand = new Random();
+        StringBuilder password = new StringBuilder();
 
-    for (int i = 0; i < 10; i++) {
-        password.append(chars.charAt(rand.nextInt(chars.length())));
-    }
-       u1.setMdp(password.toString());
+        for (int i = 0; i < 10; i++) {
+            password.append(chars.charAt(rand.nextInt(chars.length())));
+        }
+        u1.setMdp(password.toString());
         this.modifier(u1);
         Emailsend e = new Emailsend();
         e.sendEmail(email, "Forgot password", "Your new password is: " + password.toString());
-}
-public List<User> chercherparnom(String query) throws SQLException {
+    }
+    public List<User> chercherparnom(String query) throws SQLException {
         List<User> users = this.afficher();
-    return users.stream()
-            .filter(user -> user.getNom().toLowerCase().contains(query.toLowerCase()) )
-            .collect(Collectors.toList());
-}
+        return users.stream()
+                .filter(user -> user.getNom().toLowerCase().contains(query.toLowerCase()) )
+                .collect(Collectors.toList());
+    }
     public List<User> chercherparmail(String query) throws SQLException {
         List<User> users = this.afficher();
         return users.stream()
@@ -509,5 +509,4 @@ public List<User> chercherparnom(String query) throws SQLException {
 
 
 }
-
 

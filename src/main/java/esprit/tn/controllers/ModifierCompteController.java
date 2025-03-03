@@ -9,8 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -20,16 +27,20 @@ public class ModifierCompteController {
     @FXML
     private Button savebutton;
     @FXML
-    private TextField nom, prenom, email, adresse, imageProfil;
+    private TextField nom, prenom, email, adresse;
     @FXML
     private ChoiceBox<Sexe> sexe;
     @FXML
     private TextField salaireAttendu, competence, experienceTravail, nombreProjet, anneeExperience, specialisation;
     @FXML
     private Label salaireLabel, competenceLabel, experienceLabel, projetLabel, anneeExpLabel, specialisationLabel;
+    @FXML
+    private ImageView imagePreview;
+
+    private String imagePath = "";
 
     private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-    private final Pattern numericPattern = Pattern.compile("\\d+"); // Only digits allowed
+    private final Pattern numericPattern = Pattern.compile("\\d+(\\.\\d+)?");
 
     private String role = SessionManager.getRole();
     private int userId;
@@ -38,23 +49,32 @@ public class ModifierCompteController {
         this.userId = userId;
     }
 
+    private boolean b=false;
+
+    public void modparadmin(Boolean k){
+
+        this.b=k;
+
+    }
     @FXML
+
     public void initialize() {
         sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
         ServiceUser serviceUser = new ServiceUser();
 
         try {
-            User u = serviceUser.findbyid(SessionManager.extractuserfromsession().getIdUser());
+            // Admin flag logic
+            if (b) {
+                // Admin is modifying, so hide certain fields
+                User u = serviceUser.findbyid(userId);
+                nom.setVisible(false);
+                prenom.setVisible(false);
+                email.setVisible(false);
+                adresse.setVisible(false);
+                sexe.setVisible(false);
+                imagePreview.setVisible(false);
 
-            if (u != null) {
-                nom.setText(u.getNom());
-                prenom.setText(u.getPrenom());
-                email.setText(u.getEmail());
-                adresse.setText(u.getAdresse());
-                sexe.setValue(u.getSexe());
-                imageProfil.setText(u.getImageProfil());
-
-                hideAllFields(); // Hide all initially
+                this.role = u.getRole().name();
 
                 switch (role) {
                     case "CANDIDAT":
@@ -76,7 +96,41 @@ public class ModifierCompteController {
                         showFields(anneeExperience, anneeExpLabel, specialisation, specialisationLabel);
                         break;
                 }
+            } else {
+                // Regular user is modifying, show all fields
+                User u = serviceUser.findbyid(SessionManager.extractuserfromsession().getIdUser());
+                if (u != null) {
+                    nom.setText(u.getNom());
+                    prenom.setText(u.getPrenom());
+                    email.setText(u.getEmail());
+                    adresse.setText(u.getAdresse());
+                    sexe.setValue(u.getSexe());
+                    imagePath = u.getImageProfil();
+                    imagePreview.setImage(new Image(new File(imagePath).toURI().toString()));
 
+                    hideAllFields(); // Hide all initially
+
+                    switch (role) {
+                        case "CANDIDAT":
+                            salaireAttendu.setText(String.valueOf(u.getSalaireAttendu()));
+                            showFields(salaireAttendu, salaireLabel);
+                            break;
+                        case "EMPLOYE":
+                            competence.setText(u.getCompetence());
+                            experienceTravail.setText(String.valueOf(u.getExperienceTravail()));
+                            showFields(competence, competenceLabel, experienceTravail, experienceLabel);
+                            break;
+                        case "MANAGER":
+                            nombreProjet.setText(String.valueOf(u.getNombreProjet()));
+                            showFields(nombreProjet, projetLabel);
+                            break;
+                        case "RH":
+                            anneeExperience.setText(String.valueOf(u.getAnsExperience()));
+                            specialisation.setText(u.getSpecialisation());
+                            showFields(anneeExperience, anneeExpLabel, specialisation, specialisationLabel);
+                            break;
+                    }
+                }
                 positionFieldsAndButton();
             }
         } catch (SQLException e) {
@@ -112,7 +166,6 @@ public class ModifierCompteController {
         savebutton.setLayoutY(startY + 20);
     }
 
-    // **Fix: Ensure hideAllFields is properly declared**
     private void hideAllFields() {
         List<Node> allFields = Arrays.asList(
                 salaireAttendu, salaireLabel,
@@ -129,7 +182,6 @@ public class ModifierCompteController {
         }
     }
 
-    // **Fix: Ensure showFields is properly declared**
     private void showFields(Node... nodes) {
         for (Node node : nodes) {
             node.setVisible(true);
@@ -153,7 +205,7 @@ public class ModifierCompteController {
             modifiedUser.setEmail(email.getText());
             modifiedUser.setAdresse(adresse.getText());
             modifiedUser.setSexe(sexe.getValue());
-            modifiedUser.setImageProfil(imageProfil.getText());
+            modifiedUser.setImageProfil(imagePath);
 
             switch (role) {
                 case "CANDIDAT":
@@ -186,7 +238,43 @@ public class ModifierCompteController {
         }
     }
 
-    // **Refresh Window Method**
+    @FXML
+    private void uploadImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Define upload directory (htdocs/images/)
+                File uploadDir = new File("C:\\xampp\\htdocs\\img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Generate unique filename
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copy file to the destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Store relative path in variable
+                imagePath = "htdocs/images/" + fileName;
+
+                // Display image in ImageView
+                imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                showAlert("File Error", "Failed to upload image.");
+            }
+        }
+    }
+
     private void refreshWindow() {
         try {
             Stage stage = (Stage) savebutton.getScene().getWindow();
@@ -205,7 +293,7 @@ public class ModifierCompteController {
 
     private boolean validateInputs() {
         if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
-                adresse.getText().isEmpty() || sexe.getValue() == null || imageProfil.getText().isEmpty()) {
+                adresse.getText().isEmpty() || sexe.getValue() == null || imagePath.isEmpty()) {
             showAlert("Input Error", "Please fill in all required fields.");
             return false;
         }
