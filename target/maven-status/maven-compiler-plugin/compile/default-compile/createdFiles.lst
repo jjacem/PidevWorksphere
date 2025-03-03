@@ -98,6 +98,7 @@ esprit\tn\entities\Formation.class
 esprit\tn\entities\Typeformation.class
 esprit\tn\controllers\AfficherUser.class
 esprit\tn\controllers\AffichageEntretineController.class
+esprit\tn\utils\GoogleAuthUtil.class
 esprit\tn\controllers\AfficherOffreController.class
 esprit\tn\services\IServiceEquipe.class
 esprit\tn\controllers\ModifierEquipeController$1.class

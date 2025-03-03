@@ -26,6 +26,7 @@
                     </font>
                 </Label>
 
+                <!-- Login Button -->
                 <Button fx:id="ConnectBtn" layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Connecter" textFill="WHITE" />
 
                 <!-- Password Field -->
@@ -43,7 +44,20 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
+
+                <!-- Sign Up Button -->
                 <Button fx:id="signupbtn1" layoutX="227.0" layoutY="281.0" mnemonicParsing="false" onAction="#handlesignup" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Inscrire" textFill="WHITE" />
+
+                <!-- Google Login Button -->
+                <Button fx:id="googleLoginBtn" layoutX="74.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleGoogleLogin" prefHeight="34.0" prefWidth="286.0" style="-fx-background-color: #dd4b39; -fx-text-fill: white;" text="Se connecter avec Google">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/google-icon.png" /> <!-- Add a Google icon image -->
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </AnchorPane>
         <Label layoutX="300.0" layoutY="52.0" text="SE CONNECTER" textOverrun="CLIP">
