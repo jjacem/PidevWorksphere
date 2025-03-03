@@ -180,3 +180,38 @@
     -fx-border-radius: 10; /* Coins arrondis pour la liste déroulante */
     -fx-background-radius: 10; /* Coins arrondis pour la liste déroulante */
 }
+
+/* Style de base pour les chips */
+.chip {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 7;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+/* Style pour l'état "Terminé" */
+.chip-termine {
+    -fx-background-color: #f44336; /* Rouge */
+    -fx-text-fill: white;
+}
+
+
+/* Style pour l'état "Annulé" */
+.chip-annule {
+    -fx-background-color: #ffeb3b; /* Jaune */
+    -fx-text-fill: #333333;
+}
+
+/* Style pour l'état "En cours" */
+.chip-en-cours {
+    -fx-background-color: #4CAF50; /* Vert */
+    -fx-text-fill: white;
+}
+
+/* Style par défaut pour les autres états */
+.chip-default {
+    -fx-background-color: #cccccc; /* Gris */
+    -fx-text-fill: #333333;
+}
