@@ -5,7 +5,21 @@
     -fx-fill: #333333;
     -fx-font-weight: normal;
 }
+.combo-box {
+    -fx-background-color: #0086b3; /* Couleur de fond */
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-radius: 5px; /* Rayon de la bordure */
+    -fx-padding: 3px; /* Espacement interne */
+}
 
+.combo-box .list-cell {
+    -fx-padding: 8px; /* Espacement interne des éléments de la liste */
+}
+
+.combo-box .list-view {
+    -fx-border-color: #ccc; /* Couleur de la bordure de la liste déroulante */
+    -fx-border-radius: 5px; /* Rayon de la bordure de la liste déroulante */
+}
 /* Style pour le titre */
 .title-label {
     -fx-font-size: 24px;

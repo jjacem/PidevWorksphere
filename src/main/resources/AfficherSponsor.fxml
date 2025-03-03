@@ -11,7 +11,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="703.0" prefWidth="942.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherSponsorController">
+<AnchorPane prefHeight="703.0" prefWidth="942.0" style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AfficherSponsorController">
     <stylesheets>
         <URL value="@AfficherSponsor.css" />
     </stylesheets>

@@ -1,6 +1,6 @@
 package esprit.tn.controllers;
 
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import com.itextpdf.text.*;
@@ -14,9 +14,7 @@ import esprit.tn.services.ServiceSponsor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 import java.io.FileOutputStream;
@@ -25,6 +23,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EvenementSponsorController {
 
@@ -39,68 +38,141 @@ public class EvenementSponsorController {
     private ServiceEvenement serviceEvenement = new ServiceEvenement();
 
     @FXML
-    public void initialize() {
-        loadEvenementSponsorList();
+    private ComboBox<String> cbDurationFilter; // Added ComboBox
+   @FXML
+   public void initialize() {
+       // Initialize ComboBox
+       cbDurationFilter.getItems().addAll("Tous", "troisMois", "sixMois", "unAns");
+       cbDurationFilter.setValue("Tous"); // Default value
+       cbDurationFilter.setOnAction(event -> filterByDuration());
 
-        lv_evenementSponsor.setCellFactory(new Callback<ListView<EvenementSponsor>, ListCell<EvenementSponsor>>() {
-            @Override
-            public ListCell<EvenementSponsor> call(ListView<EvenementSponsor> param) {
-                return new ListCell<EvenementSponsor>() {
-                    private final Button btnGeneratePdf = new Button("Générer PDF");
-                    private final HBox hbox = new HBox();
-                    private final Label label = new Label(); // Ajout d'un label pour le texte
+       loadEvenementSponsorList();
+       lv_evenementSponsor.setCellFactory(new Callback<ListView<EvenementSponsor>, ListCell<EvenementSponsor>>() {
+           @Override
+           public ListCell<EvenementSponsor> call(ListView<EvenementSponsor> param) {
+               return new ListCell<EvenementSponsor>() {
+                   private final Button btnGeneratePdf = new Button("Générer PDF");
+                   private final VBox vbox = new VBox();
+                   private final Label label = new Label();
 
-                    {
-                        hbox.setSpacing(10);
-                        HBox.setHgrow(hbox, Priority.ALWAYS);
+                   {
+                       vbox.setSpacing(10);
+                       btnGeneratePdf.setOnAction(event -> {
+                           EvenementSponsor evenementSponsor = getItem();
+                           if (evenementSponsor != null) {
+                               try {
+                                   generatePdf(evenementSponsor);
+                               } catch (SQLException | IOException | DocumentException e) {
+                                   e.printStackTrace();
+                                   System.out.println("Erreur lors de la génération du PDF: " + e.getMessage());
+                               }
+                           }
+                       });
+                       btnGeneratePdf.setPrefWidth(130);
+                       btnGeneratePdf.setPrefHeight(10);
+                       vbox.getChildren().addAll(label, btnGeneratePdf);
+                       btnGeneratePdf.setStyle("-fx-background-color: black; -fx-text-fill: white;");
+                   }
 
-                        btnGeneratePdf.setOnAction(event -> {
-                            EvenementSponsor evenementSponsor = getItem();
-                            if (evenementSponsor != null) {
-                                try {
-                                    generatePdf(evenementSponsor);
-                                } catch (SQLException | IOException | DocumentException e) {
-                                    e.printStackTrace();
-                                    System.out.println("Erreur lors de la génération du PDF: " + e.getMessage());
-                                }
-                            }
-                        });
-                        hbox.getChildren().addAll(label, btnGeneratePdf); // Ajout du label au HBox
-                        btnGeneratePdf.setStyle("-fx-background-color: black; -fx-text-fill: white;");
+                   @Override
+                   protected void updateItem(EvenementSponsor evenementSponsor, boolean empty) {
+                       super.updateItem(evenementSponsor, empty);
+                       if (empty || evenementSponsor == null) {
+                           setText(null);
+                           setGraphic(null);
+                       } else {
+                           try {
+                               // Récupérer le sponsor et l'événement
+                               Sponsor sponsor = serviceSponsor.afficher().stream()
+                                       .filter(s -> s.getIdSponsor() == evenementSponsor.getSponsorId())
+                                       .findFirst()
+                                       .orElse(null);
 
-                    }
+                               Evenement evenementRecherche = serviceEvenement.afficher().stream()
+                                       .filter(e -> e.getIdEvent() == evenementSponsor.getEvenementId())
+                                       .findFirst()
+                                       .orElse(null);
 
-                    @Override
-                    protected void updateItem(EvenementSponsor evenementSponsor, boolean empty) {
-                        super.updateItem(evenementSponsor, empty);
-                        if (empty || evenementSponsor == null) {
-                            setText(null);
-                            setGraphic(null);
-                        } else {
-                            label.setText(evenementSponsor.toString()); // Définir le texte du label
+                               if (sponsor != null && evenementRecherche != null) {
+                                   // Afficher le nom de l'événement et le nom complet du sponsor
+                                   String displayText = "\uD83D\uDCC5 Événement: " + evenementRecherche.getNomEvent() + "\n"+ "\n"+
+                                           "\uD83E\uDD1D Sponsor: " + sponsor.getNomSponso() + " " + sponsor.getPrenomSponso() + "\n"+
+                                            "\n"+  "⏳ Durée: " + evenementSponsor.getDuree() + "\n"+ "\n"+
+                                           "\uD83D\uDE80 Début du contrat: " + evenementSponsor.getDatedebutContrat();
+                                   label.setText(displayText);
 
-                            // Calculer la date de fin de contrat
-                            LocalDate dateDebut = evenementSponsor.getDatedebutContrat().toLocalDate();
-                            LocalDate dateFin = calculateEndDate(dateDebut, evenementSponsor.getDuree());
-                            LocalDate today = LocalDate.now();
+                                   // Calculer la date de fin de contrat
+                                   LocalDate dateDebut = evenementSponsor.getDatedebutContrat().toLocalDate();
+                                   LocalDate dateFin = calculateEndDate(dateDebut, evenementSponsor.getDuree());
+                                   LocalDate today = LocalDate.now();
 
-                            // Vérifier si la date de fin est antérieure à aujourd'hui
-                            if (dateFin.isBefore(today)) {
-                                label.setStyle("-fx-text-fill: red;"); // Définir le texte en rouge
-                            } else {
-                                label.setStyle(""); // Réinitialiser le style
-                            }
+                                   // Vérifier si la date de fin est antérieure à aujourd'hui
+                                   if (dateFin.isBefore(today)) {
+                                       label.setStyle("-fx-text-fill: red;");
+                                   } else {
+                                       label.setStyle("");
+                                   }
+                               } else {
+                                   label.setText("Information manquante");
+                               }
+                           } catch (SQLException e) {
+                               e.printStackTrace();
+                               label.setText("Erreur lors de la récupération des données");
+                           }
+                           setGraphic(vbox);
+                       }
+                   }
+               };
+           }
+       });
+   }
+    private void filterByDuration() {
+        String selectedDuration = cbDurationFilter.getValue();
+        loadEvenementSponsorList(selectedDuration);
+    }
+    private void loadEvenementSponsorList() {
+        loadEvenementSponsorList("Tous");
+    }
 
-                            setGraphic(hbox);
-                        }
-                    }
-                };
+    private void loadEvenementSponsorList(String durationFilter) {
+        try {
+            List<EvenementSponsor> evenementSponsors = eventSponsorService.afficher();
+
+            if (!durationFilter.equals("Tous")) {
+                evenementSponsors = evenementSponsors.stream()
+                        .filter(es -> es.getDuree().equals(durationFilter))
+                        .collect(Collectors.toList());
             }
-        });
 
-        btnRefresh.setOnAction(event -> {
-            loadEvenementSponsorList();
-        });
+            ObservableList<EvenementSponsor> observableList = FXCollections.observableArrayList(evenementSponsors);
+            lv_evenementSponsor.setItems(observableList);
+
+            for (EvenementSponsor es : evenementSponsors) {
+                Sponsor sponsor = serviceSponsor.afficher().stream()
+                        .filter(s -> s.getIdSponsor() == es.getSponsorId())
+                        .findFirst()
+                        .orElse(null);
+
+                Evenement evenementRecherche = serviceEvenement.afficher().stream()
+                        .filter(e -> e.getIdEvent() == es.getEvenementId())
+                        .findFirst()
+                        .orElse(null);
+
+                if (sponsor != null && evenementRecherche != null) {
+                    System.out.println("Evenement: " + evenementRecherche.getNomEvent() +
+                            ", Sponsor: " + sponsor.getNomSponso() + " " + sponsor.getPrenomSponso());
+                } else {
+                    System.out.println("EvenementSponsor: " + es.getEvenementId() + ", Sponsor ID: " + es.getSponsorId());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        lv_evenementSponsor.setStyle(
+                "-fx-padding: 30px; " +
+                        "-fx-border-insets: 15px; " +
+                        "-fx-background-insets: 15px;"
+        );
     }
 
     private LocalDate calculateEndDate(LocalDate startDate, String duree) {
@@ -116,20 +188,40 @@ public class EvenementSponsorController {
         }
     }
 
-    private void loadEvenementSponsorList() {
+
+    /*private void loadEvenementSponsorList() {
         try {
             List<EvenementSponsor> evenementSponsors = eventSponsorService.afficher();
             ObservableList<EvenementSponsor> observableList = FXCollections.observableArrayList(evenementSponsors);
             lv_evenementSponsor.setItems(observableList);
 
             for (EvenementSponsor es : evenementSponsors) {
-                System.out.println("EvenementSponsor: " + es.getEvenementId() + ", Sponsor ID: " + es.getSponsorId());
+                Sponsor sponsor = serviceSponsor.afficher().stream()
+                        .filter(s -> s.getIdSponsor() == es.getSponsorId())
+                        .findFirst()
+                        .orElse(null);
+
+                Evenement evenementRecherche = serviceEvenement.afficher().stream()
+                        .filter(e -> e.getIdEvent() == es.getEvenementId())
+                        .findFirst()
+                        .orElse(null);
+
+                if (sponsor != null && evenementRecherche != null) {
+                    System.out.println("Evenement: " + evenementRecherche.getNomEvent() +
+                            ", Sponsor: " + sponsor.getNomSponso() + " " + sponsor.getPrenomSponso());
+                } else {
+                    System.out.println("EvenementSponsor: " + es.getEvenementId() + ", Sponsor ID: " + es.getSponsorId());
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
+        lv_evenementSponsor.setStyle(
+                "-fx-padding: 30px; " +
+                        "-fx-border-insets: 15px; " +
+                        "-fx-background-insets: 15px;"
+        );
+    }*/
     private void generatePdf(EvenementSponsor evenementSponsor) throws SQLException, IOException, DocumentException {
         // Récupérer le sponsor et l'événement
         Sponsor sponsor = serviceSponsor.afficher().stream()
