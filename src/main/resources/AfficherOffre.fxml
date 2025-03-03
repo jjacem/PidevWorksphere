@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreController">
+   <children>
+      <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="108.0" style="-fx-background-color: #0086b3;">
+         <children>
+            <ImageView fitHeight="73.0" fitWidth="108.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="12.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToModifierOffre" prefHeight="26.0" prefWidth="83.0" text="MODIFIER" />
+            <Button layoutX="12.0" layoutY="182.0" mnemonicParsing="false" onAction="#SupprimerOffre" prefHeight="26.0" prefWidth="83.0" text="SUPPRIMER" />
+            <Button layoutX="11.0" layoutY="110.0" mnemonicParsing="false" onAction="#goToAjouterOffre" prefHeight="26.0" prefWidth="83.0" text="AJOUTER" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/Images/offre-demploi-visuel-2-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="searchField" layoutX="270.0" layoutY="11.0" prefHeight="26.0" prefWidth="300.0" promptText="Rechercher une offre..." />
+      <ListView fx:id="lv_offre" layoutX="20.0" layoutY="88.0" prefHeight="371.0" prefWidth="550.0" />
+      <AnchorPane layoutX="270.0" layoutY="43.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="319.0" layoutY="54.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="370.0" layoutY="64.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="420.0" layoutY="74.0" prefHeight="5.0" prefWidth="150.0" style="-fx-background-color: #0086b3;" />
+      <Button layoutX="606.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="179.0" style="-fx-font-size: 15px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1E3A8A;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.Changermdp">
+
+    <VBox alignment="CENTER" layoutX="150" layoutY="80" spacing="15">
+        <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Changer Mot de Passe" />
+        <PasswordField fx:id="newPasswordField" promptText="Nouveau mot de passe" style="-fx-pref-width: 300px;" />
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirmer le mot de passe" style="-fx-pref-width: 300px;" />
+
+        <Label fx:id="errorLabel" style="-fx-text-fill: red; -fx-font-size: 14px;" text="" />
+
+        <Button fx:id="btnChanger" style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 16px;" text="Changer" />
+
+        <Button fx:id="btnRetour" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;" text="Retour" />
+    </VBox>
+</AnchorPane>

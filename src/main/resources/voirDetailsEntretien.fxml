@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" prefHeight="689.0" prefWidth="539.0" spacing="20" style="-fx-background-color: #ecf0f1; -fx-padding: 30px; -fx-alignment: CENTER;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.VoirDetailsEntretienController">
+
+    <!-- Title -->
+    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="📜 Détails de l'Offre et Candidat" />
+
+    <!-- Job Offer Card -->
+    <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #bdc3c7; -fx-border-width: 2px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-max-width: 600px; -fx-alignment: CENTER;">
+
+        <!-- Job Offer Fields -->
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2980b9;" text="📌 Titre:" />
+        <Label fx:id="lblTitre" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="-" />
+
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2980b9;" text="💼 Description:" />
+        <Label fx:id="lblDescription" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="-" wrapText="true" />
+
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2980b9;" text="📅 Date Publication:" />
+        <Label fx:id="lblDatePublication" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="-" />
+
+    </VBox>
+
+    <!-- Candidate Info Card -->
+    <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #bdc3c7; -fx-border-width: 2px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-max-width: 600px; -fx-alignment: CENTER;">
+
+        <!-- Candidate Info Fields -->
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="👤 Nom:" />
+        <Label fx:id="lblNom" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="-" />
+
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="👤 Prénom:" />
+        <Label fx:id="lblPrenom" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="-" />
+
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #27ae60;" text="📧 Email:" />
+        <Label fx:id="lblEmail" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="-" />
+    </VBox>
+
+
+    <Button fx:id="btnRetour" text="Retour"
+            onAction="#retour"
+            style="-fx-background-color: #007bff; -fx-text-fill: white;
+                   -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-radius: 5px;
+                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 3);"/>
+
+
+
+</VBox>
