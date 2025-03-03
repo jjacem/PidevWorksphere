@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Entretien;
+import esprit.tn.services.GemeniService;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,12 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.services.EntretienService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class AffichageEntretienbyemployeeId {
     public Button btn_afficher;
@@ -24,6 +27,9 @@ public class AffichageEntretienbyemployeeId {
     private ListView<Entretien> lv_entretien;
 
     private EntretienService entretienService = new EntretienService();
+
+    private GemeniService gemeniService = new GemeniService();
+
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
 
@@ -37,6 +43,7 @@ public class AffichageEntretienbyemployeeId {
     @FXML
     public void initialize() throws SQLException {
         afficherEntretien();
+        lv_entretien.getStylesheets().add(getClass().getResource("/controlleurAffichageById.css").toExternalForm());
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 filterEntretiens(newValue);
@@ -61,22 +68,31 @@ public class AffichageEntretienbyemployeeId {
                     setGraphic(null);
                 } else {
 
+
+                    Button btnGenererQuestions = new Button("📄 Générer des  Questions entretien avec  AI");
+                    btnGenererQuestions.getStyleClass().add("button-ai");
+                    btnGenererQuestions.setOnAction(event -> genererQuestionsAI(entretien.getTitre()));
+
+
+
+
+
+                    // Créer les boutons
                     Button btnVoirDetail = new Button("Voir Détails");
-                    btnVoirDetail.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+                    btnVoirDetail.getStyleClass().add("button");
+
                     btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
 
 
                     Button btnFeedback;
 
                     if (entretien.getFeedbackId() != 0) {
-                        btnFeedback = new Button("📄Voir Feedback");
-                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
+                        btnFeedback = new Button("📄 Voir Feedback");
+                        btnFeedback.getStyleClass().add("button-feedback");
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
                     } else {
                         btnFeedback = new Button("➕ Ajouter Feedback");
-                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
+                        btnFeedback.getStyleClass().add("button-feedback");
                         btnFeedback.setOnAction(event -> {
                             ajouterFeedback(entretien.getId());
                             try {
@@ -87,21 +103,75 @@ public class AffichageEntretienbyemployeeId {
                         });
                     }
 
+                    // Créer un HBox pour aligner les boutons à droite
+                    HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail , btnGenererQuestions);
+                    buttonBox.getStyleClass().add("hbox-buttons");
 
-                    HBox buttonBox = new HBox(10, btnFeedback , btnVoirDetail);
-                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+                    // Créer un VBox pour organiser le texte et les boutons
+                    VBox vbox = new VBox(5);
 
-                    setText("📝 Titre: " + entretien.getTitre() + "\n"
-                            + "Description: " + entretien.getDescription() + "\n"
-                            + "📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien() + "\n"
-                            + "📌 Type: " + entretien.getType_entretien() + "\n"
-                            + "✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
 
-                    setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
-                    setGraphic(buttonBox);
+
+                    // Titre
+                    Label titreLabel = new Label("📝 Titre: " + entretien.getTitre());
+                    titreLabel.getStyleClass().add("titre-label");
+
+                    // Description
+                    Label descriptionLabel = new Label("Description: " + entretien.getDescription());
+                    descriptionLabel.getStyleClass().add("description-label");
+
+                    // Date et heure
+                    Label dateLabel = new Label("📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien());
+                    dateLabel.getStyleClass().add("date-label");
+
+                    // Type
+                    Label typeLabel = new Label("📌 Type: " + entretien.getType_entretien());
+                    typeLabel.getStyleClass().add("type-label");
+
+                    // Statut
+                    Label statutLabel = new Label("✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
+                    statutLabel.getStyleClass().add("statut-label");
+
+                    vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
+
+                    // Ajouter le VBox et le HBox à la cellule
+                    setGraphic(new VBox(vbox, buttonBox));
                 }
             }
         });
+
+
+    }
+
+    private void genererQuestionsAI(String titre) {
+
+
+        Optional<String> questionsOpt = GemeniService.getQuestionsFromChatbot(titre);
+
+        questionsOpt.ifPresent(questions -> {
+            String fileName = "questions_entretien_" + titre.replaceAll("\\s+", "_") + ".pdf";
+            String downloadPath = GemeniService.generatePDF(questions, fileName);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Téléchargement réussi");
+            alert.setHeaderText("Votre PDF a été téléchargé avec succès !");
+            alert.setContentText("Le fichier a été téléchargé à l'emplacement suivant : " + downloadPath);
+            alert.showAndWait();
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -284,6 +354,27 @@ public class AffichageEntretienbyemployeeId {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

@@ -166,15 +166,6 @@ public class AffichageEntretineController {
 
 
 
-
-
-
-
-
-
-
-
-
     private void filterEntretiens(String keyword) throws SQLException {
         if (keyword == null || keyword.trim().isEmpty()) {
             lv_entretien.setItems(allEntretiens);
@@ -390,8 +381,6 @@ public class AffichageEntretineController {
             }
         }
     }
-
-
 
 
 
