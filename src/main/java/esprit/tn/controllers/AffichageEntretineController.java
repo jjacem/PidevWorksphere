@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import esprit.tn.services.EntretienService;
@@ -50,6 +51,8 @@ public class AffichageEntretineController {
     @FXML
     public void initialize() throws SQLException {
         afficherEntretien();
+        lv_entretien.getStylesheets().add(getClass().getResource("/controllerAffichage.css").toExternalForm());
+
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 filterEntretiens(newValue);
@@ -73,56 +76,68 @@ public class AffichageEntretineController {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    // Créer les boutons
                     Button btnModifier = new Button("Modifier");
                     Button btnSupprimer = new Button("Supprimer");
                     Button btnVoirDetail = new Button("Voir Détails");
-                    btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-                    btnSupprimer.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-                    btnVoirDetail.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
 
-                    Button btnFeedback;
+                    // Appliquer les styles CSS aux boutons
+                    btnModifier.getStyleClass().add("button-modifier");
+                    btnSupprimer.getStyleClass().add("button-supprimer");
+                    btnVoirDetail.getStyleClass().add("button");
 
-                    if (entretien.getFeedbackId() != 0) {
-                        btnFeedback = new Button("📄Voir Feedback");
-                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
-                        btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
-
-                        HBox buttonBox = new HBox(10,  btnFeedback);
-
-
-                    }
-
+                    // Ajouter les actions aux boutons
                     btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
                     btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
                     btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
 
+                    // Créer un HBox pour aligner les boutons à droite
+                    HBox buttonBox = new HBox(10, btnVoirDetail, btnModifier, btnSupprimer);
+                    buttonBox.getStyleClass().add("hbox-buttons");
 
-                    HBox buttonBox = new HBox(10,btnVoirDetail ,  btnModifier, btnSupprimer);
-                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+                    // Créer un VBox pour organiser le texte et les boutons
+                    VBox vbox = new VBox(5);
 
-                    setText("📝 Titre: " + entretien.getTitre() + "\n"
-                            + "Description: " + entretien.getDescription() + "\n"
-                            + "📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien() + "\n"
-                            + "📌 Type: " + entretien.getType_entretien() + "\n"
-                            + "✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
+                    // Titre
+                    Label titreLabel = new Label("📝 Titre: " + entretien.getTitre());
+                    titreLabel.getStyleClass().add("titre-label");
+
+                    // Description
+                    Label descriptionLabel = new Label("Description: " + entretien.getDescription());
+                    descriptionLabel.getStyleClass().add("description-label");
+
+                    // Date et heure
+                    Label dateLabel = new Label("📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien());
+                    dateLabel.getStyleClass().add("date-label");
+
+                    // Type
+                    Label typeLabel = new Label("📌 Type: " + entretien.getType_entretien());
+                    typeLabel.getStyleClass().add("type-label");
+
+                    // Statut
+                    Label statutLabel = new Label("✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
+                    statutLabel.getStyleClass().add("statut-label");
+
+                    vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
 
                     if (entretien.getEmployeId() != 0) {
                         try {
                             User users = su.findbyid(entretien.getEmployeId());
-                            System.out.println(users);
-                            setText(getText() + "\n🔒 Entretien  affecté chez  " +  users.getNom() +"  " + users.getPrenom());
-                            setGraphic(buttonBox);
+                            Label employeLabel = new Label("🔒 Entretien affecté chez " + users.getNom() + " " + users.getPrenom());
+                            employeLabel.getStyleClass().add("employe-label");
+                            vbox.getChildren().add(employeLabel);
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
-
                     }
 
-                    setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
+                    // Ajouter le VBox et le HBox à la cellule
+                    setGraphic(new VBox(vbox, buttonBox));
                 }
             }
         });
+
+
 
     }
 

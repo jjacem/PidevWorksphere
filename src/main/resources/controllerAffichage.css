@@ -1,0 +1,101 @@
+/* styles.css */
+
+/* Style général de la scène (fond dégradé) */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1e3c72, #2a5298);
+}
+
+/* Style général de la ListView */
+.list-cell {
+    -fx-padding: 15px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Style du texte dans les cellules */
+.list-cell .label {
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-text-fill: #2c3e50; /* Couleur du texte */
+    -fx-padding: 5px 0; /* Padding vertical */
+}
+
+/* Style spécifique pour les titres */
+.list-cell .titre-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2196F3; /* Couleur bleue pour le titre */
+}
+
+/* Style spécifique pour les descriptions */
+.list-cell .description-label {
+    -fx-text-fill: #555555; /* Couleur grise pour la description */
+}
+
+/* Style spécifique pour les dates et heures */
+.list-cell .date-label {
+    -fx-text-fill: #27ae60; /* Couleur verte pour les dates */
+}
+
+/* Style spécifique pour les types */
+.list-cell .type-label {
+    -fx-text-fill: #e67e22; /* Couleur orange pour les types */
+}
+
+/* Style spécifique pour les statuts */
+.list-cell .statut-label {
+    -fx-text-fill: #e74c3c; /* Couleur rouge pour les statuts */
+}
+
+/* Style spécifique pour les employés */
+.list-cell .employe-label {
+    -fx-text-fill: #8e44ad; /* Couleur violette pour les employés */
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+/* Style spécifique pour les boutons de modification et suppression */
+.button-modifier {
+    -fx-background-color: #FFC107;
+}
+
+.button-modifier:hover {
+    -fx-background-color: #FFA000;
+}
+
+.button-supprimer {
+    -fx-background-color: #F44336;
+}
+
+.button-supprimer:hover {
+    -fx-background-color: #D32F2F;
+}
+
+/* Alignement des boutons à droite */
+.hbox-buttons {
+    -fx-alignment: center-right;
+    -fx-spacing: 10px;
+}
