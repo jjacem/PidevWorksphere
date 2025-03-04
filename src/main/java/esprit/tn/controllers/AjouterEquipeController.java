@@ -81,17 +81,6 @@ public class AjouterEquipeController {
             employesListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
             // Personnaliser l'affichage des employés dans la ListView
-            /*employesListView.setCellFactory(param -> new ListCell<User>() {
-                @Override
-                protected void updateItem(User user, boolean empty) {
-                    super.updateItem(user, empty);
-                    if (empty || user == null) {
-                        setText(null);
-                    } else {
-                        setText(user.getPrenom() + " " + user.getNom());
-                    }
-                }
-            });*/
             employesListView.setCellFactory(param -> new ListCell<User>() {
                 private final ImageView imageView = new ImageView();
                 private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
@@ -128,17 +117,7 @@ public class AjouterEquipeController {
             employesSelectionnesListView.setItems(employesSelectionnesList);
 
             // Personnaliser l'affichage des employés sélectionnés aussi
-            /*employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
-                @Override
-                protected void updateItem(User user, boolean empty) {
-                    super.updateItem(user, empty);
-                    if (empty || user == null) {
-                        setText(null);
-                    } else {
-                        setText(user.getNom() + " " + user.getPrenom());
-                    }
-                }
-            });*/
+
             employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
                 private final ImageView imageView = new ImageView();
                 private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins

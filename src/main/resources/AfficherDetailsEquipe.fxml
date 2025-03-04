@@ -22,9 +22,6 @@
                     <Circle centerX="60" centerY="60" radius="60" />
                 </clip>
             </ImageView>
-
-            <!-- QR Code à droite de l'image de l'équipe -->
-            <ImageView fx:id="qrCodeImageView" fitHeight="109.0" fitWidth="107.0" styleClass="qr-code-image" />
         </HBox>
 
         <!-- Nom de l'équipe avec un style plus grand et noir -->

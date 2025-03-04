@@ -1,11 +1,9 @@
 esprit\tn\controllers\AjouterReservationController$2.class
 esprit\tn\controllers\AjouterProjetController$2.class
-esprit\tn\services\ChatbotService.class
 esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
 esprit\tn\controllers\ModifierEvenementController.class
 esprit\tn\services\ServiceProjet.class
-esprit\tn\controllers\StatistiquesEquipesController.class
 esprit\tn\controllers\AjouterEntretineController.class
 esprit\tn\utils\PDFGenerator.class
 esprit\tn\controllers\ModifierReclamationController.class
@@ -17,10 +15,10 @@ esprit\tn\controllers\ModifierSponsorController.class
 esprit\tn\controllers\AjouterProjetController$1.class
 esprit\tn\controllers\DashboardCandidat.class
 esprit\tn\controllers\AfficherReservationController$1$1.class
+esprit\tn\services\StatistiqueEquipeService.class
 esprit\tn\controllers\AfficherSponsorController.class
 esprit\tn\controllers\AjouterCandidatureController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId$1.class
-esprit\tn\controllers\StatistiquesEquipeController.class
 esprit\tn\controllers\AfficherReponse.class
 esprit\tn\entities\Feedback.class
 esprit\tn\utils\Router.class
@@ -37,6 +35,7 @@ esprit\tn\controllers\AfficherCandidatureController.class
 esprit\tn\services\IServiceReservation.class
 esprit\tn\controllers\AfficherUser$2.class
 esprit\tn\controllers\AjouterReservationController$1.class
+esprit\tn\entities\ChartData.class
 esprit\tn\services\ServiceFormation.class
 esprit\tn\controllers\AfficherDetailsEquipeController.class
 esprit\tn\entities\Entretien.class
@@ -70,8 +69,8 @@ esprit\tn\entities\OffreEmploi.class
 esprit\tn\controllers\AjouterOffreController.class
 esprit\tn\controllers\AffecterEntretien.class
 esprit\tn\entities\Evenement.class
+esprit\tn\services\ChatbotEquipeService.class
 esprit\tn\services\IService.class
-esprit\tn\utils\QRCodeGenerator.class
 esprit\tn\utils\MyDatabase.class
 esprit\tn\controllers\AjouterReservationController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId.class
@@ -104,6 +103,7 @@ esprit\tn\controllers\AfficherUser.class
 esprit\tn\controllers\AffichageEntretineController.class
 esprit\tn\entities\Langue.class
 esprit\tn\controllers\AfficherOffreController.class
+esprit\tn\controllers\AfficherStatistiqueController.class
 esprit\tn\services\IServiceEquipe.class
 esprit\tn\controllers\ModifierEquipeController$1.class
 esprit\tn\services\ServiceReclamation.class

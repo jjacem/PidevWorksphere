@@ -1,9 +1,6 @@
 package esprit.tn.controllers;
 
 import esprit.tn.services.ServiceEquipe;
-import esprit.tn.utils.CloudinaryUploader;
-import esprit.tn.utils.PDFGenerator;
-import esprit.tn.utils.QRCodeGenerator;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,9 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import esprit.tn.entities.Equipe;
 import esprit.tn.entities.*;
-import java.io.ByteArrayInputStream;
+
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,8 +30,6 @@ public class AfficherDetailsEquipeController {
 
     @FXML
     private ImageView imageEquipeView;
-    @FXML
-    private ImageView qrCodeImageView;
 
     private Equipe equipe;
     private ServiceEquipe serviceEquipe = new ServiceEquipe();
@@ -43,7 +37,6 @@ public class AfficherDetailsEquipeController {
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
         afficherDetails();
-        generateQRCodeForEquipe(equipe);
     }
 
     private void afficherDetails() {
@@ -177,130 +170,4 @@ public class AfficherDetailsEquipeController {
         }
     }
 
-    /*public String generateJsonForEquipe(Equipe equipe) {
-        Gson gson = new Gson();
-        JsonObject jsonObject = new JsonObject();
-
-        // Ajouter le nom de l'équipe
-        jsonObject.addProperty("nomEquipe", equipe.getNomEquipe());
-        // Ajouter les membres de l'équipe
-        JsonArray membresArray = new JsonArray();
-        for (User user : equipe.getEmployes()) {
-            JsonObject membreObject = new JsonObject();
-            membreObject.addProperty("nom", user.getNom() + " " + user.getPrenom());
-            membreObject.addProperty("email", user.getEmail());
-            membresArray.add(membreObject);
-        }
-        jsonObject.add("membres", membresArray);
-
-        // Ajouter les projets de l'équipe
-        JsonArray projetsArray = new JsonArray();
-        for (Projet projet : equipe.getProjets()) {
-            JsonObject projetObject = new JsonObject();
-            projetObject.addProperty("nomProjet", projet.getNom());
-            projetObject.addProperty("description", projet.getDescription());
-            projetsArray.add(projetObject);
-        }
-        jsonObject.add("projets", projetsArray);
-
-        // Convertir l'objet JSON en chaîne de caractères
-        return gson.toJson(jsonObject);
-    }*/
-
-    /*public void generateQRCodeForEquipe(Equipe equipe) {
-        try {
-            // Générer le JSON pour l'équipe
-            String jsonData = generateJsonForEquipe(equipe);
-
-            // Générer le QR code à partir du JSON
-            byte[] qrCodeImageData = QRCodeGenerator.generateQRCode(jsonData);
-
-            // Convertir les données binaires en une image JavaFX
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(qrCodeImageData);
-            Image qrCodeImage = new Image(inputStream);
-
-            // Afficher le QR code dans l'ImageView
-            qrCodeImageView.setImage(qrCodeImage);
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            // Afficher une image par défaut en cas d'erreur
-            Image defaultImage = new Image(getClass().getResourceAsStream("/images/profil.png"));
-            qrCodeImageView.setImage(defaultImage);
-        }
-    }*/
-
-    public String generateFormattedStringForEquipe(Equipe equipe) {
-        StringBuilder formattedString = new StringBuilder();
-
-        // Ajouter le nom de l'équipe
-        formattedString.append("Equipe: ").append(equipe.getNomEquipe()).append("\n\n");
-
-        // Ajouter les membres de l'équipe
-        formattedString.append("Membres:\n");
-        for (User user : equipe.getEmployes()) {
-            formattedString.append("- ").append(user.getNom()).append(" ").append(user.getPrenom())
-                    .append(" (").append(user.getEmail()).append(")\n");
-        }
-
-        // Ajouter les projets de l'équipe
-        formattedString.append("\nProjets:\n");
-        for (Projet projet : equipe.getProjets()) {
-            formattedString.append("- ").append(projet.getNom()).append(": ")
-                    .append(projet.getDescription()).append("\n");
-        }
-
-        return formattedString.toString();
-    }
-   /* hedii te3 ktiba mech f json public void generateQRCodeForEquipe(Equipe equipe) {
-        try {
-            // Générer la chaîne formatée pour l'équipe
-            String formattedData = generateFormattedStringForEquipe(equipe);
-
-            // Générer le QR code à partir de la chaîne formatée
-            byte[] qrCodeImageData = QRCodeGenerator.generateQRCode(formattedData);
-
-            // Convertir les données binaires en une image JavaFX
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(qrCodeImageData);
-            Image qrCodeImage = new Image(inputStream);
-
-            // Afficher le QR code dans l'ImageView
-            qrCodeImageView.setImage(qrCodeImage);
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            // Afficher une image par défaut en cas d'erreur
-            Image defaultImage = new Image(getClass().getResourceAsStream("/images/profil.png"));
-            qrCodeImageView.setImage(defaultImage);
-        }
-    }*/
-
-    public void generateQRCodeForEquipe(Equipe equipe) {
-        try {
-            // Générer le PDF pour l'équipe
-            byte[] pdfData = PDFGenerator.generateEquipePDF(equipe);
-
-            // Upload the PDF to Cloudinary and get the shareable link
-            String pdfUrl = CloudinaryUploader.uploadPdfToCloudinary(pdfData);
-
-            // Debug: Print the PDF URL
-            System.out.println("PDF URL: " + pdfUrl);
-
-            // Générer le QR code à partir de l'URL du PDF
-            byte[] qrCodeImageData = QRCodeGenerator.generateQRCode(pdfUrl);
-
-            // Convertir les données binaires en une image JavaFX
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(qrCodeImageData);
-            Image qrCodeImage = new Image(inputStream);
-
-            // Afficher le QR code dans l'ImageView
-            qrCodeImageView.setImage(qrCodeImage);
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            // Afficher une image par défaut en cas d'erreur
-            Image defaultImage = new Image(getClass().getResourceAsStream("/images/profil.png"));
-            qrCodeImageView.setImage(defaultImage);
-        }
-    }
 }

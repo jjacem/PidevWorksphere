@@ -17,6 +17,7 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controll
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherReponse.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherReservationController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherSponsorController.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherStatistiqueController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AfficherUser.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterCandidatureController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterEntretineController.java
@@ -52,10 +53,9 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controll
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierSponsorController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\RHMenuController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\SponsorEventsController.java
-C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\StatistiquesEquipeController.java
-C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\StatistiquesEquipesController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\voirFeedbackController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Candidature.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\ChartData.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Entretien.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Equipe.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\EtatProjet.java
@@ -75,7 +75,7 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\TypeEntretien.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Typeformation.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\User.java
-C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ChatbotService.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ChatbotEquipeService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\EntretienService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\FeedbackService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IService.java
@@ -94,6 +94,7 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceReservation.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceSponsor.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ServiceUser.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\StatistiqueEquipeService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\Main.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\MainFX.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\CloudinaryUploader.java
@@ -101,6 +102,5 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Em
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\JwtUtil.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\MyDatabase.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\PDFGenerator.java
-C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\QRCodeGenerator.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Router.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\SessionManager.java

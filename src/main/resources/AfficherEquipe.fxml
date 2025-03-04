@@ -21,26 +21,32 @@
             <!-- Titre de la page -->
             <Label styleClass="title-label" text="Liste des équipes" textFill="#006699" />
 
+
+
             <!-- Conteneur pour la barre de recherche et les boutons -->
             <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-search-container">
+
+                <Button fx:id="statsButton" onAction="#voirStatistiques" prefHeight="35.0" prefWidth="53.0" styleClass="stat-button" text="Statistiques 📊" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+   
+                <Button onAction="#AskMe" prefHeight="32.0" prefWidth="41.0" styleClass="rapport-button" text="❓" />
                 <!-- Barre de recherche -->
-                <TextField fx:id="searchField" onKeyReleased="#rechercherEquipe" promptText="Rechercher une équipe..." styleClass="search-field" />
+                <TextField fx:id="searchField" onKeyReleased="#rechercherEquipe" prefHeight="42.0" prefWidth="285.0" promptText="Rechercher une équipe..." styleClass="search-field" />
 
                 <!-- Bouton Ajouter une équipe -->
-                <Button onAction="#redirectToAjouterEquipe" styleClass="button-ajouter" text="Ajouter une équipe">
+                <Button onAction="#redirectToAjouterEquipe" prefWidth="120.0" styleClass="button-ajouter" text="Ajouter">
                <font>
                   <Font size="14.0" />
                </font></Button>
 
                 <!-- Bouton Supprimer tout -->
-                <Button onAction="#supprimerToutesEquipes" styleClass="supprimer-tout-button" text="Supprimer tout">
+                <Button onAction="#supprimerToutesEquipes" prefWidth="150.0" styleClass="supprimer-tout-button" text="Supprimer tout">
                <font>
                   <Font size="14.0" />
                </font></Button>
-
-                <Button text="Générer Rapport" onAction="#genererRapportStatistique" styleClass="rapport-button"/>
-            <!--<Button text="Générer Rapport" onAction="#redirectToStatistiques" styleClass="rapport-button"/>-->
-
         </HBox>
 
         <!-- ScrollPane pour la liste des équipes -->

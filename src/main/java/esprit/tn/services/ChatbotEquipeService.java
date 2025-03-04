@@ -3,13 +3,12 @@ package esprit.tn.services;
 import esprit.tn.entities.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ChatbotService {
+public class ChatbotEquipeService {
 
     private ServiceEquipe serviceEquipe;
 
-    public ChatbotService() {
+    public ChatbotEquipeService() {
         this.serviceEquipe = new ServiceEquipe();
     }
 

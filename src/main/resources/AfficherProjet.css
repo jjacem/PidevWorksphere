@@ -38,7 +38,7 @@
     -fx-font-weight: bold;
     -fx-background-radius: 20;
     -fx-padding: 10 20;
-    -fx-pref-width: 180;
+    -fx-pref-width: 120;
     -fx-pref-height: 40;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
@@ -53,7 +53,7 @@
     -fx-font-weight: bold;
     -fx-background-radius: 20;
     -fx-padding: 10 20;
-    -fx-pref-width: 150;
+    -fx-pref-width: 120;
     -fx-pref-height: 40;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
@@ -140,8 +140,8 @@
 .rapport-button {
     -fx-background-color: #4CAF50;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
+    -fx-font-size: 11px;
+    -fx-padding: 8px 11px;
     -fx-border-radius: 5px;
 }
 .combo-box-filter {
@@ -214,4 +214,14 @@
 .chip-default {
     -fx-background-color: #cccccc; /* Gris */
     -fx-text-fill: #333333;
+}
+
+.stat-button {
+    -fx-background-color: #006699;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+}
+.stat-button:hover {
+    -fx-background-color: #004466;
 }

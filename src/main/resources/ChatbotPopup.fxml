@@ -27,17 +27,4 @@
     <!-- Liste des questions -->
     <HBox fx:id="questionsContainer" spacing="10" alignment="CENTER" />
 
-    <!-- Zone de saisie avec le bouton d'envoi
-    <HBox spacing="5" alignment="CENTER">
-        <TextField fx:id="questionField" promptText="Écrivez une question..." HBox.hgrow="ALWAYS" />
-        <Button onAction="#handleAskButton" styleClass="send-button">
-            <graphic>
-                <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/profil.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-    </HBox>-->
 </VBox>

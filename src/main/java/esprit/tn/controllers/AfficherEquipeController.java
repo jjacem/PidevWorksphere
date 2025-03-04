@@ -263,126 +263,46 @@ public class AfficherEquipeController {
 
 
 
-    /*@FXML
-    public void genererRapportStatistique() {
-        try {
-            // Récupérer la liste des équipes
-            List<Equipe> equipes = serviceEquipe.afficherEquipe();
-
-            if (equipes.isEmpty()) {
-                showAlert("Aucune équipe trouvée", "Il n'y a aucune équipe à analyser.", Alert.AlertType.INFORMATION);
-                return;
-            }
-
-            // Calcul des statistiques
-            int nombreTotalEquipes = equipes.size();
-            int totalMembres = equipes.stream()
-                    .mapToInt(equipe -> equipe.getEmployes() != null ? equipe.getEmployes().size() : 0)
-                    .sum();
-            double moyenneMembresParEquipe = (double) totalMembres / nombreTotalEquipes;
-
-            // Trouver l'équipe avec le plus de membres
-            Equipe equipeAvecPlusDeMembres = equipes.stream()
-                    .max(Comparator.comparingInt(equipe -> equipe.getEmployes() != null ? equipe.getEmployes().size() : 0))
-                    .orElse(null);
-
-            // Trouver l'équipe avec le moins de membres
-            Equipe equipeAvecMoinsDeMembres = equipes.stream()
-                    .min(Comparator.comparingInt(equipe -> equipe.getEmployes() != null ? equipe.getEmployes().size() : 0))
-                    .orElse(null);
-
-            // Calculer le nombre de projets par équipe
-            Map<String, Long> projetsParEquipe = equipes.stream()
-                    .collect(Collectors.groupingBy(
-                            Equipe::getNomEquipe,
-                            Collectors.summingLong(equipe -> equipe.getNbrProjet() == 0 ? 0 : equipe.getNbrProjet())
-                    ));
-
-            // Construire le rapport
-            StringBuilder rapport = new StringBuilder();
-            rapport.append("Rapport Statistique des Équipes:\n\n");
-            rapport.append("Nombre total d'équipes: ").append(nombreTotalEquipes).append("\n");
-            rapport.append("Nombre total de membres: ").append(totalMembres).append("\n");
-            rapport.append("Nombre moyen de membres par équipe: ").append(String.format("%.2f", moyenneMembresParEquipe)).append("\n");
-            rapport.append("Équipe avec le plus de membres: ").append(equipeAvecPlusDeMembres != null ? equipeAvecPlusDeMembres.getNomEquipe() : "N/A").append("\n");
-            rapport.append("Équipe avec le moins de membres: ").append(equipeAvecMoinsDeMembres != null ? equipeAvecMoinsDeMembres.getNomEquipe() : "N/A").append("\n");
-
-            rapport.append("\nNombre de projets par équipe:\n");
-            projetsParEquipe.forEach((nomEquipe, nombreProjets) ->
-                    rapport.append(nomEquipe).append(": ").append(nombreProjets).append(" projets\n"));
-
-            // Afficher le rapport dans une boîte de dialogue
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Rapport Statistique");
-            alert.setHeaderText("Statistiques des Équipes");
-            alert.setContentText(rapport.toString());
-            applyAlertStyle(alert);
-            alert.showAndWait();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Une erreur s'est produite lors de la génération du rapport.", Alert.AlertType.ERROR);
-        }
-    }*/
 
     @FXML
-    public void genererRapportStatistique() {
+    public void AskMe() {
         try {
-            // Charger le fichier FXML de la popup du chatbot
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatbotPopup.fxml"));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherStatistique.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle scène pour la popup
             Scene scene = new Scene(root);
             Stage popupStage = new Stage();
 
-            // Configurer la popup
             popupStage.setTitle("Chatbot des Équipes");
-            popupStage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setScene(scene);
 
-            // Afficher la popup
-            popupStage.showAndWait(); // "showAndWait" bloque l'interaction avec la fenêtre principale jusqu'à ce que la popup soit fermée
-
+            popupStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    /*@FXML
-    public void redirectToStatistiques() {
+    @FXML
+    public void voirStatistiques() {
         try {
-            // Charger le fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatistiquesEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherStatistique.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle fenêtre (Stage)
-            Stage popupStage = new Stage();
-            popupStage.setTitle("Statistiques des Équipes");
-
-            // Rendre la fenêtre modale (bloque l'interaction avec la fenêtre parente)
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-
-            // Définir la scène de la fenêtre
             Scene scene = new Scene(root);
+            Stage popupStage = new Stage();
+
+            popupStage.setTitle("Statéstiques");
+            popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setScene(scene);
 
-            // Afficher la fenêtre
-            popupStage.showAndWait(); // Utilisez showAndWait() pour bloquer jusqu'à ce que la fenêtre soit fermée
-        } catch (IOException e) {
+            popupStage.showAndWait();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
-    private void showAlert(String title, String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        applyAlertStyle(alert);
-        alert.showAndWait();
     }
-
 
 
 }
