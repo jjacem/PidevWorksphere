@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ProgressBar?>
 <AnchorPane prefHeight="800.0" prefWidth="800.0" stylesheets="@Formation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherListFormationController">
 
     <!-- Conteneur principal -->
@@ -23,7 +24,8 @@
             <!-- ScrollPane pour la liste des formations -->
             <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                 <VBox fx:id="listformationid" spacing="5" styleClass="list-view">
-
+<!--                    <ProgressBar fx:id="progressBar" prefWidth="200" layoutX="10" layoutY="120" styleClass="progress-bar"/>-->
+<!--                    <Label fx:id="progressLabel" layoutX="220" layoutY="120" />-->
                 </VBox>
             </ScrollPane>
         </VBox>

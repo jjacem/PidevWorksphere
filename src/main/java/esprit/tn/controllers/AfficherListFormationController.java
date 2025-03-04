@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -58,7 +59,10 @@ public class AfficherListFormationController {
     private ComboBox <String> typeFilter;
     @FXML
     private ComboBox <String>  dateFilter;
-
+    @FXML
+    private ProgressBar progressBar;
+    @FXML
+    private Label progressLabel;
 
     @FXML
     public void initialize() {
@@ -135,22 +139,22 @@ public class AfficherListFormationController {
 
     // Méthode pour créer la boîte de chaque formation avec ses informations
     private HBox createFormationBox(Formation formation) {
-        // Création de l'ImageView
+
+        // Ajouter l'image du projet
         ImageView imageView = new ImageView();
+        if (formation.getPhoto() != null && !formation.getPhoto().trim().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(formation.getPhoto()).getName();
+            File imageFile = new File(correctPath);
+            if (imageFile.exists() && imageFile.isFile()) {
+                imageView.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+            }
+        } else {
+            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+        }
         imageView.setFitHeight(150);
         imageView.setFitWidth(200);
-
-        // Vérification si le chemin de l'image est valide
-        try {
-            // Chemin de l'image sur le serveur
-            String imagePath = "http://localhost/img/" + formation.getPhoto();
-            Image image = new Image(imagePath, true); // 'true' permet le chargement en arrière-plan
-            imageView.setImage(image);
-        } catch (Exception e) {
-            // En cas d'erreur, charger l'image par défaut
-            Image defaultImage = new Image(getClass().getResourceAsStream("/img/default.png"));
-            imageView.setImage(defaultImage);
-        }
 
         // Création des labels pour les informations de la formation
         Label titreLabel = new Label(formation.getTitre());
@@ -162,7 +166,26 @@ public class AfficherListFormationController {
         Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
         Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
 
-        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
+
+        // Calculer le temps restant avant la formation
+        LocalDate today = LocalDate.now();
+        //LocalDate formationDate = reservation.getDate();
+        LocalDate formationDate = formation.getDate();
+
+        long totalDays = ChronoUnit.DAYS.between(today, formationDate);
+        long maxDays = 30; // Durée max pour la barre de progression
+        double progress = (totalDays <= 0) ? 1.0 : 1.0 - ((double) totalDays / maxDays);
+
+        // Créer la ProgressBar et le Label
+        ProgressBar progressBar = new ProgressBar(progress);
+        progressBar.getStyleClass().add("progress-bar");
+
+        Label progressLabel = new Label(totalDays > 0 ? totalDays + " jours restants" : "Formation commencée !");
+        progressLabel.getStyleClass().add("progress-label");
+
+
+
+        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel , progressBar,progressLabel);
         Button detailButton = new Button("Detail");
         detailButton.getStyleClass().addAll("card-button", "details-button");
         detailButton.setOnAction(event -> afficherDetails(formation));
@@ -211,7 +234,6 @@ public class AfficherListFormationController {
         formationBox.setStyle("-fx-padding: 10px; -fx-border-color: lightgray; -fx-border-radius: 5px;");
         return formationBox;
     }
-
 
     private void updateFavoriteButtonStyle(Button favButton, Formation formation) {
         try {

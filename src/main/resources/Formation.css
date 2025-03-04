@@ -261,5 +261,17 @@
     -fx-border-radius: 10; /* Coins arrondis pour la liste déroulante */
     -fx-background-radius: 10; /* Coins arrondis pour la liste déroulante */
 }
+/* Style de la ProgressBar */
+.progress-bar {
+    -fx-background-color: #D3D3D3; /* Fond gris */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-width: 185px; /* Largeur */
+    -fx-pref-height: 20px; /* Hauteur */
+}
 
-
+/* Barre de progression (remplissage) */
+.progress-bar .bar {
+    -fx-background-color: #2eba3d; /* Vert */
+    -fx-background-radius: 5px;
+}
