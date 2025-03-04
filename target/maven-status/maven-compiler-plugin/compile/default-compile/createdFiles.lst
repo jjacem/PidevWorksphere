@@ -9,6 +9,8 @@ esprit\tn\utils\PDFGenerator.class
 esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
 esprit\tn\controllers\AfficherReservationController$1.class
+esprit\tn\controllers\FaceRegisterController.class
+esprit\tn\controllers\FaceAuthController.class
 esprit\tn\tests\Main.class
 esprit\tn\entities\Reservation.class
 esprit\tn\controllers\ModifierSponsorController.class
@@ -102,6 +104,7 @@ esprit\tn\entities\Typeformation.class
 esprit\tn\controllers\AfficherUser.class
 esprit\tn\controllers\AffichageEntretineController.class
 esprit\tn\entities\Langue.class
+esprit\tn\utils\GoogleAuthUtil.class
 esprit\tn\controllers\AfficherOffreController.class
 esprit\tn\controllers\AfficherStatistiqueController.class
 esprit\tn\services\IServiceEquipe.class
@@ -116,6 +119,7 @@ esprit\tn\controllers\ModifierProjetController.class
 esprit\tn\entities\Equipe.class
 esprit\tn\controllers\AjouterUser.class
 esprit\tn\controllers\AfficherSponsorController$1.class
+esprit\tn\utils\Imageutil.class
 esprit\tn\services\ServiceReponse.class
 esprit\tn\controllers\AjouterReclamationController.class
 esprit\tn\controllers\AfficherProjetController$1.class

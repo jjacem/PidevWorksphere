@@ -1,6 +1,5 @@
 package esprit.tn.controllers;
 import esprit.tn.entities.User;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
@@ -65,14 +64,7 @@ public class DashboardHR {
             loadPage("/AfficherEvenement.fxml");
         }
     }
-
     public void initialize() throws SQLException {
-
-        Platform.runLater(() -> {
-            Stage stage = (Stage) contentArea.getScene().getWindow();
-            stage.setMaximized(true);
-        });
-
         User u = SessionManager.extractuserfromsession();
 
         if (u != null) {
@@ -95,8 +87,6 @@ public class DashboardHR {
         } else {
             System.out.println("No user found in session.");
         }
-
-
     }
 
 
@@ -112,12 +102,10 @@ public class DashboardHR {
 
 
 
-    /*@FXML
+    @FXML
     private void logout(ActionEvent event) {
         SessionManager.clearSession();
         try {
-
-
             // Get reference to current window using the event source
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -130,45 +118,7 @@ public class DashboardHR {
             System.err.println("Error loading FXML: " + e.getMessage());
             e.printStackTrace();
         }
-    }*/
-
-    @FXML
-    private void logout(ActionEvent event) {
-        try {
-            // Nettoyer la session utilisateur
-            SessionManager.clearSession();
-
-            // Charger la nouvelle interface de login
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle
-            Scene newScene = new Scene(root);
-
-            // Récupérer la fenêtre actuelle
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Appliquer la nouvelle scène
-            stage.setScene(newScene);
-            stage.setTitle("Login");
-
-            // Utiliser un Platform.runLater() pour s'assurer que la fenêtre est bien affichée avant de modifier sa taille
-            Platform.runLater(() -> {
-                stage.setMaximized(false); // Désactiver temporairement la maximisation
-                stage.setWidth(800); // Taille par défaut
-                stage.setHeight(600);
-                stage.centerOnScreen();
-            });
-
-        } catch (IOException e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
-
-
-
-
 
     @FXML
     public void goprofile(ActionEvent actionEvent) {
@@ -231,5 +181,4 @@ public class DashboardHR {
 
         }
     }
-
 }

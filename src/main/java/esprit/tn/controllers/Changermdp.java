@@ -32,7 +32,6 @@ public class Changermdp {
     @FXML
     public void initialize() {
         btnChanger.setOnAction(event -> changePassword());
-        btnRetour.setOnAction(event -> goBack());
     }
 
     private void changePassword() {

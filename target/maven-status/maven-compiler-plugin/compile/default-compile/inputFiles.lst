@@ -38,6 +38,8 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controll
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardEmploye.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardHR.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardManager.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\FaceAuthController.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\FaceRegisterController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ForgotpasswordController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\LoginContoller.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ModifierCompteController.java
@@ -99,6 +101,8 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\Ma
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\tests\MainFX.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\CloudinaryUploader.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Emailsend.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\GoogleAuthUtil.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\Imageutil.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\JwtUtil.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\MyDatabase.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils\PDFGenerator.java

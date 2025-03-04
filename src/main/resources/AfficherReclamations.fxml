@@ -6,17 +6,30 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainContainer" prefHeight="490.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherReclamationsController">
-    <VBox alignment="CENTER" layoutX="11.2" layoutY="20.0" prefHeight="450.0" prefWidth="578.0" spacing="10.0">
-        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Gestion des Réclamations" />
+<?import java.net.URL?>
+<AnchorPane fx:id="mainContainer" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherReclamationsController">
+    <stylesheets>
+        <URL value="@AFFICHERRECLAMATION.css" />
+    </stylesheets>
 
-        <TextField fx:id="searchField" promptText="Rechercher par titre..." />
-        <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" />
+    <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <!-- Title -->
+        <Label text="Gestion des Réclamations" styleClass="title-label" />
 
-        <ListView fx:id="listView" prefHeight="300.0" prefWidth="580.0" />
+        <!-- Search and Filter Section -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <TextField fx:id="searchField" promptText="Rechercher par titre..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="statusChoiceBox" prefWidth="150" styleClass="filter-choice-box" />
+        </HBox>
 
-        <Button fx:id="btnAjouter" text="Ajouter Réclamation" onAction="#ajouterReclamation" />
+        <!-- List of Reclamations -->
+        <ListView fx:id="listView" styleClass="reclamation-list" VBox.vgrow="ALWAYS" />
+
+        <!-- Add Reclamation Button -->
+        <Button fx:id="btnAjouter" text="Ajouter Réclamation" onAction="#ajouterReclamation" styleClass="button-ajouter" />
     </VBox>
 </AnchorPane>

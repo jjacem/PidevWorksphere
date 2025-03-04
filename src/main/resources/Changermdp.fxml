@@ -6,17 +6,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1E3A8A;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.Changermdp">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.Changermdp"
+            style="-fx-background-color: #1E3A8A;"
+            prefWidth="1000"
+            prefHeight="600">
 
-    <VBox alignment="CENTER" layoutX="150" layoutY="80" spacing="15">
-        <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Changer Mot de Passe" />
-        <PasswordField fx:id="newPasswordField" promptText="Nouveau mot de passe" style="-fx-pref-width: 300px;" />
-        <PasswordField fx:id="confirmPasswordField" promptText="Confirmer le mot de passe" style="-fx-pref-width: 300px;" />
+    <!-- Centered VBox -->
+    <VBox alignment="CENTER" spacing="20" style="-fx-alignment: center;">
+        <AnchorPane.topAnchor>0</AnchorPane.topAnchor>
+        <AnchorPane.bottomAnchor>0</AnchorPane.bottomAnchor>
+        <AnchorPane.leftAnchor>0</AnchorPane.leftAnchor>
+        <AnchorPane.rightAnchor>0</AnchorPane.rightAnchor>
 
-        <Label fx:id="errorLabel" style="-fx-text-fill: red; -fx-font-size: 14px;" text="" />
+        <Label text="Changer Mot de Passe"
+               style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
 
-        <Button fx:id="btnChanger" style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 16px;" text="Changer" />
+        <PasswordField fx:id="newPasswordField"
+                       promptText="Nouveau mot de passe"
+                       style="-fx-pref-width: 350px; -fx-font-size: 14px; -fx-padding: 10px;" />
 
-        <Button fx:id="btnRetour" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;" text="Retour" />
+        <PasswordField fx:id="confirmPasswordField"
+                       promptText="Confirmer le mot de passe"
+                       style="-fx-pref-width: 350px; -fx-font-size: 14px; -fx-padding: 10px;" />
+
+        <Label fx:id="errorLabel"
+               style="-fx-text-fill: red; -fx-font-size: 14px;"
+               text="" />
+
+        <Button fx:id="btnChanger"
+                text="Changer"
+                style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-border-radius: 5px;"
+        />
+
     </VBox>
 </AnchorPane>

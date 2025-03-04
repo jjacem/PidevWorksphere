@@ -8,60 +8,128 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="566.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.LoginContoller">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.LoginContoller">
 
-    <children>
-        <!-- Image de fond -->
-        <ImageView fitHeight="566.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
-            <image>
-                <Image url="@Images/img_1.png" />
-            </image>
-        </ImageView>
+    <!-- Background Image -->
+    <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <image>
+            <Image url="@Images/img_1.png" />
+        </image>
+    </ImageView>
 
-        <!-- Titre -->
-        <Label text="SE CONNECTER" textOverrun="CLIP" AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="50">
-            <font>
-                <Font size="30.0" />
-            </font>
-            <effect>
-                <Blend mode="OVERLAY" />
-            </effect>
-        </Label>
-        <Label text="Connecter à votre profil" textFill="#615c5c" AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="100" />
+    <!-- Right Panel -->
+    <AnchorPane fx:id="rightPanel" style="-fx-background-color: #ffffff;" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="300.0">
+        <children>
+            <!-- Title and Sign Up Button -->
+            <HBox alignment="CENTER_LEFT" spacing="20" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+                <children>
+                    <!-- SE CONNECTER -->
+                    <VBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="SE CONNECTER" textFill="#0086B3">
+                            <font>
+                                <Font size="40.0"/>
+                            </font>
+                            <effect>
+                                <Blend mode="OVERLAY" />
+                            </effect>
+                        </Label>
+                        <Label text="Connectez-vous à votre profil" textFill="#615c5c">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                    </VBox>
 
-        <!-- Champ Email -->
-        <Label text="Email:" AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="150">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Label>
-        <TextField fx:id="mail" prefHeight="34.0" promptText="Email" AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="170" />
+                    <!-- S'inscrire Button -->
+                    <Button fx:id="signupbtn1" mnemonicParsing="false" onAction="#handlesignup" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #0086B3; -fx-background-radius: 5;" text="S'inscrire" textFill="WHITE">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Button>
+                </children>
+            </HBox>
 
-        <!-- Champ Mot de passe -->
-        <Label text="Mot de passe:" AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="220">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Label>
-        <PasswordField fx:id="mdp" prefHeight="34.0" promptText="Mot de passe" AnchorPane.leftAnchor="350" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="240" />
+            <!-- Email Field -->
+            <VBox alignment="CENTER_LEFT" spacing="10" AnchorPane.topAnchor="180.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+                <children>
+                    <Label text="Email:" textFill="#333333">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="mail" prefHeight="40.0" prefWidth="440.0" promptText="Entrez votre email" style="-fx-background-radius: 5;" />
+                </children>
+            </VBox>
 
-        <!-- Boutons -->
-        <Button onAction="#handleLogin" fx:id="ConnectBtn" layoutX="384.0" layoutY="300.0" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: #0086B3;" text="Connecter" textFill="WHITE" AnchorPane.leftAnchor="384.0" AnchorPane.topAnchor="300.0" />
-        <Button onAction="#handlesignup" fx:id="signupbtn1" layoutX="551.0" layoutY="300.0" prefHeight="34.0" prefWidth="126.0" style="-fx-background-color: #0086B3;" text="Inscrire" textFill="WHITE" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="300.0" />
+            <!-- Password Field -->
+            <VBox alignment="CENTER_LEFT" spacing="10" AnchorPane.topAnchor="280.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+                <children>
+                    <Label text="Mot de passe:" textFill="#333333">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <PasswordField fx:id="mdp" prefHeight="40.0" prefWidth="440.0" promptText="Entrez votre mot de passe" style="-fx-background-radius: 5;" />
+                </children>
+            </VBox>
 
-        <!-- Lien Mot de passe oublié -->
-        <Label layoutX="400.0" layoutY="357.0" text="Mot de passe oublié?" textFill="#615c5c" AnchorPane.bottomAnchor="193.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0">
-            <font>
-                <Font size="11.0" />
-            </font>
-        </Label>
-        <Label fx:id="textid1" layoutX="527.0" layoutY="357.0" style="-fx-cursor: hand;" text="Cliquez ici" textFill="#325afa" AnchorPane.bottomAnchor="193.0" AnchorPane.leftAnchor="527.0">
-            <font>
-                <Font size="11.0" />
-            </font>
-        </Label>
-    </children>
+            <!-- Login Button -->
+            <Button fx:id="ConnectBtn" mnemonicParsing="false" onAction="#handleLogin" prefHeight="50.0" prefWidth="440.0" style="-fx-background-color: #0086B3; -fx-background-radius: 5;" text="Se connecter" textFill="WHITE" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="380.0">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
 
+            <!-- Forgot Password Link -->
+            <HBox alignment="CENTER_LEFT" spacing="10" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="450.0">
+                <children>
+                    <Label text="Mot de passe oublié?" textFill="#615c5c">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="textid1" onMouseClicked="#forgotpassword" style="-fx-cursor: hand;" text="Cliquez ici" textFill="#325afa">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                </children>
+            </HBox>
+
+            <!-- Social Login Buttons -->
+            <VBox alignment="CENTER" spacing="20" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="500.0">
+                <children>
+                    <Button fx:id="googleLoginBtn" mnemonicParsing="false" onAction="#handleGoogleLogin" prefHeight="50.0" prefWidth="440.0" style="-fx-background-color: #dd4b39; -fx-background-radius: 5; -fx-text-fill: white;" text="Se connecter avec Google">
+                        <graphic>
+                            <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
+                                <image>
+                                    <Image url="./icons/google.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Button>
+
+                    <Button fx:id="faceIdLoginBtn" mnemonicParsing="false" onAction="#handleFaceIdLogin" prefHeight="50.0" prefWidth="440.0" style="-fx-background-color: #4CAF50; -fx-background-radius: 5; -fx-text-fill: white;" text="Se connecter avec Face ID">
+                        <graphic>
+                            <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">
+                                <image>
+                                    <Image url="./icons/face-scanner.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Button>
+                </children>
+            </VBox>
+        </children>
+    </AnchorPane>
 </AnchorPane>

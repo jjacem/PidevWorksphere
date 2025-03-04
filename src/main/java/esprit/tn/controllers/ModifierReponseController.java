@@ -2,66 +2,84 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.Reponse;
 import esprit.tn.services.ServiceReponse;
-import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.sql.SQLException;
+
 import java.util.Arrays;
 
 public class ModifierReponseController {
-    @FXML
-    private TextField messageField;
-    @FXML
-    private ComboBox<String> statusComboBox;
-    @FXML
-    private Button modifyButton;
 
-    private int idReponse;
+    @FXML
+    private TextArea txtMessage;
+
+    @FXML
+    private ChoiceBox<String> choiceStatus;
+
+    @FXML
+    private Button btnModifier;
+
+    private Reponse reponse;
     private final ServiceReponse serviceReponse = new ServiceReponse();
 
+    /**
+     * Receives the response to modify.
+     */
     public void setReponse(Reponse reponse) {
-        this.idReponse = reponse.getId_reponse();
-        messageField.setText(reponse.getMessage());
-        statusComboBox.setValue(reponse.getStatus());
+        this.reponse = reponse;
+
+        // Populate fields with existing values
+        txtMessage.setText(reponse.getMessage());
+        choiceStatus.setValue(reponse.getStatus());
     }
 
     @FXML
     public void initialize() {
-        statusComboBox.getItems().addAll(Arrays.asList("Pending", "Approved", "Rejected"));
-        modifyButton.setDisable(true);
+        // Initialize status options
+        choiceStatus.getItems().addAll(Arrays.asList("En attente", "Résolu", "En cours"));
 
-        messageField.textProperty().addListener((obs, oldText, newText) -> validateFields());
-        statusComboBox.valueProperty().addListener((obs, oldVal, newVal) -> validateFields());
+        // Add validation listener
+        txtMessage.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
+        choiceStatus.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> validateFields());
+
+        validateFields(); // Ensure button state updates correctly
     }
 
     private void validateFields() {
-        boolean isValid = !messageField.getText().trim().isEmpty() && statusComboBox.getValue() != null;
-        modifyButton.setDisable(!isValid);
+        String message = txtMessage.getText().trim();
+        String status = choiceStatus.getValue();
+        btnModifier.setDisable(message.isEmpty() || message.length() < 5 || status == null || status.isEmpty());
     }
 
     @FXML
-    private void modifyResponse() {
-        String message = messageField.getText().trim();
-        String status = statusComboBox.getValue();
+    public void modifierReponse(ActionEvent event) {
+        String message = txtMessage.getText().trim();
+        String status = choiceStatus.getValue().toString();
 
-        if (message.isEmpty()) {
-            showAlert("Validation Error", "Le message ne peut pas être vide.");
+        if (message.isEmpty() || message.length() < 5) {
+            showAlert("Erreur", "Le message doit contenir au moins 5 caractères.");
+            return;
+        }
+        if (status == null || status.isEmpty()) {
+            showAlert("Erreur", "Veuillez sélectionner un statut.");
             return;
         }
 
         try {
-            Reponse reponse = new Reponse(message, SessionManager.extractuserfromsession().getIdUser(), 0, status);
-            reponse.setId_reponse(idReponse);
+            // Update the response object
+            reponse.setMessage(message);
+            reponse.setStatus(status);
+
+            // Save changes
             serviceReponse.modifier(reponse);
-            showAlert("Succès", "Réponse modifiée avec succès!");
-        } catch (SQLException e) {
-            showAlert("Erreur", "Problème lors de la modification.");
+            showAlert("Succès", "Réponse modifiée avec succès.");
+
+            // Close the window
+            Stage stage = (Stage) btnModifier.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            showAlert("Erreur", "Erreur lors de la modification de la réponse.");
             e.printStackTrace();
         }
     }
@@ -73,39 +91,4 @@ public class ModifierReponseController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-    @FXML
-    public void handleModify(ActionEvent actionEvent) {
-        String message = messageField.getText().trim();
-        String status = statusComboBox.getValue();
-
-        // Validate inputs
-        if (message.isEmpty()) {
-            showAlert("Validation Error", "Le message ne peut pas être vide.");
-            return;
-        }
-
-        try {
-            // Retrieve current user ID from session
-            int userId = SessionManager.extractuserfromsession().getIdUser();
-
-            // Create and update response
-            Reponse reponse = new Reponse(message, userId, 0, status);
-            reponse.setId_reponse(idReponse);
-            serviceReponse.modifier(reponse);
-
-            // Show success message
-            showAlert("Succès", "Réponse modifiée avec succès!");
-
-            // Close current window after modification
-            Stage stage = (Stage) modifyButton.getScene().getWindow();
-            stage.close();
-
-            // Optional: Refresh the previous scene if needed
-        } catch (SQLException e) {
-            showAlert("Erreur", "Une erreur s'est produite lors de la modification.");
-            e.printStackTrace();
-        }
-    }
-
 }

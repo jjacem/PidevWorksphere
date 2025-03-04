@@ -7,6 +7,7 @@ import esprit.tn.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -311,5 +312,37 @@ public class ModifierCompteController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+
+
+
+
+    @FXML
+    private Button registerFaceButton;
+
+    @FXML
+    private void handleRegisterFaceButton() {
+        openRegisterFaceWindow();
+    }
+
+    private void openRegisterFaceWindow() {
+        try {
+            // Load the FXML for the pop-up window
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/faceregister.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller for the pop-up window
+            FaceRegisterController registerFaceController = loader.getController();
+            registerFaceController.setting(SessionManager.extractuserfromsession().getEmail());
+
+            // Create and show the pop-up window
+            Stage stage = new Stage();
+            stage.setTitle("Register Face");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

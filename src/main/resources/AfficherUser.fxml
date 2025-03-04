@@ -3,14 +3,46 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right, #2193b0, #6dd5ed);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherUser">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AfficherUser"
+            stylesheets="@afficheruser.css"
+            style="-fx-background-color: linear-gradient(to right, #1E3A8A, #2563EB);"
+            prefWidth="1000"
+            prefHeight="700">
+
    <children>
-      <ListView fx:id="data" layoutX="171.0" layoutY="153.0" prefHeight="200.0" prefWidth="378.0" style="-fx-background-color: white; -fx-border-color: #005f73; -fx-border-radius: 8; -fx-border-width: 2;" />
-      <ListView fx:id="attributes" layoutX="171.0" layoutY="310.0" prefHeight="42.0" prefWidth="378.0" style="-fx-background-color: white; -fx-border-color: #005f73; -fx-border-radius: 8; -fx-border-width: 2;" />
-      <ChoiceBox fx:id="filterrole" layoutX="171.0" layoutY="127.0" prefWidth="150.0" style="-fx-background-color: white; -fx-border-color: #0077b6; -fx-border-radius: 6; -fx-padding: 4;" />
-      <TextField fx:id="search" layoutX="225.0" layoutY="27.0" promptText="Chercher Users" style="-fx-background-color: white; -fx-border-color: #0077b6; -fx-border-radius: 6; -fx-padding: 4; -fx-font-size: 14px;" />
+      <!-- 🔍 Search Field -->
+      <TextField fx:id="search"
+                 promptText="Chercher Users"
+                 styleClass="custom-textfield"
+                 AnchorPane.topAnchor="30"
+                 AnchorPane.leftAnchor="50"
+                 AnchorPane.rightAnchor="50" />
+
+      <!-- 🔵 Role Filter -->
+      <ChoiceBox fx:id="filterrole"
+                 styleClass="custom-choicebox"
+                 AnchorPane.topAnchor="80"
+                 AnchorPane.leftAnchor="50"
+                 prefWidth="200"/>
+
+      <!-- 📋 User Data List -->
+      <ListView fx:id="data"
+                styleClass="custom-listview"
+                AnchorPane.topAnchor="130"
+                AnchorPane.leftAnchor="50"
+                AnchorPane.rightAnchor="50"
+                AnchorPane.bottomAnchor="100"/>
+
+      <!-- 📝 User Attributes List -->
+      <ListView fx:id="attributes"
+                styleClass="custom-listview"
+                AnchorPane.leftAnchor="50"
+                AnchorPane.rightAnchor="50"
+                AnchorPane.bottomAnchor="30"
+                prefHeight="60"/>
+
    </children>
 </AnchorPane>

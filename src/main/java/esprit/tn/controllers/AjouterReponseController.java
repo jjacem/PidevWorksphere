@@ -4,10 +4,10 @@ import esprit.tn.entities.Reponse;
 import esprit.tn.services.ServiceReponse;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
 
 public class AjouterReponseController {
 
@@ -16,6 +16,9 @@ public class AjouterReponseController {
 
     @FXML
     private Button btnAjouter;
+
+    @FXML
+    private ChoiceBox<String> choiceStatus;
 
     private int id_user;
     private int id_reclamation;
@@ -28,36 +31,40 @@ public class AjouterReponseController {
 
     @FXML
     public void initialize() {
+        // Initialize status options
+        choiceStatus.getItems().addAll(Arrays.asList("En attente", "Résolu", "En cours"));
+        choiceStatus.setValue("En attente"); // Default selection
+
         // Disable button initially
         btnAjouter.setDisable(true);
 
-        // Add validation listener
+        // Add validation listeners
         txtMessage.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
+        choiceStatus.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> validateFields());
     }
 
     private void validateFields() {
         String message = txtMessage.getText().trim();
-        btnAjouter.setDisable(message.isEmpty() || message.length() < 5);
+        String status = choiceStatus.getValue();
+        btnAjouter.setDisable(message.isEmpty() || message.length() < 5 || status == null || status.isEmpty());
     }
 
-    /**
-     * This method is invoked when the "Ajouter Réponse" button is clicked.
-     */
     @FXML
     public void ajouterReponse(ActionEvent event) {
         String message = txtMessage.getText().trim();
+        String status = choiceStatus.getValue();
 
-        if (message.isEmpty()) {
-            showAlert("Erreur", "Le message ne peut pas être vide.");
+        if (message.isEmpty() || message.length() < 5) {
+            showAlert("Erreur", "Le message doit contenir au moins 5 caractères.");
             return;
         }
-        if (message.length() < 5) {
-            showAlert("Erreur", "Le message doit contenir au moins 5 caractères.");
+        if (status == null || status.isEmpty()) {
+            showAlert("Erreur", "Veuillez sélectionner un statut.");
             return;
         }
 
         try {
-            Reponse reponse = new Reponse(message, id_user, id_reclamation, "En attente");
+            Reponse reponse = new Reponse(message, id_user, id_reclamation, status);
             serviceReponse.ajouter(reponse);
             showAlert("Succès", "Réponse ajoutée avec succès.");
 
@@ -70,12 +77,6 @@ public class AjouterReponseController {
         }
     }
 
-    /**
-     * Utility method to show an alert dialog.
-     *
-     * @param title   the title of the alert
-     * @param message the content text of the alert
-     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

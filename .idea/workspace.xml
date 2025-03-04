@@ -5,26 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icons/comments.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icons/face-scanner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icons/google.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ChatbotPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ChatbotPopupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/StatistiquesEquipeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/StatistiquesEquipesController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ChatbotService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ChatbotEquipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceProjet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/QRCodeGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ChatbotPopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ChatbotPopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/StatistiquesEquipe.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/StatistiquesEquipes.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReclamationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReponseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReponseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/Changermdp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/Changermdp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardCandidat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardCandidat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ForgotpasswordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ForgotpasswordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierReclamationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierReponseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierReponseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/RHMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/RHMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reclamation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/Emailsend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/Emailsend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/Router.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/SessionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/SessionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReclamations.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherReclamations.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReponse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherReponse.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReclamation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterReclamation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReponse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterReponse.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Changermdp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Changermdp.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/InterfaceUser.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/InterfaceUser.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierReclamation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierReclamation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierReponse.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierReponse.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -74,6 +95,10 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources" />
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\videos" />
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\icons" />
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils" />
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers" />
     </key>
   </component>
   <component name="RunManager">
@@ -117,7 +142,7 @@
       <workItem from="1741098289759" duration="845000" />
       <workItem from="1741104254617" duration="3608000" />
       <workItem from="1741107882813" duration="1060000" />
-      <workItem from="1741121051223" duration="7528000" />
+      <workItem from="1741121051223" duration="9551000" />
     </task>
     <servers />
   </component>

@@ -4,7 +4,12 @@ import esprit.tn.entities.Reclamation;
 import esprit.tn.services.ServiceReclamation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -23,17 +28,22 @@ public class ModifierReclamationController {
 
     private final ServiceReclamation serviceReclamation = new ServiceReclamation();
     private Reclamation reclamation;
+    private int idReclamation;
+
+    public void setReclamationId(int idReclamation) {
+        this.idReclamation = idReclamation;
+        loadReclamation();
+    }
 
     @FXML
     public void initialize() {
         List<String> types = Arrays.asList("Technique", "Administratif", "Autre");
         type.getItems().addAll(types);
-        loadReclamation(24);
     }
 
-    public void loadReclamation(int id) {
+    private void loadReclamation() {
         try {
-            reclamation = serviceReclamation.getReclamationById(id);
+            reclamation = serviceReclamation.getReclamationById(idReclamation);
             if (reclamation != null) {
                 titre.setText(reclamation.getTitre());
                 description.setText(reclamation.getDescription());
@@ -80,7 +90,21 @@ public class ModifierReclamationController {
         alert.showAndWait();
     }
 
-    public void setReclamationId(int idReclamation) {
-        System.out.println("works");
+    public void modifierReclamationPopup(Reclamation r) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierReclamation.fxml"));
+            Parent root = loader.load();
+            ModifierReclamationController controller = loader.getController();
+            controller.setReclamationId(r.getId_reclamation());
+
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("Modifier Réclamation");
+            popupStage.setScene(new Scene(root));
+
+            popupStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
