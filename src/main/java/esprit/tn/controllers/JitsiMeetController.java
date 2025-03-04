@@ -22,7 +22,7 @@ public class JitsiMeetController {
     private CheckBox muteCheckBox;
     private final JitsiMeetService jitsiMeetService = new JitsiMeetService();
     @FXML
-    public void startMeeting(int reservationId) { // Ajout de l'ID de réservation
+    public void startMeeting() { // Ajout de l'ID de réservation
         String roomName = roomNameField.getText().trim();
         String displayName = userNameField.getText().trim();
         boolean startMuted = muteCheckBox.isSelected();
@@ -32,8 +32,7 @@ public class JitsiMeetController {
             openInBrowser(meetingUrl);
 
             // Enregistrer le meeting dans la base avec reservationId
-            Meetings meeting = new Meetings(0, roomName, meetingUrl, reservationId);
-            jitsiMeetService.saveMeeting(meeting);
+
         }
     }
 

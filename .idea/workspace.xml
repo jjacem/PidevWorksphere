@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Formation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Formation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/JitsiMeetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/JitsiMeetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/JitsiMeetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/JitsiMeetService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +192,7 @@
       <workItem from="1741034112759" duration="10217000" />
       <workItem from="1741079789755" duration="4138000" />
       <workItem from="1741090640382" duration="1885000" />
-      <workItem from="1741112509325" duration="11901000" />
+      <workItem from="1741112509325" duration="17356000" />
     </task>
     <servers />
   </component>

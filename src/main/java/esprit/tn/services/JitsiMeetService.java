@@ -29,7 +29,7 @@ public class JitsiMeetService {
     }
 
     public void saveMeeting(Meetings meeting) {
-        String query = "INSERT INTO meetings (room_name, meeting_url, id_reservation ) VALUES (?, ?, ?)";
+        String query = "INSERT INTO meetings (room_name, meeting_url, reservation_id ) VALUES (?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, meeting.getRoom_name());
@@ -43,7 +43,7 @@ public class JitsiMeetService {
     }
 
     public String getMeetingUrlByReservationId(int reservationId) {
-        String query = "SELECT meeting_url FROM meetings WHERE id_reservation = ?";
+        String query = "SELECT meeting_url FROM meetings WHERE reservation_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, reservationId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,4 +56,6 @@ public class JitsiMeetService {
         }
         return null; // Aucun meeting trouvé
     }
+
+
 }
