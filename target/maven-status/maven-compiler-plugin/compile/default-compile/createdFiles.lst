@@ -1,5 +1,6 @@
 esprit\tn\controllers\AjouterReservationController$2.class
 esprit\tn\controllers\AjouterProjetController$2.class
+esprit\tn\services\ChatbotService.class
 esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
 esprit\tn\controllers\ModifierEvenementController.class
@@ -126,3 +127,4 @@ esprit\tn\controllers\AffectationSponsorEvent.class
 esprit\tn\controllers\AffichageEntretineController$1.class
 esprit\tn\services\ServiceEquipe.class
 esprit\tn\utils\CloudinaryUploader.class
+esprit\tn\controllers\ChatbotPopupController.class

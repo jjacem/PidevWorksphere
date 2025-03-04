@@ -195,21 +195,6 @@ public class AfficherEquipeController {
         }
     }
 
-    /*private void afficherDetailsEquipe(Equipe equipe) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDetailsEquipe.fxml"));
-            Parent root = loader.load();
-            AfficherDetailsEquipeController controller = loader.getController();
-            controller.setEquipe(equipe);
-
-            Stage stage = (Stage) equipesContainer.getScene().getWindow();
-            stage.setTitle("Détails de l'équipe");
-            stage.getScene().setRoot(root);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void afficherDetailsEquipe(Equipe equipe) {
         try {
@@ -270,18 +255,6 @@ public class AfficherEquipeController {
     }
 
 
-    @FXML
-    public void versProjet() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherProjet.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) equipesContainer.getScene().getWindow();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
@@ -290,7 +263,7 @@ public class AfficherEquipeController {
 
 
 
-    @FXML
+    /*@FXML
     public void genererRapportStatistique() {
         try {
             // Récupérer la liste des équipes
@@ -350,7 +323,32 @@ public class AfficherEquipeController {
             e.printStackTrace();
             showAlert("Erreur", "Une erreur s'est produite lors de la génération du rapport.", Alert.AlertType.ERROR);
         }
+    }*/
+
+    @FXML
+    public void genererRapportStatistique() {
+        try {
+            // Charger le fichier FXML de la popup du chatbot
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatbotPopup.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène pour la popup
+            Scene scene = new Scene(root);
+            Stage popupStage = new Stage();
+
+            // Configurer la popup
+            popupStage.setTitle("Chatbot des Équipes");
+            popupStage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            popupStage.setScene(scene);
+
+            // Afficher la popup
+            popupStage.showAndWait(); // "showAndWait" bloque l'interaction avec la fenêtre principale jusqu'à ce que la popup soit fermée
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     /*@FXML
     public void redirectToStatistiques() {

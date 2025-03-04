@@ -32,6 +32,7 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controll
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterSponsorController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\AjouterUser.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\Changermdp.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\ChatbotPopupController.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardCandidat.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardEmploye.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers\DashboardHR.java
@@ -74,6 +75,7 @@ C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\TypeEntretien.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\Typeformation.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\entities\User.java
+C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\ChatbotService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\EntretienService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\FeedbackService.java
 C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\services\IService.java
