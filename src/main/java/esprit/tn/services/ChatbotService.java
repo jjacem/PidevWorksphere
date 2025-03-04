@@ -56,7 +56,7 @@ public class ChatbotService {
                         .append(" projets\n"));
                 return projetsParEquipe.toString();
             } else {
-                return "Je ne comprends pas la question. Posez-moi une question sur les équipes !";
+                return "Je ne comprends pas la question. Posez-moi une question !";
             }
         } catch (Exception e) {
             e.printStackTrace();

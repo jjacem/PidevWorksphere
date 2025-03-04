@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 import esprit.tn.entities.User;
 import esprit.tn.utils.SessionManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,12 @@ public class DashboardEmploye {
     @FXML
     private Text name;
     public void initialize() throws SQLException {
+
+        Platform.runLater(() -> {
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            stage.setMaximized(true);
+        });
+
         User u = SessionManager.extractuserfromsession();
 
         if (u != null) {
@@ -65,7 +72,7 @@ public class DashboardEmploye {
 
 
 
-    @FXML
+    /*@FXML
     private void logout(ActionEvent event) {
         SessionManager.clearSession();
         try {
@@ -77,6 +84,39 @@ public class DashboardEmploye {
             stage.setScene(new Scene(root));
             stage.setTitle("Login");
             stage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }*/
+    @FXML
+    private void logout(ActionEvent event) {
+        try {
+            // Nettoyer la session utilisateur
+            SessionManager.clearSession();
+
+            // Charger la nouvelle interface de login
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer la scène actuelle
+            Scene newScene = new Scene(root);
+
+            // Récupérer la fenêtre actuelle
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Appliquer la nouvelle scène
+            stage.setScene(newScene);
+            stage.setTitle("Login");
+
+            // Utiliser un Platform.runLater() pour s'assurer que la fenêtre est bien affichée avant de modifier sa taille
+            Platform.runLater(() -> {
+                stage.setMaximized(false); // Désactiver temporairement la maximisation
+                stage.setWidth(800); // Taille par défaut
+                stage.setHeight(600);
+                stage.centerOnScreen();
+            });
+
         } catch (IOException e) {
             System.err.println("Error loading FXML: " + e.getMessage());
             e.printStackTrace();
