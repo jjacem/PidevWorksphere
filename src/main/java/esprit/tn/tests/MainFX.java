@@ -25,6 +25,7 @@ public class MainFX extends Application {
 //            Parent root = FXMLLoader.load(getClass().getResource("/faceregister.fxml"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Face Authentication");
+            primaryStage.setFullScreen(true);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
