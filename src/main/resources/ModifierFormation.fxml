@@ -98,7 +98,7 @@
                <Insets right="550.0" />
             </VBox.margin>
          </Label>
-         <Button fx:id="ajouterPhotoBtn" layoutX="70.0" layoutY="581.0" onAction="#OnModifierPhoto" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" text="Modifier Photo" textFill="WHITE" />
+         <Button fx:id="ajouterPhotoBtn" layoutX="70.0" layoutY="581.0" onMouseClicked="#uploadImage" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" text="Modifier Photo" textFill="WHITE" />
 
          <ImageView fx:id="photoPreview" fitHeight="100.0" fitWidth="200.0" layoutX="280.0" layoutY="581.0" />
 

@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.entities.Formation;
 import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,12 +53,29 @@ public class AfficherFormationController {
     private ComboBox  <String> dateFilter;
 
     // Initialisation de l'interface (remplissage des formations)
-    @FXML
+    /*@FXML
     public void initialize() {
         scrollPane.setFitToWidth(true);
         listformationid.getStyleClass().addAll("list", "list-view");
         populateFormations();
         initializeFilters();
+    }*/
+    @FXML
+    public void initialize() {
+        // Charger la liste des équipes
+        try {
+
+            listformationid.getStyleClass().addAll("list", "list-view");
+            populateFormations();
+            initializeFilters();
+            Platform.runLater(() -> {
+                Stage stage = (Stage) formationsContainer.getScene().getWindow();
+                stage.setMaximized(true);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void initializeFilters() {
         typeFilter.setItems(FXCollections.observableArrayList("Tous", "Distanciel", "Présentiel"));
@@ -130,7 +148,7 @@ public class AfficherFormationController {
     // Méthode pour créer la boîte de chaque formation avec ses informations
     private HBox createFormationBox(Formation formation) {
         // Création de l'ImageView
-        ImageView imageView = new ImageView();
+       /* ImageView imageView = new ImageView();
         imageView.setFitHeight(150);
         imageView.setFitWidth(200);
 
@@ -144,7 +162,24 @@ public class AfficherFormationController {
             // En cas d'erreur, charger l'image par défaut
             Image defaultImage = new Image(getClass().getResourceAsStream("/img/default.png"));
             imageView.setImage(defaultImage);
+        }*/
+
+        // Ajouter l'image du projet
+        ImageView imageView = new ImageView();
+        if (formation.getPhoto() != null && !formation.getPhoto().trim().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(formation.getPhoto()).getName();
+            File imageFile = new File(correctPath);
+            if (imageFile.exists() && imageFile.isFile()) {
+                imageView.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+            }
+        } else {
+            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
         }
+        imageView.setFitHeight(150);
+        imageView.setFitWidth(200);
+
 
         // Création des labels pour les informations de la formation
         Label titreLabel = new Label(formation.getTitre());
@@ -252,6 +287,7 @@ public class AfficherFormationController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setOnHidden(event -> populateFormations());
             stage.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

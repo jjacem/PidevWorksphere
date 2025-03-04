@@ -16,10 +16,10 @@
     </stylesheets>
 
     <!-- Sidebar -->
-    <VBox fx:id="sidebar" prefHeight="811.0" prefWidth="186.0" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+    <VBox fx:id="sidebar" prefHeight="811.0" prefWidth="231.0" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
 
         <!-- Logo -->
-        <ImageView fitHeight="88.0" fitWidth="196.0">
+        <ImageView fitHeight="99.0" fitWidth="231.0">
             <Image url="@Images/474188139_2099437073823213_5214087864459817142_n.png" />
         </ImageView>
 
@@ -37,7 +37,7 @@
         </VBox>
 
         <!-- HR Features -->
-        <VBox prefHeight="490.0" prefWidth="142.0" spacing="10" style="-fx-padding: 20px;">
+        <VBox prefHeight="490.0" prefWidth="218.0" spacing="10" style="-fx-padding: 20px;">
             <Button fx:id="btnProfile" onAction="#goprofile" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👤 Profile" />
             <Button fx:id="btnChangeProfile" onAction="#Effectuersponsor" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 Event Sponsor" />
             <Button fx:id="btnGestionSponsor" onAction="#gestionsponsor" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📢 Gestion Sponsor" />
@@ -53,7 +53,7 @@
         <VBox VBox.vgrow="ALWAYS" />
 
         <!-- Log Out Button -->
-        <Button fx:id="btnLogout" onAction="#logout" prefHeight="40.0" prefWidth="201.0" style="-fx-font-size: 14px; -fx-background-color: #ff4444; -fx-text-fill: white; -fx-alignment: CENTER; -fx-padding: 10px; -fx-border-radius: 5px;" text="🚪 Log Out" />
+        <Button fx:id="btnLogout" onAction="#logout" prefHeight="41.0" prefWidth="234.0" style="-fx-font-size: 14px; -fx-background-color: #ff4444; -fx-text-fill: white; -fx-alignment: CENTER; -fx-padding: 10px; -fx-border-radius: 5px;" text="🚪 Log Out" />
     </VBox>
 
 <!--    &lt;!&ndash; Navbar &ndash;&gt;-->
@@ -62,7 +62,7 @@
 <!--    </HBox>-->
 
     <!-- Main Content -->
-    <VBox fx:id="contentArea" layoutX="194.4" prefHeight="761.0" prefWidth="606.0" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="194.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+    <VBox fx:id="contentArea" layoutX="230.4" prefHeight="761.0" prefWidth="570.0" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
         <!-- Content will be loaded dynamically here -->
     </VBox>
 

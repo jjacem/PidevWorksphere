@@ -230,10 +230,10 @@
     -fx-border-color: #cccccc; /* Bordure grise */
     -fx-border-radius: 20; /* Coins arrondis */
     -fx-background-radius: 20; /* Coins arrondis */
-    -fx-padding: 5 10; /* Espacement interne */
-    -fx-font-size: 14px; /* Taille de la police */
+    -fx-padding: 3 6; /* Espacement interne */
+    -fx-font-size: 12px; /* Taille de la police */
     -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
-    -fx-pref-width: 150; /* Largeur préférée */
+    -fx-pref-width: 185; /* Largeur préférée */
     -fx-pref-height: 20; /* Hauteur préférée */
 }
 

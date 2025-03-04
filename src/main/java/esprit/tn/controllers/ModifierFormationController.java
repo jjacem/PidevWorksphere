@@ -5,6 +5,7 @@ import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,9 +20,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -56,7 +60,7 @@ public class ModifierFormationController implements Initializable {
     @FXML
     private Button ajouterPhotoBtn;
 
-    private String imagePath; // Stocke le chemin de l'image sélectionnée
+    private String imagePath = "";
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idtype.setItems(FXCollections.observableArrayList(Typeformation.values()));
@@ -78,26 +82,17 @@ public class ModifierFormationController implements Initializable {
             File imageFile = new File(correctPath);
 
             if (imageFile.exists() && imageFile.isFile()) {
-                photoPreview.setImage(new Image(imageFile.toURI().toString())); // Afficher l'image existante
+                imagePath = correctPath;  // S'assurer que le bon chemin est stocké
+                photoPreview.setImage(null); // Réinitialiser l'image avant de recharger
+                photoPreview.setImage(new Image(new File(imagePath).toURI().toString())); // Charger l'image correctement
             } else {
                 photoPreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png"))); // Image par défaut
             }
-            imagePath = formation.getPhoto(); // Conserver le chemin de l'image
         } else {
             photoPreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png"))); // Image par défaut
         }
-    }
 
-    @FXML
-    public void OnModifierPhoto(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
-        File file = fileChooser.showOpenDialog(null);
 
-        if (file != null) {
-            imagePath = file.getAbsolutePath(); // Met à jour le chemin de l'image
-            photoPreview.setImage(new Image(file.toURI().toString())); // Afficher la nouvelle image
-        }
     }
 
     @FXML
@@ -155,7 +150,6 @@ public class ModifierFormationController implements Initializable {
         applyAlertStyle(alert);
     }
 
-
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
@@ -163,4 +157,39 @@ public class ModifierFormationController implements Initializable {
     }
 
 
+    @FXML
+    public void uploadImage(Event event) { FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Définir le répertoire de destination (htdocs/images/)
+                File uploadDir = new File("C:/xampp/htdocs/img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Générer un nom de fichier unique
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copier le fichier vers la destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Stocker le chemin relatif dans la variable
+                imagePath = "img/" + fileName;
+
+                // Afficher l'image dans l'ImageView
+                photoPreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'ajout de la photo");
+            }
+        }
+    }
 }
