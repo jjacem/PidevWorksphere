@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AffichageEntretienbyemployeeId"
+            stylesheets="@AffichageEntretienEmployee.css">
+
+    <!-- 🔹 Header -->
+    <top>
+        <VBox spacing="15" alignment="CENTER" id="header">
+            <Label text="Liste des Entretiens" id="titleLabel"/>
+            <HBox alignment="CENTER" spacing="10" id="searchContainer">
+                <Label text="🔍" id="searchIcon"/>
+                <TextField fx:id="searchField" promptText="🔍 Rechercher un entretien..."/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- 🔹 Main Content -->
+    <center>
+        <VBox spacing="20" alignment="CENTER" id="mainContent">
+            <ListView fx:id="lv_entretien"/>
+        </VBox>
+    </center>
+
+</BorderPane>
+

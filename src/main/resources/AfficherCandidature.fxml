@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="475.0" prefWidth="685.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherCandidatureController">
+   <children>
+      <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="125.0" style="-fx-background-color: #0086b3;">
+         <children>
+            <ImageView fitHeight="90.0" fitWidth="126.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="supprimerButton" layoutX="13.0" layoutY="124.0" mnemonicParsing="false" onAction="#supprimerCandidature" prefHeight="26.0" prefWidth="98.0" text="🗑  SUPPRIMER" textFill="RED" />
+            <Button layoutX="13.0" layoutY="158.0" mnemonicParsing="false" onAction="#retourVersOffres" prefHeight="26.0" prefWidth="98.0" text="⬅  RETOUR" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="111.0" fitWidth="98.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/4654607.png" />
+         </image>
+      </ImageView>
+      <ListView fx:id="lv_candidatures" layoutX="18.0" layoutY="124.0" prefHeight="305.0" prefWidth="562.0" />
+      <AnchorPane layoutX="98.0" layoutY="25.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="98.0" layoutY="41.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="98.0" layoutY="56.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
+      <AnchorPane layoutX="98.0" layoutY="71.0" prefHeight="5.0" prefWidth="150.0" style="-fx-background-color: #0086b3;" />
+   </children>
+</AnchorPane>
