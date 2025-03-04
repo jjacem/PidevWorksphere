@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.Reservation;
 import esprit.tn.entities.User;
+import esprit.tn.services.JitsiMeetService;
 import esprit.tn.services.ServiceReservation;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
@@ -21,7 +22,8 @@ public class AfficherReservationController {
     private VBox listReservation;
 
     private final ServiceReservation reservationService = new ServiceReservation();
-
+    private final JitsiMeetController jit = new JitsiMeetController();
+    private final JitsiMeetService meet = new JitsiMeetService();
     @FXML
     public void initialize() {
         try {
@@ -72,7 +74,11 @@ public class AfficherReservationController {
         supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
         supprimerButton.setOnAction(event -> supprimerReservation(reservation));
 
-        VBox vbox = new VBox(5, dateLabel, motifLabel, attenteLabel, userLabel, formationLabel, supprimerButton);
+        Button rejoindreButton = new Button("Rejoindre le meet");
+        rejoindreButton.getStyleClass().addAll("card-button", "details-button");
+        rejoindreButton.setOnAction(event -> jit.rejoindreMeeting(reservation.getId_r()));
+
+        VBox vbox = new VBox(5, dateLabel, motifLabel, attenteLabel, userLabel, formationLabel, supprimerButton ,rejoindreButton);
         vbox.setPadding(new Insets(10));
         vbox.setStyle("-fx-border-color: #cccccc; -fx-border-width: 1px; -fx-padding: 10px; -fx-background-radius: 5px;");
 

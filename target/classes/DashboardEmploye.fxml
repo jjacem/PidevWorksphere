@@ -17,10 +17,10 @@
     </stylesheets>
 
     <!-- Sidebar -->
-    <VBox fx:id="sidebar" prefWidth="200" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+    <VBox fx:id="sidebar" prefHeight="709.0" prefWidth="219.0" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
 
         <!-- Logo -->
-        <ImageView fitHeight="88.0" fitWidth="177.0">
+        <ImageView fitHeight="88.0" fitWidth="209.0">
             <Image url="@Images/474188139_2099437073823213_5214087864459817142_n.png" />
         </ImageView>
 
@@ -43,23 +43,23 @@
             <Button fx:id="btnChangeProfile" onAction="#Reclamation" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 Reclamation" />
             <Button fx:id="btnGestionFormation" onAction="#formation" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📢 Fomation" />
             <Button fx:id="btnGestionUser" onAction="#evenement" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 evenement " />
-         <Button fx:id="btnGestionUser1" layoutX="30.0" layoutY="184.0" onAction="#entretien" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 entretien" />
-            <Button fx:id="btnGestionUser111" layoutX="30.0" layoutY="286.0" onAction="#mesreservastion" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Mes Reservations" />
-         <Button fx:id="btnGestionUser11" layoutX="30.0" layoutY="235.0" onAction="#chng" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 changer mot de passe" />
+         <Button fx:id="btnGestionUser1" layoutX="30.0" layoutY="184.0" onAction="#entretien" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🚀entretien" />
+            <Button fx:id="btnGestionUser111" layoutX="30.0" layoutY="286.0" onAction="#mesreservastion" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text=" 🎯mes Reservations" />
+         <Button fx:id="btnGestionUser11" layoutX="30.0" layoutY="235.0" onAction="#chng" prefHeight="41.0" prefWidth="187.0" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 changer mot de passe" />
         </VBox>
 
         <!-- Spacer to push logout button to bottom -->
         <VBox VBox.vgrow="ALWAYS" />
 
         <!-- Log Out Button -->
-        <Button fx:id="btnLogout" onAction="#logout" prefHeight="40.0" prefWidth="201.0" style="-fx-font-size: 14px; -fx-background-color: #ff4444; -fx-text-fill: white; -fx-alignment: CENTER; -fx-padding: 10px; -fx-border-radius: 5px;" text="🚪 Log Out" />
+        <Button fx:id="btnLogout" onAction="#logout" prefHeight="41.0" prefWidth="223.0" style="-fx-font-size: 14px; -fx-background-color: #ff4444; -fx-text-fill: white; -fx-alignment: CENTER; -fx-padding: 10px; -fx-border-radius: 5px;" text="🚪 Log Out" />
     </VBox>
 
     <!-- Navbar -->
-    <HBox fx:id="navbar" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+    <HBox fx:id="navbar" layoutX="207.2" prefHeight="21.0" prefWidth="593.0" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
     <!-- Main Content -->
-    <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+    <VBox fx:id="contentArea" layoutX="216.0" layoutY="51.2" prefHeight="658.0" prefWidth="584.0" spacing="10" style="-fx-padding: 20px;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="51.0">
         <!-- Content will be loaded dynamically here -->
     </VBox>
 

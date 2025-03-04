@@ -2,6 +2,7 @@ esprit\tn\controllers\AjouterReservationController$2.class
 esprit\tn\controllers\AjouterProjetController$2.class
 esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
+esprit\tn\entities\Meetings.class
 esprit\tn\controllers\ModifierEvenementController.class
 esprit\tn\services\ServiceProjet.class
 esprit\tn\controllers\AjouterEntretineController.class

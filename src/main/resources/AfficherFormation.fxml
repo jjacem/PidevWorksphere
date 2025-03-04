@@ -47,7 +47,7 @@
       <padding>
          <Insets left="5.0" right="20.0" />
       </padding></Button>
-    <ComboBox fx:id="typeFilter" layoutX="292.0" layoutY="125.0" prefHeight="55.0" prefWidth="183.0" styleClass="combo-box-filter" />
-    <ComboBox fx:id="dateFilter" layoutX="500.0" layoutY="125.0" prefHeight="55.0" prefWidth="228.0" styleClass="combo-box-filter" />
+    <ComboBox fx:id="typeFilter" layoutX="344.0" layoutY="125.0" prefHeight="55.0" prefWidth="183.0" styleClass="combo-box-filter" />
+    <ComboBox fx:id="dateFilter" layoutX="577.0" layoutY="125.0" prefHeight="55.0" prefWidth="228.0" styleClass="combo-box-filter" />
 
 </AnchorPane>
