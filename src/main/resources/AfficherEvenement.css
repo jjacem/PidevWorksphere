@@ -97,3 +97,31 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+
+
+
+
+
+.event-text {
+    -fx-font-size: 14px;
+    -fx-fill: #333333;
+}
+
+.event-remaining-text {
+    -fx-font-size: 14px;
+    -fx-fill: #2ecc71; /* Vert pour les événements à venir */
+    -fx-font-weight: bold;
+}
+
+.event-today-text {
+    -fx-font-size: 14px;
+    -fx-fill: #f1c40f; /* Jaune pour les événements aujourd'hui */
+    -fx-font-weight: bold;
+}
+
+.event-passed-text {
+    -fx-font-size: 14px;
+    -fx-fill: #e74c3c; /* Rouge pour les événements passés */
+    -fx-font-weight: bold;
+}
