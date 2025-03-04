@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/JitsiMeetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/JitsiMeetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/JitsiMeetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/JitsiMeetService.java" afterDir="false" />
+>>>>>>> origin/GestionMolka
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +21,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< HEAD
         <option value="CSS File" />
         <option value="FxmlFile" />
         <option value="Enum" />
+=======
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="FxmlFile" />
+>>>>>>> origin/GestionMolka
         <option value="Class" />
       </list>
     </option>
@@ -49,6 +60,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Debug",
@@ -75,17 +87,42 @@
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainFX.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TwilioSMS.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;GestionMolka&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> origin/GestionMolka
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\yassi\OneDrive\Documents\GitHub\finalone\PidevWorksphere\src\main\resources\icons" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\images" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.Main">
+=======
+  <component name="RunManager" selected="Application.TwilioSMS">
+>>>>>>> origin/GestionMolka
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="esprit.tn.tests.Main" />
       <module name="Worksphere" />
@@ -99,6 +136,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+=======
+    <configuration name="TwilioSMS" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="esprit.tn.entities.TwilioSMS" />
+      <module name="Worksphere" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="esprit.tn.entities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> origin/GestionMolka
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,6 +195,10 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
+=======
+        <item itemvalue="Application.TwilioSMS" />
+>>>>>>> origin/GestionMolka
         <item itemvalue="Application.Main" />
         <item itemvalue="Maven.Worksphere [javafx:run]" />
       </list>
@@ -176,6 +233,7 @@
       <workItem from="1740432346383" duration="39666000" />
       <workItem from="1740609808741" duration="31000" />
       <workItem from="1740305126728" duration="9530000" />
+<<<<<<< HEAD
       <workItem from="1740512254126" duration="986000" />
       <workItem from="1740518870774" duration="4639000" />
       <workItem from="1740478367588" duration="5759000" />
@@ -188,11 +246,36 @@
       <workItem from="1741031179823" duration="14878000" />
       <workItem from="1741105161098" duration="3177000" />
       <workItem from="1741112013909" duration="17883000" />
+=======
+      <workItem from="1740559496531" duration="11741000" />
+      <workItem from="1740579823201" duration="1576000" />
+      <workItem from="1740658248675" duration="65000" />
+      <workItem from="1740659998041" duration="2617000" />
+      <workItem from="1740737878762" duration="37978000" />
+      <workItem from="1740825321227" duration="16454000" />
+      <workItem from="1740861404361" duration="10306000" />
+      <workItem from="1740920130884" duration="11667000" />
+      <workItem from="1741034112759" duration="10217000" />
+      <workItem from="1741079789755" duration="4138000" />
+      <workItem from="1741090640382" duration="1885000" />
+      <workItem from="1741112509325" duration="17356000" />
+>>>>>>> origin/GestionMolka
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -215,6 +298,7 @@
           </properties>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
+<<<<<<< HEAD
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java</url>
           <line>423</line>
@@ -233,15 +317,12 @@
           </properties>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
+=======
+>>>>>>> origin/GestionMolka
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.ClassCastException" package="java.lang" />
           <option name="timeStamp" value="9" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java</url>
-          <line>424</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

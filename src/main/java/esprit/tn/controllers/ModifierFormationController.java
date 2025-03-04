@@ -5,6 +5,7 @@ import esprit.tn.entities.Typeformation;
 import esprit.tn.services.ServiceFormation;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,10 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,22 +46,28 @@ public class ModifierFormationController implements Initializable {
     @FXML
     private DatePicker iddate;
     @FXML
-    private TextField idphoto;
-    @FXML
     private TextField idheurefin;
+
 
     private Formation formation;
     private final ServiceFormation serviceFormation = new ServiceFormation();
+    @FXML
+    private AnchorPane FormMod;
+    @FXML
+    private Button modifierfBTN;
+    @FXML
+    private ImageView photoPreview;
+    @FXML
+    private Button ajouterPhotoBtn;
 
-
+    private String imagePath = "";
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         idtype.setItems(FXCollections.observableArrayList(Typeformation.values()));
     }
-
     public void setFormation(Formation formation) {
         this.formation = formation;
-        // Remplissage des champs avec les valeurs actuelles
+
         idtitre.setText(formation.getTitre());
         iddesc.setText(formation.getDescription());
         idtype.setValue(formation.getType());
@@ -60,13 +75,29 @@ public class ModifierFormationController implements Initializable {
         idheurefin.setText(formation.getHeure_fin().toString());
         idnbplace.setText(String.valueOf(formation.getNb_place()));
         iddate.setValue(formation.getDate());
-        idphoto.setText(formation.getPhoto() != null ? formation.getPhoto().toString() : "");
+
+        // Gestion de l'image de la formation
+        if (formation.getPhoto() != null && !formation.getPhoto().trim().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(formation.getPhoto()).getName();
+            File imageFile = new File(correctPath);
+
+            if (imageFile.exists() && imageFile.isFile()) {
+                imagePath = correctPath;  // S'assurer que le bon chemin est stocké
+                photoPreview.setImage(null); // Réinitialiser l'image avant de recharger
+                photoPreview.setImage(new Image(new File(imagePath).toURI().toString())); // Charger l'image correctement
+            } else {
+                photoPreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png"))); // Image par défaut
+            }
+        } else {
+            photoPreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png"))); // Image par défaut
+        }
+
+
     }
 
     @FXML
     public void Onmodifierformation(ActionEvent event) {
         try {
-            // Récupération des données mises à jour
             String titre = idtitre.getText();
             String description = iddesc.getText();
             Typeformation type = idtype.getValue();
@@ -74,9 +105,7 @@ public class ModifierFormationController implements Initializable {
             LocalTime heureDebut = LocalTime.parse(idheuredebut.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             LocalTime heureFin = LocalTime.parse(idheurefin.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             int nbPlace = Integer.parseInt(idnbplace.getText());
-            String photoUrl = idphoto.getText();
 
-            // Vérification des champs obligatoires
             if (titre.isEmpty() || description.isEmpty() || type == null || date == null || heureDebut == null || heureFin == null) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs.");
                 return;
@@ -86,19 +115,7 @@ public class ModifierFormationController implements Initializable {
                 return;
             }
 
-
-
-            // Vérification de l'URL de la photo
-            URL photo = null;
-            try {
-                photo = new URL(photoUrl);
-            } catch (MalformedURLException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "URL de la photo invalide !");
-                return;
-            }
-
-            int userId = 1;
-            // Mise à jour de l'objet formation
+            // Mise à jour de la formation
             formation.setTitre(titre);
             formation.setDescription(description);
             formation.setType(type);
@@ -106,22 +123,15 @@ public class ModifierFormationController implements Initializable {
             formation.setHeure_debut(heureDebut);
             formation.setHeure_fin(heureFin);
             formation.setNb_place(nbPlace);
-            formation.setPhoto(photo);
+            formation.setPhoto(imagePath);
             formation.setId_user(SessionManager.extractuserfromsession().getIdUser());
-
-            // Appel du service pour modifier la formation
             serviceFormation.modifierFormation(formation);
 
-            // Affichage du message de succès
             showAlert(Alert.AlertType.INFORMATION, "Succès", "La formation a été modifiée avec succès.");
 
-            // Redirection vers la liste des formations
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
-            Parent root = loader.load();
-
+            // Redirection
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.close();
 
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez entrer un nombre valide pour les places et respecter le format HH:mm pour les heures.");
@@ -131,7 +141,6 @@ public class ModifierFormationController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
     }
-
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -141,10 +150,46 @@ public class ModifierFormationController implements Initializable {
         applyAlertStyle(alert);
     }
 
-
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
+    }
+
+
+    @FXML
+    public void uploadImage(Event event) { FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Définir le répertoire de destination (htdocs/images/)
+                File uploadDir = new File("C:/xampp/htdocs/img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Générer un nom de fichier unique
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copier le fichier vers la destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Stocker le chemin relatif dans la variable
+                imagePath = "img/" + fileName;
+
+                // Afficher l'image dans l'ImageView
+                photoPreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'ajout de la photo");
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ package esprit.tn.entities;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Formation {
     private int id_f;
@@ -11,14 +12,14 @@ public class Formation {
     private LocalTime heure_debut, heure_fin;
     private int nb_place;
     private Typeformation type;
-    private URL photo;
+    private String photo;
     private User user;
     private int id_user;
 
     public Formation() {}
 
     public Formation(int id_f, String titre, String description, LocalDate date, LocalTime heure_debut,
-                     LocalTime heure_fin, int nb_place, Typeformation type , URL photo  , User user ) {
+                     LocalTime heure_fin, int nb_place, Typeformation type , String photo  , User user ) {
         this.id_f = id_f;
         this.titre = titre;
         this.description = description;
@@ -35,7 +36,7 @@ public class Formation {
 
 
     public Formation(String titre, String description, LocalDate date, LocalTime heure_debut,
-                     LocalTime heure_fin, int nb_place, Typeformation type , URL photo , User user ) {
+                     LocalTime heure_fin, int nb_place, Typeformation type , String photo , User user ) {
         this.titre = titre;
         this.description = description;
         this.date = date;
@@ -48,7 +49,7 @@ public class Formation {
 
     }
     public Formation(String titre, String description, LocalDate date, LocalTime heure_debut,
-                     LocalTime heure_fin, int nb_place, Typeformation type, URL photo , int id_user ) {
+                     LocalTime heure_fin, int nb_place, Typeformation type, String photo , int id_user ) {
         this.titre = titre;
         this.description = description;
         this.date = date;
@@ -62,7 +63,7 @@ public class Formation {
 
     }
     public Formation( int id_f ,String titre, String description, LocalDate date, LocalTime heure_debut,
-                      LocalTime heure_fin, int nb_place, Typeformation type, URL photo, int id_user ) {
+                      LocalTime heure_fin, int nb_place, Typeformation type, String photo, int id_user ) {
         this.id_f = id_f;
         this.titre = titre;
         this.description = description;
@@ -77,7 +78,7 @@ public class Formation {
 
     }
 
-    public Formation(String titre, String description, LocalDate date, LocalTime heureDebut, LocalTime heureFin, int nbPlace, Typeformation type , URL photo) {
+    public Formation(String titre, String description, LocalDate date, LocalTime heureDebut, LocalTime heureFin, int nbPlace, Typeformation type , String photo) {
         this.titre = titre;
         this.description = description;
         this.date = date;
@@ -161,11 +162,11 @@ public class Formation {
         this.type = type;
     }
 
-    public URL getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(URL photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -193,4 +194,13 @@ public class Formation {
                 ", id_user=" + id_user +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Formation formation)) return false;
+        return id_f == formation.id_f && nb_place == formation.nb_place && id_user == formation.id_user && Objects.equals(titre, formation.titre) && Objects.equals(description, formation.description) && Objects.equals(date, formation.date) && Objects.equals(heure_debut, formation.heure_debut) && Objects.equals(heure_fin, formation.heure_fin) && type == formation.type && Objects.equals(photo, formation.photo) && Objects.equals(user, formation.user);
+    }
+
+
 }
