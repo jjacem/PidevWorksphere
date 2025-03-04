@@ -8,6 +8,8 @@ esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
 esprit\tn\controllers\AfficherReservationController$1.class
 esprit\tn\controllers\AfficherFormationController$1$1.class
+esprit\tn\controllers\FaceRegisterController.class
+esprit\tn\controllers\FaceAuthController.class
 esprit\tn\tests\Main.class
 esprit\tn\entities\Reservation.class
 esprit\tn\controllers\ModifierSponsorController.class
@@ -85,6 +87,7 @@ esprit\tn\controllers\AjouterReponseController.class
 esprit\tn\services\ServiceOffre.class
 esprit\tn\controllers\AfficherDetailFormationController.class
 esprit\tn\entities\Status.class
+esprit\tn\controllers\ModiferReponseController.class
 esprit\tn\utils\SessionManager.class
 esprit\tn\controllers\AfficherProjetController.class
 esprit\tn\entities\Sexe.class
@@ -112,6 +115,7 @@ esprit\tn\controllers\ModifierProjetController.class
 esprit\tn\entities\Equipe.class
 esprit\tn\controllers\AjouterUser.class
 esprit\tn\controllers\AfficherSponsorController$1.class
+esprit\tn\utils\Imageutil.class
 esprit\tn\services\ServiceReponse.class
 esprit\tn\controllers\AjouterReclamationController.class
 esprit\tn\controllers\AfficherProjetController$1.class

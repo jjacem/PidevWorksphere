@@ -8,5 +8,4 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="esprit.tn.controllers.FaceAuthController">
     <ImageView fx:id="cameraView" fitWidth="400" fitHeight="300"/>
-    <Button text="Authenticate" onAction="#authenticateUser"/>
 </VBox>

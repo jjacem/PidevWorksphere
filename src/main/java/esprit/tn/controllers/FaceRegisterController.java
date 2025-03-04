@@ -12,6 +12,13 @@ import java.io.File;
 
 public class FaceRegisterController {
 
+    private String mail;
+    public void setting(String email){
+        this.mail=email;
+
+    }
+
+
     @FXML
     private ImageView cameraView;
     @FXML
@@ -53,9 +60,9 @@ public class FaceRegisterController {
 
         capture.read(frame);
         String username = usernameField.getText();
-        String outputPath = "faces/" + username + ".png";
+        String outputPath = "C:\\xampp\\htdocs\\faces/" + mail + ".png";
 
-        File dir = new File("faces/");
+        File dir = new File("C:\\xampp\\htdocs\\faces/");
         if (!dir.exists()) dir.mkdirs();
 
         Imgcodecs.imwrite(outputPath, frame);

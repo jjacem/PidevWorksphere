@@ -10,13 +10,13 @@ import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -72,7 +72,7 @@ public class LoginContoller {
         return password.length() >= 3;
     }
 
-    private void navigate(String role) {
+    public void navigate(String role) {
         System.out.println(role);
         String fxmlFile = switch (role) {
             case "CANDIDAT" -> "/DashboardCandidat.fxml";
@@ -168,5 +168,37 @@ public class LoginContoller {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    private Button faceIdLoginBtn;
+    @FXML
+    private void handleFaceIdLogin(ActionEvent event) {
+        try {
+            // Load the FXML file for the Face ID authentication view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/faceauth.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage (window) from the event source
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the new scene to the current stage
+            Scene scene = new Scene(root);
+            currentStage.setScene(scene);
+            currentStage.setTitle("Authentification Face ID"); // Optional: Set a new title
+            currentStage.show(); // Show the updated scene
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void closeWindow() {
+        Stage stage = (Stage) mail.getScene().getWindow();
+        stage.close();
+    }
+
+
+    private void performFaceIdAuthentication() {
+        // Face ID logic: this should be replaced with actual biometric authentication
+        System.out.println("Face ID authentication triggered...");
+    }
+
 
 }

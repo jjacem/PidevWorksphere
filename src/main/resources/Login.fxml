@@ -12,7 +12,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.LoginContoller">
 
+
     <children>
+        <Button fx:id="faceIdLoginBtn" layoutX="74.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleFaceIdLogin" prefHeight="34.0" prefWidth="286.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Se connecter avec Face ID">
+            <graphic>
+                <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                    <image>
+                        <Image url="./icons/face-scanner.png" /> <!-- Ensure you have a Face ID icon image -->
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
         <AnchorPane layoutX="200.0" layoutY="-1.0"  prefHeight="402.0" prefWidth="399.0" style="-fx-background-color: #ffffff;">
             <children>
                 <Label fx:id="textid1" layoutX="237.0" layoutY="339.0" onMouseClicked="#forgotpassword" prefHeight="16.0" prefWidth="110.0" style="-fx-cursor: hand;" text="Cliquez ici" textFill="#325afa">

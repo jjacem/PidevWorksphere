@@ -1,263 +1,329 @@
-package esprit.tn.controllers;
+    package esprit.tn.controllers;
 
-import esprit.tn.entities.Sexe;
-import esprit.tn.entities.User;
-import esprit.tn.services.ServiceUser;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.geometry.Insets;
-import javafx.scene.web.WebEngine;
-import org.json.JSONObject;
+    import esprit.tn.entities.Sexe;
+    import esprit.tn.entities.User;
+    import esprit.tn.services.ServiceUser;
+    import javafx.event.ActionEvent;
+    import javafx.fxml.FXML;
+    import javafx.fxml.FXMLLoader;
+    import javafx.scene.Node;
+    import javafx.scene.Parent;
+    import javafx.scene.Scene;
+    import javafx.scene.control.*;
+    import javafx.scene.image.Image;
+    import javafx.scene.image.ImageView;
+    import javafx.scene.layout.VBox;
+    import javafx.scene.media.Media;
+    import javafx.scene.media.MediaPlayer;
+    import javafx.scene.media.MediaView;
+    import javafx.scene.web.WebView;
+    import javafx.stage.FileChooser;
+    import javafx.stage.Modality;
+    import javafx.stage.Stage;
+    import javafx.stage.StageStyle;
+    import javafx.geometry.Insets;
+    import javafx.scene.web.WebEngine;
+    import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.sql.SQLException;
-import java.util.regex.Pattern;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+    import java.io.File;
+    import java.io.IOException;
+    import java.nio.file.Files;
+    import java.nio.file.StandardCopyOption;
+    import java.sql.SQLException;
+    import java.util.regex.Pattern;
+    import java.io.BufferedReader;
+    import java.io.InputStreamReader;
+    import java.io.OutputStream;
+    import java.net.HttpURLConnection;
+    import java.net.URL;
 
-public class AjouterUser {
-    @FXML
-    private TextField nom;
-    @FXML
-    private TextField prenom;
-    @FXML
-    private TextField email;
-    @FXML
-    private PasswordField mdp;
-    @FXML
-    private TextField adresse;
-    @FXML
-    private ChoiceBox<Sexe> sexe;
-    @FXML
-    private TextField salaireAttendu;
-    @FXML
-    private ImageView imagePreview;
+    public class AjouterUser {
+        @FXML
+        private TextField nom;
+        @FXML
+        private TextField prenom;
+        @FXML
+        private TextField email;
+        @FXML
+        private PasswordField mdp;
+        @FXML
+        private TextField adresse;
+        @FXML
+        private ChoiceBox<Sexe> sexe;
+        @FXML
+        private TextField salaireAttendu;
+        @FXML
+        private ImageView imagePreview;
+        @FXML
+        private MediaView mediaView;
+        private String imagePath = "";
 
-    private String imagePath = ""; // Store uploaded image path
+        private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        private final Pattern numericPattern = Pattern.compile("\\d+(\\.\\d+)?");
 
-    private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-    private final Pattern numericPattern = Pattern.compile("\\d+(\\.\\d+)?");
+        @FXML
+        public void initialize() {sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
 
-    @FXML
-    public void initialize() {
-        sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
-    }
+            URL mediaUrl = getClass().getResource("/videos/signup.mp4");
 
-    @FXML
-    public void ajoutercandidat(ActionEvent actionEvent) {
-        if (!validateInputs()) {
-            return;
+            if (mediaUrl == null) {
+                System.out.println("Error: Video file not found!");
+                return;
+            }
+
+            String videoPath = mediaUrl.toExternalForm();
+            Media media = new Media(videoPath);
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+            // Set MediaPlayer to MediaView
+            mediaView.setMediaPlayer(mediaPlayer);
+
         }
 
-        // Show the hCaptcha pop-up
-        showCaptchaPopup(actionEvent);
-    }
+        @FXML
+        public void ajoutercandidat(ActionEvent actionEvent) {
+            if (!validateInputs()) {
+                return;
+            }
 
-    private void showCaptchaPopup(ActionEvent actionEvent) {
-        try {
-            // Create a new stage for the pop-up
-            Stage captchaStage = new Stage();
-            captchaStage.initModality(Modality.APPLICATION_MODAL); // Block interaction with the main window
-            captchaStage.initStyle(StageStyle.UTILITY);
-            captchaStage.setTitle("Complete hCaptcha");
+            // Show the hCaptcha pop-up
+            showCaptchaPopup(actionEvent);
+        }
 
-            // Create a WebView for the hCaptcha
-            WebView captchaWebView = new WebView();
-            WebEngine webEngine = captchaWebView.getEngine();
+//        private void showCaptchaPopup(ActionEvent actionEvent) {
+//            try {
+//                // Create a new stage for the pop-up
+//                Stage captchaStage = new Stage();
+//                captchaStage.initModality(Modality.APPLICATION_MODAL); // Block interaction with the main window
+//                captchaStage.initStyle(StageStyle.UTILITY);
+//                captchaStage.setTitle("Complete hCaptcha");
+//
+//                // Create a WebView for the hCaptcha
+//                WebView captchaWebView = new WebView();
+//                WebEngine webEngine = captchaWebView.getEngine();
+//
+//                // Load the hCaptcha demo page
+//                webEngine.load("https://accounts.hcaptcha.com/demo?sitekey=3bde0e2e-31d0-4140-bf90-10b6a89c299c");
+//
+//                // Create a button to verify the captcha
+//                Button verifyButton = new Button("Verify");
+//                verifyButton.setOnAction(e -> {
+//                    String captchaResponse = (String) webEngine.executeScript("hcaptcha.getResponse();");
+//                    if (captchaResponse == null || captchaResponse.isEmpty()) {
+//                        showAlert(Alert.AlertType.WARNING, "Captcha Error", "Please complete the captcha.");
+//                    } else {
+//                        verifyHcaptcha(captchaResponse, captchaStage, actionEvent);
+//                    }
+//                });
+//
+//                // Layout for the pop-up
+//                VBox layout = new VBox(10, captchaWebView, verifyButton);
+//                layout.setPadding(new Insets(10));
+//
+//                // Set the scene and show the pop-up
+//                Scene scene = new Scene(layout, 400, 300);
+//                captchaStage.setScene(scene);
+//                captchaStage.showAndWait();
+//            } catch (Exception e) {
+//                showAlert(Alert.AlertType.ERROR, "Error", "Failed to load hCaptcha.");
+//            }
+//        }
 
-            // Load the hCaptcha demo page
-            webEngine.load("https://accounts.hcaptcha.com/demo?sitekey=3bde0e2e-31d0-4140-bf90-10b6a89c299c");
 
-            // Create a button to verify the captcha
-            Button verifyButton = new Button("Verify");
-            verifyButton.setOnAction(e -> {
-                String captchaResponse = (String) webEngine.executeScript("hcaptcha.getResponse();");
-                if (captchaResponse == null || captchaResponse.isEmpty()) {
-                    showAlert(Alert.AlertType.WARNING, "Captcha Error", "Please complete the captcha.");
-                } else {
-                    verifyHcaptcha(captchaResponse, captchaStage, actionEvent);
+
+
+
+
+        private void showCaptchaPopup(ActionEvent actionEvent) {
+            try {
+                // Create a new stage for the pop-up
+                Stage captchaStage = new Stage();
+                captchaStage.initModality(Modality.APPLICATION_MODAL); // Block interaction with the main window
+                captchaStage.initStyle(StageStyle.UTILITY);
+                captchaStage.setTitle("Complete hCaptcha");
+
+                // Create a WebView for the hCaptcha
+                WebView captchaWebView = new WebView();
+                WebEngine webEngine = captchaWebView.getEngine();
+
+                // Load the hCaptcha demo page
+                webEngine.load("https://accounts.hcaptcha.com/demo?sitekey=3bde0e2e-31d0-4140-bf90-10b6a89c299c");
+
+                // Create a button to verify the captcha
+                Button verifyButton = new Button("Verify");
+                verifyButton.setStyle("-fx-font-size: 14px; -fx-padding: 10px 20px;"); // Style the button
+                verifyButton.setOnAction(e -> {
+                    String captchaResponse = (String) webEngine.executeScript("hcaptcha.getResponse();");
+                    if (captchaResponse == null || captchaResponse.isEmpty()) {
+                        showAlert(Alert.AlertType.WARNING, "Captcha Error", "Please complete the captcha.");
+                    } else {
+                        verifyHcaptcha(captchaResponse, captchaStage, actionEvent);
+                    }
+                });
+
+                // Layout for the pop-up (only WebView and Verify Button)
+                VBox layout = new VBox(10, captchaWebView, verifyButton);
+                layout.setPadding(new Insets(20));
+                layout.setStyle("-fx-background-color: #f4f4f4;"); // Set a light background color
+
+                // Set the scene and show the pop-up with a larger size
+                Scene scene = new Scene(layout, 600, 450); // Increased window size
+                captchaStage.setScene(scene);
+                captchaStage.showAndWait();
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to load hCaptcha.");
+            }
+        }
+        private void verifyHcaptcha(String captchaResponse, Stage captchaStage, ActionEvent actionEvent) {
+            try {
+                URL url = new URL("https://hcaptcha.com/siteverify");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+
+                String postData = "secret=ES_5c4045e58ba8477298cf1864401501e5&response=" + captchaResponse;
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(postData.getBytes());
+                    os.flush();
                 }
-            });
 
-            // Layout for the pop-up
-            VBox layout = new VBox(10, captchaWebView, verifyButton);
-            layout.setPadding(new Insets(10));
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
 
-            // Set the scene and show the pop-up
-            Scene scene = new Scene(layout, 400, 300);
-            captchaStage.setScene(scene);
-            captchaStage.showAndWait();
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load hCaptcha.");
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                JSONObject jsonResponse = new JSONObject(response.toString());
+                if (jsonResponse.getBoolean("success")) {
+                    captchaStage.close(); // Close the pop-up
+                    registerUser(actionEvent); // Proceed with user registration
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Captcha Error", "Captcha verification failed.");
+                }
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Captcha Error", "Failed to verify captcha.");
+            }
         }
-    }
 
-    private void verifyHcaptcha(String captchaResponse, Stage captchaStage, ActionEvent actionEvent) {
-        try {
-            URL url = new URL("https://hcaptcha.com/siteverify");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
+        private void registerUser(ActionEvent actionEvent) {
+            try {
+                double salaire = Double.parseDouble(salaireAttendu.getText());
+                User candidat = new User(
+                        nom.getText(),
+                        prenom.getText(),
+                        email.getText(),
+                        mdp.getText(),
+                        adresse.getText(),
+                        sexe.getValue(),
+                        imagePath, // Store uploaded image path
+                        salaire
+                );
 
-            String postData = "secret=ES_5c4045e58ba8477298cf1864401501e5&response=" + captchaResponse;
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                ServiceUser serviceUser = new ServiceUser();
+                serviceUser.ajouter(candidat);
 
-            try (OutputStream os = conn.getOutputStream()) {
-                os.write(postData.getBytes());
-                os.flush();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setContentText("Votre compte a été créé!");
+                alert.showAndWait();
+                redirectToLogin(actionEvent);
+            } catch (SQLException e) {
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add user: " + e.getMessage());
             }
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            JSONObject jsonResponse = new JSONObject(response.toString());
-            if (jsonResponse.getBoolean("success")) {
-                captchaStage.close(); // Close the pop-up
-                registerUser(actionEvent); // Proceed with user registration
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Captcha Error", "Captcha verification failed.");
-            }
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Captcha Error", "Failed to verify captcha.");
         }
-    }
 
-    private void registerUser(ActionEvent actionEvent) {
-        try {
-            double salaire = Double.parseDouble(salaireAttendu.getText());
-            User candidat = new User(
-                    nom.getText(),
-                    prenom.getText(),
-                    email.getText(),
-                    mdp.getText(),
-                    adresse.getText(),
-                    sexe.getValue(),
-                    imagePath, // Store uploaded image path
-                    salaire
+        @FXML
+        private void uploadImage(ActionEvent event) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choisir une image");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
             );
 
-            ServiceUser serviceUser = new ServiceUser();
-            serviceUser.ajouter(candidat);
+            File selectedFile = fileChooser.showOpenDialog(null);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Votre compte a été créé!");
-            alert.showAndWait();
-            redirectToLogin(actionEvent);
-        } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to add user: " + e.getMessage());
-        }
-    }
+            if (selectedFile != null) {
+                try {
+                    File uploadDir = new File("C:\\xampp\\htdocs\\img");
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
+                    String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                    File destinationFile = new File(uploadDir, fileName);
 
-    @FXML
-    private void uploadImage(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
-        );
+                    Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-        File selectedFile = fileChooser.showOpenDialog(null);
+                    imagePath = "htdocs/images/" + fileName;
 
-        if (selectedFile != null) {
-            try {
-                File uploadDir = new File("C:\\xampp\\htdocs\\img");
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
+                    imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+
+                } catch (Exception e) {
+                    showAlert(Alert.AlertType.ERROR, "File Error", "Failed to upload image.");
                 }
-                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
-                File destinationFile = new File(uploadDir, fileName);
+            }
+        }
 
-                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        private void redirectToLogin(ActionEvent actionEvent) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+                Parent root = loader.load();
 
-                imagePath = "htdocs/images/" + fileName;
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load login page.");
+            }
+        }
 
-                imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+        private boolean validateInputs() {
+            if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
+                    mdp.getText().isEmpty() || adresse.getText().isEmpty() || sexe.getValue() == null ||
+                    salaireAttendu.getText().isEmpty() || imagePath.isEmpty()) {
+                showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill in all fields.");
+                return false;
+            }
 
-            } catch (Exception e) {
-                showAlert(Alert.AlertType.ERROR, "File Error", "Failed to upload image.");
+            if (!emailPattern.matcher(email.getText()).matches()) {
+                showAlert(Alert.AlertType.ERROR, "Invalid Email", "Please enter a valid email address.");
+                return false;
+            }
+
+            if (!numericPattern.matcher(salaireAttendu.getText()).matches()) {
+                showAlert(Alert.AlertType.ERROR, "Invalid Salary", "Please enter a valid numerical salary.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void showAlert(Alert.AlertType type, String title, String message) {
+            Alert alert = new Alert(type);
+            alert.setTitle(title);
+            alert.setContentText(message);
+            alert.showAndWait();
+        }
+
+        public void retourner(ActionEvent actionEvent) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-
-    private void redirectToLogin(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load login page.");
-        }
-    }
-
-    private boolean validateInputs() {
-        if (nom.getText().isEmpty() || prenom.getText().isEmpty() || email.getText().isEmpty() ||
-                mdp.getText().isEmpty() || adresse.getText().isEmpty() || sexe.getValue() == null ||
-                salaireAttendu.getText().isEmpty() || imagePath.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Input Error", "Please fill in all fields.");
-            return false;
-        }
-
-        if (!emailPattern.matcher(email.getText()).matches()) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Email", "Please enter a valid email address.");
-            return false;
-        }
-
-        if (!numericPattern.matcher(salaireAttendu.getText()).matches()) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Salary", "Please enter a valid numerical salary.");
-            return false;
-        }
-
-        return true;
-    }
-
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    public void retourner(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
