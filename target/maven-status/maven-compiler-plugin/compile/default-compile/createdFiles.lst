@@ -1,5 +1,6 @@
 esprit\tn\controllers\AjouterProjetController$2.class
 esprit\tn\services\QuoteFetcher.class
+esprit\tn\controllers\AfficherSponsorController$2.class
 esprit\tn\tests\MainFX.class
 esprit\tn\controllers\ModifierEquipeController.class
 esprit\tn\controllers\ModifierEvenementController.class
@@ -58,6 +59,7 @@ esprit\tn\services\EntretienService.class
 esprit\tn\services\FeedbackService.class
 esprit\tn\services\ServiceEvenement.class
 esprit\tn\utils\Emailsend.class
+esprit\tn\entities\Classement.class
 esprit\tn\controllers\AfficherListFormationController.class
 esprit\tn\controllers\voirFeedbackController.class
 esprit\tn\controllers\ModifierCompteController.class

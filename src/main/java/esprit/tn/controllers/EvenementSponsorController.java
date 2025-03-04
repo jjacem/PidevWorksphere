@@ -1,5 +1,6 @@
 package esprit.tn.controllers;
 
+import esprit.tn.entities.Classement;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -189,39 +190,7 @@ public class EvenementSponsorController {
     }
 
 
-    /*private void loadEvenementSponsorList() {
-        try {
-            List<EvenementSponsor> evenementSponsors = eventSponsorService.afficher();
-            ObservableList<EvenementSponsor> observableList = FXCollections.observableArrayList(evenementSponsors);
-            lv_evenementSponsor.setItems(observableList);
 
-            for (EvenementSponsor es : evenementSponsors) {
-                Sponsor sponsor = serviceSponsor.afficher().stream()
-                        .filter(s -> s.getIdSponsor() == es.getSponsorId())
-                        .findFirst()
-                        .orElse(null);
-
-                Evenement evenementRecherche = serviceEvenement.afficher().stream()
-                        .filter(e -> e.getIdEvent() == es.getEvenementId())
-                        .findFirst()
-                        .orElse(null);
-
-                if (sponsor != null && evenementRecherche != null) {
-                    System.out.println("Evenement: " + evenementRecherche.getNomEvent() +
-                            ", Sponsor: " + sponsor.getNomSponso() + " " + sponsor.getPrenomSponso());
-                } else {
-                    System.out.println("EvenementSponsor: " + es.getEvenementId() + ", Sponsor ID: " + es.getSponsorId());
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        lv_evenementSponsor.setStyle(
-                "-fx-padding: 30px; " +
-                        "-fx-border-insets: 15px; " +
-                        "-fx-background-insets: 15px;"
-        );
-    }*/
     private void generatePdf(EvenementSponsor evenementSponsor) throws SQLException, IOException, DocumentException {
         // Récupérer le sponsor et l'événement
         Sponsor sponsor = serviceSponsor.afficher().stream()
@@ -259,8 +228,16 @@ public class EvenementSponsorController {
         document.add(new Paragraph("Nom : " + sponsor.getNomSponso(), blackFont));
         document.add(new Paragraph("Prénom : " + sponsor.getPrenomSponso(), blackFont));
         document.add(new Paragraph("Identifiant Sponsor : " + sponsor.getIdSponsor(), blackFont));
-        document.add(new Paragraph("Budget Alloué : " + sponsor.getBudgetSponso() + "\n\n", redFont));
+        document.add(new Paragraph("Budget Alloué : " + sponsor.getBudgetSponso() , redFont));
+        double budgetInitial = sponsor.getBudgetSponso();
+        double budgetApresReduction = budgetInitial;
 
+        if (sponsor.getClassement() == Classement.Or) {
+            budgetApresReduction = budgetInitial * 0.90; // Réduction de 10%
+        } else if (sponsor.getClassement() == Classement.Argent) {
+            budgetApresReduction = budgetInitial * 0.95; // Réduction de 5%
+        }
+        document.add(new Paragraph("Budget Apres reduction : " +budgetApresReduction + "\n\n", redFont));
         document.add(new Paragraph("L'Organisateur de l'Événement", blueFont));
         document.add(new Paragraph("Nom de l'Événement : " + evenementRecherche.getNomEvent(), blackFont));
         document.add(new Paragraph("Description de l'Événement : " + evenementRecherche.getDescEvent(), blackFont));

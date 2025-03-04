@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Quote.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Classement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/QuoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/QuoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Quote.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Quote.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DashboardHR.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherSponsorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Sponsor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Sponsor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceSponsor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceSponsor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEvenement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherSponsor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +28,7 @@
         <option value="CSS File" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -192,7 +194,9 @@
       <workItem from="1740611391682" duration="1100000" />
       <workItem from="1740644917890" duration="2829000" />
       <workItem from="1740947082369" duration="15129000" />
-      <workItem from="1741031179823" duration="14263000" />
+      <workItem from="1741031179823" duration="14878000" />
+      <workItem from="1741105161098" duration="3177000" />
+      <workItem from="1741112013909" duration="13015000" />
     </task>
     <servers />
   </component>

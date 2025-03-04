@@ -1,5 +1,6 @@
 package esprit.tn.services;
 
+import esprit.tn.entities.Classement;
 import esprit.tn.entities.DureeContrat;
 import esprit.tn.entities.EvenementSponsor;
 import esprit.tn.entities.Sponsor;
@@ -123,8 +124,33 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
 
-
     @Override
+    public List<Sponsor> afficher() throws SQLException {
+        List<Sponsor> sponsors = new ArrayList<>();
+        String query = "SELECT * FROM sponsor";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Sponsor sponsor = new Sponsor(
+                        resultSet.getString("nomSponso"),
+                        resultSet.getString("prenomSponso"),
+                        resultSet.getString("emailSponso"),
+                        resultSet.getDouble("budgetSponso")
+                );
+                sponsor.setIdSponsor(resultSet.getInt("idSponsor"));
+                // Récupérer et attribuer le classement
+                String classementStr = resultSet.getString("classement");
+                if (classementStr != null) {
+                    sponsor.setClassement(Classement.valueOf(classementStr));
+                }
+                sponsors.add(sponsor);
+            }
+        }
+        return sponsors;
+    }
+    /*@Override
     public List<Sponsor> afficher() throws SQLException {
         List<Sponsor> sponsors = new ArrayList<>();
         String query = "SELECT * FROM sponsor";
@@ -144,7 +170,7 @@ public class ServiceSponsor implements IService<Sponsor> {
             }
         }
         return sponsors;
-    }
+    }*/
     @Override
 
     public void modifier(Sponsor sponsor) throws SQLException {
@@ -170,6 +196,14 @@ public class ServiceSponsor implements IService<Sponsor> {
 
 
 
+    public void mettreAJourBudgetApresReduction(int idSponsor, double budgetApresReduction) throws SQLException {
+        String query = "UPDATE sponsor SET BudgetApresReduction = ? WHERE idSponsor = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setDouble(1, budgetApresReduction);
+            stmt.setInt(2, idSponsor);
+            stmt.executeUpdate();
+        }
+    }
 
 
 
@@ -215,7 +249,18 @@ public class ServiceSponsor implements IService<Sponsor> {
     }
 
 
-
+    public void mettreAJourClassement(int idSponsor, Classement classement) throws SQLException {
+        String req = "UPDATE sponsor SET classement=? WHERE idSponsor=?";
+        try (PreparedStatement pst = connection.prepareStatement(req)) {
+            pst.setString(1, classement.toString());
+            pst.setInt(2, idSponsor);
+            pst.executeUpdate();
+            System.out.println("Classement du sponsor mis à jour avec succès !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour du classement du sponsor : " + e.getMessage());
+            throw e;
+        }
+    }
 
 
 

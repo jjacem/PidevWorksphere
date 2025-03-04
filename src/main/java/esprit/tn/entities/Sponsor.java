@@ -9,6 +9,8 @@ public class Sponsor {
     private String prenomSponso;
     private String emailSponso;
     private double budgetSponso;
+    private double BudgetApresReduction;
+    private Classement classement=Classement.Bronze;
     private List<Evenement> evenements; // Liste d'événements soutenus par ce sponsor
     public Sponsor(){}
     public Sponsor(String nomSponso, String prenomSponso, String emailSponso, double budgetSponso) {
@@ -24,10 +26,29 @@ public class Sponsor {
        this.budgetSponso = budgetSponso;
        this.evenements = evenements;
    }
+    public Sponsor(String nomSponso) {
+        this.nomSponso = nomSponso;
+    }
+
+    public double getBudgetApresReduction() {
+        return BudgetApresReduction;
+    }
+
+    public void setBudgetApresReduction(double budgetApresReduction) {
+        BudgetApresReduction = budgetApresReduction;
+    }
 
     // Getters et Setters
     public List<Evenement> getEvenements() {
         return evenements;
+    }
+
+    public Classement getClassement() {
+        return classement;
+    }
+
+    public void setClassement(Classement classement) {
+        this.classement = classement;
     }
 
     public void setEvenements(List<Evenement> evenements) {
