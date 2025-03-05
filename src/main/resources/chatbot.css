@@ -1,48 +1,19 @@
-/* Style général
 .root {
     -fx-background-color: #F5F5F5;
     -fx-font-family: "Arial";
 }
 
-.questions-list {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.questions-list .list-cell {
-    -fx-background-color: transparent;
-    -fx-padding: 5px;
-}
-
-.questions-list .list-cell:filled:hover {
-    -fx-background-color: #E0E0E0;
-    -fx-cursor: hand;
-}
-
-
 .chat-list {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    -fx-background-color: white;
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 5, 0, 0);
 }
 
 .chat-list .list-cell {
     -fx-background-color: transparent;
     -fx-padding: 5px;
-}
-
-
-.question-card {
-    -fx-background-color: white;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
-    -fx-border-color: #CCCCCC;
-    -fx-border-width: 1px;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 5, 0, 0);
-}
-
-.question-card:hover {
-    -fx-background-color: #F0F0F0;
 }
 
 .message-bubble {
@@ -61,70 +32,24 @@
     -fx-text-fill: black;
 }
 
-.send-button {
-    -fx-background-color: #0078FF;
-    -fx-text-fill: white;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-padding: 10px 20px;
-}
-
-.send-button:hover {
-    -fx-background-color: #005FCC;
-}*/
-
-/* Style général */
-.root {
-    -fx-background-color: #F5F5F5;
-    -fx-font-family: "Arial";
-}
-
-/* Liste des messages */
-.chat-list {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-padding: 10px;
-}
-
-.chat-list .list-cell {
-    -fx-background-color: transparent;
-    -fx-padding: 5px;
-}
-
-/* Bulles de message */
-.message-bubble {
-    -fx-background-radius: 15px;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 5, 0, 0);
-}
-
-.message-bubble.user {
-    -fx-background-color: #0078FF;
-    -fx-text-fill: white;
-}
-
-.message-bubble.bot {
-    -fx-background-color: #E5E5EA;
-    -fx-text-fill: black;
-}
-
-/* Cartes de questions */
 .question-card {
     -fx-background-color: white;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
     -fx-border-color: #CCCCCC;
     -fx-border-width: 1px;
-    -fx-padding: 10px;
+    -fx-padding: 15px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 5, 0, 0);
     -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
 }
 
 .question-card:hover {
     -fx-background-color: #F0F0F0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 5, 0, 0);
 }
 
-/* Bouton Envoyer */
 .send-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
