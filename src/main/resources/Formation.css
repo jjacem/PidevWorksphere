@@ -120,7 +120,7 @@
     -fx-padding: 5 15; /* Padding réduit */
     -fx-pref-width: 100; /* Largeur réduite */
     -fx-pref-height: 35; /* Hauteur réduite */
-   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 
 }
 
@@ -274,4 +274,8 @@
 .progress-bar .bar {
     -fx-background-color: #2eba3d; /* Vert */
     -fx-background-radius: 5px;
+}
+
+.progress-text {
+    -fx-text-fill: red;
 }

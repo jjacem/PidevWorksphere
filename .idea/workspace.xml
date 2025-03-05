@@ -6,6 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AffectationSponsorEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherListFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterSponsorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/SponsorEventsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AffecterSponsorEvent.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherListFormation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEvenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEvenement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterFormation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterFormation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterSponsor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterSponsor.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardHR.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Formation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Formation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEvenement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEvenement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Sponsor_events.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,35 +54,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.Worksphere [clean].executor": "Run",
-    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
-    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:help].executor": "Run",
-    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "gestion-molka-eya-asma",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/asmas/Documents/GitHub/PidevWorksphere/src/main/resources/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.Worksphere [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gestion-molka-eya-asma&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/asmas/Documents/GitHub/PidevWorksphere/src/main/resources/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\icons" />
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources" />
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers" />
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\icons" />
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\videos" />
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils" />
-      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers" />
     </key>
   </component>
   <component name="RunManager">
@@ -104,6 +126,8 @@
       <workItem from="1741107882813" duration="1060000" />
       <workItem from="1741121051223" duration="22641000" />
       <workItem from="1741183107954" duration="40000" />
+      <workItem from="1741183212791" duration="8169000" />
+      <workItem from="1741191956349" duration="86000" />
     </task>
     <servers />
   </component>

@@ -24,8 +24,8 @@
             <!-- ScrollPane pour la liste des formations -->
             <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                 <VBox fx:id="listformationid" spacing="5" styleClass="list-view">
-<!--                    <ProgressBar fx:id="progressBar" prefWidth="200" layoutX="10" layoutY="120" styleClass="progress-bar"/>-->
-<!--                    <Label fx:id="progressLabel" layoutX="220" layoutY="120" />-->
+                    <!--                    <ProgressBar fx:id="progressBar" prefWidth="200" layoutX="10" layoutY="120" styleClass="progress-bar"/>-->
+                    <!--                    <Label fx:id="progressLabel" layoutX="220" layoutY="120" />-->
                 </VBox>
             </ScrollPane>
         </VBox>
@@ -43,10 +43,10 @@
         <!-- Bouton Rechercher -->
         <Button fx:id="Btnrecherche" mnemonicParsing="false" onAction="#OnchercherFormation" styleClass="button-rechercher" text="Rechercher" />
     </HBox>
-   <Button fx:id="Btnfavori" layoutX="1100" layoutY="200.0" mnemonicParsing="false" onAction="#OnAfficherFavori" styleClass="button-fav" text="❤Mes favoris" AnchorPane.bottomAnchor="634.8">
-      <padding>
-         <Insets bottom="5.0" />
-      </padding></Button>
-   <ComboBox fx:id="typeFilter" layoutX="361.0" layoutY="122.0" prefHeight="55.0" prefWidth="183.0" styleClass="combo-box-filter" />
-   <ComboBox fx:id="dateFilter" layoutX="585.0" layoutY="122.0" prefHeight="55.0" prefWidth="228.0" styleClass="combo-box-filter" />
+    <Button fx:id="Btnfavori" layoutX="1100" layoutY="200.0" mnemonicParsing="false" onAction="#OnAfficherFavori" styleClass="button-fav" text="❤Mes favoris" AnchorPane.bottomAnchor="634.8">
+        <padding>
+            <Insets bottom="5.0" />
+        </padding></Button>
+    <ComboBox fx:id="typeFilter" layoutX="361.0" layoutY="122.0" prefHeight="55.0" prefWidth="183.0" styleClass="combo-box-filter" />
+    <ComboBox fx:id="dateFilter" layoutX="585.0" layoutY="122.0" prefHeight="55.0" prefWidth="228.0" styleClass="combo-box-filter" />
 </AnchorPane>

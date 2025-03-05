@@ -11,43 +11,43 @@ public class User {
     private Status status;
     private Double salaireAttendu, salaire, budget;
     private int experienceTravail, nombreProjet, ansExperience;
-    ArrayList <Reclamation> reclamations = new ArrayList<Reclamation>();
-    ArrayList <Reponse> reponses = new ArrayList<Reponse>();
-    private int num ;
+    ArrayList<Reclamation> reclamations = new ArrayList<Reclamation>();
+    ArrayList<Reponse> reponses = new ArrayList<Reponse>();
+    private int num;
 
 
+    public User testManager(String email) {
 
-   public User testManager(String email){
+        return this.Manager("test", "test", email, "test", "test", Sexe.FEMME, "test", "test", 1, 1.0);
 
-       return this.Manager("test", "test", email, "test", "test", Sexe.FEMME, "test", "test", 1, 1.0);
+    }
 
-   }
-   public User testEmploye(String email){
+    public User testEmploye(String email) {
 
-       return this.Employe("test", "test", email, "test", "test", Sexe.HOMME, "test", "test", 1.0, 1, "test", "test");
+        return this.Employe("test", "test", email, "test", "test", Sexe.HOMME, "test", "test", 1.0, 1, "test", "test");
 
-   }
-   public User testRH(String email){
+    }
 
-       return this.RH("test", "test", email, "test", "test", Sexe.HOMME, "test", 1, "test");
+    public User testRH(String email) {
 
-   }
-   public User testCandidat(String email){
+        return this.RH("test", "test", email, "test", "test", Sexe.HOMME, "test", 1, "test");
 
-       return this.Candidat("test", "test", email, "test", "test", Sexe.HOMME, "test", 1.0);}
+    }
+
+    public User testCandidat(String email) {
+
+        return this.Candidat("test", "test", email, "test", "test", Sexe.HOMME, "test", 1.0);
+    }
 
 
-
-
-
-public User( String nom,Role role, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Status status, Double salaireAttendu, String poste, Double salaire, int experienceTravail, String departement, String competence, int nombreProjet, Double budget, String departementGere, int ansExperience, String specialisation) {
+    public User(String nom, Role role, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Status status, Double salaireAttendu, String poste, Double salaire, int experienceTravail, String departement, String competence, int nombreProjet, Double budget, String departementGere, int ansExperience, String specialisation) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.mdp = mdp;
         this.adresse = adresse;
         this.sexe = sexe;
-        this.role=role;
+        this.role = role;
         this.status = status;
         this.salaireAttendu = salaireAttendu;
         this.poste = poste;
@@ -68,7 +68,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     public User() {
     }
 
-    public  User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
+    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
         {
             this.nom = nom;
             this.prenom = prenom;
@@ -77,20 +77,20 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
             this.adresse = adresse;
             this.sexe = sexe;
             this.imageProfil = imageProfil;
-            this.role=Role.CANDIDAT;
+            this.role = Role.CANDIDAT;
             this.status = Status.Candidature;
             this.salaireAttendu = salaireAttendu;
         }
     }
-        public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
+
+    public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, salaireAttendu);
         u.setRole(Role.CANDIDAT);
         return u;
     }
 
     public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
-                String poste, Double salaire, int experienceTravail, String departement, String competence)
-    {
+                String poste, Double salaire, int experienceTravail, String departement, String competence) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -105,12 +105,14 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.competence = competence;
         this.role = Role.EMPLOYE;
     }
+
     public User Employe(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil
             , String poste, Double salaire, int experienceTravail, String departement, String competence) {
-            User u = new User( nom,  prenom,  email,  mdp,  adresse,  sexe,  imageProfil
-                    ,  poste,  salaire,  experienceTravail,  departement,  competence);
-            return u;
+        User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil
+                , poste, salaire, experienceTravail, departement, competence);
+        return u;
     }
+
     public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
                 int ansExperience, String specialisation) {
         this.nom = nom;
@@ -125,38 +127,41 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.specialisation = specialisation;
         this.role = Role.RH;
     }
-    public User RH(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,int anneeExperience, String specialisation) {
-        User u = new User(nom, prenom, email, mdp, adresse, sexe,imageProfil, anneeExperience, specialisation);
+
+    public User RH(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, int anneeExperience, String specialisation) {
+        User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, anneeExperience, specialisation);
         return u;
     }
+
     public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
                 String departementGere, int nombreProjet, Double budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.role=Role.MANAGER;
+        this.role = Role.MANAGER;
         this.mdp = mdp;
         this.adresse = adresse;
         this.sexe = sexe;
         this.imageProfil = imageProfil;
         this.departementGere = departementGere;
         this.nombreProjet = nombreProjet;
-        this.budget = budget;}
+        this.budget = budget;
+    }
 
 
-        public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
+    public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, departementGere, nombreProjet, budget);
         return u;
     }
 
-    public User(int id, String nom, String prenom,Role role) {
+    public User(int id, String nom, String prenom, Role role) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
     }
 
-    public User(int id, String nom, String prenom, Role role, String imageProfil,String email) {
+    public User(int id, String nom, String prenom, Role role, String imageProfil, String email) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -165,7 +170,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.email = email;
     }
 
-    public User(int id, String nom, String prenom, String imageProfil,String email) {
+    public User(int id, String nom, String prenom, String imageProfil, String email) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -195,68 +200,174 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.prenom = prenom;
 
     }
-    public int getIdUser() { return idUser; }
-    public void setIdUser(int idUser) { this.idUser = idUser; }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public int getIdUser() {
+        return idUser;
+    }
 
-    public String getPrenom() { return prenom; }
-    public void setPrenom(String prenom) { this.prenom = prenom; }
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getNom() {
+        return nom;
+    }
 
-    public String getMdp() { return mdp; }
-    public void setMdp(String mdp) { this.mdp = mdp; }
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-    public Role getRole() { return role; }
-    public void setRole(Role role) { this.role = role; }
+    public String getPrenom() {
+        return prenom;
+    }
 
-    public String getAdresse() { return adresse; }
-    public void setAdresse(String adresse) { this.adresse = adresse; }
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 
-    public Sexe getSexe() { return sexe; }
-    public void setSexe(Sexe sexe) { this.sexe = sexe; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getImageProfil() { return imageProfil; }
-    public void setImageProfil(String imageProfil) { this.imageProfil = imageProfil; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
+    public String getMdp() {
+        return mdp;
+    }
 
-    public Double getSalaireAttendu() { return salaireAttendu; }
-    public void setSalaireAttendu(Double salaireAttendu) { this.salaireAttendu = salaireAttendu; }
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
 
-    public String getPoste() { return poste; }
-    public void setPoste(String poste) { this.poste = poste; }
+    public Role getRole() {
+        return role;
+    }
 
-    public Double getSalaire() { return salaire; }
-    public void setSalaire(Double salaire) { this.salaire = salaire; }
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
-    public int getExperienceTravail() { return experienceTravail; }
-    public void setExperienceTravail(int experienceTravail) { this.experienceTravail = experienceTravail; }
+    public String getAdresse() {
+        return adresse;
+    }
 
-    public String getDepartement() { return departement; }
-    public void setDepartement(String departement) { this.departement = departement; }
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
 
-    public String getCompetence() { return competence; }
-    public void setCompetence(String competence) { this.competence = competence; }
+    public Sexe getSexe() {
+        return sexe;
+    }
 
-    public int getNombreProjet() { return nombreProjet; }
-    public void setNombreProjet(int nombreProjet) { this.nombreProjet = nombreProjet; }
+    public void setSexe(Sexe sexe) {
+        this.sexe = sexe;
+    }
 
-    public Double getBudget() { return budget; }
-    public void setBudget(Double budget) { this.budget = budget; }
+    public String getImageProfil() {
+        return imageProfil;
+    }
 
-    public String getDepartementGere() { return departementGere; }
-    public void setDepartementGere(String departementGere) { this.departementGere = departementGere; }
+    public void setImageProfil(String imageProfil) {
+        this.imageProfil = imageProfil;
+    }
 
-    public int getAnsExperience() { return ansExperience; }
-    public void setAnsExperience(int ansExperience) { this.ansExperience = ansExperience; }
+    public Status getStatus() {
+        return status;
+    }
 
-    public String getSpecialisation() { return specialisation; }
-    public void setSpecialisation(String specialisation) { this.specialisation = specialisation; }
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Double getSalaireAttendu() {
+        return salaireAttendu;
+    }
+
+    public void setSalaireAttendu(Double salaireAttendu) {
+        this.salaireAttendu = salaireAttendu;
+    }
+
+    public String getPoste() {
+        return poste;
+    }
+
+    public void setPoste(String poste) {
+        this.poste = poste;
+    }
+
+    public Double getSalaire() {
+        return salaire;
+    }
+
+    public void setSalaire(Double salaire) {
+        this.salaire = salaire;
+    }
+
+    public int getExperienceTravail() {
+        return experienceTravail;
+    }
+
+    public void setExperienceTravail(int experienceTravail) {
+        this.experienceTravail = experienceTravail;
+    }
+
+    public String getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(String departement) {
+        this.departement = departement;
+    }
+
+    public String getCompetence() {
+        return competence;
+    }
+
+    public void setCompetence(String competence) {
+        this.competence = competence;
+    }
+
+    public int getNombreProjet() {
+        return nombreProjet;
+    }
+
+    public void setNombreProjet(int nombreProjet) {
+        this.nombreProjet = nombreProjet;
+    }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    public String getDepartementGere() {
+        return departementGere;
+    }
+
+    public void setDepartementGere(String departementGere) {
+        this.departementGere = departementGere;
+    }
+
+    public int getAnsExperience() {
+        return ansExperience;
+    }
+
+    public void setAnsExperience(int ansExperience) {
+        this.ansExperience = ansExperience;
+    }
+
+    public String getSpecialisation() {
+        return specialisation;
+    }
+
+    public void setSpecialisation(String specialisation) {
+        this.specialisation = specialisation;
+    }
 
     public int getNum() {
         return num;
@@ -291,4 +402,5 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
                 ", specialisation='" + specialisation + '\'' +
                 '}';
 
+    }
 }

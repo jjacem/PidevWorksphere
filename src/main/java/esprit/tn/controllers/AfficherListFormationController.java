@@ -181,7 +181,8 @@ public class AfficherListFormationController {
         progressBar.getStyleClass().add("progress-bar");
 
         Label progressLabel = new Label(totalDays > 0 ? totalDays + " jours restants" : "Formation commencée !");
-        progressLabel.getStyleClass().add("progress-label");
+        progressLabel.getStyleClass().add("progress-text");
+
 
 
 
@@ -415,4 +416,3 @@ public class AfficherListFormationController {
     }
 
 }
-

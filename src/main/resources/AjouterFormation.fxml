@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="FormAj" prefHeight="812.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" stylesheets="@Formation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterFormationController">
+<AnchorPane fx:id="FormAj" prefHeight="789.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" stylesheets="@Formation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AjouterFormationController">
    <children>
-      <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="756.0" prefWidth="600.0" spacing="10.0">
+      <VBox alignment="CENTER" layoutX="38.0" layoutY="50.0" prefHeight="699.0" prefWidth="612.0" spacing="10.0">
          <Label style="-fx-background-color: #Ajouter Formation;" text="Ajouter Formation" textFill="#0086b3">
             <font>
                <Font name="System Bold" size="24.0" />
