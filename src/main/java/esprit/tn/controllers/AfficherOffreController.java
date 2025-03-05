@@ -14,41 +14,30 @@ import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
 import esprit.tn.services.ServiceOffre;
 import esprit.tn.controllers.AjouterOffreController.RefreshCallback;
+import javafx.geometry.Insets;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+import javafx.scene.text.FontWeight;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.List;
 
 public class AfficherOffreController {
-    private ObservableList<String> offreList = FXCollections.observableArrayList();
-    private ObservableList<String> filteredOffreList = FXCollections.observableArrayList();
-    private OffreEmploi offreSelectionnee;
-    
+
+    private ObservableList<String> offreList = FXCollections.observableArrayList(); // Liste observable pour les offres
+    private OffreEmploi offreSelectionnee; // Variable pour stocker l'offre sélectionnée
     @FXML
     private ListView<String> lv_offre;
     @FXML
     private TextField searchField;
-    @FXML
-    private ComboBox<String> sortComboBox;
 
     @FXML
     void initialize() {
-        // Initialize sort options
-        sortComboBox.setItems(FXCollections.observableArrayList(
-            "Plus récentes d'abord", 
-            "Plus anciennes d'abord",
-            "Date limite proche",
-            "Date limite éloignée"
-        ));
-        
-        // Set up sort combo box listener
-        sortComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                applySorting(newValue);
-            }
-        });
-
         // Appeler la méthode pour charger toutes les offres depuis la base de données
         chargerOffres();
         // Désactiver le bouton de suppression par défaut
@@ -65,6 +54,9 @@ public class AfficherOffreController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchOffres();
         });
+
+        // Setup custom ListView cell factory
+        setupListView();
     }
 
     // Méthode pour récupérer une offre d'emploi à partir de l'affichage (recherche de l'ID par exemple)
@@ -156,101 +148,60 @@ public class AfficherOffreController {
     void chargerOffres() {
         ServiceOffre serviceOffreEmploi = new ServiceOffre();
         try {
-            List<OffreEmploi> offres = serviceOffreEmploi.recupererOffres();
-            
-            // Apply default sorting (most recent first)
-            offres.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
-            
+            // Clear existing list to avoid duplicates
             offreList.clear();
-            filteredOffreList.clear();
             
+            // Get all offers from the database
+            List<OffreEmploi> offres = serviceOffreEmploi.recupererOffres();
+
+            // Ajouter chaque offre à la liste observable
+
             for (OffreEmploi offre : offres) {
-                String formattedOffre = formaterOffre(offre);
+                String formattedOffre = String.format(
+                        "-------------------------------\n" +
+                                "Titre : %-20s\n" +
+                                "Description : %-20s\n" +
+                                "Type de contrat : %-15s\n" +
+                                "Lieu de travail : %-15s\n" +
+                                "Salaire : %-10s TND\n" +
+                                "Statut : %-10s\n" +
+                                "Expérience requise : %-5s\n" +
+                                "Date de publication : %-15s\n" +
+                                "Date limite : %-15s\n" +
+                                "-------------------------------\n",
+                        offre.getTitre(),
+                        offre.getDescription().replaceAll("(.{40})","$1\n"),
+                        offre.getTypeContrat(),
+                        offre.getLieuTravail(),
+                        offre.getSalaire(),
+                        offre.getStatutOffre(),
+                        offre.getExperience(),
+                        offre.getDatePublication(),
+                        offre.getDateLimite()
+                );
                 offreList.add(formattedOffre);
-                filteredOffreList.add(formattedOffre);
+
             }
-            
-            lv_offre.setItems(filteredOffreList);
+
+            // Mettre à jour la ListView avec la liste des offres
+            lv_offre.setItems(offreList);
             
             // Restore selection if possible
             if (offreSelectionnee != null) {
-                String formattedSelected = formaterOffre(offreSelectionnee);
-                int index = filteredOffreList.indexOf(formattedSelected);
-                if (index >= 0) {
-                    lv_offre.getSelectionModel().select(index);
+                // Try to find the updated offer in the list
+                for (int i = 0; i < offreList.size(); i++) {
+                    String formattedOffre = offreList.get(i);
+                    OffreEmploi offre = recupererOffreParAffichage(formattedOffre);
+                    if (offre != null && offre.getIdOffre() == offreSelectionnee.getIdOffre()) {
+                        lv_offre.getSelectionModel().select(i);
+                        break;
+                    }
                 }
             }
+
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des offres : " + e.getMessage());
         }
-    }
-
-    // Add sorting functionality
-    private void applySorting(String sortOption) {
-        ServiceOffre serviceOffre = new ServiceOffre();
-        try {
-            List<OffreEmploi> offres = serviceOffre.recupererOffres();
-            
-            // Sort based on selected option
-            switch (sortOption) {
-                case "Plus récentes d'abord":
-                    offres.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
-                    break;
-                case "Plus anciennes d'abord":
-                    offres.sort(Comparator.comparing(OffreEmploi::getDatePublication));
-                    break;
-                case "Date limite proche":
-                    offres.sort(Comparator.comparing(OffreEmploi::getDateLimite));
-                    break;
-                case "Date limite éloignée":
-                    offres.sort((o1, o2) -> o2.getDateLimite().compareTo(o1.getDateLimite()));
-                    break;
-            }
-            
-            // Update the ListView
-            offreList.clear();
-            filteredOffreList.clear();
-            
-            for (OffreEmploi offre : offres) {
-                String formattedOffre = formaterOffre(offre);
-                offreList.add(formattedOffre);
-                filteredOffreList.add(formattedOffre);
-            }
-            
-            lv_offre.setItems(filteredOffreList);
-            
-        } catch (SQLException e) {
-            System.out.println("Erreur lors du tri des offres : " + e.getMessage());
-        }
-    }
-
-    // Modify the search method to maintain sorting
-    private void searchOffres() {
-        String searchTerm = searchField.getText().trim();
-        
-        if (searchTerm.isEmpty()) {
-            filteredOffreList.setAll(offreList);
-        } else {
-            ServiceOffre serviceOffre = new ServiceOffre();
-            try {
-                List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
-                filteredOffreList.clear();
-                
-                for (OffreEmploi offre : resultats) {
-                    filteredOffreList.add(formaterOffre(offre));
-                }
-                
-                // Maintain current sorting if any
-                String currentSort = sortComboBox.getValue();
-                if (currentSort != null) {
-                    applySorting(currentSort);
-                }
-            } catch (SQLException e) {
-                System.out.println("Erreur lors de la recherche : " + e.getMessage());
-            }
-        }
-        
-        lv_offre.setItems(filteredOffreList);
     }
 
     public void ajouterOffre(OffreEmploi offre) {
@@ -356,6 +307,24 @@ public class AfficherOffreController {
         }
     }
 
+    private void searchOffres() {
+        String searchTerm = searchField.getText().trim();
+        ServiceOffre serviceOffre = new ServiceOffre();
+
+        try {
+            List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
+            offreList.clear();
+
+            for (OffreEmploi offre : resultats) {
+                offreList.add(formaterOffre(offre));
+            }
+
+            lv_offre.setItems(offreList);
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche : " + e.getMessage());
+        }
+    }
+
     public void retourdashRH(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
@@ -431,5 +400,110 @@ public class AfficherOffreController {
             alert.setContentText("Impossible de charger les candidatures: " + e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    private void setupListView() {
+        lv_offre.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Create main container
+                    VBox card = new VBox(10);
+                    card.setPadding(new Insets(15));
+                    card.setStyle("-fx-background-color: white; " +
+                                "-fx-border-color: #e0e0e0; " +
+                                "-fx-border-radius: 5; " +
+                                "-fx-background-radius: 5; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+
+                    // Parse the formatted string to extract information
+                    String[] lines = item.split("\n");
+                    
+                    // Title section
+                    Text titleLabel = new Text("Titre: ");
+                    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+                    Text titleValue = new Text(extractValue(lines[1]));
+                    titleValue.setStyle("-fx-font-size: 16px; -fx-fill: #2c3e50;");
+                    
+                    HBox titleBox = new HBox(titleLabel, titleValue);
+                    titleBox.setStyle("-fx-padding: 0 0 10 0;");
+
+                    // Description section
+                    Text descLabel = new Text("Description: ");
+                    descLabel.setStyle("-fx-font-weight: bold;");
+                    Text descValue = new Text(extractValue(lines[2]));
+                    TextFlow description = new TextFlow(descLabel, descValue);
+                    description.setStyle("-fx-padding: 5 0;");
+
+                    // Details section
+                    HBox details = new HBox(20);
+                    
+                    // Contract & Location
+                    VBox contractLocation = new VBox(5);
+                    contractLocation.getChildren().addAll(
+                        createDetailItem("Type de contrat", extractValue(lines[3])),
+                        createDetailItem("Lieu", extractValue(lines[4]))
+                    );
+                    
+                    // Salary & Experience
+                    VBox salaryExp = new VBox(5);
+                    salaryExp.getChildren().addAll(
+                        createDetailItem("Salaire", extractValue(lines[5]) + " TND"),
+                        createDetailItem("Expérience", extractValue(lines[7]))
+                    );
+                    
+                    // Dates
+                    VBox dates = new VBox(5);
+                    dates.getChildren().addAll(
+                        createDetailItem("Publication", extractValue(lines[8])),
+                        createDetailItem("Date limite", extractValue(lines[9]))
+                    );
+                    
+                    details.getChildren().addAll(contractLocation, salaryExp, dates);
+
+                    // Status indicator
+                    HBox statusBox = new HBox(10);
+                    String status = extractValue(lines[6]);
+                    Text statusText = new Text(status);
+                    statusText.setStyle(String.format("-fx-fill: %s;", 
+                        status.equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"));
+                    
+                    Region spacer = new Region();
+                    spacer.setPrefWidth(10);
+                    statusBox.getChildren().addAll(spacer, statusText);
+
+                    // Add all sections to the card
+                    card.getChildren().addAll(titleBox, description, details, statusBox);
+                    
+                    // Add hover effect
+                    card.setOnMouseEntered(e -> 
+                        card.setStyle(card.getStyle() + "-fx-background-color: #f8f9fa;"));
+                    card.setOnMouseExited(e -> 
+                        card.setStyle(card.getStyle() + "-fx-background-color: white;"));
+
+                    setGraphic(card);
+                }
+            }
+        });
+    }
+
+    private HBox createDetailItem(String label, String value) {
+        Text labelText = new Text(label + ": ");
+        labelText.setStyle("-fx-font-weight: bold; -fx-fill: #7f8c8d;");
+        Text valueText = new Text(value);
+        valueText.setStyle("-fx-fill: #2c3e50;");
+        
+        HBox container = new HBox(5, labelText, valueText);
+        container.setStyle("-fx-padding: 2;");
+        return container;
+    }
+
+    private String extractValue(String line) {
+        return line.substring(line.indexOf(":") + 1).trim();
     }
 }

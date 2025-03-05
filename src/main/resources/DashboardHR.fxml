@@ -61,7 +61,7 @@
     <HBox fx:id="navbar" layoutX="212.0" prefHeight="52.0" prefWidth="588.0" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
     <!-- Main Content -->
-    <VBox fx:id="contentArea" layoutX="200.8" prefHeight="795.0" prefWidth="599.0" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
+    <VBox fx:id="contentArea" layoutX="200.8" prefHeight="807.0" prefWidth="599.0" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
         <!-- Content will be loaded dynamically here -->
     </VBox>
 
