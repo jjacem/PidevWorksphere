@@ -10,7 +10,7 @@
 }
 
 .label-title {
-    -fx-font-size: 24px;  /* Reduced font size for the team name */
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #0086b3;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
@@ -69,33 +69,33 @@
 }
 
 .scroll-pane {
-    -fx-background-color: transparent; /* Transparent background */
+    -fx-background-color: transparent;
     -fx-padding: 0;
-    -fx-fit-to-width: true; /* Adjust to parent's width */
+    -fx-fit-to-width: true;
 }
 
 .scroll-pane .viewport {
-    -fx-background-color: transparent; /* Transparent background */
+    -fx-background-color: transparent;
 }
 
 .scroll-pane .scroll-bar:vertical {
-    -fx-background-color: transparent; /* Transparent scroll bar background */
+    -fx-background-color: transparent;
 }
 
 .scroll-pane .scroll-bar:vertical .thumb {
-    -fx-background-color: #0086b3; /* Scroll bar thumb color */
+    -fx-background-color: #0086b3;
     -fx-background-radius: 5;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button,
 .scroll-pane .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent; /* Transparent scroll buttons */
+    -fx-background-color: transparent;
     -fx-padding: 0;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-arrow,
 .scroll-pane .scroll-bar:vertical .decrement-arrow {
-    -fx-shape: " "; /* Hide arrows */
+    -fx-shape: " ";
 }
 
 .projets-label {

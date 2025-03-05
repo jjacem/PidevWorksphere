@@ -123,7 +123,11 @@ public class AfficherDetailsEquipeController {
             // Vider le conteneur avant d'ajouter de nouveaux éléments
             membresContainer.getChildren().clear();
 
-            for (User user : resultats) {
+            // Afficher l'employé recherché
+            if (!resultats.isEmpty()) {
+                User user = resultats.get(0); // Prendre le premier employé trouvé
+
+                // Créer une carte pour l'employé
                 HBox card = new HBox(10);
                 card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
@@ -138,14 +142,11 @@ public class AfficherDetailsEquipeController {
                     if (imageFile.exists() && imageFile.isFile()) {
                         imageView.setImage(new Image(imageFile.toURI().toString()));
                     } else {
-                        System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
                         imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                     }
                 } else {
-                    System.out.println("No image path provided.");
                     imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                 }
-
 
                 imageView.setFitWidth(50);
                 imageView.setFitHeight(50);
@@ -163,6 +164,17 @@ public class AfficherDetailsEquipeController {
                 infoBox.getChildren().addAll(nomPrenomLabel, emailLabel);
                 card.getChildren().addAll(imageView, infoBox);
                 membresContainer.getChildren().add(card);
+            }
+
+            // Afficher les projets associés à l'équipe
+            Label projetsLabel = new Label("Projets associés :");
+            projetsLabel.getStyleClass().add("projets-label");
+            membresContainer.getChildren().add(projetsLabel);
+
+            for (Projet projet : equipe.getProjets()) {
+                Label projetLabel = new Label(projet.getNom());
+                projetLabel.getStyleClass().add("projet-name");
+                membresContainer.getChildren().add(projetLabel);
             }
 
         } catch (SQLException e) {

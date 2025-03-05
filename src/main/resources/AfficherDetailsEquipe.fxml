@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@stylesEquipe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherDetailsEquipeController">
+<AnchorPane prefHeight="590.0" prefWidth="810.0" stylesheets="@stylesEquipe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherDetailsEquipeController">
 
     <!-- Conteneur principal centré avec un fond blanc et une bordure arrondie -->
-    <VBox alignment="CENTER" layoutX="8.0" prefHeight="500.0" prefWidth="779.0" spacing="20" styleClass="main-card" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="0.0">
+    <VBox alignment="CENTER" layoutX="18.0" layoutY="14.0" prefHeight="573.0" prefWidth="784.0" spacing="20" styleClass="main-card" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="14.0">
 
-        <!-- HBox contenant l'image de l'équipe et QR code à droite -->
-        <HBox alignment="CENTER_LEFT" spacing="20">
+        <!-- HBox pour centrer l'image de l'équipe -->
+        <HBox alignment="CENTER" spacing="20">
             <!-- Image de l'équipe -->
             <ImageView fx:id="imageEquipeView" fitHeight="120" fitWidth="120" styleClass="image-equipe">
                 <clip>
@@ -35,7 +35,7 @@
 
         <!-- ScrollPane pour la liste des membres -->
         <ScrollPane fitToWidth="true" styleClass="scroll-pane">
-            <VBox fx:id="membresContainer" prefHeight="146.0" prefWidth="700.0" spacing="15" styleClass="members-container">
+            <VBox fx:id="membresContainer" prefHeight="262.0" prefWidth="718.0" spacing="15" styleClass="members-container">
                 <!-- Les membres seront ajoutés dynamiquement ici -->
             </VBox>
         </ScrollPane>

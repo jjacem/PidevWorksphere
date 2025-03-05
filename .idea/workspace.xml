@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierEquipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Equipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Equipe.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierEquipe.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherDetailsEquipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDetailsEquipe.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/stylesEquipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/stylesEquipe.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +103,7 @@
       <workItem from="1741098289759" duration="845000" />
       <workItem from="1741104254617" duration="3608000" />
       <workItem from="1741107882813" duration="1060000" />
-      <workItem from="1741121051223" duration="21369000" />
+      <workItem from="1741121051223" duration="22087000" />
     </task>
     <servers />
   </component>
