@@ -312,4 +312,27 @@ public class ServiceProjet implements IServiceProjet<Projet> {
 
         return projets;
     }
+
+//employee
+    public List<Projet> getProjetsByEquipeId(int equipeId) throws SQLException {
+        List<Projet> projets = new ArrayList<>();
+        String req = "SELECT * FROM projet WHERE equipe_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, equipeId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Projet projet = new Projet();
+            projet.setId(rs.getInt("id"));
+            projet.setNom(rs.getString("nom"));
+            projet.setDescription(rs.getString("description"));
+            projet.setDatecréation(rs.getDate("datecréation"));
+            projet.setDeadline(rs.getDate("deadline"));
+            projet.setEtat(EtatProjet.valueOf(rs.getString("etat")));
+            projet.setImageProjet(rs.getString("imageProjet"));
+            projets.add(projet);
+        }
+
+        return projets;
+    }
 }

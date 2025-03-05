@@ -264,4 +264,56 @@ public class ServiceEquipe implements IServiceEquipe<Equipe> {
         }
         return false;
     }
+
+    /////employee
+    public List<Equipe> getEquipesByUserId(int userId) throws SQLException {
+        List<Equipe> equipes = new ArrayList<>();
+        String req = "SELECT e.id, e.nom_equipe, e.imageEquipe, e.nbrProjet " +
+                "FROM equipe e " +
+                "JOIN equipe_employee ee ON e.id = ee.equipe_id " +
+                "WHERE ee.id_user = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, userId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nomEquipe = rs.getString("nom_equipe");
+            String imageEquipe = rs.getString("imageEquipe");
+            int nbrProjet = rs.getInt("nbrProjet");
+
+            // Récupérer les employés de l'équipe
+            List<User> employes = getEmployesByEquipeId(id);
+
+            Equipe equipe = new Equipe(id, nomEquipe, employes, imageEquipe, nbrProjet);
+            equipes.add(equipe);
+        }
+
+        return equipes;
+    }
+
+    private List<User> getEmployesByEquipeId(int equipeId) throws SQLException {
+        List<User> employes = new ArrayList<>();
+        String req = "SELECT u.id_user, u.nom, u.prenom, u.role, u.image_profil, u.email " +
+                "FROM user u " +
+                "JOIN equipe_employee ee ON u.id_user = ee.id_user " +
+                "WHERE ee.equipe_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(req);
+        preparedStatement.setInt(1, equipeId);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            User user = new User(
+                    rs.getInt("id_user"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    Role.valueOf(rs.getString("role").toUpperCase()),
+                    rs.getString("image_profil"),
+                    rs.getString("email")
+            );
+            employes.add(user);
+        }
+
+        return employes;
+    }
 }

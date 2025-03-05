@@ -9,8 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -127,5 +125,14 @@ public class DashboardEmploye {
 
     public void mesreservastion(ActionEvent actionEvent) {
         loadPage("/AfficherReservation.fxml");
+    }
+
+    public void gestionEquipe(ActionEvent actionEvent) {
+        loadPage("/AfficherEquipeEmploye.fxml");
+
+    }
+    public void gestionProjet(ActionEvent actionEvent) {
+        loadPage("/AfficherProjetEmploye.fxml");
+
     }
 }

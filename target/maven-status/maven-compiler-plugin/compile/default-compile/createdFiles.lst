@@ -20,12 +20,14 @@ esprit\tn\controllers\AfficherReservationController$1$1.class
 esprit\tn\services\StatistiqueEquipeService.class
 esprit\tn\controllers\AfficherSponsorController.class
 esprit\tn\controllers\AjouterCandidatureController.class
+esprit\tn\controllers\AfficherProjetEmployeController.class
 esprit\tn\controllers\AffichageEntretienbyemployeeId$1.class
 esprit\tn\controllers\AfficherReponse.class
 esprit\tn\entities\Feedback.class
 esprit\tn\utils\Router.class
 esprit\tn\controllers\AfficherUser$1$1.class
 esprit\tn\controllers\ModifierReponseController.class
+esprit\tn\controllers\AfficherEquipeEmployeController.class
 esprit\tn\controllers\AjouterEquipeController$1.class
 esprit\tn\controllers\SponsorEventsController.class
 esprit\tn\controllers\AffecterEntretien$1.class
@@ -60,6 +62,7 @@ esprit\tn\services\FeedbackService.class
 esprit\tn\services\ServiceEvenement.class
 esprit\tn\utils\Emailsend.class
 esprit\tn\controllers\AfficherListFormationController.class
+esprit\tn\controllers\AfficherProjetEmployeController$1.class
 esprit\tn\controllers\voirFeedbackController.class
 esprit\tn\controllers\ModifierCompteController.class
 esprit\tn\controllers\DashboardManager.class
