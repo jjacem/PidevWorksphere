@@ -9,9 +9,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
 import esprit.tn.services.ServiceOffre;
+import esprit.tn.controllers.AjouterOffreController.RefreshCallback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -135,7 +137,10 @@ public class AfficherOffreController {
     void chargerOffres() {
         ServiceOffre serviceOffreEmploi = new ServiceOffre();
         try {
-            // Récupérer toutes les offres depuis la base de données
+            // Clear existing list to avoid duplicates
+            offreList.clear();
+            
+            // Get all offers from the database
             List<OffreEmploi> offres = serviceOffreEmploi.recupererOffres();
 
             // Ajouter chaque offre à la liste observable
@@ -169,6 +174,19 @@ public class AfficherOffreController {
 
             // Mettre à jour la ListView avec la liste des offres
             lv_offre.setItems(offreList);
+            
+            // Restore selection if possible
+            if (offreSelectionnee != null) {
+                // Try to find the updated offer in the list
+                for (int i = 0; i < offreList.size(); i++) {
+                    String formattedOffre = offreList.get(i);
+                    OffreEmploi offre = recupererOffreParAffichage(formattedOffre);
+                    if (offre != null && offre.getIdOffre() == offreSelectionnee.getIdOffre()) {
+                        lv_offre.getSelectionModel().select(i);
+                        break;
+                    }
+                }
+            }
 
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des offres : " + e.getMessage());
@@ -206,31 +224,37 @@ public class AfficherOffreController {
     }
 
     @FXML
-    @Deprecated
     private void goToAjouterOffre(ActionEvent event) {
         try {
             // Charger la vue du formulaire d'ajout
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterOffre.fxml"));
             Parent root = fxmlLoader.load();
 
-            /*// Créer une nouvelle fenêtre (Stage) pour le formulaire d'ajout
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter une Offre d'Emploi");
-            stage.setScene(new Scene(root));
-            stage.show();*/
-            // Obtenir la scène actuelle depuis le bouton "Ajouter Offre"
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Remplacer le contenu de la scène par la nouvelle vue
-            stage.getScene().setRoot(root);
+            // Créer une nouvelle fenêtre (Stage) pour le formulaire d'ajout
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter une Offre d'Emploi");
+            dialogStage.initModality(Modality.WINDOW_MODAL); // Make it modal
+            dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow()); // Set owner
+            
+            Scene scene = new Scene(root);
+            dialogStage.setScene(scene);
+            
+            // Get controller to set callback
+            AjouterOffreController controller = fxmlLoader.getController();
+            controller.setRefreshCallback(() -> {
+                // Refresh the offer list after adding
+                chargerOffres();
+            });
+            
+            // Show the dialog and wait for it to close
+            dialogStage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();  // Afficher l'erreur dans la console
-            System.out.println("Erreur de chargement FXML: " + e.getMessage());  // Message d'erreur détaillé
+            e.printStackTrace();
+            System.out.println("Erreur de chargement FXML: " + e.getMessage());
         }
     }
 
     @FXML
-    @Deprecated
     private void goToModifierOffre(ActionEvent event) {
         if (offreSelectionnee != null) {
             try {
@@ -240,17 +264,35 @@ public class AfficherOffreController {
                 // Passer l'offre sélectionnée au contrôleur de modification
                 ModifierOffreController modifierOffreController = loader.getController();
                 modifierOffreController.remplirChamps(offreSelectionnee);
+                
+                // Set callback to refresh the offers list after modification
+                modifierOffreController.setRefreshCallback(new RefreshCallback() {
+                    @Override
+                    public void refresh() {
+                        // This will update the ListView with the modified offer
+                        chargerOffres();
+                    }
+                });
 
-                // Changer de scène
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-
+                // Create a new stage for the modification form
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Modifier une Offre d'Emploi");
+                dialogStage.initModality(Modality.WINDOW_MODAL); // Make it modal
+                dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow()); // Set owner
+                
+                Scene scene = new Scene(root);
+                dialogStage.setScene(scene);
+                
+                // Show the dialog and wait for it to close
+                dialogStage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                          "Erreur lors du chargement de l'interface de modification: " + e.getMessage());
             }
         } else {
-            System.out.println("Veuillez sélectionner une offre à modifier.");
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection", 
+                      "Veuillez sélectionner une offre à modifier.");
         }
     }
 

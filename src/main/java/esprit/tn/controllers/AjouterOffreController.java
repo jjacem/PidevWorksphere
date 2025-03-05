@@ -19,8 +19,8 @@ import java.sql.SQLException;
 
 public class AjouterOffreController {
 
-
     private OffreEmploi derniereOffreAjoutee; // Variable pour stocker l'offre ajoutée
+    
     @FXML
     private TextField titreoffre;
     @FXML
@@ -39,8 +39,18 @@ public class AjouterOffreController {
     private DatePicker datepublication;
     @FXML
     private DatePicker datelimite;
+    
+    // Callback interface for refreshing the offer list
+    public interface RefreshCallback {
+        void refresh();
+    }
+    
+    private RefreshCallback refreshCallback;
+    
+    public void setRefreshCallback(RefreshCallback callback) {
+        this.refreshCallback = callback;
+    }
 
-    @Deprecated
     public void AjouterOffre(ActionEvent actionEvent) {
         // Création du service d'ajout d'offre
         ServiceOffre serviceOffreEmploi = new ServiceOffre();
@@ -107,14 +117,15 @@ public class AjouterOffreController {
             alert.setContentText("Offre d'emploi ajoutée avec succès !");
             alert.showAndWait();
 
-            // Charger la nouvelle scène
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherOffre.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir la scène actuelle et la remplacer
+            // Call refresh callback if available
+            if (refreshCallback != null) {
+                refreshCallback.refresh();
+            }
+            
+            // Close the window
             Stage stage = (Stage) titreoffre.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.close();
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 
@@ -123,41 +134,13 @@ public class AjouterOffreController {
             alert.setTitle("Erreur");
             alert.setContentText("Échec de l'ajout de l'offre d'emploi.");
             alert.showAndWait();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public void AfficherOffre(ActionEvent actionEvent) {
-        // Code pour afficher l'offre
-        try {
-            // Charger l'interface d'affichage des offres
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherOffre.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir le contrôleur de l'interface d'affichage
-            AfficherOffreController afficherOffreController = loader.getController();
-
-            // Recharger la liste des offres depuis la base de données
-            //afficherOffreController.chargerOffres();
-//            // Transmettre la dernière offre ajoutée
-//            afficherOffreController.ajouterOffre(derniereOffreAjoutee);
-            // Si une nouvelle offre a été ajoutée, la transmettre
-            if (derniereOffreAjoutee != null) {
-                afficherOffreController.ajouterOffre(derniereOffreAjoutee);
-            }
-
-            // Obtenir la fenêtre actuelle
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-            // Définir la nouvelle scène sur la fenêtre actuelle
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Afficher Offres");
-            stage.show();
-        } catch (IOException e) {
-            System.out.println("Erreur lors du chargement de l'interface d'affichage : " + e.getMessage());
-        }
+        // Close the current window without doing anything else
+        // The main window is already showing the offers
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
-
 }
