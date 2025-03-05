@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -16,8 +17,11 @@ import esprit.tn.services.ServiceOffre;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AjouterOffreController {
+public class AjouterOffreController implements Initializable {
 
     private OffreEmploi derniereOffreAjoutee; // Variable pour stocker l'offre ajoutée
     
@@ -49,6 +53,14 @@ public class AjouterOffreController {
     
     public void setRefreshCallback(RefreshCallback callback) {
         this.refreshCallback = callback;
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        datepublication.setValue(LocalDate.now());
+        // Make this field read-only to prevent changes
+        datepublication.setEditable(false);
+        datelimite.setValue(LocalDate.now().plusDays(30));
     }
 
     public void AjouterOffre(ActionEvent actionEvent) {
