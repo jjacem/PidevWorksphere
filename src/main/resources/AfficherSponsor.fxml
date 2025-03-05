@@ -21,7 +21,9 @@
     <!-- Contenu de l'interface -->
     <children>
         <!-- Liste des sponsors -->
-        <ListView fx:id="lv_sponsor" layoutX="10.0" layoutY="150.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
+        <ListView fx:id="lv_sponsor" layoutX="10.0" layoutY="150.0" prefHeight="400.0"
+                  prefWidth="800.0" AnchorPane.bottomAnchor="10.0"
+                  AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
 
         <!-- Titre -->
         <Label layoutX="22.0" layoutY="6.0" text="Liste des sponsors" textFill="#0086b3" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="6.0">
