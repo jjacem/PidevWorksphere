@@ -106,7 +106,8 @@ public class AjouterProjetController {
             String etat = etatComboBox.getValue();
             Equipe equipe = equipeComboBox.getValue();
 
-            if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null) {
+
+            if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null ||imagePath.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Champs manquants");
                 alert.setHeaderText(null);

@@ -185,7 +185,7 @@ public class AjouterEquipeController {
         List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
 
 
-        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
+        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2 || imagePath.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champ manquant");
             alert.setHeaderText(null);

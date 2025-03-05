@@ -257,12 +257,6 @@ public class AfficherProjetController {
                 // Rafraîchir la liste des projets
                 List<Projet> projets = serviceProjet.afficherProjet();
                 afficherProjets(projets);
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Succès");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Projet supprimé avec succès !");
-                applyAlertStyle(successAlert);
-                successAlert.showAndWait();
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -288,12 +282,7 @@ public class AfficherProjetController {
                 // Rafraîchir la liste des projets
                 List<Projet> projets = serviceProjet.afficherProjet();
                 afficherProjets(projets);
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Succès");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Tous les projets ont été supprimés avec succès !");
-                applyAlertStyle(successAlert);
-                successAlert.showAndWait();
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
