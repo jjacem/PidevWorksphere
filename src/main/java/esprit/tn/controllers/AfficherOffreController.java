@@ -17,19 +17,38 @@ import esprit.tn.controllers.AjouterOffreController.RefreshCallback;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 
 public class AfficherOffreController {
-
-    private ObservableList<String> offreList = FXCollections.observableArrayList(); // Liste observable pour les offres
-    private OffreEmploi offreSelectionnee; // Variable pour stocker l'offre sélectionnée
+    private ObservableList<String> offreList = FXCollections.observableArrayList();
+    private ObservableList<String> filteredOffreList = FXCollections.observableArrayList();
+    private OffreEmploi offreSelectionnee;
+    
     @FXML
     private ListView<String> lv_offre;
     @FXML
     private TextField searchField;
+    @FXML
+    private ComboBox<String> sortComboBox;
 
     @FXML
     void initialize() {
+        // Initialize sort options
+        sortComboBox.setItems(FXCollections.observableArrayList(
+            "Plus récentes d'abord", 
+            "Plus anciennes d'abord",
+            "Date limite proche",
+            "Date limite éloignée"
+        ));
+        
+        // Set up sort combo box listener
+        sortComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                applySorting(newValue);
+            }
+        });
+
         // Appeler la méthode pour charger toutes les offres depuis la base de données
         chargerOffres();
         // Désactiver le bouton de suppression par défaut
@@ -137,60 +156,101 @@ public class AfficherOffreController {
     void chargerOffres() {
         ServiceOffre serviceOffreEmploi = new ServiceOffre();
         try {
-            // Clear existing list to avoid duplicates
-            offreList.clear();
-            
-            // Get all offers from the database
             List<OffreEmploi> offres = serviceOffreEmploi.recupererOffres();
-
-            // Ajouter chaque offre à la liste observable
-
+            
+            // Apply default sorting (most recent first)
+            offres.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
+            
+            offreList.clear();
+            filteredOffreList.clear();
+            
             for (OffreEmploi offre : offres) {
-                String formattedOffre = String.format(
-                        "-------------------------------\n" +
-                                "Titre : %-20s\n" +
-                                "Description : %-20s\n" +
-                                "Type de contrat : %-15s\n" +
-                                "Lieu de travail : %-15s\n" +
-                                "Salaire : %-10s TND\n" +
-                                "Statut : %-10s\n" +
-                                "Expérience requise : %-5s\n" +
-                                "Date de publication : %-15s\n" +
-                                "Date limite : %-15s\n" +
-                                "-------------------------------\n",
-                        offre.getTitre(),
-                        offre.getDescription().replaceAll("(.{40})","$1\n"),
-                        offre.getTypeContrat(),
-                        offre.getLieuTravail(),
-                        offre.getSalaire(),
-                        offre.getStatutOffre(),
-                        offre.getExperience(),
-                        offre.getDatePublication(),
-                        offre.getDateLimite()
-                );
+                String formattedOffre = formaterOffre(offre);
                 offreList.add(formattedOffre);
-
+                filteredOffreList.add(formattedOffre);
             }
-
-            // Mettre à jour la ListView avec la liste des offres
-            lv_offre.setItems(offreList);
+            
+            lv_offre.setItems(filteredOffreList);
             
             // Restore selection if possible
             if (offreSelectionnee != null) {
-                // Try to find the updated offer in the list
-                for (int i = 0; i < offreList.size(); i++) {
-                    String formattedOffre = offreList.get(i);
-                    OffreEmploi offre = recupererOffreParAffichage(formattedOffre);
-                    if (offre != null && offre.getIdOffre() == offreSelectionnee.getIdOffre()) {
-                        lv_offre.getSelectionModel().select(i);
-                        break;
-                    }
+                String formattedSelected = formaterOffre(offreSelectionnee);
+                int index = filteredOffreList.indexOf(formattedSelected);
+                if (index >= 0) {
+                    lv_offre.getSelectionModel().select(index);
                 }
             }
-
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des offres : " + e.getMessage());
         }
+    }
+
+    // Add sorting functionality
+    private void applySorting(String sortOption) {
+        ServiceOffre serviceOffre = new ServiceOffre();
+        try {
+            List<OffreEmploi> offres = serviceOffre.recupererOffres();
+            
+            // Sort based on selected option
+            switch (sortOption) {
+                case "Plus récentes d'abord":
+                    offres.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
+                    break;
+                case "Plus anciennes d'abord":
+                    offres.sort(Comparator.comparing(OffreEmploi::getDatePublication));
+                    break;
+                case "Date limite proche":
+                    offres.sort(Comparator.comparing(OffreEmploi::getDateLimite));
+                    break;
+                case "Date limite éloignée":
+                    offres.sort((o1, o2) -> o2.getDateLimite().compareTo(o1.getDateLimite()));
+                    break;
+            }
+            
+            // Update the ListView
+            offreList.clear();
+            filteredOffreList.clear();
+            
+            for (OffreEmploi offre : offres) {
+                String formattedOffre = formaterOffre(offre);
+                offreList.add(formattedOffre);
+                filteredOffreList.add(formattedOffre);
+            }
+            
+            lv_offre.setItems(filteredOffreList);
+            
+        } catch (SQLException e) {
+            System.out.println("Erreur lors du tri des offres : " + e.getMessage());
+        }
+    }
+
+    // Modify the search method to maintain sorting
+    private void searchOffres() {
+        String searchTerm = searchField.getText().trim();
+        
+        if (searchTerm.isEmpty()) {
+            filteredOffreList.setAll(offreList);
+        } else {
+            ServiceOffre serviceOffre = new ServiceOffre();
+            try {
+                List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
+                filteredOffreList.clear();
+                
+                for (OffreEmploi offre : resultats) {
+                    filteredOffreList.add(formaterOffre(offre));
+                }
+                
+                // Maintain current sorting if any
+                String currentSort = sortComboBox.getValue();
+                if (currentSort != null) {
+                    applySorting(currentSort);
+                }
+            } catch (SQLException e) {
+                System.out.println("Erreur lors de la recherche : " + e.getMessage());
+            }
+        }
+        
+        lv_offre.setItems(filteredOffreList);
     }
 
     public void ajouterOffre(OffreEmploi offre) {
@@ -293,24 +353,6 @@ public class AfficherOffreController {
         } else {
             showAlert(Alert.AlertType.WARNING, "Aucune sélection", 
                       "Veuillez sélectionner une offre à modifier.");
-        }
-    }
-
-    private void searchOffres() {
-        String searchTerm = searchField.getText().trim();
-        ServiceOffre serviceOffre = new ServiceOffre();
-
-        try {
-            List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
-            offreList.clear();
-
-            for (OffreEmploi offre : resultats) {
-                offreList.add(formaterOffre(offre));
-            }
-
-            lv_offre.setItems(offreList);
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la recherche : " + e.getMessage());
         }
     }
 
