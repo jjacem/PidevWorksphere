@@ -129,14 +129,30 @@ public class AfficherEquipeController {
         }
     }
 
+
     @FXML
     public void redirectToAjouterEquipe() {
         try {
+            // Charger le fichier FXML pour la fenêtre d'ajout d'équipe
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEquipe.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) equipesContainer.getScene().getWindow();
-            stage.getScene().setRoot(root);
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
             stage.setTitle("Ajouter une équipe");
+            stage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
+            stage.showAndWait();
+
+            // Rafraîchir la liste des équipes après l'ajout
+            try {
+                List<Equipe> equipes = serviceEquipe.afficherEquipe();
+                afficherEquipes(equipes);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

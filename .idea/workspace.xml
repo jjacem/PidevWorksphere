@@ -6,13 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ChatbotPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ChatbotPopupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ChatbotEquipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ChatbotEquipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherEquipe.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherProjet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ChatbotPopup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ChatbotPopup.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/chatbot.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/chatbot.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEquipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEquipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterEquipe.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Equipe.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Equipe.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,25 +37,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.Worksphere [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:help].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;gestionEquipeProjet&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.Worksphere [clean].executor": "Run",
+    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:help].executor": "Run",
+    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "gestionEquipeProjet",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/asmas/Documents/GitHub/PidevWorksphere/src/main/resources/images",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources\icons" />
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\resources" />

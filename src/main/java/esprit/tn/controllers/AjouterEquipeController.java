@@ -14,6 +14,7 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceEquipe;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -197,6 +198,22 @@ public class AjouterEquipeController {
     }
 
     @FXML
+    public void supprimerUnEmploye() {
+        User employeSelectionne = employesSelectionnesListView.getSelectionModel().getSelectedItem();
+
+        if (employeSelectionne != null) {
+            employesSelectionnesList.remove(employeSelectionne);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucune sélection");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un employé à supprimer");
+            applyAlertStyle(alert);
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
         List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
@@ -235,15 +252,10 @@ public class AjouterEquipeController {
             applyAlertStyle(alert);
             alert.showAndWait();
 
-            // Rediriger vers la vue des équipes
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.setTitle("Liste des équipes");
+            Stage stage = (Stage) confirmerButton.getScene().getWindow();
+            stage.close();
 
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -278,7 +290,8 @@ public class AjouterEquipeController {
     }
 
     @FXML
-    private void uploadImage(ActionEvent event) {
+    //private void uploadImage(ActionEvent event) {
+    private void uploadImage(MouseEvent event){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(

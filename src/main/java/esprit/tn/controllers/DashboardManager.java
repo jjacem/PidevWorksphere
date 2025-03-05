@@ -69,7 +69,7 @@ public class DashboardManager {
 
 
 
-    /*@FXML
+    @FXML
     private void logout(ActionEvent event) {
         SessionManager.clearSession();
         try {
@@ -81,40 +81,6 @@ public class DashboardManager {
             stage.setScene(new Scene(root));
             stage.setTitle("Login");
             stage.show();
-        } catch (IOException e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }*/
-
-    @FXML
-    private void logout(ActionEvent event) {
-        try {
-            // Nettoyer la session utilisateur
-            SessionManager.clearSession();
-
-            // Charger la nouvelle interface de login
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle
-            Scene newScene = new Scene(root);
-
-            // Récupérer la fenêtre actuelle
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Appliquer la nouvelle scène
-            stage.setScene(newScene);
-            stage.setTitle("Login");
-
-            // Utiliser un Platform.runLater() pour s'assurer que la fenêtre est bien affichée avant de modifier sa taille
-            Platform.runLater(() -> {
-                stage.setMaximized(false); // Désactiver temporairement la maximisation
-                stage.setWidth(800); // Taille par défaut
-                stage.setHeight(600);
-                stage.centerOnScreen();
-            });
-
         } catch (IOException e) {
             System.err.println("Error loading FXML: " + e.getMessage());
             e.printStackTrace();
