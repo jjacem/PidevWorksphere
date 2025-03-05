@@ -31,18 +31,18 @@
       <TextField fx:id="salaireField" layoutX="151.0" layoutY="172.0" prefHeight="26.0" prefWidth="194.0" />
       <TextField fx:id="lieuTravailField" layoutX="151.0" layoutY="214.0" prefHeight="26.0" prefWidth="194.0" />
       <Label layoutX="23.0" layoutY="254.0" prefHeight="30.0" prefWidth="112.0" text="Experience :" />
-      <Label layoutX="23.0" layoutY="331.0" prefHeight="30.0" prefWidth="112.0" text="Date de publication :" />
-      <Label layoutX="23.0" layoutY="372.0" prefHeight="30.0" prefWidth="112.0" text="Date limite :" />
-      <Label layoutX="23.0" layoutY="417.0" prefHeight="30.0" prefWidth="112.0" text="Statut Offre :" />
+      <!-- Hide date publication field and label -->
+      <DatePicker fx:id="datepublicationField" layoutX="-1000.0" prefHeight="26.0" prefWidth="194.0" visible="false" />
+      <Label layoutX="23.0" layoutY="331.0" prefHeight="30.0" prefWidth="112.0" text="Date limite :" />
+      <Label layoutX="23.0" layoutY="372.0" prefHeight="30.0" prefWidth="112.0" text="Statut Offre :" />
       <TextField fx:id="experienceField" layoutX="151.0" layoutY="256.0" prefHeight="26.0" prefWidth="194.0" />
-      <TextField fx:id="statutoffreField" layoutX="149.0" layoutY="417.0" prefHeight="26.0" prefWidth="194.0" />
+      <TextField fx:id="statutoffreField" layoutX="149.0" layoutY="372.0" prefHeight="26.0" prefWidth="194.0" />
       <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/images/offre-demploi-visuel-2-removebg-preview.png" />
          </image>
       </ImageView>
-      <DatePicker fx:id="datepublicationField" layoutX="149.0" layoutY="331.0" prefHeight="26.0" prefWidth="194.0" />
-      <DatePicker fx:id="datelimiteField" layoutX="149.0" layoutY="372.0" prefHeight="26.0" prefWidth="194.0" />
+      <DatePicker fx:id="datelimiteField" layoutX="149.0" layoutY="331.0" prefHeight="26.0" prefWidth="194.0" />
       <AnchorPane layoutX="29.0" layoutY="304.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
       <AnchorPane layoutX="275.0" layoutY="14.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
       <AnchorPane layoutX="324.0" layoutY="25.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />

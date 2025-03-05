@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
 import esprit.tn.services.ServiceOffre;
@@ -14,8 +15,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ModifierOffreController {
+public class ModifierOffreController implements Initializable {
 
     @FXML
     private TextField titreField;
@@ -32,7 +35,7 @@ public class ModifierOffreController {
     @FXML
     private TextField statutoffreField;
     @FXML
-    private DatePicker datepublicationField;
+    private DatePicker datepublicationField; // Hidden in UI but still needed
     @FXML
     private DatePicker datelimiteField;
 
@@ -41,6 +44,11 @@ public class ModifierOffreController {
     
     public void setRefreshCallback(RefreshCallback callback) {
         this.refreshCallback = callback;
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Nothing to initialize here
     }
     
     public void remplirChamps(OffreEmploi offre) {
@@ -56,7 +64,7 @@ public class ModifierOffreController {
         experienceField.setText(String.valueOf(offre.getExperience()));
         statutoffreField.setText(offre.getStatutOffre());
 
-        // Handle publication date
+        // Handle original publication date (hidden from UI but kept for data integrity)
         if (offre.getDatePublication() != null) {
             Date datePublication = offre.getDatePublication();
             LocalDate localDatePublication;
@@ -87,9 +95,6 @@ public class ModifierOffreController {
 
             datelimiteField.setValue(localDateLimite);
         }
-
-        System.out.println("Date Publication : " + offre.getDatePublication());
-        System.out.println("Date Limite : " + offre.getDateLimite());
     }
 
     // Méthode pour appliquer les modifications
@@ -125,10 +130,11 @@ public class ModifierOffreController {
     }
     
     private boolean validateFields() {
-        // Check for empty fields
-        if (salaireField.getText().isEmpty() || titreField.getText().isEmpty() || typeContratField.getText().isEmpty() ||
-                lieuTravailField.getText().isEmpty() || statutoffreField.getText().isEmpty() || experienceField.getText().isEmpty() ||
-                descriptionField.getText().isEmpty() || datepublicationField.getValue() == null || datelimiteField.getValue() == null) {
+        // Check for empty visible fields (note: datepublicationField is hidden)
+        if (salaireField.getText().isEmpty() || titreField.getText().isEmpty() || 
+            typeContratField.getText().isEmpty() || lieuTravailField.getText().isEmpty() || 
+            statutoffreField.getText().isEmpty() || experienceField.getText().isEmpty() ||
+            descriptionField.getText().isEmpty() || datelimiteField.getValue() == null) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champs manquants");
@@ -158,11 +164,11 @@ public class ModifierOffreController {
             return false;
         }
 
-        // Validate dates
+        // Validate dates - make sure the date limite is not before the original publication date
         if (datelimiteField.getValue().isBefore(datepublicationField.getValue())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de date");
-            alert.setContentText("La date limite ne peut pas être avant la date de publication.");
+            alert.setContentText("La date limite ne peut pas être avant la date de publication originale.");
             alert.showAndWait();
             return false;
         }
@@ -171,7 +177,9 @@ public class ModifierOffreController {
     }
     
     private void updateOfferFromFields() {
-        // Important: Keep the original ID to update the correct offer
+        // Important: Keep the original ID and publication date
+        LocalDate originalPublicationDate = datepublicationField.getValue();
+        
         // Update all other fields with the new values
         offre.setTitre(titreField.getText());
         offre.setDescription(descriptionField.getText());
@@ -180,7 +188,11 @@ public class ModifierOffreController {
         offre.setLieuTravail(lieuTravailField.getText());
         offre.setExperience(experienceField.getText());
         offre.setStatutOffre(statutoffreField.getText());
-        offre.setDatePublication(java.sql.Date.valueOf(datepublicationField.getValue()));
+        
+        // Keep the original publication date
+        offre.setDatePublication(java.sql.Date.valueOf(originalPublicationDate));
+        
+        // Update the date limite
         offre.setDateLimite(java.sql.Date.valueOf(datelimiteField.getValue()));
     }
     
