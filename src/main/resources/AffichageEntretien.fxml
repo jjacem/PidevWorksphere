@@ -41,11 +41,14 @@
         </VBox>
     </center>
 
-    <!-- 🔹 Footer -->
     <bottom>
         <StackPane id="footer" alignment="CENTER">
             <Button fx:id="btn_ajouter" onAction="#ajouterEntretien" text="➕ Ajouter un Entretien" />
+            <Button fx:id="btn_voir_historique" onAction="#voirHistorique" text="📜 Voir Historique" />
         </StackPane>
     </bottom>
+
+
+
 
 </BorderPane>

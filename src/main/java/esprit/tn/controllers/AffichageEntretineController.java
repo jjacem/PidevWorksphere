@@ -31,7 +31,7 @@ public class AffichageEntretineController {
     private EntretienService entretienService = new EntretienService();
 
     private ServiceUser su = new ServiceUser();
-    esprit.tn.entities.User users = new User() ;
+    esprit.tn.entities.User users = new User();
 
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
@@ -138,11 +138,7 @@ public class AffichageEntretineController {
         });
 
 
-
     }
-
-
-
 
 
     private void voirDetailEntretien(Entretien entretien) {
@@ -163,7 +159,6 @@ public class AffichageEntretineController {
             throw new RuntimeException(e);
         }
     }
-
 
 
     private void filterEntretiens(String keyword) throws SQLException {
@@ -206,14 +201,12 @@ public class AffichageEntretineController {
             });
 
 
-
             popupStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     private void ouvrirModifierEntretien(Entretien entretien) {
@@ -240,7 +233,6 @@ public class AffichageEntretineController {
             e.printStackTrace();
         }
     }
-
 
 
     private void supprimerEntretien(Entretien entretien) {
@@ -274,7 +266,7 @@ public class AffichageEntretineController {
 
             lv_entretien.getScene().setRoot(root);
 
-           voirFeedbackController controller = loader.getController();
+            voirFeedbackController controller = loader.getController();
             controller.chargerFeedback(feedbackId);
 
             Stage stage = new Stage();
@@ -287,7 +279,6 @@ public class AffichageEntretineController {
                     throw new RuntimeException(e);
                 }
             });
-
 
 
             stage.showAndWait();
@@ -313,11 +304,11 @@ public class AffichageEntretineController {
             e.printStackTrace();
         }
 
-}
+    }
 
     void refreshDatas() throws SQLException {
 
-            afficherEntretien();
+        afficherEntretien();
 
     }
 
@@ -350,23 +341,19 @@ public class AffichageEntretineController {
         Date dateFin = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 
-        if(startDate == null || endDate == null || startDate.equals(LocalDate.MIN) || endDate.equals(LocalDate.MIN)) {
+        if (startDate == null || endDate == null || startDate.equals(LocalDate.MIN) || endDate.equals(LocalDate.MIN)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Sélection de dates manquantes");
             alert.setHeaderText("Veuillez sélectionner une date début et une date fin.");
             alert.setContentText("Pour filtrer par date, vous devez choisir les deux dates.");
             alert.showAndWait();
-        }
-
-        else if (startDate.isAfter(endDate)) {
+        } else if (startDate.isAfter(endDate)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Erreur de dates");
             alert.setHeaderText("La date de début ne peut pas être après la date de fin.");
             alert.setContentText("Veuillez sélectionner une date de début antérieure ou égale à la date de fin.");
-            alert.showAndWait(); }
-
-
-        else {
+            alert.showAndWait();
+        } else {
             try {
                 List<Entretien> filteredEntretiens = entretienService.filterEntretienByDate(dateDebut, dateFin);
                 ObservableList<Entretien> filteredData = FXCollections.observableArrayList(filteredEntretiens);
@@ -383,8 +370,43 @@ public class AffichageEntretineController {
     }
 
 
+    public void voirHistorique(ActionEvent actionEvent) {
 
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/voirHistoriqueEntretien.fxml"));
+            Parent root = loader.load();
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("historique  un Entretien");
+
+
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            popupStage.setWidth(420);
+            popupStage.setHeight(450);
+
+            popupStage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+            popupStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+}
+
+
 
 
 
