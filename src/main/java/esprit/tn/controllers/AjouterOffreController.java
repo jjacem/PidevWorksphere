@@ -40,7 +40,7 @@ public class AjouterOffreController implements Initializable {
     @FXML
     private TextField statutoffre;
     @FXML
-    private DatePicker datepublication;
+    private DatePicker datepublication; // Still needed but hidden from UI
     @FXML
     private DatePicker datelimite;
     
@@ -58,8 +58,6 @@ public class AjouterOffreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         datepublication.setValue(LocalDate.now());
-        // Make this field read-only to prevent changes
-        datepublication.setEditable(false);
         datelimite.setValue(LocalDate.now().plusDays(30));
     }
 
@@ -67,10 +65,11 @@ public class AjouterOffreController implements Initializable {
         // Création du service d'ajout d'offre
         ServiceOffre serviceOffreEmploi = new ServiceOffre();
 
-        // Validation des champs
-        if (salaireoffre.getText().isEmpty() || titreoffre.getText().isEmpty() || typeoffre.getText().isEmpty() ||
-                lieuoffre.getText().isEmpty() || statutoffre.getText().isEmpty() || experienceoffre.getText().isEmpty() ||
-                descriptionoffre.getText().isEmpty() || datepublication.getValue() == null || datelimite.getValue() == null) {
+        // Validation des champs visibles (note: datepublication est toujours définie automatiquement)
+        if (titreoffre.getText().isEmpty() || typeoffre.getText().isEmpty() ||
+                lieuoffre.getText().isEmpty() || statutoffre.getText().isEmpty() || 
+                experienceoffre.getText().isEmpty() || descriptionoffre.getText().isEmpty() || 
+                salaireoffre.getText().isEmpty() || datelimite.getValue() == null) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champs manquants");
@@ -78,7 +77,8 @@ public class AjouterOffreController implements Initializable {
             alert.showAndWait();
             return;
         }
-        // Vérification que le salaire est un nombre
+        
+        // Validation du salaire
         try {
             Integer.parseInt(salaireoffre.getText());
         } catch (NumberFormatException e) {
@@ -88,8 +88,9 @@ public class AjouterOffreController implements Initializable {
             alert.showAndWait();
             return;
         }
-        // Vérification que l'expérience est dans le format correct "X ans" où X est un nombre valide
-        String experienceText = experienceoffre.getText().trim();  // On retire les espaces avant et après
+        
+        // Validation du format de l'expérience
+        String experienceText = experienceoffre.getText().trim();
         if (!experienceText.matches("^\\d+\\s*ans$")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
@@ -98,51 +99,55 @@ public class AjouterOffreController implements Initializable {
             return;
         }
 
-        // Récupération du nombre d'années à partir de la chaîne
-        int experienceYears = Integer.parseInt(experienceText.replaceAll("\\D", ""));  // On retire le texte "ans" et on garde le nombre
-
-        // Vérification que la date limite est après la date de publication
+        // Validation de la date limite
         if (datelimite.getValue().isBefore(datepublication.getValue())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de date");
-            alert.setContentText("La date limite ne peut pas être avant la date de publication.");
+            alert.setContentText("La date limite ne peut pas être avant la date de publication (aujourd'hui).");
             alert.showAndWait();
             return;
         }
 
-        // Récupération des données saisies dans les champs
-        OffreEmploi o1 = new OffreEmploi(Integer.parseInt(salaireoffre.getText()),titreoffre.getText(),descriptionoffre.getText() ,typeoffre.getText(),lieuoffre.getText(),statutoffre.getText(),experienceoffre.getText(),java.sql.Date.valueOf(datepublication.getValue()),java.sql.Date.valueOf(datelimite.getValue()));
+        // Création de l'objet OffreEmploi avec la date de publication actuelle
+        OffreEmploi o1 = new OffreEmploi(
+            Integer.parseInt(salaireoffre.getText()),
+            titreoffre.getText(),
+            descriptionoffre.getText(),
+            typeoffre.getText(),
+            lieuoffre.getText(),
+            statutoffre.getText(),
+            experienceoffre.getText(),
+            java.sql.Date.valueOf(LocalDate.now()), // Always use today's date for publication
+            java.sql.Date.valueOf(datelimite.getValue())
+        );
 
         try {
-            System.out.println(o1);
             // Ajouter l'offre dans la base de données
             serviceOffreEmploi.ajouter(o1);
 
             // Stocker la dernière offre ajoutée
             derniereOffreAjoutee = o1;
 
-            // Alerte de succès
+            // Notification de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Offre d'emploi ajoutée avec succès !");
             alert.showAndWait();
 
-            // Call refresh callback if available
+            // Rafraîchir la liste des offres si le callback est disponible
             if (refreshCallback != null) {
                 refreshCallback.refresh();
             }
             
-            // Close the window
+            // Fermer la fenêtre
             Stage stage = (Stage) titreoffre.getScene().getWindow();
             stage.close();
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-
-            // Alerte d'erreur
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
-            alert.setContentText("Échec de l'ajout de l'offre d'emploi.");
+            alert.setContentText("Échec de l'ajout de l'offre d'emploi: " + e.getMessage());
             alert.showAndWait();
         }
     }
