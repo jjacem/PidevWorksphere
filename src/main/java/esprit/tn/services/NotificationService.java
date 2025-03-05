@@ -14,10 +14,8 @@ public class NotificationService {
         connection = MyDatabase.getInstance().getConnection();
     }
 
-    /**
-     * Create notification table if it doesn't exist
-     */
-    public void createNotificationTableIfNotExists() throws SQLException {
+
+    public void createNotification() throws SQLException {
         String createTableQuery = """
             CREATE TABLE IF NOT EXISTS notification (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,11 +33,8 @@ public class NotificationService {
         }
     }
 
-    /**
-     * Add a new notification
-     */
     public void addNotification(Notification notification) throws SQLException {
-        createNotificationTableIfNotExists();
+        createNotification();
         
         String query = "INSERT INTO notification (user_id, message, is_read, notification_type) VALUES (?, ?, ?, ?)";
         
@@ -60,11 +55,9 @@ public class NotificationService {
         }
     }
 
-    /**
-     * Get unread notifications for a user
-     */
+
     public List<Notification> getUnreadNotifications(int userId) throws SQLException {
-        createNotificationTableIfNotExists();
+        createNotification();
         
         String query = "SELECT * FROM notification WHERE user_id = ? AND is_read = FALSE ORDER BY created_at DESC";
         List<Notification> notifications = new ArrayList<>();
@@ -82,11 +75,9 @@ public class NotificationService {
         return notifications;
     }
 
-    /**
-     * Get all notifications for a user
-     */
+
     public List<Notification> getAllNotifications(int userId) throws SQLException {
-        createNotificationTableIfNotExists();
+        createNotification();
         
         String query = "SELECT * FROM notification WHERE user_id = ? ORDER BY created_at DESC";
         List<Notification> notifications = new ArrayList<>();
@@ -104,9 +95,7 @@ public class NotificationService {
         return notifications;
     }
 
-    /**
-     * Mark a specific notification as read
-     */
+
     public void markAsRead(int notificationId) throws SQLException {
         String query = "UPDATE notification SET is_read = TRUE WHERE id = ?";
         
@@ -116,9 +105,7 @@ public class NotificationService {
         }
     }
 
-    /**
-     * Mark all notifications for a user as read
-     */
+
     public void markAllAsRead(int userId) throws SQLException {
         String query = "UPDATE notification SET is_read = TRUE WHERE user_id = ?";
         
@@ -128,9 +115,7 @@ public class NotificationService {
         }
     }
 
-    /**
-     * Delete a notification
-     */
+
     public void deleteNotification(int notificationId) throws SQLException {
         String query = "DELETE FROM notification WHERE id = ?";
         
@@ -140,11 +125,9 @@ public class NotificationService {
         }
     }
 
-    /**
-     * Count unread notifications for a user
-     */
+
     public int countUnreadNotifications(int userId) throws SQLException {
-        createNotificationTableIfNotExists();
+        createNotification();
         
         String query = "SELECT COUNT(*) FROM notification WHERE user_id = ? AND is_read = FALSE";
         
@@ -161,9 +144,7 @@ public class NotificationService {
         return 0;
     }
 
-    /**
-     * Map ResultSet to Notification object
-     */
+
     private Notification mapResultSetToNotification(ResultSet rs) throws SQLException {
         return new Notification(
             rs.getInt("id"),
