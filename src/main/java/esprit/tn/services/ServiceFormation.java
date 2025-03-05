@@ -102,7 +102,7 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
                 f.setType(Typeformation.valueOf(typeStr));
             }
 
-            f.setPhoto(rs.getURL("photo"));
+            f.setPhoto(rs.getString("photo"));
 
             // Création de l'objet User
             User user = new User();
@@ -149,7 +149,7 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
                     f.setType(Typeformation.valueOf(typeStr));
                 }
 
-                f.setPhoto(rs.getURL("photo"));
+                f.setPhoto(rs.getString("photo"));
 
                 // Création de l'objet User
                 User user = new User();
@@ -166,6 +166,19 @@ public class ServiceFormation implements IServiceFormation <Formation>  {
         }
 
         return null;
+    }
+
+    public int getNombrePlaces(int formationId) throws SQLException {
+        String query = "SELECT nb_place FROM formation WHERE id_f = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, formationId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("nb_place"); // Retourne le nombre de places
+            } else {
+                throw new SQLException("Formation non trouvée avec l'ID : " + formationId);
+            }
+        }
     }
 
 

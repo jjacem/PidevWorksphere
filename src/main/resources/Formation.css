@@ -21,7 +21,10 @@
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
-
+.label-detail {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
 /* Style pour la barre de recherche */
 .search-field {
     -fx-background-radius: 5;
@@ -47,7 +50,19 @@
 
 .res-button {
     -fx-background-color: #e395cf;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-pref-width: 55;
+    -fx-pref-height: 27;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
+
+.res-button:hover{
+    -fx-background-color: #703b5e;
+}
+
 .details-button:hover {
     -fx-background-color: #006699;
 }
@@ -92,32 +107,11 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
-    -fx-padding: 5 10; /* Padding réduit */
-    -fx-pref-width: 130; /* Largeur réduite */
-    -fx-pref-height: 35; /* Hauteur réduite */
+    -fx-padding: 5 10;
+    -fx-pref-width: 140;
+    -fx-pref-height: 35;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
-
-.button-ajouter:hover {
-    -fx-background-color: #006699;
-}
-
-/* Style pour le bouton Supprimer tout */
-.supprimer-tout-button {
-    -fx-background-color: #f44336;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 5 15; /* Padding réduit */
-    -fx-pref-width: 120; /* Largeur réduite */
-    -fx-pref-height: 35; /* Hauteur réduite */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
-}
-
-.supprimer-tout-button:hover {
-    -fx-background-color: #d32f2f;
-}
-
 .button-rechercher{
     -fx-background-color: #000000;
     -fx-text-fill: white;
@@ -144,7 +138,7 @@
 
 
 .button-reserver {
-    -fx-background-color: #b59bed;
+    -fx-background-color: #245329;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
@@ -155,7 +149,129 @@
 }
 
 .button-reserver:hover {
-    -fx-background-color: #8853f1;
+    -fx-background-color: #213918;
 }
 
+/*liste*/
 
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+    -fx-pref-width: 400;
+}
+
+/* Style pour les éléments de la liste */
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-border-color: transparent;
+}
+
+/* Effet de survol pour les éléments */
+.list-cell:hover {
+    -fx-background-color: #f0f0f0;
+
+}
+
+/* Sélection d'un élément */
+.list-cell:filled:selected {
+    -fx-background-color: #0086b3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.list-cell:even {
+    -fx-background-color: #ffffff;
+}
+
+/* Ajout d'une animation de transition pour la sélection */
+.list-cell:filled:selected {
+    -fx-background-color: linear-gradient(to right, #0086b3, #005f7a);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}
+
+.button-fav{
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-pref-width: 100;
+    -fx-pref-height: 35;
+    -fx-effect: dropshadow(three-pass-box, rgb(255, 255, 255), 5, 0, 0, 0);
+}
+
+.button-favheart{
+    -fx-background-color:  #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-pref-width:35;
+    -fx-pref-height: 32;
+}
+.button-favheart:hover {
+    -fx-background-color:#d80d27;
+}
+
+.combo-box-filter {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-border-color: #cccccc; /* Bordure grise */
+    -fx-border-radius: 20; /* Coins arrondis */
+    -fx-background-radius: 20; /* Coins arrondis */
+    -fx-padding: 3 6; /* Espacement interne */
+    -fx-font-size: 12px; /* Taille de la police */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte d'invite */
+    -fx-pref-width: 185; /* Largeur préférée */
+    -fx-pref-height: 20; /* Hauteur préférée */
+}
+
+.combo-box-filter .arrow-button {
+    -fx-background-color: transparent; /* Fond transparent pour le bouton flèche */
+}
+
+.combo-box-filter .arrow {
+    -fx-background-color: #333333; /* Couleur de la flèche */
+}
+
+.combo-box-filter .list-cell {
+    -fx-background-color: white; /* Fond des cellules de la liste */
+    -fx-text-fill: #333333; /* Couleur du texte */
+}
+
+.combo-box-filter .list-cell:hover {
+    -fx-background-color: #0086b3; /* Fond au survol */
+    -fx-text-fill: white; /* Couleur du texte au survol */
+}
+
+.combo-box-filter .list-view {
+    -fx-background-color: white; /* Fond de la liste déroulante */
+    -fx-border-color: #cccccc; /* Bordure de la liste déroulante */
+    -fx-border-radius: 10; /* Coins arrondis pour la liste déroulante */
+    -fx-background-radius: 10; /* Coins arrondis pour la liste déroulante */
+}
+/* Style de la ProgressBar */
+.progress-bar {
+    -fx-background-color: #D3D3D3; /* Fond gris */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-width: 185px; /* Largeur */
+    -fx-pref-height: 20px; /* Hauteur */
+}
+
+/* Barre de progression (remplissage) */
+.progress-bar .bar {
+    -fx-background-color: #2eba3d; /* Vert */
+    -fx-background-radius: 5px;
+}

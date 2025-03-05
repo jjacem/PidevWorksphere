@@ -13,33 +13,34 @@ public class User {
     private int experienceTravail, nombreProjet, ansExperience;
     ArrayList <Reclamation> reclamations = new ArrayList<Reclamation>();
     ArrayList <Reponse> reponses = new ArrayList<Reponse>();
+    private int num ;
 
 
 
-    public User testManager(String email){
+   public User testManager(String email){
 
-        return this.Manager("test", "test", email, "test", "test", Sexe.FEMME, "test", "test", 1, 1.0);
+       return this.Manager("test", "test", email, "test", "test", Sexe.FEMME, "test", "test", 1, 1.0);
 
-    }
-    public User testEmploye(String email){
+   }
+   public User testEmploye(String email){
 
-        return this.Employe("test", "test", email, "test", "test", Sexe.HOMME, "test", "test", 1.0, 1, "test", "test");
+       return this.Employe("test", "test", email, "test", "test", Sexe.HOMME, "test", "test", 1.0, 1, "test", "test");
 
-    }
-    public User testRH(String email){
+   }
+   public User testRH(String email){
 
-        return this.RH("test", "test", email, "test", "test", Sexe.HOMME, "test", 1, "test");
+       return this.RH("test", "test", email, "test", "test", Sexe.HOMME, "test", 1, "test");
 
-    }
-    public User testCandidat(String email){
+   }
+   public User testCandidat(String email){
 
-        return this.Candidat("test", "test", email, "test", "test", Sexe.HOMME, "test", 1.0);}
-
-
+       return this.Candidat("test", "test", email, "test", "test", Sexe.HOMME, "test", 1.0);}
 
 
 
-    public User( String nom,Role role, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Status status, Double salaireAttendu, String poste, Double salaire, int experienceTravail, String departement, String competence, int nombreProjet, Double budget, String departementGere, int ansExperience, String specialisation) {
+
+
+public User( String nom,Role role, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Status status, Double salaireAttendu, String poste, Double salaire, int experienceTravail, String departement, String competence, int nombreProjet, Double budget, String departementGere, int ansExperience, String specialisation) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -81,7 +82,7 @@ public class User {
             this.salaireAttendu = salaireAttendu;
         }
     }
-    public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
+        public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, salaireAttendu);
         u.setRole(Role.CANDIDAT);
         return u;
@@ -106,9 +107,9 @@ public class User {
     }
     public User Employe(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil
             , String poste, Double salaire, int experienceTravail, String departement, String competence) {
-        User u = new User( nom,  prenom,  email,  mdp,  adresse,  sexe,  imageProfil
-                ,  poste,  salaire,  experienceTravail,  departement,  competence);
-        return u;
+            User u = new User( nom,  prenom,  email,  mdp,  adresse,  sexe,  imageProfil
+                    ,  poste,  salaire,  experienceTravail,  departement,  competence);
+            return u;
     }
     public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
                 int ansExperience, String specialisation) {
@@ -143,11 +144,10 @@ public class User {
         this.budget = budget;}
 
 
-    public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
+        public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, departementGere, nombreProjet, budget);
         return u;
     }
-
 
     public User(int id, String nom, String prenom,Role role) {
         this.idUser = id;
@@ -155,6 +155,7 @@ public class User {
         this.prenom = prenom;
         this.role = role;
     }
+
     public User(int id, String nom, String prenom, Role role, String imageProfil,String email) {
         this.idUser = id;
         this.nom = nom;
@@ -171,6 +172,7 @@ public class User {
         this.imageProfil = imageProfil;
         this.email = email;
     }
+
     public User(int id, String nom, String prenom, Role role, String imageProfil) {
         this.idUser = id;
         this.nom = nom;
@@ -178,6 +180,15 @@ public class User {
         this.role = role;
         this.imageProfil = imageProfil;
     }
+
+    public User(int id, String nom, String prenom, String imageProfil) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.imageProfil = imageProfil;
+    }
+
+
     public User(int id, String nom, String prenom) {
         this.idUser = id;
         this.nom = nom;
@@ -247,6 +258,14 @@ public class User {
     public String getSpecialisation() { return specialisation; }
     public void setSpecialisation(String specialisation) { this.specialisation = specialisation; }
 
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -271,5 +290,5 @@ public class User {
                 ", ansExperience=" + ansExperience +
                 ", specialisation='" + specialisation + '\'' +
                 '}';
-    }
+
 }

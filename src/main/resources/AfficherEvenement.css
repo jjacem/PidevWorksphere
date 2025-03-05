@@ -1,6 +1,7 @@
 /* AfficherEvenement.css */
 .title-label {
     -fx-text-fill: #0086b3;
+
 }
 
 .search-field {
@@ -26,7 +27,9 @@
     -fx-background-radius: 5;
     -fx-padding: 10;
 }
-
+.add-button:hover{
+    -fx-background-color: black;
+}
 .event-list {
     -fx-border-color: #0086b3;
     -fx-border-radius: 5;
@@ -76,15 +79,49 @@
 
 /* Effets de survol pour les boutons */
 .btn-modifierEvent:hover {
-    -fx-background-color: black;
+    -fx-background-color: #e6b000;
 }
 
 .btn-supprimerEvent:hover {
-    -fx-background-color: black;
+    -fx-background-color: #cc0000;
 }
 
 /* Style pour le conteneur HBox dans chaque cellule */
 .hbox-item {
     -fx-spacing: 10;
     -fx-alignment: center-left;
+}
+
+.btn-afficher-carte {
+    -fx-background-color: #4CAF50; /* Vert */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+
+
+
+
+.event-text {
+    -fx-font-size: 14px;
+    -fx-fill: #333333;
+}
+
+.event-remaining-text {
+    -fx-font-size: 14px;
+    -fx-fill: #2ecc71; /* Vert pour les événements à venir */
+    -fx-font-weight: bold;
+}
+
+.event-today-text {
+    -fx-font-size: 14px;
+    -fx-fill: #f1c40f; /* Jaune pour les événements aujourd'hui */
+    -fx-font-weight: bold;
+}
+
+.event-passed-text {
+    -fx-font-size: 14px;
+    -fx-fill: #e74c3c; /* Rouge pour les événements passés */
+    -fx-font-weight: bold;
 }

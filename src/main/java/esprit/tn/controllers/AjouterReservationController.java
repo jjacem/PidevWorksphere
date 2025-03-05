@@ -1,9 +1,9 @@
 package esprit.tn.controllers;
 
-import esprit.tn.entities.Langue;
-import esprit.tn.entities.Reservation;
-import esprit.tn.entities.User;
+import esprit.tn.entities.*;
 import esprit.tn.services.ServiceReservation;
+import esprit.tn.services.ServiceFormation;
+import esprit.tn.services.SmsService;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,10 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 public class AjouterReservationController {
 
@@ -33,133 +31,153 @@ public class AjouterReservationController {
 
     private int userId;
     private int formationId;
-
+    private int nbPlacesMax; // Nombre de places disponibles
     private final ServiceReservation reservationService = new ServiceReservation();
-
+    private final ServiceFormation serviceFormation = new ServiceFormation();
+    private final SmsService smsService = new TwilioSMS();
 
     @FXML
     public void initialize() {
-        langid.setItems(FXCollections.observableArrayList(Langue.values()));
-
-        // S'assurer que le texte de l'énumération est bien affiché
-        langid.setCellFactory(lv -> new ListCell<>() {
-            @Override
-            protected void updateItem(Langue langue, boolean empty) {
-                super.updateItem(langue, empty);
-                setText(empty ? null : langue.name());
+        try {
+            // Récupérer l'utilisateur connecté
+            User user = SessionManager.extractuserfromsession();
+            if (user != null) {
+                nomID.setText(user.getNom());
+                prenomID.setText(user.getPrenom());
+                emailID.setText(user.getEmail());
+                dateID.setValue(LocalDate.now());
+                userId = user.getIdUser();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé. Veuillez vous reconnecter.");
             }
-        });
 
-        langid.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(Langue langue, boolean empty) {
-                super.updateItem(langue, empty);
-                setText(empty ? "Sélectionner une langue" : langue.name());
-            }
-        });
-    }
+            // Remplir la ComboBox avec les langues disponibles
+            langid.setItems(FXCollections.observableArrayList(Langue.values()));
+            langid.setCellFactory(lv -> new ListCell<>() {
+                @Override
+                protected void updateItem(Langue langue, boolean empty) {
+                    super.updateItem(langue, empty);
+                    setText(empty ? null : langue.name());
+                }
+            });
 
-    // Setter pour remplir le formulaire avec les infos de l'utilisateur
-    public void setUser(User user) {
-        if (user != null) {
-            nomID.setText(user.getNom());
-            prenomID.setText(user.getPrenom());
-            emailID.setText(user.getEmail());
-            dateID.setValue(LocalDate.now());
+            langid.setButtonCell(new ListCell<>() {
+                @Override
+                protected void updateItem(Langue langue, boolean empty) {
+                    super.updateItem(langue, empty);
+                    setText(empty ? "Sélectionner une langue" : langue.name());
+                }
+            });
+
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue lors de l'initialisation : " + e.getMessage());
         }
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public void setFormationId(int formationId) {
         this.formationId = formationId;
+        checkAvailability(); // Vérifie la disponibilité dès qu'on définit la formation
+    }
+
+    private void checkAvailability() {
+        try {
+            // Récupérer le nombre total de places pour la formation
+            nbPlacesMax = serviceFormation.getNombrePlaces(formationId);
+
+            // Récupérer le nombre de réservations déjà effectuées pour cette formation
+            int reservationsCount = reservationService.getNombreReservations(formationId);
+
+            // Désactiver le bouton si le nombre de réservations atteint le maximum
+            if (reservationsCount >= nbPlacesMax) {
+                btnReservation.setDisable(true);
+                showAlert(Alert.AlertType.WARNING, "Complet", "Cette formation est complète, aucune réservation possible.");
+            } else {
+                btnReservation.setDisable(false);
+            }
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de vérifier la disponibilité de la formation : " + e.getMessage());
+        }
     }
 
     @FXML
-    public void Onajouterreservation(ActionEvent actionEvent) throws SQLException {
-        // Vérifier si un utilisateur est bien connecté
-        User user = SessionManager.extractuserfromsession();
-        if (user == null) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé. Veuillez vous reconnecter.");
-            return;
-        }
-
-        // Vérification des champs obligatoires
-        if (prenomID.getText().isEmpty() || nomID.getText().isEmpty() || emailID.getText().isEmpty() || dateID.getValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs doivent être remplis.");
-            return;
-        }
-
-        // Vérification de la langue sélectionnée
-        if (langid.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez sélectionner une langue.");
-
-            applyAlertStyle(alert); // Appliquer le style avant d'afficher l'alerte
-
-            alert.showAndWait();
-            return;
-        }
-        // Création de l'objet réservation
-        Reservation reservation = new Reservation();
-        reservation.setDate(dateID.getValue());
-        reservation.setUserId(user.getIdUser());
-        reservation.setFormationId(formationId);
-        reservation.setMotif(motifID.getText());
-        reservation.setAttente(attenteID.getText());
-        reservation.setLang(langid.getValue());
-
-        // Ajout de la réservation
+    public void Onajouterreservation(ActionEvent actionEvent) {
         try {
+            if (userId == 0) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Utilisateur non trouvé. Veuillez vous reconnecter.");
+                return;
+            }
+
+            // Vérification des champs obligatoires
+            if (prenomID.getText().isEmpty() || nomID.getText().isEmpty() || emailID.getText().isEmpty() || dateID.getValue() == null) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Tous les champs doivent être remplis.");
+                return;
+            }
+
+            if (langid.getValue() == null) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner une langue.");
+                return;
+            }
+
+            // Création de l'objet réservation
+            Reservation reservation = new Reservation();
+            reservation.setDate(dateID.getValue());
+            reservation.setUserId(userId);
+            reservation.setFormationId(formationId);
+            reservation.setMotif(motifID.getText());
+            reservation.setAttente(attenteID.getText());
+            reservation.setLang(langid.getValue());
+
+            // Ajout de la réservation
             reservationService.ajouterReservation(reservation);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réservation ajoutée avec succès.");
+
+            String titreFormation = serviceFormation.getFormationById(formationId).getTitre().toString();
+            String userPhoneNumber = "21653462002";
+                   // SessionManager.extractuserfromsession().getNum();
+            String messageText = "Votre réservation pour la formation "+ titreFormation+" a été confirmée. Merci pour votre confiance !";
+            smsService.envoyerSms(userPhoneNumber, messageText);
+
+            // Vérifier à nouveau la disponibilité après l'ajout
+            checkAvailability();
+
             redirigerVersListeReservations(actionEvent);
 
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur SQL", "Une erreur SQL s'est produite : " + e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
     }
 
     @FXML
     public void Onback(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherListFormation.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
-        }
+        chargerPage(actionEvent, "/AfficherListFormation.fxml", "Impossible de charger la page des formations.");
     }
 
     private void redirigerVersListeReservations(ActionEvent actionEvent) {
+        chargerPage(actionEvent, "/AfficherReservation.fxml", "Impossible de charger la liste des réservations.");
+    }
+
+    private void chargerPage(ActionEvent actionEvent, String fxmlPath, String errorMessage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReservation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
-
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la liste des réservations : " + e.getMessage());
-
+            showAlert(Alert.AlertType.ERROR, "Erreur", errorMessage + " " + e.getMessage());
         }
     }
 
-    // Méthode utilitaire pour afficher une alerte
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
-        alert.showAndWait();
         applyAlertStyle(alert);
+        alert.showAndWait();
     }
 
     private void applyAlertStyle(Alert alert) {

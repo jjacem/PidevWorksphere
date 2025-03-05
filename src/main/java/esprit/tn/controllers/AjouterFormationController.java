@@ -15,11 +15,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -47,16 +53,20 @@ public class AjouterFormationController implements Initializable {
     @FXML
     private AnchorPane FormAj;
     @FXML
-    private TextField photoID;
+    private ImageView photoPreview;
+    @FXML
+    private Button ajouterPhotoBtn;
+
+    private String imagePath = "";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeID.setItems(FXCollections.observableArrayList(Typeformation.values()));
 
-        Platform.runLater(() -> {
-           Stage stage = (Stage) FormAj.getScene().getWindow();
-           stage.setMaximized(true);
-        });
+//        Platform.runLater(() -> {
+//           Stage stage = (Stage) FormAj.getScene().getWindow();
+//           stage.setMaximized(true);
+//        });
     }
 
     @FXML
@@ -112,28 +122,22 @@ public class AjouterFormationController implements Initializable {
                 return;
             }
 
-            URL photo = null;
-            if (!photoID.getText().isEmpty()) {
-                try {
-                    photo = new URL(photoID.getText());
-                } catch (MalformedURLException e) {
-                    showErrorMessage(photoID, "URL de la photo invalide !");
-                    return;
-                }
+            // Vérification si l'image a été ajoutée
+            if (imagePath.isEmpty()) {
+                showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez ajouter une photo.");
+                return;
             }
 
-
-            Formation formation = new Formation(description, titre, date, heureDebut, heureFin, nbPlaces, typeFormation, photo, SessionManager.extractuserfromsession().getIdUser());
+            // Création de l'objet Formation avec l'image
+            Formation formation = new Formation(titre , description, date, heureDebut, heureFin, nbPlaces, typeFormation, imagePath, SessionManager.extractuserfromsession().getIdUser());
 
             ServiceFormation serviceFormation = new ServiceFormation();
             serviceFormation.ajouterFormation(formation);
-            showAlert(Alert.AlertType.INFORMATION, "Succès", "Formation ajoutée avec succès !");
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
-            Parent root = loader.load();
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Formation ajoutée avec succès !");
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            stage.close();
+
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue : " + e.getMessage());
         }
@@ -146,7 +150,7 @@ public class AjouterFormationController implements Initializable {
         heureDID.setStyle("");
         heureFID.setStyle("");
         nbplaceID.setStyle("");
-        photoID.setStyle("");
+        photoPreview.setStyle("");
     }
 
     private void showErrorMessage(Control control, String message) {
@@ -169,7 +173,7 @@ public class AjouterFormationController implements Initializable {
         dialogPane.getStyleClass().add("dialog-pane");
     }
 
-    @FXML
+    @Deprecated
     public void retourdashRH(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
@@ -183,4 +187,44 @@ public class AjouterFormationController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page : " + e.getMessage());
         }
     }
+
+    @FXML
+    public void OnAjouterPhoto(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Définir le répertoire de destination (htdocs/images/)
+                File uploadDir = new File("C:\\xampp\\htdocs\\img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Générer un nom de fichier unique
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copier le fichier vers la destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Stocker le chemin relatif de l'image pour la base de données
+                imagePath = fileName; // Stocker uniquement le nom du fichier
+
+                // Afficher l'image dans l'ImageView
+                photoPreview.setImage(new Image(destinationFile.toURI().toString()));
+
+                showAlert(Alert.AlertType.INFORMATION, "Succès", "Photo ajoutée avec succès.");
+
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue lors de l'ajout de la photo.");
+            }
+        }
+    }
+
 }

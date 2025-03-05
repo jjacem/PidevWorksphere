@@ -16,16 +16,27 @@ public class Main {
 
         connection = MyDatabase.getInstance().getConnection();
 
+        ServiceSponsor sspos=new ServiceSponsor();
+        System.out.println(sspos.getSponsorEmailById(1));
+        /*try {
+            ServiceEvenement serviceEvenement = new ServiceEvenement();
+            Integer eventId = serviceEvenement.getEventIdByName("Université de Tunis El Manar");
+            System.out.println("ID de l'événement : " + eventId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+        /*EventSponsorService sspos=new EventSponsorService();
+        sspos.afficher();*/
 
 //        //test
-        //user
+//        //user
 //        ServiceUser serviceUser = new ServiceUser();
 //        User u1 = new User();
 //        u1 = u1.RH(
-//                "Molka",
-//                "Gharbi",
-//                "gharbimolka4@gamil.com",
-//                "123456",
+//                "Johnson",
+//                "Emily",
+//                "emily.johnson@rhcorp.com",
+//                "SecurePass123",
 //                "01/05/1985",
 //                Sexe.FEMME,
 //                "New York",
@@ -59,21 +70,21 @@ public class Main {
 //                2500000.00
 //        );
 //
-          User u4 = new User();
-          u4 = u4.Employe(
-                "Eya",
-                "Kassous",
-                "eyakassous55@gmail.com",
-                "123456",
-                "09/09/1990",
-                Sexe.HOMME,
-                "San Francisco",
-                "IT Support",
-                1200.00,
-                8,
-                "Technology",
-                "Technical Support"
-        );
+//        User u4 = new User();
+//        u4 = u4.Employe(
+//                "Miller",
+//                "Daniel",
+//                "daniel.miller@corp.com",
+//                "Employ33Pass",
+//                "09/09/1990",
+//                Sexe.HOMME,
+//                "San Francisco",
+//                "IT Support",
+//                1200.00,
+//                8,
+//                "Technology",
+//                "Technical Support"
+//        );
 //
 ////        try {
 ////            serviceUser.ajouter(u4);
@@ -161,13 +172,13 @@ public class Main {
 //
 //
 //
-       //serviceUser.ajouter(u1);
-        //serviceUser.ajouter(u2);
-       // serviceUser.ajouter(u3);
-       // serviceUser.ajouter(u4);
+//    serviceUser.ajouter(u1);
+//        serviceUser.ajouter(u2);
+//        serviceUser.ajouter(u3);
+//        serviceUser.ajouter(u4);
 
-        Date currentDate = new Date();
-        Time currentTime = new Time(System.currentTimeMillis());
+     //   Date currentDate = new Date();
+       // Time currentTime = new Time(System.currentTimeMillis());
 
 //        Entretien entretien = new Entretien(
 //                "Entretien java hhhhhhhhhh  ",
@@ -208,7 +219,7 @@ public class Main {
 //            System.out.println("L'entretien n'existe pas !");
 //        }
 
-        User user= new User();
+     /*   User user= new User();
 
         user = user.Candidat(
                 "Smith",
@@ -237,7 +248,7 @@ u.changetoEmploye(user);
 
 } catch (Exception e) {
     throw new RuntimeException(e);
-}
+}*/
 
 
 //        try {
@@ -263,21 +274,9 @@ u.changetoEmploye(user);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

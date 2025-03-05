@@ -109,4 +109,6 @@ public class DashboardCandidat {
         loadPage("/Changermdp.fxml");
 
     }
+
 }
+

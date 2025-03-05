@@ -40,7 +40,7 @@
     "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "gestionEquipeProjet",
+    "git-widget-placeholder": "gestion-molka-eya-asma",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/asmas/Documents/GitHub/PidevWorksphere/src/main/resources/images",
     "node.js.detected.package.eslint": "true",
@@ -62,6 +62,19 @@
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\utils" />
       <recent name="C:\Users\asmas\Documents\GitHub\PidevWorksphere\src\main\java\esprit\tn\controllers" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -90,6 +103,7 @@
       <workItem from="1741104254617" duration="3608000" />
       <workItem from="1741107882813" duration="1060000" />
       <workItem from="1741121051223" duration="22641000" />
+      <workItem from="1741183107954" duration="40000" />
     </task>
     <servers />
   </component>
