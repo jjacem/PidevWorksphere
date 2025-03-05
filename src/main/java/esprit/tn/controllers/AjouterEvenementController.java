@@ -52,7 +52,34 @@ public class AjouterEvenementController {
     private Label lieuEventErrorLabel;
     @FXML
     private Label capaciteEventErrorLabel;
+    @FXML
+    private TextArea themeIdeasTextArea;
+    @FXML
+    private Button getThemeIdeasButton;
 
+   /* @FXML
+    public void getThemeIdeas(ActionEvent event) {
+        String prompt = "Donne-moi des idées de thèmes pour un événement d'entreprise.";
+        try {
+            String response = AIHelper.generateContent(prompt);
+            // Traiter la réponse JSON pour extraire les idées de thème
+            themeIdeasTextArea.setText(response); // Exemple simple, vous devrez extraire les données pertinentes
+        } catch (IOException e) {
+            // Gérer l'erreur
+            e.printStackTrace();
+        }
+    }*/
+   @FXML
+   public void getThemeIdeas(ActionEvent event) {
+       String nomEvent = nomEventTextField.getText(); // Récupérer le nom de l'événement
+       String prompt = "Donne-moi des idées de thèmes pour un événement nommé " + nomEvent + "."; // Créer le prompt personnalisé
+       try {
+           String response = AIHelper.generateContent(prompt);
+           themeIdeasTextArea.setText(response);
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
     @FXML
     public void ajouterEvenement(ActionEvent event) {
         // Réinitialiser les erreurs avant de commencer

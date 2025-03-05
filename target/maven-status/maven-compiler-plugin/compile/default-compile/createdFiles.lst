@@ -10,6 +10,7 @@ esprit\tn\services\ServiceProjet.class
 esprit\tn\controllers\AjouterEntretineController.class
 esprit\tn\controllers\ModifierReclamationController.class
 esprit\tn\entities\Role.class
+esprit\tn\controllers\AIHelper.class
 esprit\tn\tests\Main.class
 esprit\tn\entities\Reservation.class
 esprit\tn\controllers\ModifierSponsorController.class
