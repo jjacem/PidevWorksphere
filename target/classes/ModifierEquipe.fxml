@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -7,62 +8,63 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierEquipeController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierEquipeController">
+    <stylesheets>
+        <URL value="@Equipe.css" />
+    </stylesheets>
 
-    <!-- Carte blanche pour le formulaire -->
-    <VBox alignment="CENTER" spacing="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
-        <!-- Titre de la fenêtre -->
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0086b3;" text="Modifier une équipe" />
+    <!-- Conteneur principal -->
+    <VBox alignment="TOP_CENTER" spacing="20" styleClass="vbox" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+        <!-- Titre -->
+        <Label styleClass="title-label" text="Modifier une équipe" />
 
-        <!-- Champ pour le nom de l'équipe -->
+        <!-- Nom de l'équipe -->
         <VBox alignment="CENTER_LEFT" spacing="10">
-            <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Nom de l'équipe:" />
-            <TextField fx:id="nomEquipeField" prefHeight="29.0" prefWidth="400.0" promptText="Entrez le nom de l'équipe" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #0086b3; -fx-border-width: 1px; -fx-padding: 5;" />
+            <Label text="Nom de l'équipe:" />
+            <TextField fx:id="nomEquipeField" promptText="Entrez le nom de l'équipe" />
         </VBox>
 
-        <!-- Champ pour l'image de l'équipe -->
+
+        <!-- Image de l'équipe -->
         <VBox alignment="CENTER_LEFT" spacing="10">
-            <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Image de l'équipe:" />
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Button fx:id="uploadImageButton" onAction="#uploadImage" text="Choisir une image" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" />
-                <ImageView fx:id="imagePreview" fitHeight="100" fitWidth="100" style="-fx-border-color: #0086b3; -fx-border-width: 1px; -fx-border-radius: 5;" />
+            <Label text="Image de l'équipe:" />
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <!-- Conteneur cliquable pour choisir une image -->
+                <StackPane fx:id="imageContainer" onMouseClicked="#uploadImage" style="-fx-border-color: #bdc3c7; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-cursor: hand;">
+                    <ImageView fx:id="imagePreview" fitHeight="120" fitWidth="120" />
+                </StackPane>
             </HBox>
         </VBox>
 
-        <!-- Conteneur pour les ListView et les boutons -->
-        <HBox alignment="CENTER" spacing="20">
-            <!-- Conteneur pour les ListView -->
-            <VBox alignment="CENTER_LEFT" spacing="10" prefWidth="400">
-                <!-- Liste des employés disponibles -->
-                <VBox alignment="CENTER_LEFT" spacing="10">
-                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Sélectionnez les employés:" />
-                    <ListView fx:id="employesListView" prefHeight="150.0" prefWidth="400.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #0086b3; -fx-border-width: 1px;">
-                        <!-- Les éléments de la liste seront chargés dynamiquement dans le contrôleur -->
-                    </ListView>
-                </VBox>
-
-                <!-- Liste des employés sélectionnés -->
-                <VBox alignment="CENTER_LEFT" spacing="10">
-                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Employés sélectionnés:" />
-                    <ListView fx:id="employesSelectionnesListView" prefHeight="150.0" prefWidth="400.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #0086b3; -fx-border-width: 1px;">
-                        <!-- Les éléments de la liste seront chargés dynamiquement dans le contrôleur -->
-                    </ListView>
-                </VBox>
+        <!-- Liste des employés -->
+        <HBox alignment="CENTER" spacing="30">
+            <!-- Employés disponibles -->
+            <VBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Employés disponibles:" />
+                <ListView fx:id="employesListView" />
             </VBox>
 
-            <!-- Boutons pour ajouter/supprimer des employés (alignés verticalement) -->
-            <VBox alignment="CENTER" spacing="10">
-                <Button fx:id="ajouterUnButton" onAction="#ajouterUnEmploye" prefHeight="27.0" prefWidth="135.0" style="-fx-background-color: #0086b3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" text="Ajouter un employé" />
-                <Button fx:id="ajouterTousButton" onAction="#ajouterTousEmployes" prefHeight="27.0" prefWidth="133.0" style="-fx-background-color: #1ce0c2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" text="Ajouter tous" />
-                <Button fx:id="supprimerUnButton" onAction="#supprimerUnEmploye" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" text="Supprimer un employé" />
-                <Button fx:id="clearAllButton" onAction="#clearAll" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" text="Tout effacer" />
+            <!-- Boutons d'action -->
+            <VBox alignment="CENTER" prefHeight="219.0" prefWidth="216.0" spacing="10">
+                <Button fx:id="ajouterUnButton" onAction="#ajouterUnEmploye" prefHeight="27.0" prefWidth="156.0" text="Ajouter  employé" />
+                <Button fx:id="ajouterTousButton" onAction="#ajouterTousEmployes" prefHeight="27.0" prefWidth="154.0" text="Ajouter tous" />
+                <Button fx:id="supprimerUnButton" onAction="#supprimerUnEmploye" prefHeight="27.0" prefWidth="155.0" text="Supprimer employé" />
+                <Button fx:id="clearAllButton" onAction="#clearAll" prefHeight="27.0" prefWidth="156.0" text="Tout effacer" />
+            </VBox>
+
+            <!-- Employés sélectionnés -->
+            <VBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Employés sélectionnés:" />
+                <ListView fx:id="employesSelectionnesListView" />
             </VBox>
         </HBox>
 
-        <!-- Boutons pour confirmer ou annuler -->
+        <!-- Boutons de confirmation -->
         <HBox alignment="CENTER" spacing="20">
+
             <Button fx:id="confirmerButton" disable="true" onAction="#confirmer" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" text="Confirmer" />
             <Button fx:id="annulerButton" onAction="#annuler" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 10;" text="Annuler" />
         </HBox>

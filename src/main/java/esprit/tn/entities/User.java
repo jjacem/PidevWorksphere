@@ -1,52 +1,45 @@
 package esprit.tn.entities;
 
-
 import java.util.ArrayList;
 
 public class User {
     private int idUser;
-    private String messagereclamation,nom, prenom, email, mdp, adresse, imageProfil, poste, departement, competence, departementGere, specialisation;
+    private String messagereclamation, nom, prenom, email, mdp, adresse, imageProfil, poste, departement, competence, departementGere, specialisation;
     private Role role;
     private Sexe sexe;
     private Status status;
     private boolean banned;
     private Double salaireAttendu, salaire, budget;
-    private int experienceTravail, nombreProjet, ansExperience;
-    ArrayList <Reclamation> reclamations = new ArrayList<Reclamation>();
-    ArrayList <Reponse> reponses = new ArrayList<Reponse>();
+    private int experienceTravail, nombreProjet, ansExperience, num;
+    ArrayList<Reclamation> reclamations = new ArrayList<Reclamation>();
+    ArrayList<Reponse> reponses = new ArrayList<Reponse>();
 
+    // Test methods
+    public User testManager(String email) {
+        return this.Manager("test", "test", email, "test", "test", Sexe.FEMME, "test", "test", 1, 1.0);
+    }
 
-   public User testManager(String email){
+    public User testEmploye(String email) {
+        return this.Employe("test", "test", email, "test", "test", Sexe.HOMME, "test", "test", 1.0, 1, "test", "test");
+    }
 
-       return this.Manager("test", "test", email, "test", "test", Sexe.FEMME, "test", "test", 1, 1.0);
+    public User testRH(String email) {
+        return this.RH("test", "test", email, "test", "test", Sexe.HOMME, "test", 1, "test");
+    }
 
-   }
-   public User testEmploye(String email){
+    public User testCandidat(String email) {
+        return this.Candidat("test", "test", email, "test", "test", Sexe.HOMME, "test", 1.0);
+    }
 
-       return this.Employe("test", "test", email, "test", "test", Sexe.HOMME, "test", "test", 1.0, 1, "test", "test");
-
-   }
-   public User testRH(String email){
-
-       return this.RH("test", "test", email, "test", "test", Sexe.HOMME, "test", 1, "test");
-
-   }
-   public User testCandidat(String email){
-
-       return this.Candidat("test", "test", email, "test", "test", Sexe.HOMME, "test", 1.0);}
-
-
-
-
-
-public User( String nom,Role role, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Status status, Double salaireAttendu, String poste, Double salaire, int experienceTravail, String departement, String competence, int nombreProjet, Double budget, String departementGere, int ansExperience, String specialisation) {
+    // Full constructor
+    public User(String nom, Role role, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Status status, Double salaireAttendu, String poste, Double salaire, int experienceTravail, String departement, String competence, int nombreProjet, Double budget, String departementGere, int ansExperience, String specialisation) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.mdp = mdp;
         this.adresse = adresse;
         this.sexe = sexe;
-        this.role=role;
+        this.role = role;
         this.status = status;
         this.salaireAttendu = salaireAttendu;
         this.poste = poste;
@@ -60,36 +53,34 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.ansExperience = ansExperience;
         this.specialisation = specialisation;
         this.imageProfil = imageProfil;
-
-
     }
 
+    // Default constructor
     public User() {
     }
 
-    public  User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
-        {
-            this.nom = nom;
-            this.prenom = prenom;
-            this.email = email;
-            this.mdp = mdp;
-            this.adresse = adresse;
-            this.sexe = sexe;
-            this.imageProfil = imageProfil;
-            this.role=Role.CANDIDAT;
-            this.status = Status.Candidature;
-            this.salaireAttendu = salaireAttendu;
-        }
+    // Candidat constructors
+    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.mdp = mdp;
+        this.adresse = adresse;
+        this.sexe = sexe;
+        this.imageProfil = imageProfil;
+        this.role = Role.CANDIDAT;
+        this.status = Status.Candidature;
+        this.salaireAttendu = salaireAttendu;
     }
-        public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
+
+    public User Candidat(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, Double salaireAttendu) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, salaireAttendu);
         u.setRole(Role.CANDIDAT);
         return u;
     }
 
-    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
-                String poste, Double salaire, int experienceTravail, String departement, String competence)
-    {
+    // Employe constructors
+    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String poste, Double salaire, int experienceTravail, String departement, String competence) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -104,14 +95,14 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.competence = competence;
         this.role = Role.EMPLOYE;
     }
-    public User Employe(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil
-            , String poste, Double salaire, int experienceTravail, String departement, String competence) {
-            User u = new User( nom,  prenom,  email,  mdp,  adresse,  sexe,  imageProfil
-                    ,  poste,  salaire,  experienceTravail,  departement,  competence);
-            return u;
+
+    public User Employe(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String poste, Double salaire, int experienceTravail, String departement, String competence) {
+        User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, poste, salaire, experienceTravail, departement, competence);
+        return u;
     }
-    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
-                int ansExperience, String specialisation) {
+
+    // RH constructors
+    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, int ansExperience, String specialisation) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -119,41 +110,44 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.adresse = adresse;
         this.sexe = sexe;
         this.imageProfil = imageProfil;
-
         this.ansExperience = ansExperience;
         this.specialisation = specialisation;
         this.role = Role.RH;
     }
-    public User RH(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,int anneeExperience, String specialisation) {
-        User u = new User(nom, prenom, email, mdp, adresse, sexe,imageProfil, anneeExperience, specialisation);
+
+    public User RH(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, int anneeExperience, String specialisation) {
+        User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, anneeExperience, specialisation);
         return u;
     }
-    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil,
-                String departementGere, int nombreProjet, Double budget) {
+
+    // Manager constructors
+    public User(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.role=Role.MANAGER;
+        this.role = Role.MANAGER;
         this.mdp = mdp;
         this.adresse = adresse;
         this.sexe = sexe;
         this.imageProfil = imageProfil;
         this.departementGere = departementGere;
         this.nombreProjet = nombreProjet;
-        this.budget = budget;}
+        this.budget = budget;
+    }
 
-
-        public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
+    public User Manager(String nom, String prenom, String email, String mdp, String adresse, Sexe sexe, String imageProfil, String departementGere, int nombreProjet, Double budget) {
         User u = new User(nom, prenom, email, mdp, adresse, sexe, imageProfil, departementGere, nombreProjet, budget);
         return u;
     }
 
-    public User(int id, String nom, String prenom,Role role) {
+    // Additional constructors from both versions
+    public User(int id, String nom, String prenom, Role role) {
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
     }
+
     public User(int id, String nom, String prenom, Role role, String imageProfil) {
         this.idUser = id;
         this.nom = nom;
@@ -173,8 +167,28 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.idUser = id;
         this.nom = nom;
         this.prenom = prenom;
-
     }
+
+    // Unique constructor from second version
+    public User(int id, String nom, String prenom, String imageProfil, String email) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.imageProfil = imageProfil;
+        this.email = email;
+    }
+
+    // Unique constructor from first version with additional email parameter
+    public User(int id, String nom, String prenom, Role role, String imageProfil, String email) {
+        this.idUser = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.role = role;
+        this.imageProfil = imageProfil;
+        this.email = email;
+    }
+
+    // Getters and Setters
     public int getIdUser() { return idUser; }
     public void setIdUser(int idUser) { this.idUser = idUser; }
 
@@ -238,6 +252,16 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     public String getSpecialisation() { return specialisation; }
     public void setSpecialisation(String specialisation) { this.specialisation = specialisation; }
 
+    public String getMessagereclamation() { return messagereclamation; }
+    public void setMessagereclamation(String messagereclamation) { this.messagereclamation = messagereclamation; }
+
+    public boolean isBanned() { return banned; }
+    public void setBanned(boolean banned) { this.banned = banned; }
+
+    public int getNum() { return num; }
+    public void setNum(int num) { this.num = num; }
+
+    // toString method
     @Override
     public String toString() {
         return "User{" +
@@ -261,23 +285,9 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
                 ", departementGere='" + departementGere + '\'' +
                 ", ansExperience=" + ansExperience +
                 ", specialisation='" + specialisation + '\'' +
+                ", messagereclamation='" + messagereclamation + '\'' +
+                ", banned=" + banned +
+                ", num=" + num +
                 '}';
-    }
-
-
-    public String getMessagereclamation() {
-        return messagereclamation;
-    }
-
-    public void setMessagereclamation(String messagereclamation) {
-        this.messagereclamation = messagereclamation;
-    }
-
-    public boolean isBanned() {
-        return banned;
-    }
-
-    public void setBanned(boolean banned) {
-        this.banned = banned;
     }
 }
