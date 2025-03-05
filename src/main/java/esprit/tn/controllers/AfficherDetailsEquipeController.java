@@ -15,6 +15,7 @@ import esprit.tn.entities.*;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AfficherDetailsEquipeController {
@@ -30,13 +31,25 @@ public class AfficherDetailsEquipeController {
 
     @FXML
     private ImageView imageEquipeView;
-
+    private List<User> membresInitiaux;
     private Equipe equipe;
     private ServiceEquipe serviceEquipe = new ServiceEquipe();
 
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
         afficherDetails();
+    }
+
+
+    @FXML
+    public void initialize() {
+        // Ajouter un écouteur sur le champ de recherche
+        rechercheField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                // Si le champ de recherche est vide, restaurer la liste initiale
+                afficherMembres(membresInitiaux);
+            }
+        });
     }
 
     private void afficherDetails() {
@@ -57,8 +70,27 @@ public class AfficherDetailsEquipeController {
             imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
         }
 
+        // Stocker la liste initiale des membres
+        membresInitiaux = new ArrayList<>(equipe.getEmployes());
+
         // Afficher les membres de l'équipe
-        for (User user : equipe.getEmployes()) {
+        afficherMembres(membresInitiaux);
+
+        // Afficher les projets de l'équipe
+        Label projetsLabel = new Label("Projets associés :");
+        projetsLabel.getStyleClass().add("projets-label");
+        membresContainer.getChildren().add(projetsLabel);
+
+        for (Projet projet : equipe.getProjets()) {
+            Label projetLabel = new Label(projet.getNom());
+            projetLabel.getStyleClass().add("projet-name");
+            membresContainer.getChildren().add(projetLabel);
+        }
+    }
+    private void afficherMembres(List<User> membres) {
+        membresContainer.getChildren().clear(); // Vider le conteneur
+
+        for (User user : membres) {
             HBox card = new HBox(15);
             card.getStyleClass().add("member-card");
             card.setAlignment(Pos.CENTER_LEFT);
@@ -101,8 +133,31 @@ public class AfficherDetailsEquipeController {
             card.getChildren().addAll(imageView, infoBox);
             membresContainer.getChildren().add(card);
         }
+    }
 
-        // Afficher les projets de l'équipe
+    @FXML
+    private void rechercherEmployee() {
+        String searchText = rechercheField.getText().trim();
+
+        if (searchText.isEmpty()) {
+            // Si le champ de recherche est vide, restaurer la liste initiale
+            afficherMembres(membresInitiaux);
+        } else {
+            try {
+                List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
+
+                // Vider le conteneur avant d'ajouter de nouveaux éléments
+                membresContainer.getChildren().clear();
+
+                // Afficher les employés trouvés
+                afficherMembres(resultats);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Afficher les projets associés à l'équipe
         Label projetsLabel = new Label("Projets associés :");
         projetsLabel.getStyleClass().add("projets-label");
         membresContainer.getChildren().add(projetsLabel);
@@ -111,74 +166,6 @@ public class AfficherDetailsEquipeController {
             Label projetLabel = new Label(projet.getNom());
             projetLabel.getStyleClass().add("projet-name");
             membresContainer.getChildren().add(projetLabel);
-        }
-    }
-
-    @FXML
-    private void rechercherEmployee() {
-        try {
-            String searchText = rechercheField.getText().trim();
-            List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
-
-            // Vider le conteneur avant d'ajouter de nouveaux éléments
-            membresContainer.getChildren().clear();
-
-            // Afficher l'employé recherché
-            if (!resultats.isEmpty()) {
-                User user = resultats.get(0); // Prendre le premier employé trouvé
-
-                // Créer une carte pour l'employé
-                HBox card = new HBox(10);
-                card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
-
-                // Création de l'image view pour le membre
-                ImageView imageView = new ImageView();
-                String imageProfil = user.getImageProfil();
-
-                if (imageProfil != null && !imageProfil.trim().isEmpty()) {
-                    String correctPath = "C:/xampp/htdocs/img/" + new File(imageProfil).getName();
-                    System.out.println(correctPath); // Debug : afficher le chemin
-                    File imageFile = new File(correctPath);
-                    if (imageFile.exists() && imageFile.isFile()) {
-                        imageView.setImage(new Image(imageFile.toURI().toString()));
-                    } else {
-                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
-                    }
-                } else {
-                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
-                }
-
-                imageView.setFitWidth(50);
-                imageView.setFitHeight(50);
-                imageView.setPreserveRatio(true);
-                imageView.setClip(new Circle(25, 25, 25));
-
-                Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
-                nomPrenomLabel.getStyleClass().add("member-name");
-
-                Label emailLabel = new Label(user.getEmail());
-                emailLabel.getStyleClass().add("member-email");
-
-                // Conteneur pour les informations du membre
-                VBox infoBox = new VBox(5);
-                infoBox.getChildren().addAll(nomPrenomLabel, emailLabel);
-                card.getChildren().addAll(imageView, infoBox);
-                membresContainer.getChildren().add(card);
-            }
-
-            // Afficher les projets associés à l'équipe
-            Label projetsLabel = new Label("Projets associés :");
-            projetsLabel.getStyleClass().add("projets-label");
-            membresContainer.getChildren().add(projetsLabel);
-
-            for (Projet projet : equipe.getProjets()) {
-                Label projetLabel = new Label(projet.getNom());
-                projetLabel.getStyleClass().add("projet-name");
-                membresContainer.getChildren().add(projetLabel);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
