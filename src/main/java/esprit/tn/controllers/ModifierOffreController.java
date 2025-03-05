@@ -215,7 +215,3 @@ public class ModifierOffreController implements Initializable {
         stage.close();
     }
 }
-
-
-
-

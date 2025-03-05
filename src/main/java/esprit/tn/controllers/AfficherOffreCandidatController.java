@@ -33,14 +33,12 @@ import esprit.tn.services.NotificationService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public class AfficherOffreCandidatController {
     private ObservableList<OffreEmploi> offreList = FXCollections.observableArrayList();
+    private ObservableList<OffreEmploi> filteredOffreList = FXCollections.observableArrayList();
     private OffreEmploi offreSelectionnee;
     private List<Integer> appliedOfferIds = new ArrayList<>();
 
@@ -56,6 +54,8 @@ public class AfficherOffreCandidatController {
     private ListView<OffreEmploi> lv_offre;
     @FXML
     private TextField searchField;
+    @FXML
+    private ComboBox<String> sortComboBox;
     @FXML
     private ImageView bookmarkIcon;
     @FXML
@@ -82,6 +82,21 @@ public class AfficherOffreCandidatController {
 
         bookmarkIcon.setImage(bookmarkEmpty);
         bookmarkIcon.setVisible(false);
+        
+        // Initialize sort options
+        sortComboBox.setItems(FXCollections.observableArrayList(
+            "Plus récentes d'abord", 
+            "Plus anciennes d'abord",
+            "Date limite proche",
+            "Date limite éloignée"
+        ));
+        
+        // Set up sort combo box listener
+        sortComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                applySorting(newValue);
+            }
+        });
         
         refreshData();
 
@@ -139,7 +154,7 @@ public class AfficherOffreCandidatController {
         // If an offer was selected before refresh, reselect it
         if (offreSelectionnee != null) {
             int idToSelect = offreSelectionnee.getIdOffre();
-            for (OffreEmploi offre : offreList) {
+            for (OffreEmploi offre : filteredOffreList) {
                 if (offre.getIdOffre() == idToSelect) {
                     lv_offre.getSelectionModel().select(offre);
                     break;
@@ -149,6 +164,30 @@ public class AfficherOffreCandidatController {
         
         // Refresh notifications count
         loadNotificationCount();
+    }
+    
+    // Apply sorting based on selected option
+    private void applySorting(String sortOption) {
+        switch (sortOption) {
+            case "Plus récentes d'abord":
+                filteredOffreList.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
+                break;
+            case "Plus anciennes d'abord":
+                filteredOffreList.sort(Comparator.comparing(OffreEmploi::getDatePublication));
+                break;
+            case "Date limite proche":
+                filteredOffreList.sort(Comparator.comparing(OffreEmploi::getDateLimite));
+                break;
+            case "Date limite éloignée":
+                filteredOffreList.sort((o1, o2) -> o2.getDateLimite().compareTo(o1.getDateLimite()));
+                break;
+            default:
+                break;
+        }
+        
+        // Update the ListView with the sorted data
+        lv_offre.setItems(filteredOffreList);
+        lv_offre.refresh();
     }
     
     @FXML
@@ -339,8 +378,14 @@ public class AfficherOffreCandidatController {
             // Récupérer toutes les offres depuis la base de données
             List<OffreEmploi> offres = serviceOffreEmploi.recupererOffres();
             offreList.clear();
+            filteredOffreList.clear();
+            
             offreList.addAll(offres);
-            lv_offre.setItems(offreList);
+            filteredOffreList.addAll(offres);
+            
+            // Apply default sorting (most recent first)
+            filteredOffreList.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
+            lv_offre.setItems(filteredOffreList);
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des offres : " + e.getMessage());
         }
@@ -358,20 +403,35 @@ public class AfficherOffreCandidatController {
 
     // Méthode pour rechercher des offres en fonction du terme de recherche
     private void searchOffres(String searchTerm) {
-        ServiceOffre serviceOffre = new ServiceOffre();
-
-        try {
-            List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
-            offreList.clear();
-
-            for (OffreEmploi offre : resultats) {
-                offreList.add(offre);
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            // If search term is empty, show all offers with current sorting
+            filteredOffreList.clear();
+            filteredOffreList.addAll(offreList);
+            
+            // Re-apply current sorting if any
+            String currentSort = sortComboBox.getValue();
+            if (currentSort != null) {
+                applySorting(currentSort);
             }
-
-            lv_offre.setItems(offreList);
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la recherche : " + e.getMessage());
+        } else {
+            try {
+                ServiceOffre serviceOffre = new ServiceOffre();
+                List<OffreEmploi> resultats = serviceOffre.rechercherOffres(searchTerm);
+                
+                filteredOffreList.clear();
+                filteredOffreList.addAll(resultats);
+                
+                // Re-apply current sorting if any
+                String currentSort = sortComboBox.getValue();
+                if (currentSort != null) {
+                    applySorting(currentSort);
+                }
+            } catch (SQLException e) {
+                System.out.println("Erreur lors de la recherche : " + e.getMessage());
+            }
         }
+        
+        lv_offre.setItems(filteredOffreList);
     }
 
     private void loadNotificationCount() {
