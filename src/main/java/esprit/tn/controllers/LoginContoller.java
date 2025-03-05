@@ -76,10 +76,9 @@ if (checkbanned(email)){}
     private boolean checkbanned(String email) throws SQLException {
         if (userService.getbanned(email)) {
             // Create a dialog to inform the user they are banned
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Banned User");
-            alert.setHeaderText("You are banned!");
-            alert.setContentText("You have been banned from accessing the system.");
+            Alert alert = new Alert(Alert.AlertType.WARNING);alert.setTitle("Utilisateur Banni");
+            alert.setHeaderText("Vous êtes banni !");
+            alert.setContentText("Vous avez été banni de l'accès au système.");
 
             // Apply light blue style to the dialog
             DialogPane dialogPane = alert.getDialogPane();

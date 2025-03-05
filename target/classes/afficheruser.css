@@ -51,3 +51,15 @@ AnchorPane {
 .custom-listview:hover {
     -fx-effect: dropshadow(gaussian, rgba(255, 193, 7, 0.5), 10, 0.5, 0, 0); /* Yellow shadow on hover */
 }
+
+/* 🔔 Reclamation Button */
+.reclamation-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 6px;
+}
+.reclamation-button:hover {
+    -fx-background-color: #45a049;
+}

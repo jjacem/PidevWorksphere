@@ -1,76 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import java.net.URL?>
-<?import javafx.scene.image.Image?>
-<GridPane fx:id="root" prefHeight="600" prefWidth="800" style="-fx-background-color: #f4f4f4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierCompteController">
+<AnchorPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierCompteController">
+    <!-- Gradient Background -->
+    <Rectangle height="728.0" width="814.0">
+        <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+                <stops>
+                    <Stop>
+                        <color>
+                            <Color red="0.11764705926179886" green="0.22745098173618317" blue="0.5411764979362488" />
+                        </color>
+                    </Stop>
+                    <Stop offset="1.0">
+                        <color>
+                            <Color red="0.14720000326633453" green="0.3919200003147125" blue="0.9200000166893005" opacity="0.0" />
+                        </color>
+                    </Stop>
+                </stops>
+            </LinearGradient>
+        </fill>
+    </Rectangle>
+
+    <!-- Card Container -->
+    <AnchorPane prefHeight="500" prefWidth="500"
+                style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 20; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0.2, 0, 0);"
+                AnchorPane.bottomAnchor="50.0"
+                AnchorPane.leftAnchor="150.0"
+                AnchorPane.rightAnchor="150.0"
+                AnchorPane.topAnchor="50.0">
+
+        <!-- Title -->
+        <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1E3A8A; -fx-alignment: center;"
+               text="Modifier le Compte"
+               AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="20.0">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+
+        <!-- Form Fields -->
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #374151; -fx-font-weight: bold;"
+               text="Nom"
+               AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="80.0" />
+        <TextField fx:id="nom"
+                   style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-pref-width: 400; -fx-pref-height: 40; -fx-font-size: 14px; -fx-padding: 10;"
+                   AnchorPane.leftAnchor="20.0"
+                   AnchorPane.rightAnchor="20.0"
+                   AnchorPane.topAnchor="100.0" />
+
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #374151; -fx-font-weight: bold;"
+               text="Prénom"
+               AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="150.0" />
+        <TextField fx:id="prenom"
+                   style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-pref-width: 400; -fx-pref-height: 40; -fx-font-size: 14px; -fx-padding: 10;"
+                   AnchorPane.leftAnchor="20.0"
+                   AnchorPane.rightAnchor="20.0"
+                   AnchorPane.topAnchor="170.0" />
+
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #374151; -fx-font-weight: bold;"
+               text="Email"
+               AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="220.0" />
+        <TextField fx:id="email"
+                   style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-pref-width: 400; -fx-pref-height: 40; -fx-font-size: 14px; -fx-padding: 10;"
+                   AnchorPane.leftAnchor="20.0"
+                   AnchorPane.rightAnchor="20.0"
+                   AnchorPane.topAnchor="240.0" />
+
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #374151; -fx-font-weight: bold;"
+               text="Adresse"
+               AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="290.0" />
+        <TextField fx:id="adresse"
+                   style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-pref-width: 400; -fx-pref-height: 40; -fx-font-size: 14px; -fx-padding: 10;"
+                   AnchorPane.leftAnchor="20.0"
+                   AnchorPane.rightAnchor="20.0"
+                   AnchorPane.topAnchor="310.0" />
+
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #374151; -fx-font-weight: bold;"
+               text="Sexe"
+               AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="360.0" />
+        <ChoiceBox fx:id="sexe"
+                   style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-border-radius: 8; -fx-background-radius: 8; -fx-pref-width: 400; -fx-pref-height: 40; -fx-font-size: 14px;"
+                   AnchorPane.leftAnchor="20.0"
+                   AnchorPane.rightAnchor="20.0"
+                   AnchorPane.topAnchor="380.0" />
+
+        <Label style="-fx-font-size: 14px; -fx-text-fill: #374151; -fx-font-weight: bold;"
+               text="Image"
+               AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="430.0" />
+        <ImageView fx:id="imagePreview"
+                   fitHeight="80.0"
+                   fitWidth="80.0"
+                   AnchorPane.leftAnchor="20.0"
+                   AnchorPane.topAnchor="450.0" />
+        <Button onAction="#uploadImage"
+                style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 150; -fx-pref-height: 40; -fx-background-radius: 8; -fx-cursor: hand;"
+                text="Choisir une image"
+                AnchorPane.rightAnchor="20.0"
+                AnchorPane.topAnchor="451.0" />
+
+        <!-- Buttons -->
+        <Button fx:id="savebutton"
+                onAction="#saveChanges"
+                style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-pref-width: 200; -fx-pref-height: 50; -fx-background-radius: 10; -fx-cursor: hand;"
+                text="Enregistrer"
+                AnchorPane.bottomAnchor="20.0"
+                AnchorPane.leftAnchor="150.0"
+                AnchorPane.rightAnchor="150.0" />
+
+        <Button fx:id="registerFaceButton"
+                onAction="#handleRegisterFaceButton"
+                style="-fx-background-color: #8B5CF6; -fx-text-fill: white; -fx-font-size: 14px; -fx-pref-width: 150; -fx-pref-height: 40; -fx-background-radius: 8; -fx-cursor: hand;"
+                text="Identification faciale"
+                AnchorPane.bottomAnchor="20.0"
+                AnchorPane.rightAnchor="20.0" />
+    </AnchorPane>
+
     <stylesheets>
-        <URL value="@signup.css" />
-
-
+        <URL value="@modifiercompte.css" />
     </stylesheets>
-
-    <VBox spacing="20" GridPane.columnSpan="2" GridPane.halignment="CENTER">
-        <Label text="Modifier le Compte" styleClass="title-label" />
-    </VBox>
-    <Button fx:id="registerFaceButton" text="Register Face" GridPane.rowIndex="14" GridPane.columnIndex="1" styleClass="button-ajouter" onAction="#handleRegisterFaceButton">
-        <graphic>
-            <ImageView fitHeight="20" fitWidth="20">
-                <image>
-                    <Image url="./icons/face-scanner.png" />
-                </image>
-            </ImageView>
-        </graphic>
-    </Button>
-    <Label text="Nom" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label" />
-    <TextField fx:id="nom" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="form-field" />
-
-    <Label text="Prénom" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label" />
-    <TextField fx:id="prenom" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="form-field" />
-
-    <Label text="Email" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label" />
-    <TextField fx:id="email" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="form-field" />
-
-    <Label text="Adresse" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label" />
-    <TextField fx:id="adresse" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="form-field" />
-
-    <Label text="Sexe" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="form-label" />
-    <ChoiceBox fx:id="sexe" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="form-field" />
-
-    <Label text="Image" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="form-label" />
-    <HBox spacing="10" GridPane.rowIndex="6" GridPane.columnIndex="1">
-        <ImageView fx:id="imagePreview" fitHeight="100" fitWidth="100" styleClass="image-view" />
-        <Button text="Choisir une image" onAction="#uploadImage" styleClass="button-ajouter" />
-    </HBox>
-
-    <!-- Dynamic Fields -->
-    <Label fx:id="salaireLabel" text="Salaire Attendu" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="form-label" visible="false" managed="false" />
-    <TextField fx:id="salaireAttendu" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="form-field" visible="false" managed="false" />
-
-    <Label fx:id="competenceLabel" text="Compétence" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="form-label" visible="false" managed="false" />
-    <TextField fx:id="competence" GridPane.rowIndex="8" GridPane.columnIndex="1" styleClass="form-field" visible="false" managed="false" />
-
-    <Label fx:id="experienceLabel" text="Expérience Travail" GridPane.rowIndex="9" GridPane.columnIndex="0" styleClass="form-label" visible="false" managed="false" />
-    <TextField fx:id="experienceTravail" GridPane.rowIndex="9" GridPane.columnIndex="1" styleClass="form-field" visible="false" managed="false" />
-
-    <Label fx:id="projetLabel" text="Nombre Projet" GridPane.rowIndex="10" GridPane.columnIndex="0" styleClass="form-label" visible="false" managed="false" />
-    <TextField fx:id="nombreProjet" GridPane.rowIndex="10" GridPane.columnIndex="1" styleClass="form-field" visible="false" managed="false" />
-
-    <Label fx:id="anneeExpLabel" text="Années Expérience" GridPane.rowIndex="11" GridPane.columnIndex="0" styleClass="form-label" visible="false" managed="false" />
-    <TextField fx:id="anneeExperience" GridPane.rowIndex="11" GridPane.columnIndex="1" styleClass="form-field" visible="false" managed="false" />
-
-    <Label fx:id="specialisationLabel" text="Spécialisation" GridPane.rowIndex="12" GridPane.columnIndex="0" styleClass="form-label" visible="false" managed="false" />
-    <TextField fx:id="specialisation" GridPane.rowIndex="12" GridPane.columnIndex="1" styleClass="form-field" visible="false" managed="false" />
-
-    <!-- Save Button -->
-    <Button fx:id="savebutton" text="Enregistrer les modifications" onAction="#saveChanges" GridPane.rowIndex="13" GridPane.columnIndex="1" styleClass="button-ajouter" />
-</GridPane>
+</AnchorPane>

@@ -223,16 +223,7 @@ public class Main {
 ServiceUser u=new ServiceUser();
 
 try {
-    System.out.println(user);
-    u.ajouter(user);
-    user.setRole(Role.CANDIDAT);
-    user.setSexe(Sexe.HOMME);
-    user.setSalaire(1500.00);
-    user.setExperienceTravail(5);
-    user.setDepartement("it");
-    user.setCompetence("no comp");
-    user.setIdUser(48);
-u.changetoEmploye(user);
+    System.out.println(u.returnReclamation());
 
 
 } catch (Exception e) {

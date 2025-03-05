@@ -1,0 +1,44 @@
+.text-field, .choice-box {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0.1, 0, 2);
+}
+
+.text-field:hover, .choice-box:hover {
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 8, 0.2, 0, 2);
+}
+
+.text-field:focused, .choice-box:focused {
+    -fx-border-color: #3B82F6;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 10, 0.3, 0, 2);
+}
+
+.button {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.2, 0, 2);
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+#savebutton:hover {
+    -fx-background-color: #059669;
+}
+
+#savebutton:pressed {
+    -fx-background-color: #047857;
+}
+
+#registerFaceButton:hover {
+    -fx-background-color: #7C3AED;
+}
+
+#registerFaceButton:pressed {
+    -fx-background-color: #6D28D9;
+}

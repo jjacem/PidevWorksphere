@@ -24,10 +24,6 @@ public class ForgotpasswordController {
     private PasswordField newPasswordField;
     @FXML
     private PasswordField repeatPasswordField;
-    @FXML
-    private Button verifyCodeButton;
-    @FXML
-    private Button resetPasswordButton;
 
     private final ServiceUser serviceUser = new ServiceUser();
     private String generatedCode;
@@ -35,7 +31,7 @@ public class ForgotpasswordController {
     private int userId = -1;
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*\\d).{8,}$"); // 8+ chars, at least 1 number
 
     @FXML
     private void onSendMail(ActionEvent event) throws SQLException {
@@ -82,7 +78,7 @@ public class ForgotpasswordController {
         String repeatPassword = repeatPasswordField.getText().trim();
 
         if (!isValidPassword(newPassword)) {
-            showAlert("Weak Password", "Password must be at least 8 characters long and include:\n- One uppercase letter\n- One lowercase letter\n- One number\n- One special character (@$!%*?&)", Alert.AlertType.ERROR);
+            showAlert("Weak Password", "Password must be at least 8 characters long and include at least one number.", Alert.AlertType.ERROR);
             return;
         }
 
@@ -97,9 +93,10 @@ public class ForgotpasswordController {
         }
 
         serviceUser.changermdp(newPassword, userId);
-        showAlert("Success", "Your password has been reset successfully.", Alert.AlertType.INFORMATION);
+        showAlert("Success", "Your password has been reset successfully!", Alert.AlertType.INFORMATION);
 
         resetPasswordBox.setVisible(false);
+        mail.clear(); // Reset the form
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
@@ -107,6 +104,7 @@ public class ForgotpasswordController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.getDialogPane().setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14px;");
         alert.showAndWait();
     }
 

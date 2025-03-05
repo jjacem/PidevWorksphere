@@ -2,27 +2,24 @@ package esprit.tn.controllers;
 
 import esprit.tn.utils.Imageutil;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 import java.io.File;
+import javafx.stage.Stage;
 
 public class FaceRegisterController {
 
     private String mail;
+
     public void setting(String email){
-        this.mail=email;
-
+        this.mail = email;
     }
-
 
     @FXML
     private ImageView cameraView;
-    @FXML
-    private TextField usernameField;
 
     private VideoCapture capture;
     private Mat frame;
@@ -56,10 +53,9 @@ public class FaceRegisterController {
 
     @FXML
     private void registerFace() {
-        if (!capture.isOpened() || usernameField.getText().isEmpty()) return;
+        if (!capture.isOpened()) return;
 
         capture.read(frame);
-        String username = usernameField.getText();
         String outputPath = "C:\\xampp\\htdocs\\faces/" + mail + ".png";
 
         File dir = new File("C:\\xampp\\htdocs\\faces/");
@@ -67,6 +63,11 @@ public class FaceRegisterController {
 
         Imgcodecs.imwrite(outputPath, frame);
         System.out.println("Face registered: " + outputPath);
+
+        // Close the window
+        Stage stage = (Stage) cameraView.getScene().getWindow();
+        stop(); // Release camera resources
+        stage.close();
     }
 
     public void stop() {

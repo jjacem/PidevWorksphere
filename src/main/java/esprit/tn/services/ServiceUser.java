@@ -222,7 +222,7 @@ Role role = changetexttorole(rs.getString("role"));
                     rs.getString("specialisation")
             );
 user.setIdUser(rs.getInt("id_user"));
-
+            user.setMessagereclamation(rs.getString("Messagereclamation"));
 
             Users.add(user);
         }
@@ -270,7 +270,7 @@ public User extractuser(Object o){
                     rs.getInt("ans_experience"),
                     rs.getString("specialisation")
             );
-
+            user.setMessagereclamation(rs.getString("Messagereclamation"));
             user.setIdUser(rs.getInt("id_user"));
             System.out.println("User trouvé: " + user);
             return user;
@@ -559,7 +559,7 @@ public boolean getbanned(String mail) throws SQLException {
                         rs.getString("specialisation")
                 );// Assuming reclamation is stored
                 user.setIdUser(rs.getInt("id_user"));
-
+                user.setMessagereclamation(rs.getString("Messagereclamation"));
                 users.add(user);
             }
         } catch (SQLException e) {

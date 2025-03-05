@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.media.MediaView?>
-
 <?import java.net.URL?>
-<StackPane fx:id="root" prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;"
+
+<StackPane fx:id="root" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: transparent;"
            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="esprit.tn.controllers.AjouterUser">
 
@@ -17,9 +17,12 @@
       <URL value="@signup.css" />
    </stylesheets>
 
-   <SplitPane dividerPositions="0.5" style="-fx-background-color: transparent;">
+   <SplitPane dividerPositions="0.45" style="-fx-background-color: transparent;">
       <!-- Left Side: Form -->
-      <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: transparent;">
+      <VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: transparent;" maxWidth="500.0">
+         <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+         </padding>
          <Label text="Ajouter un Candidat" styleClass="title-label">
             <font>
                <Font name="System Bold" size="28.0" />
@@ -27,11 +30,11 @@
          </Label>
 
          <AnchorPane styleClass="main-card">
-            <GridPane hgap="15" vgap="15" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
-                      AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+            <GridPane hgap="20" vgap="18" AnchorPane.topAnchor="25" AnchorPane.bottomAnchor="25"
+                      AnchorPane.leftAnchor="25" AnchorPane.rightAnchor="25">
                <columnConstraints>
                   <ColumnConstraints prefWidth="150" />
-                  <ColumnConstraints prefWidth="250" />
+                  <ColumnConstraints prefWidth="260" />
                </columnConstraints>
 
                <Label text="Nom" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
@@ -56,22 +59,27 @@
                <TextField fx:id="salaireAttendu" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="form-field"/>
 
                <Button GridPane.rowIndex="7" GridPane.columnIndex="0" text="Choisir une image" onAction="#uploadImage" styleClass="button-ajouter"/>
-               <ImageView fx:id="imagePreview" fitHeight="100.0" fitWidth="100.0" GridPane.rowIndex="7" GridPane.columnIndex="1">
+               <ImageView fx:id="imagePreview" fitHeight="120.0" fitWidth="120.0" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="image-preview">
                   <image>
                      <Image url="/Images/profil.png" />
                   </image>
                </ImageView>
 
-               <Button GridPane.rowIndex="8" GridPane.columnIndex="1" text="Ajouter" onAction="#ajoutercandidat" styleClass="button-ajouter"/>
-               <Button GridPane.rowIndex="8" GridPane.columnIndex="2" text="Retour" onAction="#retourner" styleClass="button-ajouter"/>
+               <HBox GridPane.rowIndex="8" GridPane.columnIndex="1" spacing="15" alignment="CENTER_RIGHT">
+                  <Button text="Ajouter" onAction="#ajoutercandidat" styleClass="button-ajouter"/>
+                  <Button text="Retour" onAction="#retourner" styleClass="button-secondary"/>
+               </HBox>
             </GridPane>
          </AnchorPane>
       </VBox>
 
       <!-- Right Side: Video -->
-      <StackPane style="-fx-background-color: transparent;">
-         <MediaView fx:id="mediaView" fitWidth="600" fitHeight="600" StackPane.alignment="TOP_RIGHT"/>
-
+      <StackPane style="-fx-background-color: transparent;" maxWidth="600.0" maxHeight="Infinity">
+         <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+         </padding>
+         <MediaView fx:id="mediaView" styleClass="MediaView" fitWidth="550" StackPane.alignment="CENTER"
+                    preserveRatio="true" fitHeight="-1" VBox.vgrow="ALWAYS"/>
       </StackPane>
    </SplitPane>
 </StackPane>

@@ -1,0 +1,39 @@
+/* Input field hover and focus effects */
+.input-field:hover {
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.2), 8, 0.2, 0, 0);
+}
+
+.input-field:focused {
+    -fx-border-color: #3B82F6;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 10, 0.3, 0, 0);
+}
+
+/* Button hover effect */
+.change-button:hover {
+    -fx-background-color: #2563EB;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.5), 15, 0.3, 0, 0);
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}
+
+/* Button pressed effect */
+.change-button:pressed {
+    -fx-background-color: #1D4ED8;
+    -fx-scale-y: 0.95;
+    -fx-scale-x: 0.95;
+}
+
+/* Title animation */
+.title-label {
+    -fx-opacity: 0;
+    -fx-translate-y: -20;
+}
+
+/* Error label animation */
+.error-label {
+    -fx-opacity: 0;
+}
+
+/* Add these animations in your controller's initialize method if you want them */
