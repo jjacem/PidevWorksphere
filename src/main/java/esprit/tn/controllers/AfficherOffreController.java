@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import esprit.tn.entities.OffreEmploi;
@@ -57,6 +58,13 @@ public class AfficherOffreController {
 
         // Setup custom ListView cell factory
         setupListView();
+
+        // Add double click handler
+        lv_offre.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && offreSelectionnee != null) {
+                showOfferDetails(offreSelectionnee);
+            }
+        });
     }
 
     // Méthode pour récupérer une offre d'emploi à partir de l'affichage (recherche de l'ID par exemple)
@@ -412,79 +420,59 @@ public class AfficherOffreController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    // Create main container
-                    VBox card = new VBox(10);
-                    card.setPadding(new Insets(15));
+                    // Get the actual OffreEmploi object for this item
+                    OffreEmploi offre = recupererOffreParAffichage(item);
+                    if (offre == null) return;
+
+                    VBox card = new VBox(15);
+                    card.setPadding(new Insets(20));
+                    card.setPrefWidth(1000);
                     card.setStyle("-fx-background-color: white; " +
                                 "-fx-border-color: #e0e0e0; " +
-                                "-fx-border-radius: 5; " +
-                                "-fx-background-radius: 5; " +
+                                "-fx-border-radius: 8; " +
+                                "-fx-background-radius: 8; " +
                                 "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-                    // Parse the formatted string to extract information
-                    String[] lines = item.split("\n");
-                    
-                    // Title section
+                    // Title section - using direct object properties instead of parsing
+                    HBox titleBox = new HBox(5);
                     Text titleLabel = new Text("Titre: ");
-                    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
-                    Text titleValue = new Text(extractValue(lines[1]));
-                    titleValue.setStyle("-fx-font-size: 16px; -fx-fill: #2c3e50;");
-                    
-                    HBox titleBox = new HBox(titleLabel, titleValue);
-                    titleBox.setStyle("-fx-padding: 0 0 10 0;");
+                    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: #2c3e50;");
+                    Text titleValue = new Text(offre.getTitre());
+                    titleValue.setStyle("-fx-font-size: 18px; -fx-fill: #2c3e50;");
+                    titleBox.getChildren().addAll(titleLabel, titleValue);
 
-                    // Description section
-                    Text descLabel = new Text("Description: ");
-                    descLabel.setStyle("-fx-font-weight: bold;");
-                    Text descValue = new Text(extractValue(lines[2]));
-                    TextFlow description = new TextFlow(descLabel, descValue);
-                    description.setStyle("-fx-padding: 5 0;");
+                    // Details Grid
+                    GridPane details = new GridPane();
+                    details.setHgap(50);
+                    details.setVgap(15);
+                    details.setPadding(new Insets(15));
+                    details.setStyle("-fx-background-color: white; -fx-border-color: #eee; " +
+                                   "-fx-border-radius: 5; -fx-background-radius: 5;");
 
-                    // Details section
-                    HBox details = new HBox(20);
-                    
-                    // Contract & Location
-                    VBox contractLocation = new VBox(5);
-                    contractLocation.getChildren().addAll(
-                        createDetailItem("Type de contrat", extractValue(lines[3])),
-                        createDetailItem("Lieu", extractValue(lines[4]))
-                    );
-                    
-                    // Salary & Experience
-                    VBox salaryExp = new VBox(5);
-                    salaryExp.getChildren().addAll(
-                        createDetailItem("Salaire", extractValue(lines[5]) + " TND"),
-                        createDetailItem("Expérience", extractValue(lines[7]))
-                    );
-                    
-                    // Dates
-                    VBox dates = new VBox(5);
-                    dates.getChildren().addAll(
-                        createDetailItem("Publication", extractValue(lines[8])),
-                        createDetailItem("Date limite", extractValue(lines[9]))
-                    );
-                    
-                    details.getChildren().addAll(contractLocation, salaryExp, dates);
+                    // Add details using direct object properties
+                    addDetailToGrid(details, "Type de contrat", offre.getTypeContrat(), 0, 0);
+                    addDetailToGrid(details, "Lieu de travail", offre.getLieuTravail(), 0, 1);
+                    addDetailToGrid(details, "Salaire", offre.getSalaire() + " TND", 1, 0);
+                    addDetailToGrid(details, "Expérience", offre.getExperience(), 1, 1);
+                    addDetailToGrid(details, "Date publication", offre.getDatePublication().toString(), 2, 0);
+                    addDetailToGrid(details, "Date limite", offre.getDateLimite().toString(), 2, 1);
 
                     // Status indicator
-                    HBox statusBox = new HBox(10);
-                    String status = extractValue(lines[6]);
-                    Text statusText = new Text(status);
-                    statusText.setStyle(String.format("-fx-fill: %s;", 
-                        status.equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"));
-                    
-                    Region spacer = new Region();
-                    spacer.setPrefWidth(10);
-                    statusBox.getChildren().addAll(spacer, statusText);
+                    Label statusLabel = new Label("■ " + offre.getStatutOffre());
+                    statusLabel.setStyle(String.format(
+                        "-fx-text-fill: %s; -fx-font-weight: bold; -fx-padding: 5 10;",
+                        offre.getStatutOffre().equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"
+                    ));
 
                     // Add all sections to the card
-                    card.getChildren().addAll(titleBox, description, details, statusBox);
+                    card.getChildren().addAll(titleBox, details, statusLabel);
                     
-                    // Add hover effect
+                    // Hover effect
+                    String baseStyle = card.getStyle();
                     card.setOnMouseEntered(e -> 
-                        card.setStyle(card.getStyle() + "-fx-background-color: #f8f9fa;"));
+                        card.setStyle(baseStyle + "-fx-background-color: #f8f9fa;"));
                     card.setOnMouseExited(e -> 
-                        card.setStyle(card.getStyle() + "-fx-background-color: white;"));
+                        card.setStyle(baseStyle + "-fx-background-color: white;"));
 
                     setGraphic(card);
                 }
@@ -492,18 +480,82 @@ public class AfficherOffreController {
         });
     }
 
-    private HBox createDetailItem(String label, String value) {
-        Text labelText = new Text(label + ": ");
-        labelText.setStyle("-fx-font-weight: bold; -fx-fill: #7f8c8d;");
+    private void addDetailToGrid(GridPane grid, String label, String value, int col, int row) {
+        VBox container = new VBox(5);
+        Text labelText = new Text(label);
+        labelText.setStyle("-fx-font-weight: bold; -fx-fill: #7f8c8d; -fx-font-size: 12px;");
         Text valueText = new Text(value);
-        valueText.setStyle("-fx-fill: #2c3e50;");
-        
-        HBox container = new HBox(5, labelText, valueText);
-        container.setStyle("-fx-padding: 2;");
-        return container;
+        valueText.setStyle("-fx-fill: #2c3e50; -fx-font-size: 14px;");
+        container.getChildren().addAll(labelText, valueText);
+        grid.add(container, col, row);
     }
 
     private String extractValue(String line) {
         return line.substring(line.indexOf(":") + 1).trim();
+    }
+
+    private void showOfferDetails(OffreEmploi offre) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Détails de l'offre");
+        dialog.initModality(Modality.APPLICATION_MODAL);
+
+        // Create a VBox for the content
+        VBox content = new VBox(15);
+        content.setPadding(new Insets(20));
+        content.setStyle("-fx-background-color: white;");
+
+        // Title
+        Text titleText = new Text(offre.getTitre());
+        titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
+
+        // Description
+        VBox descriptionBox = new VBox(5);
+        descriptionBox.setStyle("-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 5;");
+        Text descLabel = new Text("Description");
+        descLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-fill: #34495e;");
+        TextFlow descValue = new TextFlow();
+        Text descText = new Text(offre.getDescription());
+        descText.setStyle("-fx-font-size: 14px; -fx-fill: #2c3e50;");
+        descValue.getChildren().add(descText);
+        descValue.setMaxWidth(550);
+        descValue.setLineSpacing(1.5);
+        descriptionBox.getChildren().addAll(descLabel, descValue);
+
+        // Details Grid
+        GridPane details = new GridPane();
+        details.setHgap(30);
+        details.setVgap(15);
+        details.setPadding(new Insets(15));
+        details.setStyle("-fx-background-color: white; -fx-border-color: #eee; " +
+                        "-fx-border-radius: 5; -fx-background-radius: 5;");
+
+        // Add details to grid
+        int row = 0;
+        addDetailToGrid(details, "Type de contrat", offre.getTypeContrat(), 0, row);
+        addDetailToGrid(details, "Lieu de travail", offre.getLieuTravail(), 1, row++);
+        addDetailToGrid(details, "Salaire", offre.getSalaire() + " TND", 0, row);
+        addDetailToGrid(details, "Expérience requise", offre.getExperience(), 1, row++);
+        addDetailToGrid(details, "Date de publication", offre.getDatePublication().toString(), 0, row);
+        addDetailToGrid(details, "Date limite", offre.getDateLimite().toString(), 1, row++);
+
+        // Status
+        Label statusLabel = new Label("■ " + offre.getStatutOffre());
+        statusLabel.setStyle(String.format(
+            "-fx-text-fill: %s; -fx-font-weight: bold; -fx-padding: 10;",
+            offre.getStatutOffre().equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"
+        ));
+
+        // Add all elements to content
+        content.getChildren().addAll(titleText, descriptionBox, details, statusLabel);
+
+        // Set dialog content and make it scrollable
+        ScrollPane scrollPane = new ScrollPane(content);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(500);
+        scrollPane.setPrefWidth(600);
+
+        dialog.getDialogPane().setContent(scrollPane);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.show();
     }
 }
