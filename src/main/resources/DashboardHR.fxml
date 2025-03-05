@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,10 +17,10 @@
     </stylesheets>
 
     <!-- Sidebar -->
-    <VBox fx:id="sidebar" prefWidth="200" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+    <VBox fx:id="sidebar" prefWidth="200.0" spacing="20" style="-fx-background-color: #0086b3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <!-- Logo -->
-        <ImageView fitHeight="88.0" fitWidth="174.0">
+        <ImageView fitHeight="84.0" fitWidth="201.0">
             <Image url="@Images/474188139_2099437073823213_5214087864459817142_n.png" />
         </ImageView>
 
@@ -46,9 +45,9 @@
             <Button fx:id="btnGestionUser" onAction="#gestionuser" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 Gestion User" />
             <Button fx:id="btnChangeProfile1" layoutX="30.0" layoutY="84.0" onAction="#Effectuerevennement" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Gestion Evenement" />
             <Button fx:id="btnChangeProfile11" layoutX="30.0" layoutY="248.0" onAction="#Formation" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Gestion Formations" />
-         <Button fx:id="btnChangeProfile111" layoutX="30.0" layoutY="286.0" onAction="#offre" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="offres emploi" />
-         <Button fx:id="btnChangeProfile2" layoutX="30.0" layoutY="81.0" onAction="#Effectuersponsor" onDragDetected="#changemdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 changer mot de passe" />
-         <Button fx:id="btnentretien" onAction="#entretien" onDragDetected="#changemdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="entretien" />
+         <Button fx:id="btnChangeProfile111" layoutX="30.0" layoutY="286.0" onAction="#offre" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Offres d'Emploi" />
+         <Button fx:id="btnChangeProfile2" layoutX="30.0" layoutY="81.0" onAction="#Effectuersponsor" onDragDetected="#changemdp" prefHeight="41.0" prefWidth="184.0" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 Changer mot de passe" />
+         <Button fx:id="btnentretien" onAction="#entretien" onDragDetected="#changemdp" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="Entretien" />
         </VBox>
 
         <!-- Spacer to push logout button to bottom -->
@@ -59,14 +58,10 @@
     </VBox>
 
     <!-- Navbar -->
-    <HBox fx:id="navbar" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-
-        <!-- Search Bar -->
-        <TextField fx:id="searchField" prefHeight="32.0" prefWidth="340.0" promptText="Rechercher..." style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-radius:5px; -fx-padding: 5px 10px; -fx-font-size: 14px;" />
-    </HBox>
+    <HBox fx:id="navbar" layoutX="212.0" prefHeight="52.0" prefWidth="588.0" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
     <!-- Main Content -->
-    <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+    <VBox fx:id="contentArea" layoutX="200.8" prefHeight="795.0" prefWidth="599.0" spacing="10" style="-fx-padding: 20px; -fx-background-color: white" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
         <!-- Content will be loaded dynamically here -->
     </VBox>
 
