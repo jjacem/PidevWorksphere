@@ -93,15 +93,24 @@ public class AjouterEquipeController {
                         setGraphic(null);
                     } else {
                         // Charger l'image de profil
-                        if (user.getImageProfil() != null && !user.getImageProfil().isEmpty()) {
-                            Image image = new Image("file:" + user.getImageProfil());
-                            imageView.setImage(image);
-                            imageView.setFitWidth(40); // Ajustez la largeur de l'image
-                            imageView.setFitHeight(40); // Ajustez la hauteur de l'image
-                            imageView.setClip(clip); // Appliquer le clip pour arrondir l'image
+
+                        if (user.getImageProfil() != null && !user.getImageProfil().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(user.getImageProfil()).getName();
+                            System.out.println(correctPath); // Debug : afficher le chemin
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
                         } else {
-                            imageView.setImage(null); // Pas d'image si le chemin est vide
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                         }
+
+
+                        imageView.setFitWidth(40);
+                        imageView.setFitHeight(40);
+                        imageView.setPreserveRatio(true);
 
                         // Afficher le nom et l'image
                         HBox hbox = new HBox(10); // Espacement entre l'image et le texte
@@ -130,15 +139,23 @@ public class AjouterEquipeController {
                         setGraphic(null);
                     } else {
                         // Charger l'image de profil
-                        if (user.getImageProfil() != null && !user.getImageProfil().isEmpty()) {
-                            Image image = new Image("file:" + user.getImageProfil());
-                            imageView.setImage(image);
-                            imageView.setFitWidth(40); // Ajustez la largeur de l'image
-                            imageView.setFitHeight(40); // Ajustez la hauteur de l'image
-                            imageView.setClip(clip); // Appliquer le clip pour arrondir l'image
+                        if (user.getImageProfil() != null && !user.getImageProfil().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(user.getImageProfil()).getName();
+                            System.out.println(correctPath); // Debug : afficher le chemin
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
                         } else {
-                            imageView.setImage(null); // Pas d'image si le chemin est vide
+                            System.out.println("No image path provided.");
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                         }
+                        imageView.setFitWidth(40);
+                        imageView.setFitHeight(40);
+                        imageView.setPreserveRatio(true);
 
                         // Afficher le nom et l'image
                         HBox hbox = new HBox(10); // Espacement entre l'image et le texte
