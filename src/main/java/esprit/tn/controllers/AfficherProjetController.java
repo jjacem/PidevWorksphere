@@ -44,7 +44,7 @@ public class AfficherProjetController {
             afficherProjets(projets);
 
             // Initialiser le filtre par état
-            etatFilter.getItems().addAll("TOUS", "EN_COURS", "Terminé", "Annulé");
+            etatFilter.getItems().addAll("TOUS", "EnCours", "Terminé", "Annulé");
             etatFilter.setValue("TOUS"); // Valeur par défaut
 
             // Ajouter des Listener sur les ComboBox pour la recherche dynamique
