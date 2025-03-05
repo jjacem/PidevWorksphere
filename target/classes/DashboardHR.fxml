@@ -39,7 +39,7 @@
         <!-- HR Features -->
         <VBox prefHeight="490.0" prefWidth="218.0" spacing="10" style="-fx-padding: 20px;">
             <Button fx:id="btnProfile" onAction="#goprofile" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👤 Profile" />
-            <Button fx:id="btnChangeProfile" onAction="#Effectuersponsor" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="🔄 Event Sponsor" />
+            <Button fx:id="btnChangeProfile" onAction="#Effectuersponsor" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📜 Contrat" />
             <Button fx:id="btnGestionSponsor" onAction="#gestionsponsor" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="📢 Gestion Sponsor" />
             <Button fx:id="btnGestionUser" onAction="#gestionuser" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="👥 Gestion User" />
             <Button fx:id="btnChangeProfile1" layoutX="30.0" layoutY="84.0" onAction="#Effectuerevennement" style="-fx-font-size: 14px; -fx-background-color: transparent; -fx-text-fill: #ffffff; -fx-alignment: CENTER_LEFT;" text="✅ Evenements" />
