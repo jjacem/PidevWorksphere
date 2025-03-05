@@ -200,7 +200,5 @@ public void Formation(ActionEvent actionEvent) {
         loadPage("/AfficherReservation.fxml");
     }
 
-    public void mesreservastion(ActionEvent actionEvent) {
-        loadPage("/AfficherReservation.fxml");
-    }
+
 }
