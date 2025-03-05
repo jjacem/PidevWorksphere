@@ -50,7 +50,17 @@ public class AfficherStatistiqueController {
                 "            // Options pour le graphique des employés\n" +
                 "            var optionsEmployes = {\n" +
                 "                title: 'Répartition des employés par équipe',\n" +
+                "                titlePosition: 'bottom', // Titre en dessous du graphique\n" +
+                "                titleTextStyle: {\n" +
+                "                    fontSize: 16,\n" +
+                "                    bold: true,\n" +
+                "                    marginTop: '20px' // Espace au-dessus du titre\n" +
+                "                },\n" +
                 "                pieHole: 0.4,\n" +
+                "                chartArea: {\n" +
+                "                    height: '80%', // Ajuster la hauteur de la zone du graphique\n" +
+                "                    top: '10%' // Espace au-dessus du graphique\n" +
+                "                }\n" +
                 "            };\n" +
                 "\n" +
                 "            // Dessiner le graphique des employés\n" +
@@ -65,19 +75,25 @@ public class AfficherStatistiqueController {
                 "                dataProjets.addRow([equipe.nomEquipe, equipe.nbrProjet]);\n" +
                 "            });\n" +
                 "\n" +
-                "\n" +
-                "\n" +
                 "            // Options pour le graphique des projets\n" +
                 "            var optionsProjets = {\n" +
                 "                title: 'Répartition des projets par équipe',\n" +
+                "                titlePosition: 'bottom', // Titre en dessous du graphique\n" +
+                "                titleTextStyle: {\n" +
+                "                    fontSize: 16,\n" +
+                "                    bold: true,\n" +
+                "                    marginTop: '20px' // Espace au-dessus du titre\n" +
+                "                },\n" +
                 "                curveType: 'function', // Courbe lissée\n" +
                 "                legend: { position: 'bottom' },\n" +
                 "                hAxis: { title: 'Équipes' },\n" +
-                "                vAxis: { title: 'Nombre de projets' }\n" +
+                "                vAxis: { title: 'Nombre de projets' },\n" +
+                "                chartArea: {\n" +
+                "                    height: '80%', // Ajuster la hauteur de la zone du graphique\n" +
+                "                    top: '10%' // Espace au-dessus du graphique\n" +
+                "                }\n" +
                 "            };\n" +
                 "\n" +
-                "\n" +
-
                 "            // Dessiner le graphique des projets\n" +
                 "            var chartProjets = new google.visualization.LineChart(document.getElementById('chart_projets'));\n" +
                 "            chartProjets.draw(dataProjets, optionsProjets);\n" +
