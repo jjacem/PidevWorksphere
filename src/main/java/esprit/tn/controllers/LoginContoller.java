@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class LoginContoller {
 
@@ -32,7 +33,7 @@ public class LoginContoller {
 
     private final ServiceUser userService = new ServiceUser();
     @FXML
-    private void handleLogin() {
+    private void handleLogin() throws SQLException {
         String email = mail.getText().trim();
         String password = mdp.getText().trim();
 
@@ -46,6 +47,8 @@ public class LoginContoller {
             showAlert("Validation Error", "Le mot de passe doit contenir au moins 6 caractères.");
             return;
         }
+if (checkbanned(email)){}
+        else{
 
         try {
             User user = userService.login(email, password);
@@ -61,7 +64,94 @@ public class LoginContoller {
             showAlert("Database Error", "Une erreur est survenue lors de la connexion.");
             System.err.println("Login Error: " + e.getMessage());
         }
+    }}
+
+    /**
+     * Checks if the user is banned and handles reclamation logic.
+     *
+     * @param email The email of the user to check.
+     * @return true if the user is banned, false otherwise.
+     * @throws SQLException If a database error occurs.
+     */
+    private boolean checkbanned(String email) throws SQLException {
+        if (userService.getbanned(email)) {
+            // Create a dialog to inform the user they are banned
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Banned User");
+            alert.setHeaderText("You are banned!");
+            alert.setContentText("You have been banned from accessing the system.");
+
+            // Apply light blue style to the dialog
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+            dialogPane.getStyleClass().add("light-blue-dialog");
+
+            // Check if the user has a reclamation
+            if (!userService.hasReclamation(email)) {
+                // Add a button to allow the user to add a reclamation
+                ButtonType addReclamationButton = new ButtonType("Add Reclamation", ButtonBar.ButtonData.OK_DONE);
+                alert.getButtonTypes().add(addReclamationButton);
+
+                // Show the dialog and wait for user input
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == addReclamationButton) {
+                    // Open a text input dialog for the reclamation
+                    TextInputDialog reclamationDialog = new TextInputDialog();
+                    reclamationDialog.setTitle("Add Reclamation");
+                    reclamationDialog.setHeaderText("Enter your reclamation");
+                    reclamationDialog.setContentText("Reclamation:");
+
+                    // Apply light blue style to the reclamation dialog
+                    DialogPane reclamationDialogPane = reclamationDialog.getDialogPane();
+                    reclamationDialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
+                    reclamationDialogPane.getStyleClass().add("light-blue-dialog");
+
+                    // Show the reclamation dialog and process the input
+                    Optional<String> reclamationResult = reclamationDialog.showAndWait();
+                    reclamationResult.ifPresent(reclam -> {
+                        try {
+                            userService.addReclamationByEmail(email, reclam);
+                            showSuccessMessage("Reclamation added successfully!");
+                        } catch (SQLException e) {
+                            showErrorMessage("Failed to add reclamation: " + e.getMessage());
+                        }
+                    });
+                }
+            } else {
+                // If the user already has a reclamation, just show the banned message
+                alert.showAndWait();
+            }
+
+            // Return true because the user is banned
+            return true;
+        }
+
+        // Return false because the user is not banned
+        return false;
     }
+
+    private void showSuccessMessage(String message) {
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setTitle("Success");
+        successAlert.setHeaderText(null);
+        successAlert.setContentText(message);
+        successAlert.showAndWait();
+    }
+
+    private void showErrorMessage(String message) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText(null);
+        errorAlert.setContentText(message);
+        errorAlert.showAndWait();
+    }
+
+
+
+
+
+
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -148,8 +238,10 @@ public class LoginContoller {
 
             String email = userInfo.getEmail();
             String name = userInfo.getName();
-            System.out.println("Google login email: " + email); // Debug log
+            System.out.println("Google login email: " + email);
+            if(checkbanned(email)){}
 
+else {
             User user = userService.findbyid(userService.findidbyemail(email));
 
             if (user != null) {
@@ -160,7 +252,7 @@ public class LoginContoller {
             } else {
                 System.out.println("User does not exist. Redirecting to sign-up.");
                 handlesignup(event);
-            }
+            }}
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Error", "Failed to authenticate with Google.");

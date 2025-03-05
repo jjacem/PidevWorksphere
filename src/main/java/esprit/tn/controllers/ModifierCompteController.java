@@ -280,7 +280,7 @@ public class ModifierCompteController {
         try {
             Stage stage = (Stage) savebutton.getScene().getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/ModifierCompte.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCompte.fxml"));
             Scene newScene = new Scene(loader.load());
 
             stage.setScene(newScene);

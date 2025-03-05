@@ -507,7 +507,132 @@ public List<User> chercherparnom(String query) throws SQLException {
         }
     }
 
+public boolean getbanned(String mail) throws SQLException {
+                String req = "SELECT banned FROM User WHERE email=?";
+    PreparedStatement statement = connection.prepareStatement(req);
+    statement.setString(1, mail);
+    ResultSet rs = statement.executeQuery();
+
+    if (rs.next()) {
+        boolean result = rs.getBoolean("banned");
+
+
+           return result;
+        } else {
+            return false;
+        }
+}
+
+
+    public List<User> returnReclamation() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM User WHERE messagereclamation IS NOT NULL AND messagereclamation <> ''";
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet rs = statement.executeQuery()) {
+
+            while (rs.next()) {
+                Sexe      sexe = changetexttosexe(rs.getString("sexe"));
+                Status status = changetexttostatus(rs.getString("status"));
+                Role role = changetexttorole(rs.getString("role"));
+
+                User user = new User(
+                        rs.getString("nom"),
+                        role,
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getString("adresse"),
+                        sexe,
+                        rs.getString("image_profil"),
+                        status,
+                        rs.getDouble("salaire_attendu"),
+                        rs.getString("poste"),
+                        rs.getDouble("salaire"),
+                        rs.getInt("experience_travail"),
+                        rs.getString("departement"),
+                        rs.getString("competence"),
+                        rs.getInt("nombreProjet"),
+                        rs.getDouble("budget"),
+                        rs.getString("departement_géré"),
+                        rs.getInt("ans_experience"),
+                        rs.getString("specialisation")
+                );// Assuming reclamation is stored
+                user.setIdUser(rs.getInt("id_user"));
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log error properly
+        }
+
+        return users;
+    }
+    public boolean unbanUser(int userId) throws SQLException {
+        String query = "UPDATE User SET banned = false, messagereclamation = NULL WHERE id_user = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            int rowsUpdated = statement.executeUpdate();
+
+            return rowsUpdated > 0; // Returns true if update was successful
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log the error properly
+            return false;
+        }
+    }
+    public boolean banUser(int userId) throws SQLException {
+        String query = "UPDATE User SET banned = true, messagereclamation = NULL WHERE id_user = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            int rowsUpdated = statement.executeUpdate();
+
+            return rowsUpdated > 0; // Returns true if update was successful
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log the error properly
+            return false;
+        }
+    }
+    public boolean hasReclamation(String email) throws SQLException {
+        String query = "SELECT COUNT(*) FROM User WHERE email = ? AND messagereclamation IS NOT NULL AND messagereclamation <> ''";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // Returns true if at least one record exists
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log error properly
+        }
+        return false;
+    }
+    public boolean addReclamationByEmail(String email, String reclamation) throws SQLException {
+        // Ensure reclamation is not empty or null
+        if (reclamation == null || reclamation.trim().isEmpty()) {
+            System.out.println("Reclamation cannot be null or empty.");
+            return false;
+        }
+
+        // SQL query to update reclamation for the user with the given email
+        String query = "UPDATE User SET messagereclamation = ? WHERE email = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            // Set the values for the parameters in the query
+            statement.setString(1, reclamation);
+            statement.setString(2, email);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0; // Return true if the user was found and updated
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log error properly
+            return false;
+        }
+    }
 
 }
+
 
 

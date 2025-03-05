@@ -1,48 +1,21 @@
-<?import javafx.scene.control.Button?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="esprit.tn.controllers.AfficherUser"
-            stylesheets="@afficheruser.css"
-            style="-fx-background-color: linear-gradient(to right, #1E3A8A, #2563EB);"
-            prefWidth="1000"
-            prefHeight="700">
+<AnchorPane prefHeight="700" prefWidth="1000" style="-fx-background-color: linear-gradient(to right, #1E3A8A, #2563EB);" stylesheets="@afficheruser.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherUser">
 
    <children>
       <!-- 🔍 Search Field -->
-      <TextField fx:id="search"
-                 promptText="Chercher Users"
-                 styleClass="custom-textfield"
-                 AnchorPane.topAnchor="30"
-                 AnchorPane.leftAnchor="50"
-                 AnchorPane.rightAnchor="50" />
+      <TextField fx:id="search" promptText="Chercher Users" styleClass="custom-textfield" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="30" />
 
       <!-- 🔵 Role Filter -->
-      <ChoiceBox fx:id="filterrole"
-                 styleClass="custom-choicebox"
-                 AnchorPane.topAnchor="80"
-                 AnchorPane.leftAnchor="50"
-                 prefWidth="200"/>
+      <ChoiceBox fx:id="filterrole" prefWidth="200" styleClass="custom-choicebox" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="80" />
 
       <!-- 📋 User Data List -->
-      <ListView fx:id="data"
-                styleClass="custom-listview"
-                AnchorPane.topAnchor="130"
-                AnchorPane.leftAnchor="50"
-                AnchorPane.rightAnchor="50"
-                AnchorPane.bottomAnchor="100"/>
-
-      <!-- 📝 User Attributes List -->
-      <ListView fx:id="attributes"
-                styleClass="custom-listview"
-                AnchorPane.leftAnchor="50"
-                AnchorPane.rightAnchor="50"
-                AnchorPane.bottomAnchor="30"
-                prefHeight="60"/>
+      <ListView fx:id="data" layoutX="51.2" prefHeight="556.0" prefWidth="899.0" styleClass="custom-listview" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="130" />
 
    </children>
 </AnchorPane>

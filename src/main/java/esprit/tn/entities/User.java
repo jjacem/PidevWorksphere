@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 public class User {
     private int idUser;
-    private String nom, prenom, email, mdp, adresse, imageProfil, poste, departement, competence, departementGere, specialisation;
+    private String messagereclamation,nom, prenom, email, mdp, adresse, imageProfil, poste, departement, competence, departementGere, specialisation;
     private Role role;
     private Sexe sexe;
     private Status status;
+    private boolean banned;
     private Double salaireAttendu, salaire, budget;
     private int experienceTravail, nombreProjet, ansExperience;
     ArrayList <Reclamation> reclamations = new ArrayList<Reclamation>();
@@ -264,4 +265,19 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     }
 
 
+    public String getMessagereclamation() {
+        return messagereclamation;
+    }
+
+    public void setMessagereclamation(String messagereclamation) {
+        this.messagereclamation = messagereclamation;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
 }

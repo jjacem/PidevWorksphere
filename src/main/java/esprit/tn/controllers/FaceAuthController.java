@@ -6,11 +6,12 @@ import esprit.tn.utils.Imageutil;
 import esprit.tn.utils.JwtUtil;
 import esprit.tn.utils.SessionManager;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ import org.opencv.videoio.VideoCapture;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class FaceAuthController {
 
@@ -123,18 +125,23 @@ public class FaceAuthController {
             System.out.println("User not found for email: " + email);
             return;
         }
+        if (checkbanned(email)){
 
-        String token = JwtUtil.generateToken(user.getIdUser(), user.getEmail(), user.getRole());
-        SessionManager.setSession(token);
+            returner();
 
-        // Stop camera and close the window
-        stop();
-        closeWindow();
+        }
+else {
+            String token = JwtUtil.generateToken(user.getIdUser(), user.getEmail(), user.getRole());
+            SessionManager.setSession(token);
 
-        // Navigate to dashboard
-        navigate(user.getRole().name());
+            // Stop camera and close the window
+            stop();
+            closeWindow();
 
+            // Navigate to dashboard
+            navigate(user.getRole().name());
 
+        }
     }
     private void closeWindow() {
         Platform.runLater(() -> {
@@ -218,5 +225,103 @@ public class FaceAuthController {
             capture.release();
         }
     }
+ private ServiceUser userService=new ServiceUser();
+    private boolean checkbanned(String email) throws SQLException {
+        if (userService.getbanned(email)) {
+            // Create a dialog to inform the user they are banned
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Banned User");
+            alert.setHeaderText("You are banned!");
+            alert.setContentText("You have been banned from accessing the system.");
+
+            // Apply light blue style to the dialog
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/styles/dialog.css").toExternalForm());
+            dialogPane.getStyleClass().add("light-blue-dialog");
+
+            // Check if the user has a reclamation
+            if (!userService.hasReclamation(email)) {
+                // Add a button to allow the user to add a reclamation
+                ButtonType addReclamationButton = new ButtonType("Add Reclamation", ButtonBar.ButtonData.OK_DONE);
+                alert.getButtonTypes().add(addReclamationButton);
+
+                // Show the dialog and wait for user input
+                Optional<ButtonType> result = alert.showAndWait();
+
+
+                if (result.isPresent() && result.get() == addReclamationButton) {
+                    // Open a text input dialog for the reclamation
+                    TextInputDialog reclamationDialog = new TextInputDialog();
+                    reclamationDialog.setTitle("Add Reclamation");
+                    reclamationDialog.setHeaderText("Enter your reclamation");
+                    reclamationDialog.setContentText("Reclamation:");
+
+                    // Apply light blue style to the reclamation dialog
+                    DialogPane reclamationDialogPane = reclamationDialog.getDialogPane();
+                    reclamationDialogPane.getStylesheets().add(getClass().getResource("/styles/dialog.css").toExternalForm());
+                    reclamationDialogPane.getStyleClass().add("light-blue-dialog");
+
+                    // Show the reclamation dialog and process the input
+                    Optional<String> reclamationResult = reclamationDialog.showAndWait();
+                    reclamationResult.ifPresent(reclam -> {
+                        try {
+                            userService.addReclamationByEmail(email, reclam);
+                            showSuccessMessage("Reclamation added successfully!");
+                        } catch (SQLException e) {
+                            showErrorMessage("Failed to add reclamation: " + e.getMessage());
+                        }
+                    });
+                }
+            } else {
+                // If the user already has a reclamation, just show the banned message
+                alert.showAndWait();
+            }
+
+            // Return true because the user is banned
+            return true;
+        }
+
+        // Return false because the user is not banned
+        return false;
+    }
+
+    private void showSuccessMessage(String message) {
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setTitle("Success");
+        successAlert.setHeaderText(null);
+        successAlert.setContentText(message);
+        successAlert.showAndWait();
+    }
+
+    private void showErrorMessage(String message) {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText(null);
+        errorAlert.setContentText(message);
+        errorAlert.showAndWait();
+    }
+
+    public void retourner(ActionEvent actionEvent) {
+        returner();
+    }
+    private void  returner(){
+        try {
+            // Load the login.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage (window)
+            Stage stage = (Stage) cameraView.getScene().getWindow();
+          stop();
+            // Set the new scene to the stage
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load login.fxml");
+        }
+    }
+
 
 }

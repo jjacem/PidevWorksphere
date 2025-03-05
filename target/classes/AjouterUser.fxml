@@ -9,7 +9,7 @@
 <?import javafx.scene.media.MediaView?>
 
 <?import java.net.URL?>
-<StackPane fx:id="root" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #f4f4f4;"
+<StackPane fx:id="root" prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: #f4f4f4;"
            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="esprit.tn.controllers.AjouterUser">
 
@@ -70,7 +70,8 @@
 
       <!-- Right Side: Video -->
       <StackPane style="-fx-background-color: transparent;">
-         <MediaView fx:id="mediaView" fitWidth="400" fitHeight="500"/>
+         <MediaView fx:id="mediaView" fitWidth="600" fitHeight="600" StackPane.alignment="TOP_RIGHT"/>
+
       </StackPane>
    </SplitPane>
 </StackPane>
