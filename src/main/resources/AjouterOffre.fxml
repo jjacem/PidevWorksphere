@@ -18,8 +18,7 @@
                   <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png " />
                </image>
             </ImageView>
-            <Button layoutX="16.0" layoutY="95.0" mnemonicParsing="false" onAction="#AjouterOffre" prefHeight="26.0" prefWidth="76.0" text="AJOUTER" />
-            <Button layoutX="16.0" layoutY="130.0" mnemonicParsing="false" onAction="#AfficherOffre" prefHeight="26.0" prefWidth="76.0" text="AFFICHER" />
+            <Button layoutX="16.0" layoutY="120.0" mnemonicParsing="false" onAction="#AjouterOffre" prefHeight="26.0" prefWidth="76.0" text="AJOUTER" />
          </children>
       </AnchorPane>
       <Label layoutX="25.0" layoutY="84.0" prefHeight="30.0" prefWidth="112.0" text="Titre Offre :" />

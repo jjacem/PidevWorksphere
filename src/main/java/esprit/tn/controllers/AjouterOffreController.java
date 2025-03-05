@@ -55,7 +55,6 @@ public class AjouterOffreController {
         // Création du service d'ajout d'offre
         ServiceOffre serviceOffreEmploi = new ServiceOffre();
 
-
         // Validation des champs
         if (salaireoffre.getText().isEmpty() || titreoffre.getText().isEmpty() || typeoffre.getText().isEmpty() ||
                 lieuoffre.getText().isEmpty() || statutoffre.getText().isEmpty() || experienceoffre.getText().isEmpty() ||
@@ -99,7 +98,6 @@ public class AjouterOffreController {
             return;
         }
 
-
         // Récupération des données saisies dans les champs
         OffreEmploi o1 = new OffreEmploi(Integer.parseInt(salaireoffre.getText()),titreoffre.getText(),descriptionoffre.getText() ,typeoffre.getText(),lieuoffre.getText(),statutoffre.getText(),experienceoffre.getText(),java.sql.Date.valueOf(datepublication.getValue()),java.sql.Date.valueOf(datelimite.getValue()));
 
@@ -135,12 +133,5 @@ public class AjouterOffreController {
             alert.setContentText("Échec de l'ajout de l'offre d'emploi.");
             alert.showAndWait();
         }
-    }
-
-    public void AfficherOffre(ActionEvent actionEvent) {
-        // Close the current window without doing anything else
-        // The main window is already showing the offers
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
     }
 }
