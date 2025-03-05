@@ -227,3 +227,19 @@
 .stat-button:hover {
     -fx-background-color: #004466;
 }
+
+.chatbot-button {
+    -fx-background-color: white; /* Couleur bleue */
+    -fx-background-radius: 50%; /* Rond */
+    -fx-border-radius: 50%; /* Rond */
+    -fx-padding: 10; /* Espacement interne */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 0, 0); /* Ombre */
+}
+
+.chatbot-button:hover {
+    -fx-background-color: #0066CC; /* Bleu plus foncé au survol */
+}
+
+.chatbot-button:pressed {
+    -fx-background-color: #0055AA; /* Bleu encore plus foncé lorsqu'on clique */
+}

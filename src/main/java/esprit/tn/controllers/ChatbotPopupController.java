@@ -1,23 +1,26 @@
 package esprit.tn.controllers;
+
 import esprit.tn.services.ChatbotEquipeService;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.util.List;
+
 public class ChatbotPopupController {
 
     @FXML
-    private HBox questionsContainer;
+    private VBox questionsContainer;
 
     @FXML
     private ListView<HBox> chatList;
@@ -26,7 +29,6 @@ public class ChatbotPopupController {
     private TextField questionField;
 
     private ChatbotEquipeService chatbotService = new ChatbotEquipeService();
-
     @FXML
     public void initialize() {
         // Afficher un message d'accueil
@@ -35,13 +37,13 @@ public class ChatbotPopupController {
         // Ajouter des exemples de questions
         List<String> questions = Arrays.asList(
                 "Quel est le nombre total d'équipes ?",
-                "Quel est le nombre total de membres ?",
-                "Quel est le nombre moyen de membres par équipe ?",
-                "Quelle est l'équipe avec le plus de membres ?",
-                "Quelle est l'équipe avec le moins de membres ?"
+                "Quel est le nombre total des employés ?",
+                "Quel est le nombre moyen d'employé par équipe ?",
+                "Quelle est l'équipe avec le plus d'employés ?",
+                "Quelle est l'équipe avec le moins d'employés ?"
         );
 
-        // Afficher les questions par paires
+
         for (int i = 0; i < questions.size(); i += 2) {
             HBox questionRow = new HBox(10);
             questionRow.setAlignment(Pos.CENTER);
@@ -54,6 +56,7 @@ public class ChatbotPopupController {
             }
 
             questionsContainer.getChildren().add(questionRow);
+            VBox.setMargin(questionRow, new Insets(5, 0, 5, 0));
         }
     }
 
@@ -63,6 +66,7 @@ public class ChatbotPopupController {
         chatList.getItems().add(messageBox);
     }
 
+
     private void afficherMessageChatbot(String message, boolean isWelcome) {
         ImageView botIcon = new ImageView(new Image(getClass().getResourceAsStream("/images/profil.png")));
         botIcon.setFitWidth(30);
@@ -71,6 +75,7 @@ public class ChatbotPopupController {
         HBox messageBox = creerBulleMessage(message, Pos.CENTER_LEFT, "#E5E5EA", "black", isWelcome ? botIcon : null);
         chatList.getItems().add(messageBox);
     }
+
 
     private HBox creerBulleMessage(String texte, Pos alignement, String bgColor, String textColor, ImageView icon) {
         Label messageLabel = new Label(texte);
@@ -90,15 +95,17 @@ public class ChatbotPopupController {
         return messageBox;
     }
 
+
     private HBox creerCarteQuestion(String question) {
         Label questionLabel = new Label(question);
         questionLabel.setWrapText(true);
-        questionLabel.setStyle("-fx-background-color: #FFFFFF; -fx-padding: 10px; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #CCCCCC; -fx-border-width: 1px;");
-        questionLabel.setMaxWidth(180);
+        questionLabel.setStyle("-fx-font-size: 11px; -fx-text-fill:black;");
+        questionLabel.setMaxWidth(300);
 
         HBox card = new HBox(questionLabel);
         card.setAlignment(Pos.CENTER);
-        card.setPadding(new Insets(5));
+        card.setPadding(new Insets(10)); // Padding réduit
+        card.setStyle("-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #0078FF; -fx-border-width: 1px;");
         card.getStyleClass().add("question-card");
 
         card.setOnMouseClicked(event -> {
@@ -110,16 +117,16 @@ public class ChatbotPopupController {
     }
 
     private void simulerChargementReponse(String question) {
-        // Afficher l'effet de chargement
+
         HBox loadingBox = creerBulleMessage("...", Pos.CENTER_LEFT, "#E5E5EA", "black", null);
         chatList.getItems().add(loadingBox);
 
-        // Simuler un délai de chargement
+
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             chatList.getItems().remove(loadingBox); // Retirer l'effet de chargement
-            String response = chatbotService.repondre(question);
-            afficherMessageChatbot(response, false);
+            String response = chatbotService.repondre(question); // Obtenir la réponse du service
+            afficherMessageChatbot(response, false); // Afficher la réponse
         });
         pause.play();
     }

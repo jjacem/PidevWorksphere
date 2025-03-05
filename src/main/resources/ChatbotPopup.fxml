@@ -4,10 +4,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="447.0" prefWidth="677.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ChatbotPopupController">
+<VBox fx:id="mainContainer" style="-fx-background-color: white;" styleClass="main-container" prefHeight="447.0" prefWidth="677.0" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ChatbotPopupController">
     <padding>
         <Insets bottom="10" left="10" right="10" top="10" />
     </padding>
@@ -22,7 +21,6 @@
     <!-- Liste des messages (questions et réponses) -->
     <ListView fx:id="chatList" styleClass="chat-list" VBox.vgrow="ALWAYS" />
 
-    <!-- Liste des questions -->
-    <HBox fx:id="questionsContainer" alignment="CENTER" spacing="10" />
-
+    <!-- Conteneur pour les questions -->
+    <VBox fx:id="questionsContainer" alignment="CENTER" spacing="10" />
 </VBox>

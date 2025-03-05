@@ -1,5 +1,6 @@
+
 .root {
-    -fx-background-color: #F5F5F5;
+    -fx-background-color: white;
     -fx-font-family: "Arial";
 }
 
@@ -36,13 +37,15 @@
     -fx-background-color: white;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
-    -fx-border-color: #CCCCCC;
-    -fx-border-width: 1px;
-    -fx-padding: 15px;
+    -fx-border-color: #0078FF;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 5, 0, 0);
     -fx-cursor: hand;
-    -fx-font-size: 14px;
+    -fx-font-size: 11px;
     -fx-text-fill: #333333;
+    -fx-min-width: 150px;
+    -fx-max-width: 150px;
 }
 
 .question-card:hover {
@@ -50,12 +53,18 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 5, 0, 0);
 }
 
-.send-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-cursor: hand;
+.question-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #0078FF;
+    -fx-font-weight: bold;
 }
 
-.send-button:hover {
-    -fx-opacity: 0.8;
+
+.main-container {
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 5, 0, 0);
 }
+
+
