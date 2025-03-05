@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+
+<?import javafx.scene.layout.Region?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="esprit.tn.controllers.AfficherdetailsProjetController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@detailsProjet.css"> <!-- Lier le fichier CSS -->
+
+    <!-- Conteneur principal centré avec un fond blanc et une bordure arrondie -->
+    <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" styleClass="main-card">
+        <!-- HBox pour le nom de l'équipe (à gauche) et le bouton Convertir en PDF (à droite) -->
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="header-box">
+            <!-- Nom de l'équipe aligné à gauche -->
+            <Label fx:id="nomEquipeLabel" styleClass="label-title" HBox.hgrow="ALWAYS" />
+            <!-- Espacer pour pousser le bouton à droite -->
+            <Region HBox.hgrow="ALWAYS" />
+            <!-- Bouton Convertir en PDF aligné à droite -->
+            <Button text="Convertir en PDF" onAction="#convertirEnPDF" styleClass="pdf-button" />
+        </HBox>
+
+        <!-- Image du projet centrée -->
+        <ImageView fx:id="imageProjetView" fitWidth="150" fitHeight="150" styleClass="image-projet">
+            <clip>
+                <Circle radius="75" centerX="75" centerY="75" />
+            </clip>
+        </ImageView>
+
+        <!-- Conteneur pour la description et le nom du projet alignés à gauche -->
+        <VBox alignment="TOP_LEFT" spacing="10" styleClass="description-container">
+            <!-- Description du projet alignée à gauche -->
+            <Label fx:id="descriptionProjetLabel" wrapText="true" styleClass="label-text"  />
+            <!-- Nom du projet aligné à gauche -->
+            <Label fx:id="nomProjetLabel" styleClass="label-title" />
+        </VBox>
+
+        <!-- ScrollPane pour la liste des employés -->
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+            <VBox fx:id="employesContainer" spacing="15" styleClass="members-container" />
+        </ScrollPane>
+    </VBox>
+</AnchorPane>

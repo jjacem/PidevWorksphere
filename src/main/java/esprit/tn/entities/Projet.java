@@ -9,21 +9,23 @@ public class Projet {
     private String description;
     private Date datecréation, deadline;
     private EtatProjet etat;
+    private String imageProjet;
     private Equipe equipe;
 
     public Projet() {
     }
 
-    public Projet(int id, String nom, String description, Date datecréation, Date deadline,  EtatProjet etat,Equipe equipe) {
+    public Projet(int id, String nom, String description, Date datecréation, Date deadline, EtatProjet etat, String imageProjet, Equipe equipe) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.datecréation = datecréation;
         this.deadline = deadline;
         this.etat = etat;
+        this.imageProjet = imageProjet;
         this.equipe = equipe;
-
     }
+
     public Projet(int id, String nom, String description, Date datecréation, Date deadline,  EtatProjet etat) {
         this.id = id;
         this.nom = nom;
@@ -35,7 +37,16 @@ public class Projet {
 
     }
 
+    public Projet(int id, String nom, String description, Date datecréation, Date deadline, EtatProjet etat, String imageProjet) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.datecréation = datecréation;
+        this.deadline = deadline;
+        this.etat = etat;
+        this.imageProjet = imageProjet;
 
+    }
 
     public Equipe getEquipe() {
         return equipe;
@@ -93,12 +104,20 @@ public class Projet {
         this.etat = etat;
     }
 
+    public String getImageProjet() {
+        return imageProjet;
+    }
+
+    public void setImageProjet(String imageProjet) {
+        this.imageProjet = imageProjet;
+    }
 
     @Override
     public String toString() {
         return "Projet{\n" +
                 "ID             :" + id +"\n" +
                 "NOM            :" + nom + "\n" +
+                "  Image     : " + imageProjet + "\n" +
                 "DATE CREATION  :" + datecréation +"\n" +
                 "DESCRIPTION    :" + description + "\n" +
                 "DEADLINE       :" + deadline  + "\n"+

@@ -4,14 +4,17 @@ import esprit.tn.entities.*;
 import esprit.tn.services.ServiceProjet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import esprit.tn.entities.EtatProjet;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,10 +22,13 @@ import java.util.Optional;
 
 public class AfficherProjetController {
     @FXML
-    private ListView<Projet> projetListView;
+    private VBox projetsContainer;
 
     @FXML
     private TextField searchField;
+
+    @FXML
+    private ComboBox<String> etatFilter;
 
     private ServiceProjet serviceProjet;
 
@@ -35,108 +41,25 @@ public class AfficherProjetController {
         try {
             // Charger tous les projets
             List<Projet> projets = serviceProjet.afficherProjet();
-            projetListView.getItems().addAll(projets);
+            afficherProjets(projets);
+
+            // Initialiser le filtre par état
+            etatFilter.getItems().addAll("TOUS", "EnCours", "Terminé", "Annulé");
+            etatFilter.setValue("TOUS"); // Valeur par défaut
+
+            // Ajouter des Listener sur les ComboBox pour la recherche dynamique
+            etatFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
+                appliquerFiltre();
+            });
 
             // Ajouter un Listener sur le TextField pour la recherche dynamique
             searchField.textProperty().addListener((observable, oldValue, newValue) -> {
                 try {
-                    //appel te3 recherche + maj liste
+                    // Appel de la recherche + mise à jour de la liste
                     List<Projet> projetsFiltres = serviceProjet.rechercherProjet(newValue);
-
-                    projetListView.getItems().clear();
-                    projetListView.getItems().addAll(projetsFiltres);
+                    afficherProjets(projetsFiltres);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                }
-            });
-
-            // Personnalisation te3 liste
-            projetListView.setCellFactory(param -> new ListCell<Projet>() {
-                private final AnchorPane cellContainer = new AnchorPane();
-                private final VBox leftContent = new VBox(10);
-                private final HBox buttonBox = new HBox(10);
-                private final Label nomLabel = new Label();
-                private final Label descriptionLabel = new Label();
-                private final Label dateCreationLabel = new Label();
-                private final Label deadlineLabel = new Label();
-                private final Label etatLabel = new Label();
-                private final Label equipeLabel = new Label();
-
-                private final Button modifierBtn = new Button("Modifier");
-                private final Button supprimerBtn = new Button("Supprimer");
-
-       {
-
-           leftContent.getChildren().addAll(nomLabel, descriptionLabel, equipeLabel, dateCreationLabel, deadlineLabel, etatLabel);
-
-
-            modifierBtn.setStyle("-fx-background-color: #ffbb33; -fx-text-fill: white;");
-             supprimerBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
-
-                    // Ajout te3 event lel btn supp w modif"
-              supprimerBtn.setOnAction(event -> {
-                        Projet projet = getItem();
-                        if (projet != null) {
-                            supprimerProjet(projet.getId());
-                        }
-                    });
-                    modifierBtn.setOnAction(event -> {
-                        Projet projet = getItem();
-                        if (projet != null) {
-                            try {
-
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
-                                Parent root = loader.load();
-
-                                ModifierProjetController modifierProjetController = loader.getController();
-                                modifierProjetController.setProjetAModifier(projet);
-
-
-                                Stage stage = (Stage) projetListView.getScene().getWindow();
-
-
-                                stage.setScene(new Scene(root));
-                                stage.setTitle("Modifier un Projet");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-                    buttonBox.getChildren().addAll(modifierBtn, supprimerBtn);
-
-                    AnchorPane.setLeftAnchor(leftContent, 10.0);
-                    AnchorPane.setRightAnchor(buttonBox, 10.0);
-                    AnchorPane.setTopAnchor(leftContent, 10.0);
-                    AnchorPane.setTopAnchor(buttonBox, 10.0);
-
-                    cellContainer.getChildren().addAll(leftContent, buttonBox);
-                    cellContainer.setStyle("-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15;"
-                            + "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);");
-                }
-
-                @Override
-                protected void updateItem(Projet projet, boolean empty) {
-                    super.updateItem(projet, empty);
-
-                    if (empty || projet == null) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-
-                        nomLabel.setText(projet.getNom());
-                        nomLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #0086b3;");
-
-                        descriptionLabel.setText("Description : " + projet.getDescription());
-                        descriptionLabel.setStyle("-fx-font-size: 14; -fx-text-fill: #555;");
-                        equipeLabel.setText("Equipe : " + projet.getEquipe().getNomEquipe());
-
-                        dateCreationLabel.setText("Créé le : " + projet.getDatecréation());
-                        deadlineLabel.setText("Deadline : " + projet.getDeadline());
-                        etatLabel.setText("État : " + projet.getEtat().name());
-
-                        setGraphic(cellContainer);
-                    }
                 }
             });
 
@@ -145,19 +68,157 @@ public class AfficherProjetController {
         }
     }
 
+    private void afficherProjets(List<Projet> projets) {
+        projetsContainer.getChildren().clear(); // Vider le conteneur
 
+        if (projets.isEmpty()) {
+            Label messageLabel = new Label("Aucun projet trouvé");
+            messageLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666666; -fx-font-style: italic;");
+            projetsContainer.getChildren().add(messageLabel);
+        } else {
+            for (Projet projet : projets) {
+                // Créer une carte pour chaque projet
+                HBox card = new HBox(20);
+                card.getStyleClass().add("card");
+                card.setAlignment(Pos.CENTER_LEFT);
 
+                // Ajouter l'image du projet
+                ImageView imageView = new ImageView();
+                if (projet.getImageProjet() != null && !projet.getImageProjet().trim().isEmpty()) {
+                    String correctPath = "C:/xampp/htdocs/img/" + new File(projet.getImageProjet()).getName();
+                    File imageFile = new File(correctPath);
+                    if (imageFile.exists() && imageFile.isFile()) {
+                        imageView.setImage(new Image(imageFile.toURI().toString()));
+                    } else {
+                        imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                    }
+                } else {
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                }
+                imageView.setFitHeight(80);
+                imageView.setFitWidth(80);
+                imageView.getStyleClass().add("card-image");
 
+                // Informations du projet
+                VBox infoBox = new VBox(5);
+                infoBox.setAlignment(Pos.CENTER_LEFT);
+
+                Label nomLabel = new Label(projet.getNom());
+                nomLabel.getStyleClass().add("card-label");
+
+                Label equipeLabel = new Label("Équipe : " + projet.getEquipe().getNomEquipe());
+                equipeLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
+
+                Label dateCreationLabel = new Label("Créé le : " + projet.getDatecréation());
+                dateCreationLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
+
+                Label deadlineLabel = new Label("Deadline : " + projet.getDeadline());
+                deadlineLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
+
+                // Créer un Label pour l'état avec un style personnalisé
+                Label etatLabel = new Label(projet.getEtat().name());
+                etatLabel.getStyleClass().add("chip");
+
+                // Appliquer un style en fonction de l'état
+                switch (projet.getEtat()) {
+                    case Terminé:
+                        etatLabel.getStyleClass().add("chip-termine");
+                        break;
+                    case Annulé:
+                        etatLabel.getStyleClass().add("chip-annule");
+                        break;
+                    case EnCours:
+                        etatLabel.getStyleClass().add("chip-en-cours");
+                        break;
+                    default:
+                        etatLabel.getStyleClass().add("chip-default");
+                }
+
+                infoBox.getChildren().addAll(nomLabel, equipeLabel, dateCreationLabel, deadlineLabel, etatLabel);
+
+                // Boutons pour les actions
+                Button detailsButton = new Button("Détails");
+                detailsButton.getStyleClass().addAll("card-button", "details-button");
+                detailsButton.setOnAction(event -> afficherDetailsProjet(projet));
+
+                Button modifierButton = new Button("Modifier");
+                modifierButton.getStyleClass().addAll("card-button", "modifier-button");
+                modifierButton.setOnAction(event -> modifierProjet(projet));
+
+                Button supprimerButton = new Button("Supprimer");
+                supprimerButton.getStyleClass().addAll("card-button", "supprimer-button");
+                supprimerButton.setOnAction(event -> supprimerProjet(projet.getId()));
+
+                // Utiliser un Region pour pousser les boutons à droite
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                // Ajouter les éléments à la carte
+                card.getChildren().addAll(imageView, infoBox, spacer, detailsButton, modifierButton, supprimerButton);
+                projetsContainer.getChildren().add(card);
+            }
+        }
+    }
     @FXML
     private void AjouterBTN() {
         try {
+            // Charger le fichier FXML pour la fenêtre d'ajout
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterProjet.fxml"));
+            Parent root = loader.load();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/AjouterProjet.fxml"));
-            Stage stage = (Stage) projetListView.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
             stage.setTitle("Ajouter un Projet");
+            stage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
+            stage.showAndWait();
+
+            // Rafraîchir la liste des projets après l'ajout
+            try {
+                List<Projet> projets = serviceProjet.afficherProjet();
+                afficherProjets(projets); // Rafraîchir la liste des projets
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void modifierProjet(Projet projet) {
+        try {
+            // Charger le fichier FXML pour la fenêtre de modification
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierProjet.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir le contrôleur de la fenêtre de modification
+            ModifierProjetController controller = loader.getController();
+            controller.setProjetAModifier(projet); // Passer le projet à modifier
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Modifier un projet");
+            stage.initModality(Modality.APPLICATION_MODAL); // Rendre la fenêtre modale
+            stage.setScene(new Scene(root));
+
+            // Afficher la fenêtre et attendre sa fermeture
+            stage.showAndWait();
+
+            // Rafraîchir la liste des projets après la modification
+            try {
+                List<Projet> projets = serviceProjet.afficherProjet();
+                afficherProjets(projets); // Rafraîchir la liste des projets
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
     }
     @FXML
@@ -172,13 +233,11 @@ public class AfficherProjetController {
             } else {
                 projets = serviceProjet.rechercherProjet(searchText);
             }
-            projetListView.getItems().clear();
-            projetListView.getItems().addAll(projets);
+            afficherProjets(projets);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void supprimerProjet(int id) {
@@ -197,14 +256,7 @@ public class AfficherProjetController {
 
                 // Rafraîchir la liste des projets
                 List<Projet> projets = serviceProjet.afficherProjet();
-                projetListView.getItems().clear();
-                projetListView.getItems().addAll(projets);
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Succès");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Projet supprimé avec succès !");
-                applyAlertStyle(successAlert);
-                successAlert.showAndWait();
+                afficherProjets(projets);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -214,7 +266,6 @@ public class AfficherProjetController {
 
     @FXML
     private void supprimerTousProjet() {
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
         alert.setHeaderText("Êtes-vous sûr de vouloir supprimer tous les projets ?");
@@ -224,47 +275,64 @@ public class AfficherProjetController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-
                 serviceProjet.supprimerTousProjet();
 
+                // Rafraîchir la liste des projets
                 List<Projet> projets = serviceProjet.afficherProjet();
-                projetListView.getItems().clear();
-                projetListView.getItems().addAll(projets);
+                afficherProjets(projets);
 
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Succès");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Tous les projets ont été supprimés avec succès !");
-                applyAlertStyle(successAlert);
-                successAlert.showAndWait();
 
             } catch (SQLException e) {
                 e.printStackTrace();
-
             }
         }
     }
 
 
+
     @FXML
-    public void versProjet() {
+    private void afficherDetailsProjet(Projet projet) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherdetailsProjet.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) projetListView.getScene().getWindow();
-            stage.getScene().setRoot(root);
+
+            // Passer le projet au contrôleur des détails
+            AfficherdetailsProjetController detailsController = loader.getController();
+            detailsController.setProjet(projet);
+
+            // Créer une nouvelle fenêtre
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Détails du Projet");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
+    }
+
+    @FXML
+    private void appliquerFiltre() {
+        try {
+            // Récupérer les valeurs des filtres
+            String nomProjet = searchField.getText().trim();
+            String etat = etatFilter.getValue();
+
+            // Appliquer le filtre
+            List<Projet> projetsFiltres = serviceProjet.rechercherProjetParEtat(nomProjet, etat);
+
+            // Mettre à jour la liste des projets
+            afficherProjets(projetsFiltres);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

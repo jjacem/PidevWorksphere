@@ -2,8 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.services.ServiceEquipe;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -11,14 +10,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import esprit.tn.entities.Equipe;
-import esprit.tn.entities.User;
+import esprit.tn.entities.*;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AfficherDetailsEquipeController {
@@ -34,7 +31,7 @@ public class AfficherDetailsEquipeController {
 
     @FXML
     private ImageView imageEquipeView;
-
+    private List<User> membresInitiaux;
     private Equipe equipe;
     private ServiceEquipe serviceEquipe = new ServiceEquipe();
 
@@ -43,6 +40,17 @@ public class AfficherDetailsEquipeController {
         afficherDetails();
     }
 
+
+    @FXML
+    public void initialize() {
+        // Ajouter un écouteur sur le champ de recherche
+        rechercheField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                // Si le champ de recherche est vide, restaurer la liste initiale
+                afficherMembres(membresInitiaux);
+            }
+        });
+    }
 
     private void afficherDetails() {
         nomEquipeLabel.setText(equipe.getNomEquipe());
@@ -55,119 +63,110 @@ public class AfficherDetailsEquipeController {
                 imageEquipeView.setImage(new Image(imageFile.toURI().toString()));
             } else {
                 System.out.println("Fichier image introuvable ou chemin invalide : " + imageFile.getAbsolutePath());
-                imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+                imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
             }
         } else {
             System.out.println("Aucun chemin d'image fourni pour l'équipe : " + equipe.getNomEquipe());
-            imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+            imageEquipeView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
         }
 
+        // Stocker la liste initiale des membres
+        membresInitiaux = new ArrayList<>(equipe.getEmployes());
+
         // Afficher les membres de l'équipe
-        for (User user : equipe.getEmployes()) {
-            HBox card = new HBox(10);
-            card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+        afficherMembres(membresInitiaux);
+
+        // Afficher les projets de l'équipe
+        Label projetsLabel = new Label("Projets associés :");
+        projetsLabel.getStyleClass().add("projets-label");
+        membresContainer.getChildren().add(projetsLabel);
+
+        for (Projet projet : equipe.getProjets()) {
+            Label projetLabel = new Label(projet.getNom());
+            projetLabel.getStyleClass().add("projet-name");
+            membresContainer.getChildren().add(projetLabel);
+        }
+    }
+    private void afficherMembres(List<User> membres) {
+        membresContainer.getChildren().clear(); // Vider le conteneur
+
+        for (User user : membres) {
+            HBox card = new HBox(15);
+            card.getStyleClass().add("member-card");
+            card.setAlignment(Pos.CENTER_LEFT);
 
             // Création de l'image view pour le membre
             ImageView imageView = new ImageView();
             String imageProfil = user.getImageProfil();
 
-            if (imageProfil != null && !imageProfil.isEmpty()) {
-                try {
-                    // Charger l'image depuis l'URL
-                    Image image = new Image(imageProfil);
-                    imageView.setImage(image);
-                } catch (Exception e) {
-                    // Utiliser une image par défaut en cas d'erreur
-                    Image defaultImage = new Image(getClass().getResource("/images/profil.png").toExternalForm());
-                    imageView.setImage(defaultImage);
+            if (imageProfil != null && !imageProfil.trim().isEmpty()) {
+                String correctPath = "C:/xampp/htdocs/img/" + new File(imageProfil).getName();
+                System.out.println(correctPath); // Debug : afficher le chemin
+                File imageFile = new File(correctPath);
+                if (imageFile.exists() && imageFile.isFile()) {
+                    imageView.setImage(new Image(imageFile.toURI().toString()));
+                } else {
+                    System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                    imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
                 }
             } else {
-                // Utiliser une image par défaut si aucune image n'est définie
-                Image defaultImage = new Image(getClass().getResource("/images/profil.png").toExternalForm());
-                imageView.setImage(defaultImage);
+                System.out.println("No image path provided.");
+                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
             }
 
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
+            imageView.setFitWidth(60);
+            imageView.setFitHeight(60);
             imageView.setPreserveRatio(true);
-            imageView.setClip(new Circle(25, 25, 25));
+            imageView.setClip(new Circle(30, 30, 30));
+            imageView.getStyleClass().add("member-image");
+
+            VBox infoBox = new VBox(5);
+            infoBox.setAlignment(Pos.CENTER_LEFT);
 
             Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
-            nomPrenomLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+            nomPrenomLabel.getStyleClass().add("member-name");
 
             Label emailLabel = new Label(user.getEmail());
-            emailLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #666666;");
+            emailLabel.getStyleClass().add("member-email");
 
-            card.getChildren().addAll(imageView, nomPrenomLabel, emailLabel);
+            infoBox.getChildren().addAll(nomPrenomLabel, emailLabel);
+            card.getChildren().addAll(imageView, infoBox);
             membresContainer.getChildren().add(card);
         }
     }
 
     @FXML
-    public void retour() {
-        try {
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) membresContainer.getScene().getWindow();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
     private void rechercherEmployee() {
-        try {
-            String searchText = rechercheField.getText().trim();
-            List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
+        String searchText = rechercheField.getText().trim();
 
-            membresContainer.getChildren().clear();
+        if (searchText.isEmpty()) {
+            // Si le champ de recherche est vide, restaurer la liste initiale
+            afficherMembres(membresInitiaux);
+        } else {
+            try {
+                List<User> resultats = serviceEquipe.rechercherEmployee(equipe.getId(), searchText);
 
-            for (User user : resultats) {
-                HBox card = new HBox(10);
-                card.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+                // Vider le conteneur avant d'ajouter de nouveaux éléments
+                membresContainer.getChildren().clear();
 
+                // Afficher les employés trouvés
+                afficherMembres(resultats);
 
-                ImageView imageView = new ImageView();
-                String imageProfil = user.getImageProfil();
-
-                if (imageProfil != null && !imageProfil.isEmpty()) {
-                    try {
-
-                        Image image = new Image(imageProfil);
-                        imageView.setImage(image);
-                    } catch (Exception e) {
-                        URL imageUrl = getClass().getResource("/images/profil.png");
-                        if (imageUrl != null) {
-                            Image defaultImage = new Image(imageUrl.toExternalForm());
-                            imageView.setImage(defaultImage);
-                        }
-                    }
-                } else {
-                    URL imageUrl = getClass().getResource("/images/profil.png");
-                    if (imageUrl != null) {
-                        Image defaultImage = new Image(imageUrl.toExternalForm());
-                        imageView.setImage(defaultImage);
-                    }
-                }
-
-                imageView.setFitWidth(50);
-                imageView.setFitHeight(50);
-                imageView.setPreserveRatio(true);
-                imageView.setClip(new Circle(25, 25, 25));
-
-                Label nomPrenomLabel = new Label(user.getNom() + " " + user.getPrenom());
-                nomPrenomLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;");
-
-                card.getChildren().addAll(imageView, nomPrenomLabel);
-                membresContainer.getChildren().add(card);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+
+        // Afficher les projets associés à l'équipe
+        Label projetsLabel = new Label("Projets associés :");
+        projetsLabel.getStyleClass().add("projets-label");
+        membresContainer.getChildren().add(projetsLabel);
+
+        for (Projet projet : equipe.getProjets()) {
+            Label projetLabel = new Label(projet.getNom());
+            projetLabel.getStyleClass().add("projet-name");
+            membresContainer.getChildren().add(projetLabel);
         }
     }
-
 
 }

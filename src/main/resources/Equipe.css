@@ -1,0 +1,122 @@
+
+.anchor-pane {
+    -fx-background-color: #f0f0f0;
+}
+
+
+.vbox {
+    -fx-background-color: white;
+    -fx-padding: 30px;
+    -fx-spacing: 20px;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 15, 0, 0, 0);
+}
+
+
+.title-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+
+.text-field {
+    -fx-pref-height: 35px;
+    -fx-pref-width: 400px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+
+.list-view {
+    -fx-pref-height: 200px;
+    -fx-pref-width: 300px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+}
+
+
+.button {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 20px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+
+#uploadImageButton {
+    -fx-background-color: #3498db;
+}
+
+
+#ajouterUnButton {
+    -fx-background-color: #007131;
+}
+
+
+#ajouterTousButton {
+    -fx-background-color: #0086b3;
+}
+
+
+#supprimerUnButton {
+    -fx-background-color: #e67e22;
+}
+
+
+#clearAllButton {
+    -fx-background-color: #e74c3c; /* Rouge */
+}
+
+
+#confirmerButton {
+    -fx-background-color: #27ae60;
+}
+
+
+#annulerButton {
+    -fx-background-color: #95a5a6; /* Gris */
+}
+
+
+#imageContainer {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-color: #f9f9f9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+
+#imagePreview {
+    -fx-fit-height: 100px;
+    -fx-fit-width: 100px;
+}
+
+
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+
+.hbox {
+    -fx-spacing: 15px;
+    -fx-alignment: CENTER;
+}
+
+
+.vbox {
+    -fx-spacing: 10px;
+}

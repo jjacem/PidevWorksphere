@@ -1,139 +1,4 @@
-/*package esprit.tn.controllers;
 
-import esprit.tn.entities.Evenement;
-import esprit.tn.services.ServiceEvenement;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-public class AjouterEvenementController {
-
-    @FXML
-    private TextField nomEventTextField;
-    @FXML
-    private TextArea descEventTextArea;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField timeTextField;
-    @FXML
-    private TextField lieuEventTextField;
-    @FXML
-    private TextField capaciteEventTextField;
-    @FXML
-    private Button ajouterBtn;
-
-    // Labels d'erreur
-    @FXML
-    private Label nomEventErrorLabel;
-    @FXML
-    private Label descEventErrorLabel;
-    @FXML
-    private Label dateEventErrorLabel;
-    @FXML
-    private Label timeEventErrorLabel;
-    @FXML
-    private Label lieuEventErrorLabel;
-    @FXML
-    private Label capaciteEventErrorLabel;
-
-    @FXML
-    public void ajouterEvenement(ActionEvent event) {
-        // Réinitialiser les erreurs avant de commencer
-        resetErrorMessages();
-
-        try {
-            // Récupérer les données saisies
-            String nomEvent = nomEventTextField.getText();
-            if (nomEvent.isEmpty()) {
-                nomEventErrorLabel.setText("Le nom ne peut pas être vide.");
-                nomEventErrorLabel.setVisible(true);
-                return;
-            }
-
-            String descEvent = descEventTextArea.getText();
-            if (descEvent.isEmpty()) {
-                descEventErrorLabel.setText("La description ne peut pas être vide.");
-                descEventErrorLabel.setVisible(true);
-                return;
-            }
-
-            LocalDate date = datePicker.getValue();
-            if (date == null) {
-                dateEventErrorLabel.setText("Veuillez sélectionner une date.");
-                dateEventErrorLabel.setVisible(true);
-                return;
-            }
-
-            String timeText = timeTextField.getText();
-            LocalTime time;
-            try {
-                time = LocalTime.parse(timeText, DateTimeFormatter.ofPattern("HH:mm"));
-            } catch (Exception e) {
-                timeEventErrorLabel.setText("L'heure doit être au format HH:mm:ss");
-                timeEventErrorLabel.setVisible(true);
-                return;
-            }
-
-            String lieuEvent = lieuEventTextField.getText();
-            if (lieuEvent.isEmpty()) {
-                lieuEventErrorLabel.setText("Le lieu ne peut pas être vide.");
-                lieuEventErrorLabel.setVisible(true);
-                return;
-            }
-
-            int capaciteEvent;
-            try {
-                capaciteEvent = Integer.parseInt(capaciteEventTextField.getText());
-                if (capaciteEvent <= 0) {
-                    throw new NumberFormatException();
-                }
-            } catch (NumberFormatException e) {
-                capaciteEventErrorLabel.setText("La capacité doit être un entier positif.");
-                capaciteEventErrorLabel.setVisible(true);
-                return;
-            }
-
-            // Créer l'événement
-            Evenement evenement = new Evenement(nomEvent, descEvent, LocalDateTime.of(date, time), lieuEvent, capaciteEvent, 1); // 1 est l'ID de l'utilisateur
-
-            // Appeler le service pour ajouter l'événement
-            ServiceEvenement serviceEvenement = new ServiceEvenement();
-            serviceEvenement.ajouter(evenement);
-
-            // Afficher un message de succès
-            showAlert(AlertType.INFORMATION, "Succès", "Événement ajouté avec succès !");
-
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Erreur", "Une erreur s'est produite : " + e.getMessage());
-        }
-    }
-
-    private void resetErrorMessages() {
-        // Réinitialiser les messages d'erreur
-        nomEventErrorLabel.setVisible(false);
-        descEventErrorLabel.setVisible(false);
-        dateEventErrorLabel.setVisible(false);
-        timeEventErrorLabel.setVisible(false);
-        lieuEventErrorLabel.setVisible(false);
-        capaciteEventErrorLabel.setVisible(false);
-    }
-
-    private void showAlert(AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-}*/
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Evenement;
@@ -187,7 +52,34 @@ public class AjouterEvenementController {
     private Label lieuEventErrorLabel;
     @FXML
     private Label capaciteEventErrorLabel;
+    @FXML
+    private TextArea themeIdeasTextArea;
+    @FXML
+    private Button getThemeIdeasButton;
 
+    /* @FXML
+     public void getThemeIdeas(ActionEvent event) {
+         String prompt = "Donne-moi des idées de thèmes pour un événement d'entreprise.";
+         try {
+             String response = AIHelper.generateContent(prompt);
+             // Traiter la réponse JSON pour extraire les idées de thème
+             themeIdeasTextArea.setText(response); // Exemple simple, vous devrez extraire les données pertinentes
+         } catch (IOException e) {
+             // Gérer l'erreur
+             e.printStackTrace();
+         }
+     }*/
+    @FXML
+    public void getThemeIdeas(ActionEvent event) {
+        String nomEvent = nomEventTextField.getText(); // Récupérer le nom de l'événement
+        String prompt = "Donne-moi des idées de thèmes pour un événement nommé " + nomEvent + "."; // Créer le prompt personnalisé
+        try {
+            String response = AIHelper.generateContent(prompt);
+            themeIdeasTextArea.setText(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void ajouterEvenement(ActionEvent event) {
         // Réinitialiser les erreurs avant de commencer
@@ -268,7 +160,7 @@ public class AjouterEvenementController {
             // Afficher un message de succès
             showAlert(AlertType.INFORMATION, "Succès", "Événement ajouté avec succès !");
 // Fermer la fenêtre de popup ajout
-           // ((Stage) ajouterBtn.getScene().getWindow()).close();
+            // ((Stage) ajouterBtn.getScene().getWindow()).close();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Erreur", "Une erreur s'est produite : " + e.getMessage());
         }
@@ -293,22 +185,4 @@ public class AjouterEvenementController {
     }
 
 
-    //private DashboardHR dashboard;
-
-
-
-    /*public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }
-

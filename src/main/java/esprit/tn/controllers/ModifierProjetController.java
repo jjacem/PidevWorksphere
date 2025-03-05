@@ -8,8 +8,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -32,14 +41,19 @@ public class ModifierProjetController {
     @FXML
     private ComboBox<String> etatComboBox;
 
-   /* @FXML
-    private ComboBox<Equipe> equipeComboBox;*/
+    @FXML
+    private ImageView imagePreview;
+
+    @FXML
+    private StackPane imageContainer;
 
     @FXML
     private ComboBox<String> equipeComboBox;
 
     private ServiceProjet serviceProjet;
     private Projet projetAModifier;
+
+    private String imagePath = "";
 
     public ModifierProjetController() {
         serviceProjet = new ServiceProjet();
@@ -63,6 +77,19 @@ public class ModifierProjetController {
         if (projet.getEquipe() != null) {
             equipeComboBox.setValue(projet.getEquipe().getNomEquipe());
         }
+
+        if (projet.getImageProjet() != null && !projet.getImageProjet().isEmpty()) {
+            String correctPath = "C:/xampp/htdocs/img/" + new File(projet.getImageProjet()).getName();
+            File imageFile = new File(correctPath);
+            if (imageFile.exists() && imageFile.isFile()) {
+                imagePreview.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                imagePreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+            }
+            imagePath = projet.getImageProjet(); // Conserver le chemin de l'image
+        } else {
+            imagePreview.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+        }
     }
     @FXML
     public void initialize() {
@@ -80,10 +107,11 @@ public class ModifierProjetController {
         }
     }
 
+
+
     @FXML
     private void ModifierProjet(ActionEvent event) {
         try {
-
             String nom = nomField.getText();
             String description = descriptionField.getText();
             LocalDate dateCreationLocal = dateCreationPicker.getValue();
@@ -100,7 +128,6 @@ public class ModifierProjetController {
                 }
             }
 
-
             if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null || deadlineLocal == null || etat == null || equipe == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Champs manquants");
@@ -111,10 +138,8 @@ public class ModifierProjetController {
                 return;
             }
 
-
             Date dateCreation = java.sql.Date.valueOf(dateCreationLocal);
             Date deadline = java.sql.Date.valueOf(deadlineLocal);
-
 
             if (dateCreation.after(deadline)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -136,6 +161,7 @@ public class ModifierProjetController {
                 return;
             }
 
+            // Mettre à jour les informations du projet
             projetAModifier.setNom(nom);
             projetAModifier.setDescription(description);
             projetAModifier.setDatecréation(dateCreation);
@@ -143,9 +169,15 @@ public class ModifierProjetController {
             projetAModifier.setEtat(EtatProjet.valueOf(etat));
             projetAModifier.setEquipe(equipe);
 
+            // Mettre à jour l'image du projet si une nouvelle image a été sélectionnée
+            if (!imagePath.isEmpty()) {
+                projetAModifier.setImageProjet(imagePath);
+            }
+
+            // Modifier le projet dans la base de données
             serviceProjet.modifierProjet(projetAModifier);
 
-
+            // Afficher un message de succès
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Succès");
             successAlert.setHeaderText(null);
@@ -153,64 +185,10 @@ public class ModifierProjetController {
             applyAlertStyle(successAlert);
             successAlert.showAndWait();
 
-
-            /*Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
-            //Parent root = FXMLLoader.load(getClass().getResource("/DashboardManager.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste des Projets");*/
+            stage.close();
 
-            // Charger le tableau de bord
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir le contrôleur du tableau de bord
-            DashboardManager dashboardController = loader.getController();
-
-            // Charger la page "Projet" dans le tableau de bord
-            dashboardController.loadPage("/AfficherProjet.fxml");
-
-            // Afficher la nouvelle scène
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-
-        }
-    }
-
-    /*@FXML
-    private void Retour(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/AfficherProjet.fxml"));
-            //Parent root = FXMLLoader.load(getClass().getResource("/DashboardManager.fxml"));
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-
-    @FXML
-    private void Retour(ActionEvent event) {
-        try {
-            // Charger le tableau de bord
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-
-            // Obtenir le contrôleur du tableau de bord
-            DashboardManager dashboardController = loader.getController();
-
-            // Charger la page "Projet" dans le tableau de bord
-            dashboardController.loadPage("/AfficherProjet.fxml");
-
-            // Afficher la nouvelle scène
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Liste Projet");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -220,5 +198,43 @@ public class ModifierProjetController {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
+    }
+
+    @FXML
+    //private void uploadImage(ActionEvent event) {
+    private void uploadImage(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Définir le répertoire de destination (htdocs/images/)
+                File uploadDir = new File("C:/xampp/htdocs/img");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Générer un nom de fichier unique
+                String fileName = System.currentTimeMillis() + "_" + selectedFile.getName();
+                File destinationFile = new File(uploadDir, fileName);
+
+                // Copier le fichier vers la destination
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Stocker le chemin relatif dans la variable
+                imagePath = "img/" + fileName;
+
+                // Afficher l'image dans l'ImageView
+                imagePreview.setImage(new Image(destinationFile.toURI().toString()));
+
+            } catch (Exception e) {
+                System.out.println("Erreur lors de l'ajout de la photo");
+            }
+        }
     }
 }

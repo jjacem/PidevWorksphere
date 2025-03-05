@@ -4,6 +4,7 @@ import esprit.tn.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -13,6 +14,10 @@ import esprit.tn.entities.User;
 import esprit.tn.services.ServiceEquipe;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -78,13 +83,41 @@ public class AjouterEquipeController {
 
             // Personnaliser l'affichage des employés dans la ListView
             employesListView.setCellFactory(param -> new ListCell<User>() {
+                private final ImageView imageView = new ImageView();
+                private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
+
                 @Override
                 protected void updateItem(User user, boolean empty) {
                     super.updateItem(user, empty);
                     if (empty || user == null) {
                         setText(null);
+                        setGraphic(null);
                     } else {
-                        setText(user.getPrenom() + " " + user.getNom());
+                        // Charger l'image de profil
+
+                        if (user.getImageProfil() != null && !user.getImageProfil().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(user.getImageProfil()).getName();
+                            System.out.println(correctPath); // Debug : afficher le chemin
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
+                        } else {
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                        }
+
+
+                        imageView.setFitWidth(40);
+                        imageView.setFitHeight(40);
+                        imageView.setPreserveRatio(true);
+
+                        // Afficher le nom et l'image
+                        HBox hbox = new HBox(10); // Espacement entre l'image et le texte
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        hbox.getChildren().addAll(imageView, new Label(user.getPrenom() + " " + user.getNom()));
+                        setGraphic(hbox);
                     }
                 }
             });
@@ -94,14 +127,42 @@ public class AjouterEquipeController {
             employesSelectionnesListView.setItems(employesSelectionnesList);
 
             // Personnaliser l'affichage des employés sélectionnés aussi
+
             employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
+                private final ImageView imageView = new ImageView();
+                private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
+
                 @Override
                 protected void updateItem(User user, boolean empty) {
                     super.updateItem(user, empty);
                     if (empty || user == null) {
                         setText(null);
+                        setGraphic(null);
                     } else {
-                        setText(user.getNom() + " " + user.getPrenom());
+                        // Charger l'image de profil
+                        if (user.getImageProfil() != null && !user.getImageProfil().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(user.getImageProfil()).getName();
+                            System.out.println(correctPath); // Debug : afficher le chemin
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
+                        } else {
+                            System.out.println("No image path provided.");
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                        }
+                        imageView.setFitWidth(40);
+                        imageView.setFitHeight(40);
+                        imageView.setPreserveRatio(true);
+
+                        // Afficher le nom et l'image
+                        HBox hbox = new HBox(10); // Espacement entre l'image et le texte
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        hbox.getChildren().addAll(imageView, new Label(user.getPrenom() + " " + user.getNom()));
+                        setGraphic(hbox);
                     }
                 }
             });
@@ -137,12 +198,28 @@ public class AjouterEquipeController {
     }
 
     @FXML
+    public void supprimerUnEmploye() {
+        User employeSelectionne = employesSelectionnesListView.getSelectionModel().getSelectedItem();
+
+        if (employeSelectionne != null) {
+            employesSelectionnesList.remove(employeSelectionne);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucune sélection");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un employé à supprimer");
+            applyAlertStyle(alert);
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
         List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
 
 
-        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2) {
+        if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2 || imagePath.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champ manquant");
             alert.setHeaderText(null);
@@ -175,15 +252,10 @@ public class AjouterEquipeController {
             applyAlertStyle(alert);
             alert.showAndWait();
 
-            // Rediriger vers la vue des équipes
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEquipe.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardManager.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nomEquipeField.getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.setTitle("Liste des équipes");
+            Stage stage = (Stage) confirmerButton.getScene().getWindow();
+            stage.close();
 
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -218,7 +290,8 @@ public class AjouterEquipeController {
     }
 
     @FXML
-    private void uploadImage(ActionEvent event) {
+    //private void uploadImage(ActionEvent event) {
+    private void uploadImage(MouseEvent event){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(
@@ -254,3 +327,4 @@ public class AjouterEquipeController {
         }
     }
 }
+

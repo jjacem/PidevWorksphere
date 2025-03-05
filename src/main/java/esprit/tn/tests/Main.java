@@ -16,6 +16,17 @@ public class Main {
 
         connection = MyDatabase.getInstance().getConnection();
 
+        ServiceSponsor sspos=new ServiceSponsor();
+        System.out.println(sspos.getSponsorEmailById(1));
+        /*try {
+            ServiceEvenement serviceEvenement = new ServiceEvenement();
+            Integer eventId = serviceEvenement.getEventIdByName("Université de Tunis El Manar");
+            System.out.println("ID de l'événement : " + eventId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+        /*EventSponsorService sspos=new EventSponsorService();
+        sspos.afficher();*/
 
 //        //test
 //        //user
@@ -166,8 +177,8 @@ public class Main {
 //        serviceUser.ajouter(u3);
 //        serviceUser.ajouter(u4);
 
-        Date currentDate = new Date();
-        Time currentTime = new Time(System.currentTimeMillis());
+     //   Date currentDate = new Date();
+       // Time currentTime = new Time(System.currentTimeMillis());
 
 //        Entretien entretien = new Entretien(
 //                "Entretien java hhhhhhhhhh  ",
@@ -208,7 +219,7 @@ public class Main {
 //            System.out.println("L'entretien n'existe pas !");
 //        }
 
-        User user= new User();
+     /*   User user= new User();
 
         user = user.Candidat(
                 "Smith",
@@ -223,12 +234,21 @@ public class Main {
 ServiceUser u=new ServiceUser();
 
 try {
-    System.out.println(u.returnReclamation());
+    System.out.println(user);
+    u.ajouter(user);
+    user.setRole(Role.CANDIDAT);
+    user.setSexe(Sexe.HOMME);
+    user.setSalaire(1500.00);
+    user.setExperienceTravail(5);
+    user.setDepartement("it");
+    user.setCompetence("no comp");
+    user.setIdUser(48);
+u.changetoEmploye(user);
 
 
 } catch (Exception e) {
     throw new RuntimeException(e);
-}
+}*/
 
 
 //        try {
@@ -254,21 +274,9 @@ try {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

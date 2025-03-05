@@ -1,17 +1,21 @@
+
+
 package esprit.tn.controllers;
-import javafx.geometry.Insets;
 
 import esprit.tn.entities.Evenement;
 import esprit.tn.entities.Role;
 import esprit.tn.services.ServiceEvenement;
+import esprit.tn.utils.DateUtilEvent;
+import esprit.tn.utils.NominatimAPI;
 import esprit.tn.utils.SessionManager;
+import esprit.tn.utils.WeatherAPI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,6 +27,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,78 +46,151 @@ public class AfficherEvenementController {
     private TextField txtRechercheEvent;
 
     private ObservableList<Evenement> observableList;
+
     @FXML
     private Button btnAjouterEvent;
+
     @FXML
     private Button btnretourdashRH;
+
     @FXML
     void initialize() {
         ServiceEvenement serviceEvenement = new ServiceEvenement();
-// Vérifie si le rôle de l'utilisateur est RH, sinon cache le bouton
+
+        // Vérifie si le rôle de l'utilisateur est RH, sinon cache le bouton
         if (!SessionManager.getRole().equals(Role.RH.name())) {
             btnAjouterEvent.setVisible(false);
             btnretourdashRH.setVisible(false);
         }
+
         try {
             List<Evenement> evenementList = serviceEvenement.afficher();
             observableList = FXCollections.observableList(evenementList);
             lv_event.setItems(observableList);
 
+            // Configuration de la cellule personnalisée pour afficher les événements
             lv_event.setCellFactory(param -> new ListCell<Evenement>() {
-               /* @Override
+
+
+                @Override
                 protected void updateItem(Evenement evenement, boolean empty) {
                     super.updateItem(evenement, empty);
                     if (empty || evenement == null) {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        Text eventText = new Text(evenement.getNomEvent() + " - " +
-                                evenement.getDescEvent() + " - " +
-                                evenement.getDateEvent() + " - " +
-                                evenement.getLieuEvent() + " - Capacité: " +
-                                evenement.getCapaciteEvent());
+                        // Créer un VBox pour organiser les informations de l'événement
+                        VBox vbox = new VBox(5);
+                        vbox.setPadding(new Insets(10));
 
-                        eventText.getStyleClass().add("event-text");
+                        // Nom de l'événement
+                        Text nomEvent = new Text("Nom: " + evenement.getNomEvent());
+                        nomEvent.getStyleClass().add("event-text");
 
-                        HBox hbox = new HBox(10);
-                        hbox.getChildren().add(eventText);
+                        // Description de l'événement
+                        Text descEvent = new Text("Description: " + evenement.getDescEvent());
+                        descEvent.getStyleClass().add("event-text");
 
-                        if (SessionManager.getRole().equals(Role.RH.name()) ) {
+                        // Date de l'événement
+                        Text dateEvent = new Text("Date: " + evenement.getDateEvent());
+                        dateEvent.getStyleClass().add("event-text");
+
+                        // Lieu de l'événement
+                        Text lieuEvent = new Text("Lieu: " + evenement.getLieuEvent());
+                        lieuEvent.getStyleClass().add("event-text");
+
+                        // Capacité de l'événement
+                        Text capaciteEvent = new Text("Capacité: " + evenement.getCapaciteEvent());
+                        capaciteEvent.getStyleClass().add("event-text");
+
+                        // Calculer le message des jours restants ou si l'événement est passé
+                        LocalDate eventDate = evenement.getDateEvent().toLocalDate(); // Supposons que getDateEvent() retourne un java.sql.Date
+                        String joursRestantsMessage = DateUtilEvent.getDaysRemainingMessage(eventDate);
+                        Text textJoursRestants = new Text(joursRestantsMessage);
+
+                        // Appliquer un style différent en fonction du message
+                        if (joursRestantsMessage.contains("passé")) {
+                            textJoursRestants.getStyleClass().add("event-passed-text"); // Style pour les événements passés
+                        } else if (joursRestantsMessage.contains("aujourd'hui")) {
+                            textJoursRestants.getStyleClass().add("event-today-text"); // Style pour les événements aujourd'hui
+                        } else {
+                            textJoursRestants.getStyleClass().add("event-remaining-text"); // Style pour les événements à venir
+                        }
+
+                        // Ajouter les éléments au VBox
+                        vbox.getChildren().addAll(nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent, textJoursRestants);
+
+                        // Créer un HBox pour les boutons
+                        HBox hboxButtons = new HBox(10);
+                        hboxButtons.setAlignment(Pos.CENTER_RIGHT);
+
+                        // Bouton "Afficher sur la carte"
+                        Button btnAfficherCarte = new Button("\uD83D\uDCCD");
+                        btnAfficherCarte.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white;");
+
+                        btnAfficherCarte.setOnAction(event -> {
+                            try {
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCarte.fxml"));
+                                Parent root = loader.load();
+
+                                AfficherCarteController carteController = loader.getController();
+                                if (carteController == null) {
+                                    System.out.println("Erreur : Le contrôleur AfficherCarteController est null !");
+                                    return;
+                                }
+
+                                String coor = NominatimAPI.getCoordinates(evenement.getLieuEvent());
+                                System.out.println("Coordonnées récupérées pour " + evenement.getLieuEvent() + " : " + coor);
+
+                                if (coor != null && !coor.isEmpty()) {
+                                    coor = coor.replace("Latitude: ", "").replace(" Longitude: ", "").replace(" ", "");
+                                    System.out.println("Coordonnées formatées pour la carte : " + coor);
+                                    carteController.initData(coor);
+                                } else {
+                                    System.out.println("Erreur : Impossible de récupérer les coordonnées du lieu.");
+                                }
+
+                                Stage mapStage = new Stage();
+                                mapStage.setTitle("Carte de l'événement");
+                                mapStage.setScene(new Scene(root));
+                                mapStage.initModality(Modality.APPLICATION_MODAL);
+                                mapStage.showAndWait();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                        // Ajouter le bouton "Afficher sur la carte" à la HBox
+                        hboxButtons.getChildren().add(btnAfficherCarte);
+
+                        // Si l'utilisateur est RH, ajouter les boutons Modifier et Supprimer
+                        if (SessionManager.getRole().equals(Role.RH.name())) {
+                            // Bouton Modifier
                             Button btnModifierEvent = new Button("Modifier");
                             btnModifierEvent.getStyleClass().add("btn-modifierEvent");
-                            btnModifierEvent.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
                             btnModifierEvent.setOnAction(event -> {
+                                try {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvenement.fxml"));
+                                    Parent root = loader.load();
 
-                                    try {
-                                        // Charger le fichier FXML pour la modification de l'événement
-                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierEvenement.fxml"));
-                                        Parent root = loader.load();
+                                    ModifierEvenementController modifierController = loader.getController();
+                                    modifierController.initData(evenement);
 
-                                        // Passer l'événement à modifier au contrôleur ModifierEvenementController
-                                        ModifierEvenementController modifierController = loader.getController();
-                                        modifierController.initData(evenement);
+                                    Stage popupStage = new Stage();
+                                    popupStage.setTitle("Modifier l'Événement");
+                                    popupStage.setScene(new Scene(root));
+                                    popupStage.initModality(Modality.APPLICATION_MODAL);
+                                    popupStage.showAndWait();
 
-                                        // Créer une nouvelle scène et afficher le popup
-                                        Stage popupStage = new Stage();
-                                        popupStage.setTitle("Modifier l'Événement");
-                                        popupStage.setScene(new Scene(root));
-                                        popupStage.initModality(Modality.APPLICATION_MODAL); // Empêcher l'interaction avec la fenêtre principale
-                                        popupStage.showAndWait(); // Attendre que l'utilisateur ferme la fenêtre de modification
+                                    reloadEvenementsList();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
 
-                                        // Rafraîchir la liste des événements après la modification
-                                        reloadEvenementsList();
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                });
-
-
-
+                            // Bouton Supprimer
                             Button btnSupprimerEvent = new Button("Supprimer");
                             btnSupprimerEvent.getStyleClass().add("btn-supprimerEvent");
-                            btnSupprimerEvent.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-
                             btnSupprimerEvent.setOnAction(event -> {
                                 try {
                                     Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -140,14 +218,16 @@ public class AfficherEvenementController {
                                 }
                             });
 
-                            hbox.getChildren().addAll(btnModifierEvent, btnSupprimerEvent);
+                            hboxButtons.getChildren().addAll(btnModifierEvent, btnSupprimerEvent);
+                            vbox.getChildren().add(hboxButtons);
                         }
 
-                        hbox.getStyleClass().add("hbox-item");
-                        setGraphic(hbox);
+                        // Appliquer le style au VBox
+                        vbox.getStyleClass().add("hbox-item");
+                        setGraphic(vbox);
                     }
-                }*/
-               @Override
+                }
+             /*  @Override
                protected void updateItem(Evenement evenement, boolean empty) {
                    super.updateItem(evenement, empty);
                    if (empty || evenement == null) {
@@ -178,14 +258,62 @@ public class AfficherEvenementController {
                        Text capaciteEvent = new Text("Capacité: " + evenement.getCapaciteEvent());
                        capaciteEvent.getStyleClass().add("event-text");
 
+                       // Coordonnées géographiques du lieu
+                       String coordinates = NominatimAPI.getCoordinates(evenement.getLieuEvent());
+                       //Text coordonneesText = new Text("Coordonnées: " + coordinates);
+                      // coordonneesText.getStyleClass().add("event-text");
+
                        // Ajouter les éléments au VBox
                        vbox.getChildren().addAll(nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent);
 
-                       // Créer un HBox pour les boutons (si l'utilisateur est RH)
-                       if (SessionManager.getRole().equals(Role.RH.name())) {
-                           HBox hboxButtons = new HBox(10);
-                           hboxButtons.setAlignment(Pos.CENTER_RIGHT);
+                       // Créer un HBox pour les boutons
+                       HBox hboxButtons = new HBox(10);
+                       hboxButtons.setAlignment(Pos.CENTER_RIGHT);
 
+
+                       Button btnAfficherCarte = new Button("\uD83D\uDCCD");
+                       btnAfficherCarte.setStyle("-fx-background-color: #0086b3; -fx-text-fill: white;");
+
+                       btnAfficherCarte.setOnAction(event -> {
+                           try {
+                               FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCarte.fxml"));
+                               Parent root = loader.load();
+
+                               AfficherCarteController carteController = loader.getController();
+                               if (carteController == null) {
+                                   System.out.println("Erreur : Le contrôleur AfficherCarteController est null !");
+                                   return;
+                               }
+
+                               //carteController.initData("36.829875, 10.145411"); // Exemple de coordonnées
+                               String coor = NominatimAPI.getCoordinates(evenement.getLieuEvent());
+                               System.out.println("Coordonnées récupérées pour " + evenement.getLieuEvent() + " : " + coor);
+
+                               if (coor != null && !coor.isEmpty()) {
+                                   coor = coor.replace("Latitude: ", "").replace(" Longitude: ", "").replace(" ", "");
+                                   System.out.println("Coordonnées formatées pour la carte : " + coor);
+                                   carteController.initData(coor);
+                               } else {
+                                   System.out.println("Erreur : Impossible de récupérer les coordonnées du lieu.");
+                               }
+
+
+                               Stage mapStage = new Stage();
+                               mapStage.setTitle("Carte de l'événement");
+                               mapStage.setScene(new Scene(root));
+                               mapStage.initModality(Modality.APPLICATION_MODAL);
+                               mapStage.showAndWait();
+                           } catch (IOException e) {
+                               e.printStackTrace();
+                           }
+                       });
+
+
+                       // Ajouter le bouton "Afficher sur la carte" à la HBox
+                       hboxButtons.getChildren().add(btnAfficherCarte);
+
+                       // Si l'utilisateur est RH, ajouter les boutons Modifier et Supprimer
+                       if (SessionManager.getRole().equals(Role.RH.name())) {
                            // Bouton Modifier
                            Button btnModifierEvent = new Button("Modifier");
                            btnModifierEvent.getStyleClass().add("btn-modifierEvent");
@@ -251,41 +379,37 @@ public class AfficherEvenementController {
                        vbox.getStyleClass().add("hbox-item");
                        setGraphic(vbox);
                    }
-               }
+               }*/
             });
         } catch (SQLException e) {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
-    private DashboardHR dashboard;
 
-    DashboardHR dhr=new DashboardHR();
+    @FXML
+    public void OnajouterEvent(ActionEvent actionEvent) {
+        try {
+            // Charger le fichier FXML du formulaire d'ajout
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenement.fxml"));
+            Parent root = loader.load();
 
+            // Créer une nouvelle scène
+            Stage popupStage = new Stage();
+            popupStage.setTitle("➕ Ajouter un Événement");
+            popupStage.setScene(new Scene(root));
 
-  @FXML
-  public void OnajouterEvent(ActionEvent actionEvent) {
-      try {
-          // Charger le fichier FXML du formulaire d'ajout
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterEvenement.fxml"));
-          Parent root = loader.load();
+            // Empêcher l'interaction avec la fenêtre principale tant que la popup est ouverte
+            popupStage.initModality(Modality.APPLICATION_MODAL);
 
-          // Créer une nouvelle scène
-          Stage popupStage = new Stage();
-          popupStage.setTitle("Ajouter un Événement");
-          popupStage.setScene(new Scene(root));
+            // Afficher la popup
+            popupStage.showAndWait();
 
-          // Empêcher l'interaction avec la fenêtre principale tant que la popup est ouverte
-          popupStage.initModality(Modality.APPLICATION_MODAL);
-
-          // Afficher la popup
-          popupStage.showAndWait();
-
-          // Rafraîchir la liste des événements après la fermeture du popup
-          reloadEvenementsList();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-  }
+            // Rafraîchir la liste des événements après la fermeture du popup
+            reloadEvenementsList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void reloadEvenementsList() {
         ServiceEvenement serviceEvenement = new ServiceEvenement();
@@ -297,7 +421,6 @@ public class AfficherEvenementController {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
-
 
     @FXML
     public void OnchercherEvent(ActionEvent actionEvent) throws SQLException {
@@ -316,5 +439,4 @@ public class AfficherEvenementController {
         ObservableList<Evenement> observableList = FXCollections.observableArrayList(filteredEvenement);
         lv_event.setItems(observableList);
     }
-
 }

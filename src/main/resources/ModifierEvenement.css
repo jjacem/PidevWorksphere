@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #f8f8f8; /* Fond légèrement gris pour toute la fenêtre */
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333; /* Texte plus sombre pour une meilleure lisibilité */
+    -fx-font-weight: 600; /* Légèrement plus gras */
+}
+
+.text-field, .date-picker {
+    -fx-pref-height: 35px;
+    -fx-pref-width: 250px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-color: white; /* Fond blanc pour les champs */
+    -fx-border-color: #ccc; /* Bordure plus claire */
+    -fx-border-width: 1px;
+    -fx-padding: 5px; /* Ajoute un peu d'espace à l'intérieur des champs */
+}
+
+.text-field:focused, .date-picker:focused {
+    -fx-border-color: #0086b3; /* Bordure bleue au focus */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 134, 179, 0.5), 8, 0, 0, 0); /* Ombre au focus */
+}
+
+.button {
+    -fx-background-color: #0086b3;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 20px; /* Améliore l'espacement du bouton */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 3); /* Ajoute une ombre légère */
+}
+
+.button:hover {
+    -fx-background-color: #007099; /* Légère variation de couleur au survol */
+}
+
+.label.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+
+/* Titre de la page */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #0086b3;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 20px 0; /* Ajoute de l'espace en dessous du titre */
+}
+
+/* Espacement entre les lignes du GridPane */
+.grid-pane {
+    -fx-vgap: 15px;
+}
+
+/* Espacement global de la VBox */
+.v-box {
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}

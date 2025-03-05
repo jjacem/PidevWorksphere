@@ -1,92 +1,19 @@
-
-.root {
-    -fx-background-color: #f4f4f4;
-}
-
-.card {
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
-    -fx-padding: 20;
-}
-
-.title {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #0086b3;
-}
-
-.label-title {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #0086b3;
-}
-
-.label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-}
-
-
-.text-field {
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #0086b3;
-    -fx-border-width: 1px;
-    -fx-padding: 5;
-}
-
-.list-view {
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #0086b3;
-    -fx-border-width: 1px;
-}
-
-.button {
-    -fx-background-color: #0086b3;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 5 10;
-}
-
-.button:hover {
-    -fx-background-color: #006699;
-}
-
-.button-annuler {
-    -fx-background-color: #f44336;
-}
-
-.button-annuler:hover {
-    -fx-background-color: #d32f2f;
-}
-
-.button-confirmer {
-    -fx-background-color: #4CAF50;
-}
-
-.button-confirmer:hover {
-    -fx-background-color: #388E3C;
-}
-
 .root {
     -fx-background-color: #f4f4f4;
 }
 
 .main-card {
     -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
-    -fx-padding: 20;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 0);
+    -fx-padding: 30;
 }
 
 .label-title {
-    -fx-font-size: 28px; /* Taille plus grande */
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0086b3; /* Couleur bleue */
+    -fx-text-fill: #0086b3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
 .label-text {
@@ -95,43 +22,89 @@
     -fx-text-fill: #333333;
 }
 
-.text-field {
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+.search-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
     -fx-border-color: #0086b3;
     -fx-border-width: 1px;
-    -fx-padding: 5;
+    -fx-padding: 8 15;
+    -fx-font-size: 14px;
+}
+
+.image-equipe {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0); /* Shadow effect */
+    -fx-fit-height: 120px;  /* Reduced image size */
+    -fx-fit-width: 120px;
 }
 
 .members-container {
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-    -fx-border-color: #0086b3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #e0e0e0;
     -fx-border-width: 1px;
+    -fx-padding: 15;
 }
 
-.button {
-    -fx-background-color: #0086b3;
-    -fx-text-fill: white;
+.member-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.member-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0); /* Shadow for the image */
+}
+
+.member-name {
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 5 10;
+    -fx-text-fill: #333333;
 }
 
-.button:hover {
-    -fx-background-color: #006699;
+.member-email {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
 }
 
-.button-back {
+.scroll-pane {
     -fx-background-color: transparent;
-    -fx-text-fill: #0086b3;
-    -fx-font-weight: bold;
-    -fx-border-color: #0086b3;
-    -fx-border-width: 1px;
-    -fx-border-radius: 5;
+    -fx-padding: 0;
+    -fx-fit-to-width: true;
 }
 
-.button-back:hover {
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
     -fx-background-color: #0086b3;
-    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-arrow,
+.scroll-pane .scroll-bar:vertical .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.projets-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 5 0;
+}
+
+.projet-name {
+    -fx-font-size: 14px;
+    -fx-padding: 5 0 5 20;
 }
