@@ -33,7 +33,7 @@
                 </ComboBox>
 
                 <!-- Bouton Ajouter un projet -->
-                <Button onAction="#AjouterBTN" styleClass="button-ajouter" text="Ajouter un projet">
+                <Button onAction="#AjouterBTN" styleClass="button-ajouter" text="Ajouter">
                     <font>
                         <Font size="14.0" />
                     </font>

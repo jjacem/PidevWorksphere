@@ -38,8 +38,9 @@
     -fx-font-weight: bold;
     -fx-background-radius: 20;
     -fx-padding: 10 20;
-    -fx-pref-width: 120;
+    -fx-pref-width: 130;
     -fx-pref-height: 40;
+    -fx-alignment: CENTER;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
 
@@ -53,8 +54,9 @@
     -fx-font-weight: bold;
     -fx-background-radius: 20;
     -fx-padding: 10 20;
-    -fx-pref-width: 120;
+    -fx-pref-width: 130;
     -fx-pref-height: 40;
+    -fx-alignment: CENTER;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
 
