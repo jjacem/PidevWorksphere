@@ -455,7 +455,9 @@ public class AfficherTousCandidatureController implements Initializable {
                 
                 // Send notification to the candidate
                 String message = "Votre candidature pour l'offre '" + offre.getTitre() + 
-                                 "' a été supprimée par le recruteur.";
+                                 "' a été supprimée par le recruteur, à cause du fait qu'elle ne respectait pas nos condidtions. \n\n" +
+                                 "Cordialement, \n" +
+                                 "Le Service Recrutement.";
                 
                 Notification notification = new Notification(candidatId, message, "candidature_deleted");
                 notificationService.addNotification(notification);

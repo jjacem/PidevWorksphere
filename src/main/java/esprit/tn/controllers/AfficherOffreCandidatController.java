@@ -1,6 +1,8 @@
 package esprit.tn.controllers;
 
 import esprit.tn.services.ServiceUser;
+import esprit.tn.services.OCRService;
+import esprit.tn.services.TranslationService;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +18,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
+import javafx.stage.StageStyle;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
 import esprit.tn.entities.OffreEmploi;
 import esprit.tn.entities.Bookmark;
 import esprit.tn.entities.Notification;
@@ -28,8 +34,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public class AfficherOffreCandidatController {
     private ObservableList<OffreEmploi> offreList = FXCollections.observableArrayList();
@@ -54,12 +62,18 @@ public class AfficherOffreCandidatController {
     private Button notificationsButton;
     @FXML
     private Label notificationCountLabel;
+    @FXML
+    private Button analyzeButton;
+    @FXML
+    private Button translateButton;
     
     // Icons for bookmark states
     private final Image bookmarkEmpty = new Image(getClass().getResourceAsStream("/images/notSaved.png"));
     private final Image bookmarkFilled = new Image(getClass().getResourceAsStream("/images/Saved.png"));
 
     private NotificationService notificationService = new NotificationService();
+    private OCRService ocrService = new OCRService();
+    private TranslationService translationService = new TranslationService();
     private int unreadNotificationsCount = 0;
 
     @FXML
@@ -76,6 +90,34 @@ public class AfficherOffreCandidatController {
         // Add listener for searching
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchOffres(newValue);
+        });
+        
+        // Initialize the analyze and translate buttons
+        analyzeButton.setDisable(true);
+        translateButton.setDisable(true);
+
+        // Add listener to enable/disable analyze and translate buttons based on selection
+        lv_offre.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                offreSelectionnee = newValue;
+                Postuler.setDisable(appliedOfferIds.contains(newValue.getIdOffre()));
+                analyzeButton.setDisable(false);
+                translateButton.setDisable(false);
+
+                bookmarkIcon.setVisible(true);
+                
+                // Update bookmark icon based on status
+                if (bookmarkedOfferIds.contains(newValue.getIdOffre())) {
+                    bookmarkIcon.setImage(bookmarkFilled);
+                } else {
+                    bookmarkIcon.setImage(bookmarkEmpty);
+                }
+            } else {
+                Postuler.setDisable(true);
+                analyzeButton.setDisable(true);
+                translateButton.setDisable(true);
+                bookmarkIcon.setVisible(false);
+            }
         });
     }
     
@@ -522,5 +564,111 @@ public class AfficherOffreCandidatController {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    
+    @FXML
+    private void analyzeOffre() {
+        if (offreSelectionnee == null) {
+            showAlert(Alert.AlertType.WARNING, "Select an offer", "Please select an offer to analyze.");
+            return;
+        }
+
+        ProgressIndicator progress = new ProgressIndicator();
+        VBox loadingBox = new VBox(10, new Label("Analyzing..."), progress);
+        loadingBox.setAlignment(Pos.CENTER);
+
+        Stage loadingStage = new Stage(StageStyle.UNDECORATED);
+        loadingStage.initModality(Modality.APPLICATION_MODAL);
+        loadingStage.setScene(new Scene(loadingBox, 200, 100));
+        loadingStage.show();
+
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                String description = offreSelectionnee.getDescription();
+                return String.format("Description Analysis:\n%s", 
+                    ocrService.extractTextFromPDF(description, 
+                        progress1 -> Platform.runLater(() -> progress.setProgress(progress1)))
+                );
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }).whenComplete((result, error) -> {
+            Platform.runLater(() -> {
+                loadingStage.close();
+                if (error != null) {
+                    showAlert(Alert.AlertType.ERROR, "Analysis Error", error.getMessage());
+                } else {
+                    showTextArea("Offer Analysis", result);
+                }
+            });
+        });
+    }
+
+    @FXML
+    private void translateOffre() {
+        if (offreSelectionnee == null) {
+            showAlert(Alert.AlertType.WARNING, "Select an offer", "Please select an offer to translate.");
+            return;
+        }
+
+        ChoiceDialog<String> langDialog = new ChoiceDialog<>("English", 
+            Arrays.asList("English", "Spanish", "German", "Arabic"));
+        langDialog.setTitle("Choose Target Language");
+        langDialog.setHeaderText("Select translation language:");
+        
+        langDialog.showAndWait().ifPresent(targetLang -> {
+            String langCode = switch (targetLang) {
+                case "English" -> "en";
+                case "Spanish" -> "es";
+                case "German" -> "de";
+                case "Arabic" -> "ar";
+                default -> "en";
+            };
+
+            ProgressIndicator progress = new ProgressIndicator();
+            VBox loadingBox = new VBox(10, new Label("Translating..."), progress);
+            loadingBox.setAlignment(Pos.CENTER);
+
+            Stage loadingStage = new Stage(StageStyle.UNDECORATED);
+            loadingStage.initModality(Modality.APPLICATION_MODAL);
+            loadingStage.setScene(new Scene(loadingBox, 200, 100));
+            loadingStage.show();
+
+            CompletableFuture.supplyAsync(() -> {
+                try {
+                    String description = offreSelectionnee.getDescription();
+                    return String.format("Translated Description:\n%s",
+                        translationService.translate(description, "fr", langCode, 
+                            p -> Platform.runLater(() -> progress.setProgress(p)))
+                    );
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }).whenComplete((result, error) -> {
+                Platform.runLater(() -> {
+                    loadingStage.close();
+                    if (error != null) {
+                        showAlert(Alert.AlertType.ERROR, "Translation Error", error.getMessage());
+                    } else {
+                        showTextArea("Translated Offer", result);
+                    }
+                });
+            });
+        });
+    }
+    
+    private void showTextArea(String title, String content) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        
+        TextArea textArea = new TextArea(content);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setPrefWidth(600);
+        textArea.setPrefHeight(400);
+        
+        dialog.getDialogPane().setContent(textArea);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.show();
     }
 }

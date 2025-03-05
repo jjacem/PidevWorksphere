@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreCandidatController">
+<AnchorPane stylesheets="AfficherOffreCandidat.css" prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreCandidatController">
    <children>
       <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="125.0" style="-fx-background-color: #0086b3;">
          <children>
@@ -27,11 +27,14 @@
                   <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png" />
                </image>
             </ImageView>
+            <!-- Add analyze and translate buttons -->
+            <Button fx:id="analyzeButton" layoutX="11.0" layoutY="110.0" mnemonicParsing="false" onAction="#analyzeOffre" prefHeight="26.0" prefWidth="102.0" text="📝 ANALYZE" />
+            <Button fx:id="translateButton" layoutX="11.0" layoutY="75.0" mnemonicParsing="false" onAction="#translateOffre" prefHeight="26.0" prefWidth="102.0" text="🌐 TRANSLATE" />
             <!-- Add notification button with counter -->
             <StackPane layoutX="15.0" layoutY="330.0">
                <children>
                   <Button fx:id="notificationsButton" mnemonicParsing="false" onAction="#showNotifications" prefHeight="35.0" prefWidth="100.0" text="🔔 NOTIFICATIONS" />
-                  <Label fx:id="notificationCountLabel" alignment="CENTER" style="-fx-background-color: red; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 2 6;" text="0" 
+                  <Label fx:id="notificationCountLabel" alignment="CENTER" style="-fx-background-color: red; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 2 6;" text="0"
                          translateX="30.0" translateY="-10.0" visible="false" />
                </children>
             </StackPane>
