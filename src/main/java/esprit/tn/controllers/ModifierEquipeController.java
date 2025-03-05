@@ -4,6 +4,7 @@ import esprit.tn.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -13,7 +14,9 @@ import esprit.tn.services.ServiceEquipe;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -22,9 +25,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.*;
 
 public class ModifierEquipeController {
 
@@ -105,13 +107,40 @@ public class ModifierEquipeController {
 
             // Personnaliser l'affichage des employés dans la ListView
             employesListView.setCellFactory(param -> new ListCell<User>() {
+                private final ImageView imageView = new ImageView();
+                private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
+
                 @Override
                 protected void updateItem(User user, boolean empty) {
                     super.updateItem(user, empty);
                     if (empty || user == null) {
                         setText(null);
+                        setGraphic(null);
                     } else {
-                        setText(user.getPrenom() + " " + user.getNom());
+                        // Charger l'image de profil
+                        if (user.getImageProfil() != null && !user.getImageProfil().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(user.getImageProfil()).getName();
+                            System.out.println(correctPath); // Debug : afficher le chemin
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
+                        } else {
+                            System.out.println("No image path provided.");
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                        }
+                        imageView.setFitWidth(40);
+                        imageView.setFitHeight(40);
+                        imageView.setPreserveRatio(true);
+
+                        // Afficher le nom et l'image
+                        HBox hbox = new HBox(10); // Espacement entre l'image et le texte
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        hbox.getChildren().addAll(imageView, new Label(user.getPrenom() + " " + user.getNom()));
+                        setGraphic(hbox);
                     }
                 }
             });
@@ -122,13 +151,40 @@ public class ModifierEquipeController {
 
             // Personnaliser l'affichage des employés sélectionnés aussi
             employesSelectionnesListView.setCellFactory(param -> new ListCell<User>() {
+                private final ImageView imageView = new ImageView();
+                private final Circle clip = new Circle(20, 20, 20); // Ajustez la taille du cercle selon vos besoins
+
                 @Override
                 protected void updateItem(User user, boolean empty) {
                     super.updateItem(user, empty);
                     if (empty || user == null) {
                         setText(null);
+                        setGraphic(null);
                     } else {
-                        setText(user.getNom() + " " + user.getPrenom());
+                        // Charger l'image de profil
+                        if (user.getImageProfil() != null && !user.getImageProfil().trim().isEmpty()) {
+                            String correctPath = "C:/xampp/htdocs/img/" + new File(user.getImageProfil()).getName();
+                            System.out.println(correctPath); // Debug : afficher le chemin
+                            File imageFile = new File(correctPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                imageView.setImage(new Image(imageFile.toURI().toString()));
+                            } else {
+                                System.out.println("Image file not found or invalid path: " + imageFile.getAbsolutePath());
+                                imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                            }
+                        } else {
+                            System.out.println("No image path provided.");
+                            imageView.setImage(new Image(getClass().getResourceAsStream("/images/profil.png")));
+                        }
+                        imageView.setFitWidth(40);
+                        imageView.setFitHeight(40);
+                        imageView.setPreserveRatio(true);
+
+                        // Afficher le nom et l'image
+                        HBox hbox = new HBox(10); // Espacement entre l'image et le texte
+                        hbox.setAlignment(Pos.CENTER_LEFT);
+                        hbox.getChildren().addAll(imageView, new Label(user.getPrenom() + " " + user.getNom()));
+                        setGraphic(hbox);
                     }
                 }
             });
@@ -179,6 +235,7 @@ public class ModifierEquipeController {
             return;
         }
 
+
         try {
             if (serviceEquipe.cntrlModifEquipe(nomEquipe, equipeAModifier.getId())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -205,7 +262,13 @@ public class ModifierEquipeController {
             // Fermer la fenêtre modale
             Stage stage = (Stage) confirmerButton.getScene().getWindow();
             stage.close();
-
+        } catch (SQLIntegrityConstraintViolationException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de duplication");
+            alert.setHeaderText(null);
+            alert.setContentText("Un membre sélectionné est déjà assigné à cette équipe. Veuillez vérifier votre sélection.");
+            applyAlertStyle(alert);
+            alert.showAndWait();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -292,4 +355,5 @@ public class ModifierEquipeController {
             }
         }
     }
+
 }

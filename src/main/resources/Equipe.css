@@ -61,12 +61,12 @@
 
 /* Bouton "Ajouter un employé" */
 #ajouterUnButton {
-    -fx-background-color: #2ecc71; /* Vert */
+    -fx-background-color: #007131; /* Vert */
 }
 
 /* Bouton "Ajouter tous" */
 #ajouterTousButton {
-    -fx-background-color: #1abc9c; /* Turquoise */
+    -fx-background-color: #0086b3; /* Turquoise */
 }
 
 /* Bouton "Supprimer un employé" */
