@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ArrayList;
 
 public class AfficherOffreController {
 
@@ -36,6 +37,8 @@ public class AfficherOffreController {
     private ListView<String> lv_offre;
     @FXML
     private TextField searchField;
+    @FXML
+    private ComboBox<String> sortComboBox;
 
     @FXML
     void initialize() {
@@ -63,6 +66,54 @@ public class AfficherOffreController {
         lv_offre.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && offreSelectionnee != null) {
                 showOfferDetails(offreSelectionnee);
+            }
+        });
+
+        // Initialize and setup sort combo box
+        sortComboBox.setItems(FXCollections.observableArrayList(
+            "Plus récentes d'abord", 
+            "Plus anciennes d'abord",
+            "Date limite proche",
+            "Date limite éloignée"
+        ));
+        
+        // Set default sorting
+        sortComboBox.setValue("Plus récentes d'abord");
+        
+        // Add listener for sort changes
+        sortComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                List<String> sortedList = new ArrayList<>(offreList);
+                ServiceOffre serviceOffre = new ServiceOffre();
+                
+                try {
+                    List<OffreEmploi> offres = serviceOffre.recupererOffres();
+                    switch (newValue) {
+                        case "Plus récentes d'abord":
+                            offres.sort((o1, o2) -> o2.getDatePublication().compareTo(o1.getDatePublication()));
+                            break;
+                        case "Plus anciennes d'abord":
+                            offres.sort((o1, o2) -> o1.getDatePublication().compareTo(o2.getDatePublication()));
+                            break;
+                        case "Date limite proche":
+                            offres.sort((o1, o2) -> o1.getDateLimite().compareTo(o2.getDateLimite()));
+                            break;
+                        case "Date limite éloignée":
+                            offres.sort((o1, o2) -> o2.getDateLimite().compareTo(o1.getDateLimite()));
+                            break;
+                    }
+                    
+                    // Update the ListView with sorted offers
+                    offreList.clear();
+                    for (OffreEmploi offre : offres) {
+                        offreList.add(formaterOffre(offre));
+                    }
+                    lv_offre.setItems(offreList);
+                    
+                } catch (SQLException e) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur de tri", 
+                        "Une erreur est survenue lors du tri des offres: " + e.getMessage());
+                }
             }
         });
     }
@@ -333,20 +384,6 @@ public class AfficherOffreController {
         }
     }
 
-    public void retourdashRH(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardHR.fxml"));
-            Parent root = loader.load();
-
-            // Récupérer la scène actuelle et la remplacer
-            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -391,14 +428,23 @@ public class AfficherOffreController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherTousCandidature.fxml"));
             Parent root = loader.load();
 
-            // Pass the selected offer ID to the controller
+            // Create new stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Candidatures pour " + selectedOffer.getTitre());
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+
+            // Set the scene
+            Scene scene = new Scene(root);
+            dialogStage.setScene(scene);
+
+            // Get controller and load candidatures
             AfficherTousCandidatureController controller = loader.getController();
             controller.loadCandidaturesForOffer(selectedOffer.getIdOffre());
 
-            // Switch to the candidature view
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            // Show the dialog
+            dialogStage.showAndWait();
+
         } catch (Exception e) {
             System.err.println("Erreur lors du chargement des candidatures: " + e.getMessage());
             e.printStackTrace();

@@ -482,19 +482,9 @@ public class AfficherTousCandidatureController implements Initializable {
     
     @FXML
     private void retourVersOffres(ActionEvent event) {
-        try {
-            // Load AfficherOffre view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherOffre.fxml"));
-            Parent root = loader.load();
-            
-            // Switch back to the offer view
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Erreur lors du retour à la liste des offres: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // Close the window instead of navigating
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
     
     // Display text in a dialog
