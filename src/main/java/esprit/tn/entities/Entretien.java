@@ -19,7 +19,6 @@ public class Entretien {
 
     private boolean status ;
 
-
     private int candidatId;
 
     private int employeId ;

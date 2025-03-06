@@ -1,0 +1,106 @@
+/* Root styles with gradient background */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f0f0f0); /* White to light grey gradient */
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* Style général de la ListView */
+.list-view {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-padding: 10px; /* Padding around the ListView */
+}
+
+/* Style for each cell (card) */
+.list-cell {
+    -fx-background-color: #ffffff; /* White background for each cell */
+    -fx-border-color: #e0e0e0; /* Light grey border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px; /* Rounded corners for the card */
+    -fx-background-radius: 8px; /* Rounded corners for the background */
+    -fx-padding: 20px; /* Increased padding inside each card */
+    -fx-margin: 10px; /* Margin between cards */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow for depth */
+}
+
+/* Hover effect for cells */
+.list-cell:hover {
+    -fx-background-color: #f5f5f5; /* Light grey on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8, 0, 0, 3); /* Enhanced shadow on hover */
+}
+
+/* Style for labels (bigger text, letter spacing, and line height) */
+.label {
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #000000; /* Black color for text */
+    -fx-font-size: 18px; /* Larger font size */
+    -fx-letter-spacing: 1px; /* Letter spacing */
+    -fx-line-height: 1.5; /* Line height */
+}
+
+/* Specific styles for different labels */
+.titre-label {
+    -fx-font-size: 20px; /* Even larger font for titles */
+}
+
+.description-label {
+    -fx-text-fill: #333333; /* Dark grey for descriptions */
+}
+
+.date-label {
+    -fx-text-fill: #333333; /* Dark grey for dates */
+}
+
+.type-label {
+    -fx-text-fill: #333333; /* Dark grey for types */
+}
+
+.statut-label {
+    -fx-text-fill: #333333; /* Dark grey for status */
+}
+
+.employe-label {
+    -fx-text-fill: #333333; /* Dark grey for employees */
+}
+
+/* Style for buttons (bigger and aligned to the bottom right) */
+.button {
+    -fx-background-color: #3498db; /* Blue */
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 12px 24px; /* Larger padding for bigger buttons */
+    -fx-font-size: 16px; /* Larger font size for buttons */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-alignment: center; /* Center button text */
+}
+
+.button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+.button-modifier {
+    -fx-background-color: #f1c40f; /* Yellow */
+}
+
+.button-modifier:hover {
+    -fx-background-color: #f39c12; /* Darker yellow on hover */
+}
+
+.button-supprimer {
+    -fx-background-color: #e74c3c; /* Red */
+}
+
+.button-supprimer:hover {
+    -fx-background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Style for the HBox containing buttons (aligned to the bottom right) */
+.hbox-buttons {
+    -fx-spacing: 15px; /* Increased spacing between buttons */
+    -fx-padding: 20px; /* Increased padding */
+    -fx-alignment: bottom-right; /* Align buttons to the bottom right */
+}
+
+/* Style for icons */
+.image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 3, 0, 0, 1); /* Subtle shadow for icons */
+}

@@ -1,0 +1,76 @@
+/* 🌟 General Background Styling */
+AnchorPane {
+    -fx-background-color: linear-gradient(to bottom right, #2C3E50, #4CA1AF);
+    -fx-padding: 30px;
+}
+
+/* 🔹 Header Styling */
+#header {
+    -fx-padding: 20px;
+}
+
+#titleLabel {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* 🔍 Search Bar Styling */
+#searchField {
+    -fx-padding: 12px;
+    -fx-background-color: white;
+    -fx-border-radius: 25px;
+    -fx-border-color: #BDC3C7;
+    -fx-border-width: 2px;
+    -fx-font-size: 16px;
+    -fx-pref-width: 400px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 4);
+}
+
+/* 📑 ListView Styling */
+#lv_offre {
+    -fx-pref-height: 450px;
+    -fx-pref-width: 600px;
+    -fx-background-color: white;
+    -fx-border-radius: 12px;
+    -fx-border-color: #BDC3C7;
+    -fx-border-width: 1.5px;
+    -fx-padding: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
+}
+
+/* 🔘 Buttons Styling */
+.button {
+    -fx-background-color: #4CA1AF;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
+}
+
+.button:hover {
+    -fx-background-color: #3B99A1;
+}
+
+/* 🔔 Notifications Button */
+#notificationsButton {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-font-size: 14px;
+}
+
+#notificationCountLabel {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 2 6;
+}
+
+/* 🔖 Bookmark Icon */
+#bookmarkIcon {
+    -fx-cursor: hand;
+}

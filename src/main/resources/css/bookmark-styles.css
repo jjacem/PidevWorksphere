@@ -1,0 +1,38 @@
+.bookmark-icon {
+    -fx-cursor: hand;
+}
+
+.bookmark-icon:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0);
+}
+
+.list-view {
+    -fx-selection-bar: #0086b3;
+    -fx-selection-bar-non-focused: #89CFF0;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #0086b3;
+    -fx-text-fill: white;
+}
+
+.list-cell:filled:selected .text {
+    -fx-fill: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+.bookmark-filled {
+    -fx-background-color: #FFFACD;
+}
+
+.bookmark-applied {
+    -fx-background-color: #ADD8E6;
+}
+
+.favorite-item {
+    -fx-border-color: #FFD700;
+    -fx-border-width: 0 0 0 3px;
+}

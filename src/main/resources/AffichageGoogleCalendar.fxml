@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<?import javafx.scene.web.WebView?>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.AffichageGoogleCalendar">
+
+    <!-- 🔹 Header -->
+    <top>
+        <VBox spacing="15" alignment="CENTER" id="header">
+            <Label text="Google Calendar" id="titleLabel"/>
+        </VBox>
+    </top>
+
+    <center>
+        <WebView fx:id="webView" />
+    </center>
+
+    <bottom>
+        <StackPane id="footer" alignment="CENTER">
+            <Button fx:id="btn_retour" text="Retour" onAction="#retour"/>
+        </StackPane>
+    </bottom>
+
+</BorderPane>

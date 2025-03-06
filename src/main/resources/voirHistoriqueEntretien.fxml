@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@VoirHistoriqueEntretiens.css"
+            fx:controller="esprit.tn.controllers.VoirHistoriqueEntretien"
+            prefHeight="800" prefWidth="1200">
+
+    <!-- Header Section -->
+    <VBox alignment="CENTER" spacing="10" layoutX="100" layoutY="20">
+        <Label text="📜 Historique des Entretiens" styleClass="header-title"/>
+        <Label text="Consulter et restaurer les entretiens archivés" styleClass="header-subtitle"/>
+    </VBox>
+
+    <!-- ListView Section -->
+    <VBox layoutX="30" layoutY="80" spacing="15">
+        <ListView fx:id="historiqueListView" styleClass="historique-list-view" prefWidth="740" prefHeight="300"/>
+    </VBox>
+
+
+
+</AnchorPane>

@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Entretien;
+import esprit.tn.services.GemeniService;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,19 +11,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.services.EntretienService;
 
+import javax.swing.text.Element;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class AffichageEntretienbyemployeeId {
+    public Button btn_afficher;
     @FXML
     private ListView<Entretien> lv_entretien;
 
     private EntretienService entretienService = new EntretienService();
+
+    private GemeniService gemeniService = new GemeniService();
+
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
 
@@ -36,6 +46,7 @@ public class AffichageEntretienbyemployeeId {
     @FXML
     public void initialize() throws SQLException {
         afficherEntretien();
+        lv_entretien.getStylesheets().add(getClass().getResource("/controlleurAffichageById.css").toExternalForm());
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 filterEntretiens(newValue);
@@ -59,20 +70,47 @@ public class AffichageEntretienbyemployeeId {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    Button btnModifier = new Button("Modifier");
-                    btnModifier.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
+                    ImageView iconTitre = new ImageView(new Image(getClass().getResourceAsStream("/icons/job-seeker.png")));
+                    iconTitre.setFitHeight(24);
+                    iconTitre.setFitWidth(24);
+                    iconTitre.setPreserveRatio(true);
+
+                    ImageView iconDescription = new ImageView(new Image(getClass().getResourceAsStream("/icons/edit-info.png")));
+                    iconDescription.setFitHeight(24);
+                    iconDescription.setFitWidth(24);
+                    iconDescription.setPreserveRatio(true);
+
+                    ImageView iconDate = new ImageView(new Image(getClass().getResourceAsStream("/icons/date.png")));
+                    iconDate.setFitHeight(24);
+                    iconDate.setFitWidth(24);
+                    iconDate.setPreserveRatio(true);
+
+                    ImageView iconType = new ImageView(new Image(getClass().getResourceAsStream("/icons/type.png")));
+                    iconType.setFitHeight(24);
+                    iconType.setFitWidth(24);
+                    iconType.setPreserveRatio(true);
+
+                    ImageView iconStatut = new ImageView(new Image(getClass().getResourceAsStream("/icons/checked.png")));
+                    iconStatut.setFitHeight(24);
+                    iconStatut.setFitWidth(24);
+                    iconStatut.setPreserveRatio(true);
+
+                    Button btnGenererQuestions = new Button("📄 Générer des Questions entretien avec AI");
+                    btnGenererQuestions.getStyleClass().add("button-ai");
+                    btnGenererQuestions.setOnAction(event -> genererQuestionsAI(entretien.getTitre()));
+
+                    Button btnVoirDetail = new Button("Voir Détails");
+                    btnVoirDetail.getStyleClass().add("button");
+                    btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
 
                     Button btnFeedback;
-
                     if (entretien.getFeedbackId() != 0) {
-                        btnFeedback = new Button("📄Voir Feedback");
-                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
+                        btnFeedback = new Button("📄 Voir Feedback");
+                        btnFeedback.getStyleClass().add("button-feedback");
                         btnFeedback.setOnAction(event -> voirFeedback(entretien.getFeedbackId()));
                     } else {
                         btnFeedback = new Button("➕ Ajouter Feedback");
-                        btnFeedback.setStyle("-fx-background-color: #ffc400; -fx-text-fill: white;");
-
+                        btnFeedback.getStyleClass().add("button-feedback");
                         btnFeedback.setOnAction(event -> {
                             ajouterFeedback(entretien.getId());
                             try {
@@ -83,22 +121,62 @@ public class AffichageEntretienbyemployeeId {
                         });
                     }
 
-                    btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
+                    Button btnMarquerTermine = new Button("✅ Marquer entrtien  Terminé");
+                    btnMarquerTermine.getStyleClass().add("button-terminer");
+                    btnMarquerTermine.setOnAction(event -> {
+                        marquerEntretienTermine(entretien.getId());
+                    });
 
-                    HBox buttonBox = new HBox(10, btnModifier, btnFeedback);
-                    buttonBox.setStyle("-fx-padding: 5px; -fx-alignment: center-left;");
+                    btnMarquerTermine.setDisable(entretien.isStatus());
 
-                    setText("📝 Titre: " + entretien.getTitre() + "\n"
-                            + "Description: " + entretien.getDescription() + "\n"
-                            + "📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien() + "\n"
-                            + "📌 Type: " + entretien.getType_entretien() + "\n"
-                            + "✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
+                    HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail, btnGenererQuestions, btnMarquerTermine);
+                    buttonBox.getStyleClass().add("hbox-buttons");
 
-                    setStyle("-fx-padding: 10px; -fx-background-color: #f5f5f5; -fx-border-color: #dcdcdc; -fx-border-radius: 5px; -fx-font-size: 14px;");
-                    setGraphic(buttonBox);
+                    VBox vbox = new VBox(5);
+                    Label titreLabel = new Label("Titre: " + entretien.getTitre(), iconTitre);
+                    titreLabel.getStyleClass().add("titre-label");
+
+                    Label descriptionLabel = new Label("Description: " + entretien.getDescription(), iconDescription);
+                    descriptionLabel.getStyleClass().add("description-label");
+
+                    Label dateLabel = new Label("Date: " + entretien.getDate_entretien() + "  Heure: " + entretien.getHeure_entretien(), iconDate);
+                    dateLabel.getStyleClass().add("date-label");
+
+                    Label typeLabel = new Label("Type: " + entretien.getType_entretien(), iconType);
+                    typeLabel.getStyleClass().add("type-label");
+
+                    Label statutLabel = new Label("Statut: " + (entretien.isStatus() ? "Terminé" : "En cours"), iconStatut);
+                    statutLabel.getStyleClass().add("statut-label");
+
+                    vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
+
+                    // Ajouter le contenu et les boutons à la cellule
+                    setGraphic(new VBox(vbox, buttonBox));
                 }
+
             }
         });
+    }
+
+
+
+    private void genererQuestionsAI(String titre) {
+
+
+        Optional<String> questionsOpt = GemeniService.getQuestionsFromChatbot(titre);
+
+        questionsOpt.ifPresent(questions -> {
+            String fileName = "questions_entretien_" + titre.replaceAll("\\s+", "_") + ".pdf";
+            String downloadPath = GemeniService.generatePDF(questions, fileName);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Téléchargement réussi");
+            alert.setHeaderText("Votre PDF a été téléchargé avec succès !");
+            alert.setContentText("Le fichier a été téléchargé à l'emplacement suivant : " + downloadPath);
+            alert.showAndWait();
+        });
+
+
 
     }
 
@@ -132,6 +210,7 @@ public class AffichageEntretienbyemployeeId {
             e.printStackTrace();
         }
     }
+
 
 
     private void ouvrirModifierEntretien(Entretien entretien) {
@@ -190,12 +269,19 @@ public class AffichageEntretienbyemployeeId {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Voir Feedback");
-            stage.show();
-            afficherEntretien();
+            stage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -212,7 +298,18 @@ public class AffichageEntretienbyemployeeId {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Ajouter Feedback");
-            stage.show();
+            stage.setOnHidden(event -> {
+                try {
+                    refreshDatas();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+
+            stage.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -226,6 +323,104 @@ public class AffichageEntretienbyemployeeId {
 
 
     }
+
+
+    private void voirDetailEntretien(Entretien entretien) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/voirDetailsEntretien.fxml"));
+            Parent root = loader.load();
+
+            VoirDetailsEntretienController controller = loader.getController();
+            controller.setEntretien(entretien);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Détails de l'Entretien");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void affichagecalendar(ActionEvent actionEvent) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageGoogleCalendar.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) btn_afficher.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Entretiens dans Google Calendar");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void marquerEntretienTermine(int idEntretien) {
+        try {
+            Entretien entretien = entretienService.getEntretienById(idEntretien);
+
+            if (entretien == null) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Erreur");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Aucun entretien trouvé avec cet ID !");
+                errorAlert.showAndWait();
+                return;
+            }
+
+            if (entretien.getFeedbackId() == 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Feedback manquant");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous devez ajouter un feedback avant de marquer l'entretien comme terminé !");
+                alert.showAndWait();
+                return;
+            }
+
+            entretienService.marquerCommeTermineEtArchive(idEntretien);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setHeaderText(null);
+            alert.setContentText("L'entretien a été marqué comme terminé et archivé avec succès !");
+            alert.showAndWait();
+
+            refreshDatas();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            // Afficher une alerte d'erreur en cas d'échec
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Erreur");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Une erreur s'est produite lors de la mise à jour de l'entretien.");
+            errorAlert.showAndWait();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

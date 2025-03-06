@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreCandidatController">
+<AnchorPane prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreCandidatController">
    <children>
-      <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="125.0" style="-fx-background-color: #0086b3;">
+      <AnchorPane layoutX="1140.0" prefHeight="800.0" prefWidth="158.0" style="-fx-background-color: #0086b3; -fx-border-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
          <children>
-            <Button fx:id="Postuler" layoutX="11.0" layoutY="164.0" mnemonicParsing="false" onAction="#postulerOffre" prefHeight="26.0" prefWidth="102.0" text="POSTULER" />
-            <Button fx:id="voirCandidatures" layoutX="11.0" layoutY="205.0" mnemonicParsing="false" onAction="#voirCandidatures" prefHeight="26.0" prefWidth="102.0" text="CANDIDATURES" />
-            <ImageView fitHeight="90.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="Postuler" layoutX="13.0" layoutY="150.0" mnemonicParsing="false" onAction="#postulerOffre" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="POSTULER" />
+            <ImageView fx:id="bookmarkIcon" fitHeight="32.0" fitWidth="32.0" layoutX="64.0" layoutY="210.0" onMouseClicked="#toggleBookmark" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/474188139_2099437073823213_5214087864459817142_n.png" />
+                  <Image url="@/Images/notSaved.png" />
                </image>
             </ImageView>
+            <Button fx:id="voirCandidatures" layoutX="13.0" layoutY="270.0" mnemonicParsing="false" onAction="#voirCandidatures" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="MES CANDIDATURES" />
+            <Button fx:id="voirFavorisBtn" layoutX="13.0" layoutY="330.0" mnemonicParsing="false" onAction="#voirFavoris" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="MES FAVORIS" />
+            <Button fx:id="notificationsButton" layoutX="13.0" layoutY="390.0" mnemonicParsing="false" onAction="#showNotifications" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="🔔 NOTIFICATIONS" />
+            <Label fx:id="notificationCountLabel" layoutX="120.0" layoutY="380.0" style="-fx-background-color: red; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 2 6;" />
+            <Button fx:id="analyzeButton" layoutX="13.0" layoutY="450.0" mnemonicParsing="false" onAction="#analyzeOffre" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="📝 ANALYZE" />
+            <Button fx:id="translateButton" layoutX="13.0" layoutY="510.0" mnemonicParsing="false" onAction="#translateOffre" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="🌐 TRANSLATE" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="97.0" fitWidth="140.0" layoutX="1149.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/offre-demploi-visuel-2-removebg-preview.png" />
+            <Image url="@/Images/offre-demploi-visuel-2-removebg-preview.png" />
          </image>
       </ImageView>
-      <ListView fx:id="lv_offre" layoutX="20.0" layoutY="88.0" prefHeight="374.0" prefWidth="550.0" />
-      <AnchorPane layoutX="270.0" layoutY="43.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
-      <AnchorPane layoutX="319.0" layoutY="53.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
-      <AnchorPane layoutX="370.0" layoutY="63.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
-      <AnchorPane layoutX="420.0" layoutY="73.0" prefHeight="5.0" prefWidth="150.0" style="-fx-background-color: #0086b3;" />
-      <TextField fx:id="searchField" layoutX="270.0" layoutY="10.0" prefHeight="26.0" prefWidth="300.0" promptText="Rechercher une offre..." />
+      <ListView fx:id="lv_offre" layoutX="20.0" layoutY="104.0" prefHeight="654.0" prefWidth="1100.0" style="-fx-background-color: transparent; -fx-control-inner-background: #f8f9fa; -fx-border-color: transparent; -fx-padding: 10;">
+         <effect>
+            <DropShadow color="#00000022" radius="5"/>
+         </effect>
+      </ListView>
+      <AnchorPane layoutX="20.0" layoutY="25.0" prefHeight="7.0" prefWidth="400.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="38.0" prefHeight="7.0" prefWidth="350.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="51.0" prefHeight="7.0" prefWidth="300.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="63.0" prefHeight="7.0" prefWidth="250.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="75.0" prefHeight="7.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="12.0" prefHeight="7.0" prefWidth="700.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="87.0" prefHeight="7.0" prefWidth="140.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <TextField fx:id="searchField" layoutX="390.0" layoutY="44.0" prefHeight="40.0" prefWidth="498.0" promptText="Rechercher une offre..." style="-fx-background-radius: 5; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 5;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="sortComboBox" layoutX="900.0" layoutY="44.0" prefHeight="40.0" prefWidth="220.0" promptText="Trier par date" style="-fx-background-color: white; -fx-border-color: #0086b3; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-font-size: 14px; -fx-padding: 5;" />
    </children>
 </AnchorPane>

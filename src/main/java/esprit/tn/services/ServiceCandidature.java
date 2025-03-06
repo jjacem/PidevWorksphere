@@ -157,4 +157,36 @@ public class ServiceCandidature implements IService<Candidature> {
 
         return candidatures;
     }
+
+    public List<Candidature> getCandidaturesByOffre(int offreId) throws SQLException {
+        List<Candidature> candidatures = new ArrayList<>();
+        String sql = "SELECT * FROM candidature WHERE id_offre = ?";
+        
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, offreId);
+            
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Candidature candidature = mapResultSetToCandidature(rs);
+                    candidatures.add(candidature);
+                }
+            }
+        }
+        
+        return candidatures;
+    }
+
+    private Candidature mapResultSetToCandidature(ResultSet rs) throws SQLException {
+        Candidature candidature = new Candidature();
+        candidature.setIdCandidature(rs.getInt("id_candidature"));
+        candidature.setIdCandidat(rs.getInt("id_candidat"));
+        candidature.setCv(rs.getString("cv"));
+        candidature.setLettreMotivation(rs.getString("lettre_motivation"));
+        
+        int offreId = rs.getInt("id_offre");
+        ServiceOffre serviceOffre = new ServiceOffre();
+        candidature.setIdOffre(serviceOffre.getOffreById(offreId));
+        
+        return candidature;
+    }
 }

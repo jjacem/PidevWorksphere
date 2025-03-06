@@ -110,7 +110,6 @@ public class ModifierFeedback {
 
             if (feedback != null) {
                 tf_message.setText(feedback.getMessage());
-                sp_rate.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, feedback.getRate())); // Assuming rating is between 1-5
             }
 
 

@@ -24,7 +24,7 @@ public class AffecterEntretien {
     @FXML
     private ComboBox cb_employes;
 
-    private EntretienService entretienService = new EntretienService();
+//    private EntretienService entretienService = new EntretienService();
 
     private ServiceUser su = new ServiceUser();
 
@@ -32,11 +32,11 @@ public class AffecterEntretien {
 
 
 
-    @FXML
-    public void initialize() {
-        chargerEmployes();
-        btn_valider.setOnAction(event -> affecterEntretien());
-    }
+//    @FXML
+//    public void initialize() {
+//        chargerEmployes();
+//        btn_valider.setOnAction(event -> affecterEntretien());
+//    }
 
 
 //    private void chargerEmployes() {
@@ -84,16 +84,16 @@ public class AffecterEntretien {
 
 
 
-    private void affecterEntretien() {
-        esprit.tn.entities.User employeSelectionne = (esprit.tn.entities.User) cb_employes.getValue();
-        if (employeSelectionne != null) {
-            entretienService.affecterEntretien(employeSelectionne.getIdUser(), entretien.getId());
-            afficherConfirmation();
-            ouvrirAffichageEntretien();
-        } else {
-            afficherErreur("Veuillez sélectionner un employé.");
-        }
-    }
+//    private void affecterEntretien() {
+//        esprit.tn.entities.User employeSelectionne = (esprit.tn.entities.User) cb_employes.getValue();
+//        if (employeSelectionne != null) {
+//            entretienService.affecterEntretien(employeSelectionne.getIdUser(), entretien.getId());
+//            afficherConfirmation();
+//            ouvrirAffichageEntretien();
+//        } else {
+//            afficherErreur("Veuillez sélectionner un employé.");
+//        }
+//    }
 
 
     public void setEntretien(Entretien entretien) {

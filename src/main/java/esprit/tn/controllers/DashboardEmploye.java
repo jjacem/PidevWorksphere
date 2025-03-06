@@ -1,4 +1,5 @@
 package esprit.tn.controllers;
+
 import esprit.tn.entities.User;
 import esprit.tn.services.QuoteFetcher;
 import esprit.tn.utils.SessionManager;
@@ -23,6 +24,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import esprit.tn.utils.SessionManager;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +51,7 @@ public class DashboardEmploye {
 
     @FXML
     private Text name;
+
     public void initialize() throws SQLException {
 
         Platform.runLater(() -> {
@@ -70,7 +86,6 @@ public class DashboardEmploye {
         }
     }
 
-
     private void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
@@ -81,25 +96,27 @@ public class DashboardEmploye {
         }
     }
 
-
-
-    /*@FXML
-    private void logout(ActionEvent event) {
-        SessionManager.clearSession();
-        try {
-            // Get reference to current window using the event source
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-            Parent root = loader.load();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Login");
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Error loading FXML: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }*/
+    /*
+     * @FXML
+     * 
+     * @FXML
+     * private void logout(ActionEvent event) {
+     * SessionManager.clearSession();
+     * try {
+     * // Get reference to current window using the event source
+     * Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     * 
+     * FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+     * Parent root = loader.load();
+     * stage.setScene(new Scene(root));
+     * stage.setTitle("Login");
+     * stage.show();
+     * } catch (IOException e) {
+     * System.err.println("Error loading FXML: " + e.getMessage());
+     * e.printStackTrace();
+     * }
+     * }
+     */
 
     @FXML
     private void logout(ActionEvent event) {
@@ -121,7 +138,8 @@ public class DashboardEmploye {
             stage.setScene(newScene);
             stage.setTitle("Login");
 
-            // Utiliser un Platform.runLater() pour s'assurer que la fenêtre est bien affichée avant de modifier sa taille
+            // Utiliser un Platform.runLater() pour s'assurer que la fenêtre est bien
+            // affichée avant de modifier sa taille
             Platform.runLater(() -> {
                 stage.setMaximized(false); // Désactiver temporairement la maximisation
                 stage.setWidth(800); // Taille par défaut
@@ -185,6 +203,7 @@ public class DashboardEmploye {
         loadPage("/AfficherEquipeEmploye.fxml");
 
     }
+
     public void gestionProjet(ActionEvent actionEvent) {
         loadPage("/AfficherProjetEmploye.fxml");
 
@@ -215,14 +234,16 @@ public class DashboardEmploye {
 
         // Créer un bouton pour fermer la fenêtre
         Button closeButton = new Button("Fermer");
-        closeButton.setStyle("-fx-background-color: #0288d1; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 5px;");
+        closeButton.setStyle(
+                "-fx-background-color: #0288d1; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 5px;");
         closeButton.setOnAction(e -> popupStage.close());
 
         // Créer un layout pour le popup
         VBox popupLayout = new VBox(20);
         popupLayout.setAlignment(Pos.CENTER);
         popupLayout.getChildren().addAll(quoteLabel, authorLabel, closeButton);
-        popupLayout.setStyle("-fx-padding: 30px; -fx-background-color: linear-gradient(to bottom, #039be5, #01579b); -fx-border-color: #0288d1; -fx-border-width: 2px; -fx-border-radius: 10px;");
+        popupLayout.setStyle(
+                "-fx-padding: 30px; -fx-background-color: linear-gradient(to bottom, #039be5, #01579b); -fx-border-color: #0288d1; -fx-border-width: 2px; -fx-border-radius: 10px;");
 
         // Ajouter une icône ou une image (optionnel)
         ImageView iconView = new ImageView(new Image("file:quote_icon.png")); // Remplacez par le chemin de votre icône
@@ -237,7 +258,7 @@ public class DashboardEmploye {
         // Animation de translation (faire glisser la fenêtre depuis le bas)
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), popupLayout);
         translateTransition.setFromY(300); // Départ en bas
-        translateTransition.setToY(0);    // Arrivée à la position normale
+        translateTransition.setToY(0); // Arrivée à la position normale
         translateTransition.play();
 
         // Animation de zoom (faire grossir la fenêtre)
@@ -251,12 +272,13 @@ public class DashboardEmploye {
         // Animation de rotation (légère rotation pour un effet visuel)
         RotateTransition rotateTransition = new RotateTransition(Duration.seconds(0.5), popupLayout);
         rotateTransition.setFromAngle(-10); // Rotation de départ
-        rotateTransition.setToAngle(0);    // Rotation finale
+        rotateTransition.setToAngle(0); // Rotation finale
         rotateTransition.play();
 
         // Afficher le popup
         popupStage.showAndWait();
     }
+
     public void reloadDashboard(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -286,4 +308,9 @@ public class DashboardEmploye {
             System.err.println("Error reloading DashboardManager: " + e.getMessage());
             e.printStackTrace();
         }
-    }}
+    }
+
+    public void entretien1(ActionEvent actionEvent) {
+        loadPage("/AffichageEntretienArchivé.fxml");
+    }
+}

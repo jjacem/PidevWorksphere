@@ -43,10 +43,11 @@ public class ModifierEntretienController implements Initializable {
     private Entretien entretienActuel;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         entretienService = new EntretienService();
-        cb_type_entretien.getItems().addAll(TypeEntretien.values()); // FIXED
+        cb_type_entretien.getItems().addAll(TypeEntretien.values());
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
         sp_heure_entretien.setValueFactory(valueFactory);
@@ -130,21 +131,25 @@ public class ModifierEntretienController implements Initializable {
             TypeEntretien types = (TypeEntretien) cb_type_entretien.getValue();
 
 
-            if (titrev.isEmpty() || titrev.length() < 3) {
-                showAlert("Erreur", "Le titre doit contenir au moins 3 caractères.");
-                return;
-            }
-
-            if (descriptionv.isEmpty() || descriptionv.length() < 5) {
-                showAlert("Erreur", "La description doit contenir au moins 5 caractères.");
-                return;
-            }
-
-            if (dates == null || types == null) {
+            if (titrev.isEmpty() || descriptionv.isEmpty() || dates == null || types == null ) {
                 showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
                 return;
             }
 
+            if (titrev.length() < 5) {
+                showAlert("Erreur", "Le titre doit contenir au moins 5 caractères.");
+                return;
+            }
+
+            if (descriptionv.length() < 10) {
+                showAlert("Erreur", "La description doit contenir au moins 10 caractères.");
+                return;
+            }
+
+            if (dates.isBefore(LocalDate.now())) {
+                showAlert("Erreur", "La date doit être supérieure ou égale à aujourd'hui.");
+                return;
+            }
 
 
 
@@ -160,8 +165,6 @@ public class ModifierEntretienController implements Initializable {
 
 
 
-
-
             entretienActuel.setTitre(tf_titre.getText());
             entretienActuel.setDescription(tf_description.getText());
             entretienActuel.setDate_entretien(dateEntretien);
@@ -169,12 +172,33 @@ public class ModifierEntretienController implements Initializable {
             entretienActuel.setType_entretien(type);
             entretienActuel.setStatus(cb_status.isSelected());
 
-            entretienService.modifier(entretienActuel);
-            fermerFenetre();
+            entretienService.updateEntretienWithId_offre(entretienActuel.getId(),entretienActuel);
+//            fermerFenetre();
+//            ouvrirAffichageEntretien();
 
-            ouvrirAffichageEntretien();
+            refreshAffichageEntretien();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    private void refreshAffichageEntretien() {
+        try {
+            Stage stage = (Stage) btnModifier.getScene().getWindow();
+            stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
+            Parent root = loader.load();
+            AffichageEntretineController controller = loader.getController();
+            controller.initialize();
+//            Stage stage = (Stage) cb_type_entretien.getScene().getWindow();
+//            stage.getScene().setRoot(root);
+//            stage.setTitle("Liste des Entretiens");
+//            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de rafraîchir l'affichage : " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -190,10 +214,10 @@ public class ModifierEntretienController implements Initializable {
     private void ouvrirAffichageEntretien() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretienbyemployeeId.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageEntretien.fxml"));
             Parent root = loader.load();
 
-            AffichageEntretienbyemployeeId controller = loader.getController();
+            AffichageEntretineController controller = loader.getController();
             controller.initialize();
 
             Stage stage = new Stage();
@@ -206,7 +230,7 @@ public class ModifierEntretienController implements Initializable {
         }
     }
 
-
+// show alert
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

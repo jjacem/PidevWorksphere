@@ -23,7 +23,7 @@ public class FeedbackService implements IService<Feedback> {
         String sql = "INSERT INTO feedback (message, rate, date_feedback, entretien_id) VALUES (?, ?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, feedback.getMessage());
-        pstmt.setInt(2, feedback.getRate());
+        pstmt.setFloat(2, feedback.getRate());
         pstmt.setDate(3, new java.sql.Date(feedback.getDate_feedback().getTime()));
         pstmt.setInt(4, feedback.getEntretienId());
         pstmt.executeUpdate();
@@ -35,7 +35,7 @@ public class FeedbackService implements IService<Feedback> {
         String query = "INSERT INTO feedback (message, rate, date_feedback, entretien_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, feedback.getMessage());
-            ps.setInt(2, feedback.getRate());
+            ps.setFloat(2, feedback.getRate());
             ps.setDate(3, new java.sql.Date(feedback.getDate_feedback().getTime()));
             ps.setInt(4, feedback.getEntretienId());
             ps.executeUpdate();
@@ -54,7 +54,7 @@ public class FeedbackService implements IService<Feedback> {
         String sql = "UPDATE feedback SET message=?, rate=?, date_feedback=?, WHERE id=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, feedback.getMessage());
-        pstmt.setInt(2, feedback.getRate());
+        pstmt.setFloat(2, feedback.getRate());
         pstmt.setDate(3, new java.sql.Date(feedback.getDate_feedback().getTime()));
         pstmt.setInt(5, feedback.getId());
 
@@ -69,7 +69,7 @@ public class FeedbackService implements IService<Feedback> {
         String sql = "UPDATE feedback SET message = ?, rate = ? WHERE id = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, feedback.getMessage());
-        pstmt.setInt(2, feedback.getRate());
+        pstmt.setFloat(2, feedback.getRate());
         pstmt.setInt(3, feedback.getId());
         pstmt.executeUpdate();
         System.out.println("Feedback modifié avec succès!");
@@ -100,7 +100,7 @@ public class FeedbackService implements IService<Feedback> {
         while (rs.next()) {
             Feedback feedback = new Feedback(
                     rs.getString("message") ,
-                    rs.getInt("rate"),
+                    rs.getFloat("rate"),
                     rs.getInt("entretien_id") ,
                     rs.getDate("date_feedback")
 
@@ -122,7 +122,7 @@ public class FeedbackService implements IService<Feedback> {
                 return new Feedback(
                         rs.getInt("id"),
                         rs.getString("message"),
-                        rs.getInt("rate"),
+                        rs.getFloat("rate"),
                         rs.getDate("date_feedback"),
                         rs.getInt("entretien_id")
                 );

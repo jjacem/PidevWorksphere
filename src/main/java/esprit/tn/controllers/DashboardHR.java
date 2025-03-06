@@ -1,4 +1,5 @@
 package esprit.tn.controllers;
+
 import esprit.tn.entities.User;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -59,11 +60,12 @@ public class DashboardHR {
     @FXML
     private Button btnChangeProfile11;
 
-    public void setRoute(String s){
-        if(s=="evenement"){
+    public void setRoute(String s) {
+        if (s == "evenement") {
             loadPage("/AfficherEvenement.fxml");
         }
     }
+
     public void initialize() throws SQLException {
         User u = SessionManager.extractuserfromsession();
 
@@ -89,7 +91,6 @@ public class DashboardHR {
         }
     }
 
-
     public void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
@@ -99,8 +100,6 @@ public class DashboardHR {
             e.printStackTrace();
         }
     }
-
-
 
     @FXML
     private void logout(ActionEvent event) {
@@ -160,7 +159,6 @@ public class DashboardHR {
     public void offre(ActionEvent actionEvent) {
         loadPage("/AfficherOffre.fxml");
 
-
     }
 
     @FXML
@@ -169,15 +167,13 @@ public class DashboardHR {
 
     }
 
-    public  void setroute(String s){
-        if (s=="event"){
+    public void setroute(String s) {
+        if (s == "event") {
             loadPage("/AfficherEvenement.fxml");
 
-
         }
-        if (s=="ajoutevent"){
+        if (s == "ajoutevent") {
             loadPage("/AjouterEvenement.fxml");
-
 
         }
     }

@@ -6,7 +6,7 @@ public class Feedback {
 
     private int id;
     private String message ;
-    private int rate ;
+    private float  rate ;
     private Date date_feedback;
     private int entretienId;
 
@@ -38,9 +38,7 @@ public class Feedback {
         this.message = message;
     }
 
-    public int getRate() {
-        return rate;
-    }
+
 
     public void setRate(int rate) {
         this.rate = rate;
@@ -48,6 +46,16 @@ public class Feedback {
 
     public Date getDate_feedback() {
         return date_feedback;
+    }
+
+
+    public float getRate() {
+        return rate;
+    }
+
+
+    public void setRate(float rate) {
+        this.rate = rate;
     }
 
     public void setDate_feedback(Date date_feedback) {
@@ -62,7 +70,7 @@ public class Feedback {
         this.entretienId = entretienId;
     }
 
-    public Feedback(int id, String message, int rate, Date date_feedback, int entretienId) {
+    public Feedback(int id, String message, float rate, Date date_feedback, int entretienId) {
         this.id = id;
         this.message = message;
         this.rate = rate;
@@ -70,7 +78,7 @@ public class Feedback {
         this.entretienId = entretienId;
     }
 
-    public Feedback(String message, int rate, int entretienId, Date date_feedback) {
+    public Feedback(String message, float rate, int entretienId, Date date_feedback) {
         this.message = message;
         this.rate = rate;
         this.entretienId = entretienId;

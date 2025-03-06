@@ -7,6 +7,7 @@ import esprit.tn.utils.Emailsend;
 import esprit.tn.utils.MyDatabase;
 
 import java.sql.*;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date ;
 
@@ -16,82 +17,70 @@ public class Main {
 
         connection = MyDatabase.getInstance().getConnection();
 
-        ServiceSponsor sspos=new ServiceSponsor();
-        System.out.println(sspos.getSponsorEmailById(1));
-        /*try {
-            ServiceEvenement serviceEvenement = new ServiceEvenement();
-            Integer eventId = serviceEvenement.getEventIdByName("Université de Tunis El Manar");
-            System.out.println("ID de l'événement : " + eventId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-        /*EventSponsorService sspos=new EventSponsorService();
-        sspos.afficher();*/
 
-//        //test
-//        //user
-//        ServiceUser serviceUser = new ServiceUser();
-//        User u1 = new User();
-//        u1 = u1.RH(
-//                "Johnson",
-//                "Emily",
-//                "emily.johnson@rhcorp.com",
-//                "SecurePass123",
-//                "01/05/1985",
-//                Sexe.FEMME,
-//                "New York",
-//                10,
-//                "Senior HR Manager"
-//        );
-//
-//        User u2 = new User();
-//        u2 = u2.Candidat(
-//                "Smith",
-//                "James",
-//                "james.smith24@gmail.com",
-//                "Candid@t3Pass",
-//                "12/11/1992",
-//                Sexe.HOMME,
-//                "Los Angeles",
-//                750.50
-//        );
-//
-//        User u3 = new User();
-//        u3 = u3.Manager(
-//                "Davis",
-//                "Sophia",
-//                "sophia.davis@financepro.com",
-//                "Fin@nc3Guru",
-//                "23/03/1980",
-//                Sexe.FEMME,
-//                "Chicago",
-//                "Finance",
-//                15,
-//                2500000.00
-//        );
-//
-//        User u4 = new User();
-//        u4 = u4.Employe(
-//                "Miller",
-//                "Daniel",
-//                "daniel.miller@corp.com",
-//                "Employ33Pass",
-//                "09/09/1990",
-//                Sexe.HOMME,
-//                "San Francisco",
-//                "IT Support",
-//                1200.00,
-//                8,
-//                "Technology",
-//                "Technical Support"
-//        );
-//
-////        try {
-////            serviceUser.ajouter(u4);
-////serviceUser.findbyid(1);
-////        } catch (SQLException e) {
-////            System.out.println(e.getMessage());
-////        }
+        //test
+        //user
+        ServiceUser serviceUser = new ServiceUser();
+        User u1 = new User();
+        u1 = u1.RH(
+                "Johnson",
+                "Emily",
+                "emily.johnson@rhcorp.com",
+                "SecurePass123",
+                "01/05/1985",
+                Sexe.FEMME,
+                "New York",
+                10,
+                "Senior HR Manager"
+        );
+
+        User u2 = new User();
+        u2 = u2.Candidat(
+                "Smith",
+                "James",
+                "james.smith24@gmail.com",
+                "Candid@t3Pass",
+                "12/11/1992",
+                Sexe.HOMME,
+                "Los Angeles",
+                750.50
+        );
+
+        User u3 = new User();
+        u3 = u3.Manager(
+                "Davis",
+                "Sophia",
+                "sophia.davis@financepro.com",
+                "Fin@nc3Guru",
+                "23/03/1980",
+                Sexe.FEMME,
+                "Chicago",
+                "Finance",
+                15,
+                2500000.00
+        );
+
+        User u4 = new User();
+        u4 = u4.Employe(
+                "Miller",
+                "Daniel",
+                "daniel.miller@corp.com",
+                "Employ33Pass",
+                "09/09/1990",
+                Sexe.HOMME,
+                "San Francisco",
+                "IT Support",
+                1200.00,
+                8,
+                "Technology",
+                "Technical Support"
+        );
+
+        try {
+            serviceUser.ajouter(u4);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 ////        try {
 ////            ServiceReclamation s = new ServiceReclamation();
 ////
@@ -177,8 +166,8 @@ public class Main {
 //        serviceUser.ajouter(u3);
 //        serviceUser.ajouter(u4);
 
-     //   Date currentDate = new Date();
-       // Time currentTime = new Time(System.currentTimeMillis());
+        Date currentDate = new Date();
+        Time currentTime = new Time(System.currentTimeMillis());
 
 //        Entretien entretien = new Entretien(
 //                "Entretien java hhhhhhhhhh  ",
@@ -219,37 +208,36 @@ public class Main {
 //            System.out.println("L'entretien n'existe pas !");
 //        }
 
-     /*   User user= new User();
-
-        user = user.Candidat(
-                "Smith",
-                "James",
-                "nn.smith24@gmail.com",
-                "Candid@t3Pass",
-                "12/11/1992",
-                Sexe.HOMME,
-                "Los Angeles",
-                750.50
-        );
-ServiceUser u=new ServiceUser();
-
-try {
-    System.out.println(user);
-    u.ajouter(user);
-    user.setRole(Role.CANDIDAT);
-    user.setSexe(Sexe.HOMME);
-    user.setSalaire(1500.00);
-    user.setExperienceTravail(5);
-    user.setDepartement("it");
-    user.setCompetence("no comp");
-    user.setIdUser(48);
-u.changetoEmploye(user);
-
-
-} catch (Exception e) {
-    throw new RuntimeException(e);
-}*/
-
+//        User user= new User();
+//
+//        user = user.Candidat(
+//                "Smith",
+//                "James",
+//                "nn.smith24@gmail.com",
+//                "Candid@t3Pass",
+//                "12/11/1992",
+//                Sexe.HOMME,
+//                "Los Angeles",
+//                750.50
+//        );
+//ServiceUser u=new ServiceUser();
+//
+//try {
+//    System.out.println(user);
+//    u.ajouter(user);
+//    user.setRole(Role.CANDIDAT);
+//    user.setSexe(Sexe.HOMME);
+//    user.setSalaire(1500.00);
+//    user.setExperienceTravail(5);
+//    user.setDepartement("it");
+//    user.setCompetence("no comp");
+//    user.setIdUser(48);
+//u.changetoEmploye(user);
+//
+//
+//} catch (Exception e) {
+//    throw new RuntimeException(e);
+//}
 
 //        try {
 //            EntretienService service = new EntretienService();
@@ -276,7 +264,130 @@ u.changetoEmploye(user);
 //        }
 
 
+//        User u2 = new User();
+//        u2 = u2.Candidat(
+//                "houssem",
+//                "hbaieb",
+//                "hbaieb.houssem@gmail.com",
+//                "Candid@t4Pass",
+//                "12/11/1992",
+//                Sexe.HOMME,
+//                "Los Angeles",
+//               750.50
+//        );
+//
+//
+//        User u3 = new User();
+//        u2 = u2.Candidat(
+//                "jecem",
+//                "jouili",
+//                "jecem.jouili@gmail.com",
+//                "Candid@t5Pass",
+//                "12/11/1992",
+//                Sexe.HOMME,
+//                "Los Angeles",
+//                750.50
+//        );
+//
+//        ServiceUser serviceUser = new ServiceUser();
+//
+//        try {
+//            serviceUser.ajouter(u2);
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+
+//        EntretienService entretienService = new EntretienService();
+//
+//        entretienService.getAllCandidatsSansEntretien(3);
+
+
+//        EntretienService service = new EntretienService();
+//
+//        // Affichage des entretiens
+//        List<Entretien> entretiens = service.afficher();
+//
+//        // Création de dates (sans utiliser le constructeur déprécié)
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(2025, Calendar.FEBRUARY, 10); // Date de début
+//        Date dateDebut = new Date(calendar.getTimeInMillis());
+//
+//        calendar.set(2025, Calendar.FEBRUARY, 13); // Date de fin
+//        Date dateFin = new Date(calendar.getTimeInMillis());
+//
+//        // Filtrage des entretiens
+//        List<Entretien> entretiensFiltrés = service.filterEntretienByDate(dateDebut, dateFin);
+//
+//        // Affichage des entretiens filtrés
+//        for (Entretien entretien : entretiensFiltrés) {
+//            System.out.println(entretien);
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        try {
+//            EntretienService service = new EntretienService();
+//
+//            int idOffre = 1;
+//
+//            Entretien nouvelEntretien = new Entretien(
+//                    "Entretien RH",
+//                    "Discussion sur le parcours du candidat",
+//                    new java.util.Date(),
+//                    new Time(System.currentTimeMillis()),
+//                    TypeEntretien.EN_PRESENTIEL,
+//                    false,
+//                    2,
+//                    4,
+//                    1,
+//                    0
+//            );
+//
+//            service.ajouterEntretienAvecCandidature(nouvelEntretien, idOffre);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
