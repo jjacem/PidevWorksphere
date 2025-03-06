@@ -171,7 +171,7 @@ public class ModifierCompteController {
                 DashboardManager.reloadDashboardFromStage(stage);
                 break;
             case "RH":
-                DashboardHR.reloadDashboardFromStage(stage);
+
                 break;
             case "EMPLOYE":
                 DashboardEmploye.reloadDashboardFromStage(stage);

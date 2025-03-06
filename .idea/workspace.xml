@@ -6,16 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="4041b6cf-e2e6-4d9b-a1eb-fe344a8151b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AIHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AIHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherCarteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherCarteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterEvenementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/EvenementSponsorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/MainFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/DateUtilEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/DateUtilEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/NominatimAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/NominatimAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterEvenementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterEvenementController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/MainFx.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardHR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherEvenementController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherEvenementController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherEvenementController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherEvenementController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/DashboardHR.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/DashboardHR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModifierCompteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModifierCompteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +36,12 @@
     &quot;assignee&quot;: &quot;yassin-bouras&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/jjacem/PidevWorksphere.git&quot;,
-    &quot;accountId&quot;: &quot;d900a9a0-bcb0-4c7e-8d3e-d23966fe9f26&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jjacem/PidevWorksphere.git",
+    "accountId": "669d9986-2012-4d27-a05c-bc4e299fb965"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -160,6 +157,7 @@
       <workItem from="1741205790048" duration="2062000" />
       <workItem from="1741209286230" duration="624000" />
       <workItem from="1741213604025" duration="9477000" />
+      <workItem from="1741228016642" duration="88000" />
     </task>
     <servers />
   </component>
