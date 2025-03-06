@@ -125,21 +125,25 @@ public class AjouterEntretineController {
             if (titre.isEmpty() || description.isEmpty() || date == null || typeString == null || cb_employe.getValue() == null || cb_candidat.getValue() == null || cb_offre.getValue() == null) {
                 showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
                 return;
+
             }
 
             if (titre.length() < 5) {
                 showAlert("Erreur", "Le titre doit contenir au moins 5 caractères.");
                 return;
+
             }
 
             if (description.length() < 10) {
                 showAlert("Erreur", "La description doit contenir au moins 10 caractères.");
                 return;
+
             }
 
             if (date.isBefore(LocalDate.now())) {
                 showAlert("Erreur", "La date doit être supérieure ou égale à aujourd'hui.");
                 return;
+                
             }
 
 
