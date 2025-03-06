@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="475.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreController">
+<AnchorPane prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherOffreController">
    <children>
-      <AnchorPane layoutX="597.0" prefHeight="484.0" prefWidth="108.0" style="-fx-background-color: #0086b3;">
+      <!-- Sidebar agrandie -->
+      <AnchorPane layoutX="1140.0" prefHeight="800.0" prefWidth="158.0" style="-fx-background-color: #0086b3; -fx-border-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
          <children>
-            <ImageView fitHeight="73.0" fitWidth="108.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/Images/474188139_2099437073823213_5214087864459817142_n.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="12.0" layoutY="146.0" mnemonicParsing="false" onAction="#goToModifierOffre" prefHeight="26.0" prefWidth="83.0" text="MODIFIER" />
-            <Button layoutX="12.0" layoutY="182.0" mnemonicParsing="false" onAction="#SupprimerOffre" prefHeight="26.0" prefWidth="83.0" text="SUPPRIMER" />
-            <Button layoutX="11.0" layoutY="110.0" mnemonicParsing="false" onAction="#goToAjouterOffre" prefHeight="26.0" prefWidth="83.0" text="AJOUTER" />
+            <Button layoutX="13.0" layoutY="212.0" mnemonicParsing="false" onAction="#goToModifierOffre" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="MODIFIER" />
+            <Button layoutX="13.0" layoutY="271.0" mnemonicParsing="false" onAction="#SupprimerOffre" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="SUPPRIMER" />
+            <Button layoutX="13.0" layoutY="150.0" mnemonicParsing="false" onAction="#goToAjouterOffre" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="AJOUTER" />
+            <Button layoutX="13.0" layoutY="329.0" mnemonicParsing="false" onAction="#viewCandidatures" prefHeight="35.0" prefWidth="133.0" style="-fx-background-color: #006699; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 14px;" text="Candidatures" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="70.0" fitWidth="112.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+
+      <!-- Logo section -->
+      <!-- Logo section -->
+      <ImageView fitHeight="97.0" fitWidth="140.0" layoutX="1149.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/Images/offre-demploi-visuel-2-removebg-preview.png" />
          </image>
       </ImageView>
-      <TextField fx:id="searchField" layoutX="270.0" layoutY="11.0" prefHeight="26.0" prefWidth="300.0" promptText="Rechercher une offre..." />
-      <ListView fx:id="lv_offre" layoutX="20.0" layoutY="88.0" prefHeight="371.0" prefWidth="550.0" />
-      <AnchorPane layoutX="270.0" layoutY="43.0" prefHeight="5.0" prefWidth="300.0" style="-fx-background-color: #0086b3;" />
-      <AnchorPane layoutX="319.0" layoutY="54.0" prefHeight="5.0" prefWidth="250.0" style="-fx-background-color: #0086b3;" />
-      <AnchorPane layoutX="370.0" layoutY="64.0" prefHeight="5.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" />
-      <AnchorPane layoutX="420.0" layoutY="74.0" prefHeight="5.0" prefWidth="150.0" style="-fx-background-color: #0086b3;" />
-      <Button layoutX="606.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="179.0" style="-fx-font-size: 15px; -fx-fill: black;" text="Retour dashboard" onAction="#retourdashRH" />
+
+      <!-- Search Bar and Sort Options agrandis -->
+      <HBox layoutX="160.0" layoutY="30.0" spacing="20.0" />
+
+      <!-- Agrandir la ListView -->
+      <ListView fx:id="lv_offre" layoutX="2.0" layoutY="104.0" prefHeight="654.0" prefWidth="1118.0" style="-fx-background-color: transparent;                         -fx-control-inner-background: #f8f9fa;                        -fx-border-color: transparent;                        -fx-padding: 10;">
+          <effect>
+              <DropShadow color="#00000022" radius="5" />
+          </effect>
+      </ListView>
+
+      <!-- Decorative blue lines -->
+      <AnchorPane layoutX="20.0" layoutY="25.0" prefHeight="7.0" prefWidth="400.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="38.0" prefHeight="7.0" prefWidth="350.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="51.0" prefHeight="7.0" prefWidth="300.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="63.0" prefHeight="7.0" prefWidth="250.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <TextField fx:id="searchField" layoutX="390.0" layoutY="44.0" prefHeight="40.0" prefWidth="498.0" promptText="Rechercher une offre..." style="-fx-background-radius: 5; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 5;">
+         <font>
+            <Font size="14.0" />
+         </font></TextField>
+      <ComboBox fx:id="sortComboBox" 
+                layoutX="900.0" layoutY="43.0" 
+                prefHeight="40.0" prefWidth="220.0" 
+                promptText="Trier par date" 
+                style="-fx-background-color: white;
+                       -fx-border-color: #0086b3;
+                       -fx-border-width: 2;
+                       -fx-border-radius: 5;
+                       -fx-background-radius: 5;
+                       -fx-font-size: 14px;
+                       -fx-padding: 5;">
+      </ComboBox>
+      <AnchorPane layoutX="20.0" layoutY="75.0" prefHeight="7.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="12.0" prefHeight="7.0" prefWidth="700.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
+      <AnchorPane layoutX="20.0" layoutY="87.0" prefHeight="7.0" prefWidth="140.0" style="-fx-background-color: #0086b3; -fx-background-radius: 5;" />
    </children>
 </AnchorPane>

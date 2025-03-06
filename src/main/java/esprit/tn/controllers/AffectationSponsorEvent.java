@@ -103,8 +103,6 @@ public class AffectationSponsorEvent {
 */
 
 
-
-
     private Sponsor selectedSponsor;  // Sponsor sélectionné dans la fenêtre principale
 
 

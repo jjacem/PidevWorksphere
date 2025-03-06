@@ -16,27 +16,42 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import esprit.tn.entities.Candidature;
+import esprit.tn.services.OCRService;
 import esprit.tn.services.ServiceCandidature;
+import esprit.tn.services.TranslationService;
+import esprit.tn.services.CvEvaluationService;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import org.apache.pdfbox.text.PDFTextStripper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.Arrays;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
+import esprit.tn.utils.MarkdownUtils;
 
 public class AfficherCandidatureController implements Initializable {
     @FXML
@@ -48,9 +63,13 @@ public class AfficherCandidatureController implements Initializable {
     @FXML
     private Button supprimerButton;
 
+    private OCRService ocrService = new OCRService();
+    private TranslationService translationService = new TranslationService();
+    private CvEvaluationService cvEvaluationService = new CvEvaluationService();
+
     private ObservableList<Candidature> candidaturesList = FXCollections.observableArrayList();
 
-    // New helper to generate the first-page preview image from a PDF file.
+    // Generate preview image from PDF file
     private Image generatePdfPreview(String filePath) {
         try (PDDocument document = PDDocument.load(new File(filePath))) {
             PDFRenderer renderer = new PDFRenderer(document);
@@ -62,7 +81,7 @@ public class AfficherCandidatureController implements Initializable {
         }
     }
 
-    // Update list cell to display offer info and PDF preview images.
+    // Set up ListView cell factory with preview images but without action buttons
     private void setupListView() {
         lv_candidatures.setCellFactory(lv -> new ListCell<Candidature>() {
             @Override
@@ -73,6 +92,8 @@ public class AfficherCandidatureController implements Initializable {
                     setText(null);
                 } else {
                     Label offerLabel = new Label("Offre: " + candidature.getIdOffre().getTitre());
+                    offerLabel.setStyle("-fx-font-weight: bold;");
+                    
                     Image cvImage = generatePdfPreview(candidature.getCv());
                     Image lettreImage = generatePdfPreview(candidature.getLettreMotivation());
                     
@@ -83,16 +104,25 @@ public class AfficherCandidatureController implements Initializable {
                     lettreView.setFitWidth(100);
                     lettreView.setFitHeight(100);
                     
-                    HBox imagesBox = new HBox(10, new VBox(new Label("CV"), cvView),
-                                                    new VBox(new Label("Lettre"), lettreView));
-                    VBox cellBox = new VBox(offerLabel, imagesBox);
+                    HBox imagesBox = new HBox(10, 
+                        new VBox(5, new Label("CV"), cvView),
+                        new VBox(5, new Label("Lettre"), lettreView)
+                    );
+                    
+//                    // Status information
+//                    Label statusLabel = new Label("Statut: " + candidature.getStatusCandidature());
+//                    statusLabel.setStyle("-fx-font-style: italic;");
+                    
+                    VBox cellBox = new VBox(5, offerLabel, imagesBox);
+                    cellBox.setStyle("-fx-padding: 5;");
+                    
                     setGraphic(cellBox);
                 }
             }
         });
     }
 
-    // Méthode pour charger les candidatures depuis la base de données
+    // Load candidatures from database
     private void chargerCandidatures() {
         ServiceUser serviceUser = new ServiceUser();
         ServiceCandidature serviceCandidature = new ServiceCandidature();
@@ -100,9 +130,9 @@ public class AfficherCandidatureController implements Initializable {
         try {
             User currentUser = SessionManager.extractuserfromsession();
             if (currentUser != null) {
-                System.out.println("Current user ID: " + currentUser.getIdUser()); // Debug line
+                System.out.println("Current user ID: " + currentUser.getIdUser());
                 List<Candidature> candidatures = serviceCandidature.getCandidaturesByUser(currentUser.getIdUser());
-                System.out.println("Found " + candidatures.size() + " candidatures"); // Debug line
+                System.out.println("Found " + candidatures.size() + " candidatures");
                 
                 candidaturesList.clear();
                 candidaturesList.addAll(candidatures);
@@ -112,7 +142,7 @@ public class AfficherCandidatureController implements Initializable {
                     System.out.println("No candidatures found");
                 } else {
                     for (Candidature c : candidatures) {
-                        System.out.println("Candidature: " + c.getCv()); // Debug line
+                        System.out.println("Candidature: " + c.getCv());
                     }
                 }
             } else {
@@ -124,10 +154,19 @@ public class AfficherCandidatureController implements Initializable {
         }
     }
 
+    // These methods are kept but no longer used in the ListView
+    // ... existing code for analyzeCandidature, showTranslationOptions, translateDocument, etc...
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
     @FXML
     private void retourVersOffres(ActionEvent event) {
         try {
-            // Get the source of the event
             Node source = (Node) event.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
             
@@ -147,15 +186,11 @@ public class AfficherCandidatureController implements Initializable {
         Candidature selectedCandidature = lv_candidatures.getSelectionModel().getSelectedItem();
         
         if (selectedCandidature == null) {
-            // Show warning if no candidature is selected
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aucune sélection");
-            alert.setContentText("Veuillez sélectionner une candidature à supprimer.");
-            alert.showAndWait();
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection", 
+                "Veuillez sélectionner une candidature à supprimer.");
             return;
         }
 
-        // Show confirmation dialog
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Confirmation de suppression");
         confirmation.setContentText("Êtes-vous sûr de vouloir supprimer cette candidature ?");
@@ -164,22 +199,12 @@ public class AfficherCandidatureController implements Initializable {
             ServiceCandidature serviceCandidature = new ServiceCandidature();
             try {
                 serviceCandidature.supprimer(selectedCandidature.getIdCandidature());
-                
-                // Remove from the ListView
                 candidaturesList.remove(selectedCandidature);
-                
-                // Show success message
-                Alert success = new Alert(Alert.AlertType.INFORMATION);
-                success.setTitle("Succès");
-                success.setContentText("La candidature a été supprimée avec succès.");
-                success.showAndWait();
-                
+                showAlert(Alert.AlertType.INFORMATION, "Succès", 
+                    "La candidature a été supprimée avec succès.");
             } catch (SQLException e) {
-                // Show error message
-                Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setTitle("Erreur");
-                error.setContentText("Une erreur est survenue lors de la suppression: " + e.getMessage());
-                error.showAndWait();
+                showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Une erreur est survenue lors de la suppression: " + e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -187,8 +212,8 @@ public class AfficherCandidatureController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        chargerCandidatures();
         setupListView();
+        chargerCandidatures();
         
         // Enable/disable delete button based on selection
         lv_candidatures.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
