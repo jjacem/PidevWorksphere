@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierReclamationController">
-    <children>
-        <Text layoutX="134.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Réclamation" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+<AnchorPane prefHeight="500" prefWidth="700" style="-fx-background-color: linear-gradient(to bottom, #1E3A8A, #2563EB);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierReclamationController">
 
-        <TextField fx:id="titre" layoutX="197.0" layoutY="76.0" prefHeight="26.0" prefWidth="200.0" />
-        <Text layoutX="164.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre" />
+    <stylesheets>
+        <URL value="@Modifierrec.css" />
+    </stylesheets>
 
-        <TextArea fx:id="description" layoutX="197.0" layoutY="112.0" prefHeight="117.0" prefWidth="200.0" />
-        <Text layoutX="134.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+    <VBox alignment="CENTER" spacing="15">
+        <AnchorPane.topAnchor>50</AnchorPane.topAnchor>
+        <AnchorPane.leftAnchor>0</AnchorPane.leftAnchor>
+        <AnchorPane.rightAnchor>0</AnchorPane.rightAnchor>
 
-        <ChoiceBox fx:id="type" layoutX="197.0" layoutY="254.0" prefWidth="150.0" />
-        <Text layoutX="163.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
+        <Text styleClass="title-text" text="Modifier Réclamation" />
 
-        <Button layoutX="246.0" layoutY="333.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
-    </children>
+        <TextField fx:id="titre" promptText="Titre" styleClass="custom-textfield" />
+
+        <TextArea fx:id="description" promptText="Description" styleClass="custom-textarea" />
+
+        <ChoiceBox fx:id="type" styleClass="custom-choicebox" />
+
+        <Button fx:id="btnModifier" onAction="#modifier" styleClass="blue-button" text="Modifier" />
+    </VBox>
 </AnchorPane>

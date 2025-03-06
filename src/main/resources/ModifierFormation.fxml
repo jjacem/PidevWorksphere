@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="FormMod" prefHeight="777.0" prefWidth="703.0" style="-fx-background-color: #ffffff;" stylesheets="@Formation.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierFormationController">
+   <children>
+      <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="688.0" prefWidth="600.0" spacing="10.0">
+         <Label style="-fx-background-color: #Modifier Formation;" text="Modifier Formation" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Label>
+
+         <Label text="Titre" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="560.0" />
+            </VBox.margin>
+         </Label>
+         <TextField fx:id="idtitre" prefHeight="35.0" prefWidth="400.0" promptText="Titre" />
+
+         <Label text="Description" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="520.0" />
+            </VBox.margin>
+         </Label>
+         <TextField fx:id="iddesc" prefHeight="55.0" prefWidth="400.0" promptText="Description" />
+
+         <Label text="Date" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="560.0" />
+            </VBox.margin>
+         </Label>
+         <DatePicker fx:id="iddate" prefHeight="35.0" prefWidth="602.0" promptText="Date" />
+
+         <Label text="Heure début" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="510.0" />
+            </VBox.margin>
+         </Label>
+         <TextField fx:id="idheuredebut" prefHeight="35.0" prefWidth="400.0" promptText="Heure de début" />
+
+         <Label text="Heure fin" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="530.0" />
+            </VBox.margin>
+         </Label>
+         <TextField fx:id="idheurefin" prefHeight="35.0" prefWidth="400.0" promptText="Heure de fin" />
+
+         <Label text="Type" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="560.0" />
+            </VBox.margin>
+         </Label>
+         <ChoiceBox fx:id="idtype" prefHeight="26.0" prefWidth="608.0" />
+
+         <Label text="Nombre de places" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="480.0" />
+            </VBox.margin>
+         </Label>
+         <TextField fx:id="idnbplace" prefHeight="35.0" prefWidth="400.0" promptText="Nombre de places" />
+
+         <Label text="Photo" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets right="550.0" />
+            </VBox.margin>
+         </Label>
+         <Button fx:id="ajouterPhotoBtn" layoutX="70.0" layoutY="581.0" onMouseClicked="#uploadImage" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #0086b3;" text="Modifier Photo" textFill="WHITE" />
+
+         <ImageView fx:id="photoPreview" fitHeight="100.0" fitWidth="200.0" layoutX="280.0" layoutY="581.0" />
+
+         <Button fx:id="modifierfBTN" onAction="#Onmodifierformation" prefHeight="35.0" prefWidth="400.0" style="-fx-background-color: #0086b3;" text="Modifier formation" textFill="WHITE" />
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="esprit.tn.controllers.Changermdp"
+            prefWidth="1000"
+            prefHeight="600">
+
+    <!-- Background with gradient -->
+    <Rectangle width="1000" height="600">
+        <fill>
+            <LinearGradient startX="0" startY="0" endX="1" endY="1">
+                <stops>
+                    <Stop offset="0" color="#1E3A8A"/>
+                    <Stop offset="1" color="#2563EB"/>
+                </stops>
+            </LinearGradient>
+        </fill>
+    </Rectangle>
+
+    <!-- Centered Card Container -->
+    <VBox alignment="CENTER" spacing="25"
+          style="-fx-background-color: rgba(255, 255, 255, 0.95);
+                 -fx-background-radius: 20;
+                 -fx-padding: 40 60 40 60;
+                 -fx-max-width: 450;"
+          AnchorPane.leftAnchor="275"
+          AnchorPane.rightAnchor="275"
+          AnchorPane.topAnchor="100"
+          AnchorPane.bottomAnchor="100">
+
+        <!-- Drop Shadow Effect -->
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.2)" radius="20" spread="0.2"/>
+        </effect>
+
+        <!-- Title -->
+        <Label text="Changer Mot de Passe"
+               style="-fx-text-fill: #1E3A8A;
+                      -fx-font-weight: bold;
+                      -fx-font-size: 28px;
+                      -fx-alignment: center;">
+            <font>
+                <Font name="System Bold" size="28"/>
+            </font>
+            <!-- Subtle animation on load -->
+        </Label>
+
+        <!-- New Password Field -->
+        <PasswordField fx:id="newPasswordField"
+                       promptText="Nouveau mot de passe"
+                       style="-fx-background-color: white;
+                              -fx-border-color: #E5E7EB;
+                              -fx-border-radius: 10;
+                              -fx-background-radius: 10;
+                              -fx-pref-width: 350;
+                              -fx-pref-height: 45;
+                              -fx-font-size: 14px;
+                              -fx-padding: 10;
+                              -fx-text-fill: #1F2937;
+                              -fx-prompt-text-fill: #9CA3AF;">
+            <effect>
+                <DropShadow color="rgba(0,0,0,0.05)" radius="5" spread="0.1"/>
+            </effect>
+        </PasswordField>
+
+        <!-- Confirm Password Field -->
+        <PasswordField fx:id="confirmPasswordField"
+                       promptText="Confirmer le mot de passe"
+                       style="-fx-background-color: white;
+                              -fx-border-color: #E5E7EB;
+                              -fx-border-radius: 10;
+                              -fx-background-radius: 10;
+                              -fx-pref-width: 350;
+                              -fx-pref-height: 45;
+                              -fx-font-size: 14px;
+                              -fx-padding: 10;
+                              -fx-text-fill: #1F2937;
+                              -fx-prompt-text-fill: #9CA3AF;">
+            <effect>
+                <DropShadow color="rgba(0,0,0,0.05)" radius="5" spread="0.1"/>
+            </effect>
+        </PasswordField>
+
+        <!-- Error Label -->
+        <Label fx:id="errorLabel"
+               style="-fx-text-fill: #EF4444;
+                      -fx-font-size: 14px;
+                      -fx-alignment: center;"
+               text=""
+               visible="false">
+        </Label>
+
+        <!-- Change Button -->
+        <Button fx:id="btnChanger"
+                text="Changer"
+                style="-fx-background-color: #3B82F6;
+                       -fx-text-fill: white;
+                       -fx-font-size: 16px;
+                       -fx-font-weight: bold;
+                       -fx-pref-width: 200;
+                       -fx-pref-height: 50;
+                       -fx-background-radius: 12;
+                       -fx-border-radius: 12;
+                       -fx-cursor: hand;">
+            <effect>
+                <DropShadow color="rgba(59,130,246,0.3)" radius="10" spread="0.2"/>
+            </effect>
+            <styleClass/>
+        </Button>
+
+    </VBox>
+
+    <!-- External CSS -->
+    <stylesheets>
+        <URL value="@changermdp.css"/>
+    </stylesheets>
+
+</AnchorPane>

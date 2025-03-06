@@ -6,6 +6,7 @@ import esprit.tn.utils.MyDatabase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceReclamation implements IService<Reclamation> {
     private final Connection connection;
@@ -15,15 +16,14 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     public void ajouter(Reclamation reclamation) throws SQLException {
-        String req = "INSERT INTO Reclamation (status, titre, description, type, id_user, id_user2) VALUES (?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO Reclamation (titre, description, type, id_user, id_user2) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, reclamation.getStatus());
-            statement.setString(2, reclamation.getTitre());
-            statement.setString(3, reclamation.getDescription());
-            statement.setString(4, reclamation.getType());
-            statement.setInt(5, reclamation.getId_user());
-            statement.setInt(6, reclamation.getId_user2());
+            statement.setString(1, reclamation.getTitre());
+            statement.setString(2, reclamation.getDescription());
+            statement.setString(3, reclamation.getType());
+            statement.setInt(4, reclamation.getId_user());
+            statement.setInt(5, reclamation.getId_user2());
 
             statement.executeUpdate();
             System.out.println("Réclamation ajoutée avec succès.");
@@ -39,7 +39,6 @@ public class ServiceReclamation implements IService<Reclamation> {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Reclamation reclamation = new Reclamation(
-                        rs.getString("status"),
                         rs.getString("titre"),
                         rs.getString("description"),
                         rs.getString("type"),
@@ -47,7 +46,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -55,7 +54,6 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return reclamations;
     }
-
     public List<Reclamation> getReclamationsByUser2(int id_user2) {
         String req = "SELECT * FROM Reclamation WHERE id_user2=?";
         List<Reclamation> reclamations = new ArrayList<>();
@@ -65,7 +63,6 @@ public class ServiceReclamation implements IService<Reclamation> {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Reclamation reclamation = new Reclamation(
-                        rs.getString("status"),
                         rs.getString("titre"),
                         rs.getString("description"),
                         rs.getString("type"),
@@ -73,7 +70,9 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getInt("id_user2")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
-                reclamation.setDatedepot(rs.getTimestamp("datedepot")); // ✅ Récupérer datedepot
+                reclamation.setDatedepot(rs.getTimestamp("datedepot"));
+                ServiceReponse s=new ServiceReponse();
+                reclamation.setReponse(s.checkForRepInRec(reclamation.getId_reclamation()));
                 reclamations.add(reclamation);
             }
         } catch (SQLException e) {
@@ -83,16 +82,15 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     public void modifier(Reclamation reclamation) throws SQLException {
-        String req = "UPDATE Reclamation SET status=?, titre=?, description=?, type=?, id_user=?, id_user2=? WHERE id_reclamation=?";
+        String req = "UPDATE Reclamation SET titre=?, description=?, type=?, id_user=?, id_user2=? WHERE id_reclamation=?";
 
         try (PreparedStatement statement = connection.prepareStatement(req)) {
-            statement.setString(1, reclamation.getStatus());
-            statement.setString(2, reclamation.getTitre());
-            statement.setString(3, reclamation.getDescription());
-            statement.setString(4, reclamation.getType());
-            statement.setInt(5, reclamation.getId_user());
-            statement.setInt(6, reclamation.getId_user2());
-            statement.setInt(7, reclamation.getId_reclamation());
+            statement.setString(1, reclamation.getTitre());
+            statement.setString(2, reclamation.getDescription());
+            statement.setString(3, reclamation.getType());
+            statement.setInt(4, reclamation.getId_user());
+            statement.setInt(5, reclamation.getId_user2());
+            statement.setInt(6, reclamation.getId_reclamation());
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -121,7 +119,6 @@ public class ServiceReclamation implements IService<Reclamation> {
 
             while (rs.next()) {
                 Reclamation reclamation = new Reclamation(
-                        rs.getString("status"),
                         rs.getString("titre"),
                         rs.getString("description"),
                         rs.getString("type"),
@@ -130,24 +127,12 @@ public class ServiceReclamation implements IService<Reclamation> {
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
-             String   req2 = "SELECT * FROM Response WHERE id_reclamation=?";
-                try (PreparedStatement statement2 = connection.prepareStatement(req2)) {
-                    statement2.setInt(1, reclamation.getId_reclamation());
-                    ResultSet rs2 = statement2.executeQuery();
-                    while (rs2.next()) {
-                        ServiceReponse serviceReponse = new ServiceReponse();
-                        reclamation.setReponse(serviceReponse.getresponsebyid( rs2.getInt("id_reponse")));
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 reclamations.add(reclamation);
             }
         }
         return reclamations;
     }
 
-    // ✅ Trouver l'ID d'une réclamation en fonction de l'utilisateur et du destinataire
     public int findIdReclamation(int id_user, int id_user2) {
         String req = "SELECT id_reclamation FROM Reclamation WHERE id_user=? AND id_user2=?";
         int id = 0;
@@ -163,6 +148,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         }
         return id;
     }
+
     public Reclamation getReclamationById(int id) throws SQLException {
         String query = "SELECT * FROM reclamation WHERE id_reclamation = ?";
         PreparedStatement pst = connection.prepareStatement(query);
@@ -170,8 +156,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         ResultSet rs = pst.executeQuery();
 
         if (rs.next()) {
-            Reclamation r= new Reclamation(
-                    rs.getString("status"),
+            Reclamation r = new Reclamation(
                     rs.getString("titre"),
                     rs.getString("description"),
                     rs.getString("type"),
@@ -181,9 +166,13 @@ public class ServiceReclamation implements IService<Reclamation> {
 
             r.setId_reclamation(rs.getInt("id_reclamation"));
             return r;
-
         }
         return null;
     }
 
+    public List<Reclamation> filterbytitle(String title) throws SQLException {
+        return this.afficher().stream()
+                .filter(r -> r.getTitre().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 }

@@ -1,0 +1,60 @@
+/* 🔵 Stylish Background Glow */
+AnchorPane {
+    -fx-background-color: linear-gradient(to bottom, #1E3A8A, #2563EB);
+}
+
+/* ✨ Title Styling */
+.title-text {
+    -fx-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.3), 10, 0.5, 0, 0);
+}
+
+/* 🎨 Input Fields */
+.custom-textfield, .custom-textarea {
+    -fx-background-color: #E5E7EB;
+    -fx-border-color: #3B82F6;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 0);
+}
+
+.custom-textfield:focused, .custom-textarea:focused {
+    -fx-border-color: #1E40AF;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.8), 10, 0.5, 0, 0);
+}
+
+/* 🔵 Choice Box */
+.custom-choicebox {
+    -fx-background-color: white;
+    -fx-border-color: #3B82F6;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+}
+
+/* 🔵 Buttons */
+.blue-button {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 12px 25px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 0);
+    -fx-transition: all 0.3s;
+}
+
+/* 🖱️ Hover Effect */
+.blue-button:hover {
+    -fx-background-color: #1E40AF;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.8), 10, 0.5, 0, 0);
+}
+
+/* 🖱️ Click Effect */
+.blue-button:pressed {
+    -fx-background-color: #1E3A8A;
+    -fx-translate-y: 2px;
+}

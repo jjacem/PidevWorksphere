@@ -3,80 +3,95 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="esprit.tn.controllers.AjouterEvenementController">
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="esprit.tn.controllers.AjouterEvenementController"
+      spacing="10" style="-fx-padding: 20;" stylesheets="@AjouterEvenement.css">
+
    <children>
-      <!-- Titre de la page -->
-      <Text layoutX="172.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter événement" style="-fx-font-size: 24px; -fx-fill: #0086b3;" />
+      <Text style="-fx-font-size: 24px; -fx-fill: #0086b3;" text="Ajouter événement" />
 
-      <!-- Champ Nom de l'événement -->
-      <Label layoutX="75.0" layoutY="68.0" text="Nom de l'événement :" textFill="#0086b3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="nomEventTextField" layoutX="135.0" layoutY="64.0" prefHeight="35.0" prefWidth="300.0" promptText="Nom de l'événement" />
-      <Label fx:id="nomEventErrorLabel" layoutX="135.0" layoutY="90.0" textFill="red" visible="false" />
+      <VBox spacing="5">
+         <Label text="Nom de l'événement :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="nomEventTextField" prefHeight="35.0" prefWidth="100.0" promptText="Nom de l'événement" />
+         <Label fx:id="nomEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
 
-      <!-- Champ Description -->
-      <Label layoutX="75.0" layoutY="102.0" text="Description :" textFill="#0086b3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="descEventTextArea" layoutX="139.0" layoutY="111.0" prefHeight="71.0" prefWidth="300.0" promptText="Description de l'événement" />
-      <Label fx:id="descEventErrorLabel" layoutX="139.0" layoutY="185.0" textFill="red" visible="false" />
+      <VBox spacing="5">
+         <Label text="Description :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextArea fx:id="descEventTextArea" prefHeight="71.0" prefWidth="100.0" promptText="Description de l'événement" />
+         <Label fx:id="descEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
 
-      <!-- Champ Date de l'événement -->
-      <Label layoutX="78.0" layoutY="204.0" text="Date de l'événement :" textFill="#0086b3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="datePicker" layoutX="138.0" layoutY="200.0" prefHeight="35.0" prefWidth="300.0" />
-      <Label fx:id="dateEventErrorLabel" layoutX="138.0" layoutY="225.0" textFill="red" visible="false" />
+      <VBox spacing="5">
+         <Label text="Date de l'événement :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <DatePicker fx:id="datePicker" prefHeight="35.0" prefWidth="100.0" />
+         <Label fx:id="dateEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
 
-      <!-- Champ Heure de l'événement -->
-      <Label layoutX="78.0" layoutY="239.0" text="Heure de l'événement :" textFill="#0086b3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="timeTextField" layoutX="138.0" layoutY="235.0" prefHeight="35.0" prefWidth="300.0" promptText="Heure de l'événement" />
-      <Label fx:id="timeEventErrorLabel" layoutX="138.0" layoutY="260.0" textFill="red" visible="false" />
+      <VBox spacing="5">
+         <Label text="Heure de l'événement :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="timeTextField" prefHeight="35.0" prefWidth="100.0" promptText="Heure de l'événement" />
+         <Label fx:id="timeEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
 
-      <!-- Champ Lieu de l'événement -->
-      <Label layoutX="78.0" layoutY="273.0" text="Lieu de l'événement :" textFill="#0086b3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="lieuEventTextField" layoutX="139.0" layoutY="273.0" prefHeight="35.0" prefWidth="300.0" promptText="Lieu de l'événement" />
-      <Label fx:id="lieuEventErrorLabel" layoutX="139.0" layoutY="295.0" textFill="red" visible="false" />
+      <VBox spacing="5">
+         <Label text="Lieu de l'événement :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="lieuEventTextField" prefHeight="35.0" prefWidth="100.0" promptText="Lieu de l'événement" />
+         <Label fx:id="lieuEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
 
-      <!-- Champ Capacité -->
-      <Label layoutX="78.0" layoutY="308.0" text="Capacité :" textFill="#0086b3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="capaciteEventTextField" layoutX="138.0" layoutY="304.0" prefHeight="35.0" prefWidth="300.0" promptText="Capacité de l'événement" />
-      <Label fx:id="capaciteEventErrorLabel" layoutX="138.0" layoutY="325.0" textFill="red" visible="false" />
+      <VBox spacing="5">
+         <Label text="Capacité :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="capaciteEventTextField" prefHeight="35.0" prefWidth="100.0" promptText="Capacité de l'événement" />
+         <Label fx:id="capaciteEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
 
-      <!-- Bouton Ajouter -->
+      <VBox spacing="5">
+         <Label text="Idées de thème :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextArea fx:id="themeIdeasTextArea" minHeight="100.0" maxHeight="200.0" prefWidth="100.0" promptText="Suggestions de thèmes" editable="false" wrapText="true"/>
+      </VBox>
 
-      <Button fx:id="ajouterbtn" layoutX="80.0" layoutY="358.0" mnemonicParsing="false" onAction="#ajouterEvenement"
-              prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;"
-              text="Ajouter evenement" />
-      <!-- Bouton Ajouter -->
-      <Button fx:id="RetourBtnaListEvent" layoutX="410.0" layoutY="400.0" mnemonicParsing="false" onAction="#RetourListEvenement" text="Retour"
-              prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
+      <HBox spacing="10">
+         <Button fx:id="getThemeIdeasButton" mnemonicParsing="false" onAction="#getThemeIdeas" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Obtenir des idées de thème" />
+         <Button fx:id="ajouterbtn" mnemonicParsing="false" onAction="#ajouterEvenement" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #0086b3; -fx-text-fill: white;" text="Ajouter evenement" />
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

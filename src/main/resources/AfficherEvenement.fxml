@@ -7,47 +7,44 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="esprit.tn.controllers.AfficherEvenementController"
-            prefHeight="400.0" prefWidth="600.0"
-            style="-fx-background-color: #ffffff;">
+<?import java.net.URL?>
+<?import javafx.scene.web.WebView?>
+<AnchorPane prefHeight="698.0" prefWidth="940.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherEvenementController">
+
+    <stylesheets>
+        <URL value="@AfficherEvenement.css" />
+    </stylesheets>
 
     <children>
-        <!-- Liste des événements -->
-        <ListView fx:id="lv_event" layoutX="10.0" layoutY="150.0" prefHeight="230.0" prefWidth="580.0"
-                  AnchorPane.topAnchor="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0" />
-
-        <!-- Titre -->
-        <Label layoutX="14.0" layoutY="110.0" text="Liste des événements" textFill="#0086b3"
-               AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="110.0">
-            <font>
-                <Font name="System Bold" size="24.0"/>
-            </font>
-        </Label>
-
-        <!-- Bouton Ajouter -->
-        <Button fx:id="btnAjouterEvent" layoutX="420.0" layoutY="100.0"
-
-                prefHeight="40.0" prefWidth="160.0"
-                style="-fx-background-color: #000000;" text="Ajouter Événement" textFill="WHITE"
-                AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="100.0"
-        onAction="#OnajouterEvent"/>
-
         <!-- Barre de recherche -->
-        <HBox layoutX="0.0" layoutY="10.0" prefHeight="50.0" prefWidth="600.0" spacing="10"
-              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <HBox layoutX="0.0" layoutY="10.0" prefHeight="50.0" prefWidth="940.0" spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
-                <TextField fx:id="txtRechercheEvent" prefHeight="30.0" prefWidth="400.0" promptText="Rechercher..." />
-                <Button fx:id="btnRechercheEvent" onAction="#OnchercherEvent"
-                        prefHeight="30.0" prefWidth="100.0" text="Rechercher"
-                        style="-fx-background-color: #0086b3; -fx-text-fill: white;" />
+                <TextField fx:id="txtRechercheEvent" prefHeight="30.0" prefWidth="400.0" promptText="Rechercher..." styleClass="search-field" />
+                <Button fx:id="btnRechercheEvent" onAction="#OnchercherEvent" prefHeight="30.0" prefWidth="100.0" styleClass="search-button" text="Rechercher" />
             </children>
             <padding>
-                <Insets top="10.0" left="50.0"/>
+                <Insets left="50.0" top="10.0" />
             </padding>
         </HBox>
+
+        <!-- Titre et Bouton Ajouter -->
+        <HBox layoutX="14.0" layoutY="70.0" spacing="20" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="70.0">
+            <children>
+                <Label text="Liste des événements" styleClass="title-label">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Button fx:id="btnAjouterEvent" onAction="#OnajouterEvent" prefHeight="40.0" prefWidth="160.0" styleClass="add-button" text="➕ Ajouter Événement" />
+            </children>
+        </HBox>
+
+        <!-- Liste des événements -->
+        <ListView fx:id="lv_event" layoutX="10.0" layoutY="150.0" prefHeight="500.0" prefWidth="920.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" styleClass="event-list" />
+
+
     </children>
 </AnchorPane>

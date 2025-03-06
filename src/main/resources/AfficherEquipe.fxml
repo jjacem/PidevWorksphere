@@ -7,39 +7,78 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" stylesheets="@AfficherEquipe.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherEquipeController">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="800.0" prefWidth="800.0" stylesheets="@AfficherProjet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.AfficherEquipeController">
 
     <!-- Conteneur principal -->
-    <HBox alignment="CENTER" spacing="20" styleClass="main-card" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="50">
+    <HBox alignment="CENTER" layoutX="15.0" layoutY="21.0" prefHeight="744.0" prefWidth="756.0" spacing="20" styleClass="main-card" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="21.0">
 
         <HBox alignment="CENTER_LEFT" />
 
         <!-- Contenu principal avec la liste des équipes -->
-        <VBox alignment="CENTER" spacing="20" styleClass="card" HBox.hgrow="ALWAYS">
+        <VBox alignment="CENTER" spacing="20" HBox.hgrow="ALWAYS">
             <!-- Titre de la page -->
-            <Label styleClass="title-label" text="Liste des équipes" />
+            <Label styleClass="title-label" text="Liste des équipes" textFill="#006699" />
 
-            <!-- Conteneur pour la barre de recherche et les boutons -->
-            <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-search-container">
-               <Button onAction="#versProjet" styleClass="button" text="Projet" />
-                <!-- Barre de recherche -->
-                <TextField fx:id="searchField" onKeyReleased="#rechercherEquipe" promptText="Rechercher une équipe..." styleClass="search-field" />
+
+
+        <!-- Conteneur pour la barre de recherche et les boutons-->
+        <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="button-search-container">
+
+            <!-- <Button fx:id="statsButton" onAction="#voirStatistiques" prefHeight="35.0" prefWidth="53.0" styleClass="stat-button" text="Statistiques 📊" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button> -->
+
+                <Button   fx:id="statsButton" onAction="#voirStatistiques" prefHeight="50.0" prefWidth="50.0"
+                         styleClass="chatbot-button">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <image>
+                                <Image url="@icons/stat.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button  fx:id="chatbotButton" onAction="#AskMe" prefHeight="50.0" prefWidth="50.0"
+                        styleClass="chatbot-button">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <image>
+                                <Image url="@icons/comments.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <!-- <Button onAction="#AskMe" prefHeight="32.0" prefWidth="41.0" styleClass="rapport-button" text="❓" />
+                 Barre de recherche -->
+                <TextField fx:id="searchField" onKeyReleased="#rechercherEquipe" prefHeight="42.0" prefWidth="285.0" promptText="Rechercher une équipe..." styleClass="search-field" />
 
                 <!-- Bouton Ajouter une équipe -->
-                <Button onAction="#redirectToAjouterEquipe" styleClass="button-ajouter" text="Ajouter une équipe" />
+                <Button onAction="#redirectToAjouterEquipe" prefWidth="120.0" styleClass="button-ajouter" text="Ajouter">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
 
                 <!-- Bouton Supprimer tout -->
-                <Button onAction="#supprimerToutesEquipes" styleClass="supprimer-tout-button" text="Supprimer tout" />
-            </HBox>
+                <Button onAction="#supprimerToutesEquipes" prefWidth="150.0" styleClass="supprimer-tout-button" text="Supprimer tout">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+        </HBox>
 
-            <!-- ScrollPane pour la liste des équipes -->
-            <!-- ScrollPane pour la liste des équipes -->
+        <!-- ScrollPane pour la liste des équipes -->
             <ScrollPane fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <VBox fx:id="equipesContainer" spacing="5" styleClass="equipes-container">
-                    <!-- Les équipes seront ajoutées dynamiquement ici -->
+                <VBox fx:id="equipesContainer" prefHeight="539.0" prefWidth="620.0" spacing="5" styleClass="equipes-container">
                 </VBox>
             </ScrollPane>
         </VBox>
     </HBox>
+
 </AnchorPane>

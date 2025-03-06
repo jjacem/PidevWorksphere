@@ -1,0 +1,65 @@
+/* 🔵 Background Styling */
+AnchorPane {
+    -fx-background-color: linear-gradient(to right, #1E3A8A, #F59E0B); /* Blue to warm yellow gradient */
+}
+
+/* 🔍 Search Field */
+.custom-textfield {
+    -fx-background-color: #F9FAFB;
+    -fx-border-color: #F59E0B; /* Subtle yellow border */
+    -fx-border-radius: 8px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 0);
+}
+.custom-textfield:focused {
+    -fx-border-color: #F59E0B; /* Yellow border when focused */
+    -fx-effect: dropshadow(gaussian, rgba(255, 193, 7, 0.8), 10, 0.5, 0, 0); /* Yellow glow */
+}
+
+/* 🔵 ChoiceBox Styling */
+.custom-choicebox {
+    -fx-background-color: white;
+    -fx-border-color: #F59E0B; /* Yellow border */
+    -fx-border-radius: 6px;
+    -fx-padding: 6px;
+    -fx-font-size: 14px;
+}
+
+/* 📋 ListView Styling */
+.custom-listview {
+    -fx-background-color: #F9FAFB;
+    -fx-border-color: #F59E0B; /* Yellow border for ListView */
+    -fx-border-radius: 8px;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.3, 0, 0);
+}
+
+/* 🔵 Scroll Effect for ListView */
+.custom-listview .scroll-bar {
+    -fx-background-color: #F3F4F6; /* Light gray background for the scrollbar */
+}
+.custom-listview .scroll-bar .thumb {
+    -fx-background-color: #F59E0B; /* Yellow thumb */
+    -fx-background-radius: 10px;
+}
+.custom-listview .scroll-bar .thumb:hover {
+    -fx-background-color: #FBBF24; /* Slightly brighter yellow on hover */
+}
+
+/* ✨ Hover Effects */
+.custom-listview:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 193, 7, 0.5), 10, 0.5, 0, 0); /* Yellow shadow on hover */
+}
+
+/* 🔔 Reclamation Button */
+.reclamation-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-radius: 6px;
+}
+.reclamation-button:hover {
+    -fx-background-color: #45a049;
+}

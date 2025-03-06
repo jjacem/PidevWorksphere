@@ -1,0 +1,101 @@
+/* Root Pane (Background) */
+#rootPane {
+    -fx-background-color: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
+    -fx-padding: 20;
+}
+
+/* Main Container (Card) */
+/* Main Container (Card) */
+#mainContainer {
+    -fx-background-color: white;
+    -fx-padding: 40;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 5);
+    -fx-max-width: 600px; /* Increased from 500px to fit larger window */
+    -fx-alignment: center;
+    -fx-pref-height: 100%;
+}
+/* Title Label */
+#titleLabel {
+    -fx-font-size: 32px; /* Larger font size */
+    -fx-font-weight: bold;
+    -fx-text-fill: #0277BD;
+    -fx-font-family: 'Arial';
+}
+
+/* TextField and PasswordField */
+.text-field, .password-field {
+    -fx-pref-width: 350px; /* Wider fields */
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #B0BEC5;
+    -fx-font-size: 16px; /* Larger text */
+    -fx-padding: 10; /* More padding */
+}
+
+/* Email TextField specifically */
+#mail {
+    -fx-pref-width: 350px;
+}
+
+/* Verification and Reset Boxes */
+#verificationBox, #resetPasswordBox {
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 25; /* Increased padding */
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-pref-width: 400px; /* Wider boxes */
+}
+
+/* Labels inside Verification and Reset Boxes */
+#verifyLabel, #resetLabel, #confirmLabel {
+    -fx-font-size: 20px; /* Larger font */
+    -fx-text-fill: #455A64;
+    -fx-font-family: 'Arial';
+}
+
+/* Buttons */
+.button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px; /* Larger button text */
+    -fx-padding: 12 25; /* Larger padding */
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+/* Send Mail Button */
+#sendMailButton {
+    -fx-background-color: #0288D1;
+}
+#sendMailButton:hover {
+    -fx-background-color: #0277BD;
+}
+
+/* Verify Code Button */
+#verifyCodeButton {
+    -fx-background-color: #F57C00;
+}
+#verifyCodeButton:hover {
+    -fx-background-color: #EF6C00;
+}
+
+/* Reset Password Button */
+#resetPasswordButton {
+    -fx-background-color: #0288D1;
+}
+#resetPasswordButton:hover {
+    -fx-background-color: #0277BD;
+}
+
+/* Center the VBox within the AnchorPane */
+#rootPane > #mainContainer {
+    -fx-alignment: center;
+}
+
+/* Optional: Customize Alert Dialogs */
+.alert .dialog-pane {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 14px;
+}

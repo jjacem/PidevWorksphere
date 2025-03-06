@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="esprit.tn.controllers.voirFeedbackController"
+           style="-fx-background-color: rgba(0, 0, 0, 0.5);">
+
+    <VBox spacing="20" alignment="CENTER" prefWidth="600" prefHeight="400"
+          style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+
+        <!-- Close Button in Top-Right Corner -->
+        <StackPane alignment="TOP_RIGHT">
+            <Button onAction="#fermerFenetre"
+                    style="-fx-background-color: transparent; -fx-cursor: hand; -fx-font-size: 12px; -fx-text-fill: #d9534f;">
+                <graphic>
+                    <Label text="X" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                </graphic>
+            </Button>
+        </StackPane>
+
+        <!-- Title -->
+        <Label text="Détails du Feedback" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+        <!-- Feedback Message -->
+        <TextArea fx:id="lblMessage" editable="false" wrapText="true"
+                  prefHeight="120" prefWidth="500"
+                  style="-fx-background-color: #f9f9f9; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-padding: 10px; -fx-font-size: 14px;"/>
+
+        <!-- Rating Section -->
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="Note: " style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #555555;"/>
+            <HBox fx:id="starContainer" spacing="5"/>
+        </HBox>
+
+        <!-- Date Label -->
+        <Label fx:id="lblDate" style="-fx-font-size: 14px; -fx-text-fill: #777777;"/>
+
+        <!-- Buttons at the Bottom -->
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding-top: 20px;">
+            <!-- Modifier Button -->
+            <Button text="Modifier" onAction="#modifierFeedback"
+                    style="-fx-background-color: #f0ad4e; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-font-size: 14px;
+                           -fx-padding: 10px 20px; -fx-background-radius: 20; -fx-cursor: hand;"/>
+
+            <!-- Supprimer Button -->
+            <Button text="Supprimer" onAction="#supprimerFeedback"
+                    style="-fx-background-color: #d9534f; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-font-size: 14px;
+                           -fx-padding: 10px 20px; -fx-background-radius: 20; -fx-cursor: hand;"/>
+        </HBox>
+
+    </VBox>
+
+</StackPane>

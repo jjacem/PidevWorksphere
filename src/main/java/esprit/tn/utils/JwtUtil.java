@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    private static final String SECRET = "ken_mzelt_nekhdem_java_ala_haja_ghir_springboot_ndakhel_yidi_f_ecran_l_pc!!!!!!!";
+    private static final String SECRET = "xqz_mlofken_java_pztrg_springboot_wyvlbqz_ykdhrm!!!!!";
     private static final Key SECRET_KEY = Keys.hmacShaKeyFor(Base64.getEncoder().encode(SECRET.getBytes()));
 
     private static final long EXPIRATION_TIME = 1000 * 60 * 60;
@@ -28,11 +28,11 @@ public class JwtUtil {
     }
     public static int getIdFromToken(String token) {
         Claims claims = validateToken(token);
-        return claims.get("id", Integer.class); // Extracts the id
+        return claims.get("id", Integer.class);
     }
     public static Role getRoleFromToken(String token) {
         Claims claims = validateToken(token);
-        return Role.valueOf(claims.get("role", String.class)); // Convert string back to enum
+        return Role.valueOf(claims.get("role", String.class));
     }
 
     public static Claims validateToken(String token) {

@@ -5,15 +5,108 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceEquipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/tests/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardManager.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/tests/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherReclamationsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AfficherUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReclamationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterReponseController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/AjouterUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/DashboardEmploye.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ForgotpasswordController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/LoginContoller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModiferReponseController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierCompteController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/controllers/ModifierReclamationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reclamation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Reponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Sexe.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/entities/Status.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/IService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/Emailsend.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/utils/SessionManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/5479108.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReclamations.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherReponse.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherUser.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReclamation.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterReponse.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterUser.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardCandidat.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardEmploye.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Forgotpassword.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Images/img_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Images/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/InterfaceUser.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierCompte.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierReclamation.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierReponse.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/icons/18943452.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/icons/delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/icons/edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/menu.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/menu.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/5479108.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AfficherReclamations.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AfficherReponse.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AfficherUser.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AjouterReclamation.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AjouterReponse.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/AjouterUser.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DashboardCandidat.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DashboardEmploye.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Forgotpassword.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/img_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/InterfaceUser.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ModifierCompte.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ModifierReclamation.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ModifierReponse.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherReclamationsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AfficherUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterReclamationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterReponseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/AjouterUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/DashboardEmploye.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ForgotpasswordController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/LoginContoller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModiferReponseController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModifierCompteController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/controllers/ModifierReclamationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/entities/Reclamation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/entities/Reponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/entities/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/entities/Sexe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/entities/Status.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/IService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceReclamation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceReponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/utils/Emailsend$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/utils/Emailsend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/utils/JwtUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/utils/SessionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/icons/18943452.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/icons/delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/icons/edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/menu.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/menu.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,39 +146,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;user+sponsor+evenement__equipe+projet&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Mega Pc/Documents/GitHub/PidevWorksphere&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "user+sponsor+evenement__equipe+projet",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/yassi/OneDrive/Documents/GitHub/finalone/PidevWorksphere",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Worksphere" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Worksphere" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -106,6 +184,8 @@
       <workItem from="1739911541406" duration="13000" />
       <workItem from="1739911573948" duration="5881000" />
       <workItem from="1739982718274" duration="1797000" />
+      <workItem from="1739987208213" duration="46000" />
+      <workItem from="1739987265639" duration="50000" />
     </task>
     <servers />
   </component>

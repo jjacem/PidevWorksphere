@@ -1,5 +1,8 @@
 package esprit.tn.services;
 
+import esprit.tn.entities.Classement;
+import esprit.tn.entities.DureeContrat;
+import esprit.tn.entities.EvenementSponsor;
 import esprit.tn.entities.Sponsor;
 import esprit.tn.utils.MyDatabase;
 
@@ -11,20 +14,19 @@ public class ServiceSponsor implements IService<Sponsor> {
     public Connection connection;
 
     public ServiceSponsor() {
+
         connection = MyDatabase.getInstance().getConnection();
     }
 
-    public void ajouterEvenementASponsor(int sponsorId, int evenementId) throws SQLException {
+
+
+
+    public void ajouterEvenementASponsor(int sponsorId, int evenementId, Date datedebutContrat, String duree) throws SQLException {
         // Vérification de l'existence de l'événement
-        //?:
-        //Ils servent de paramètres dynamiques qui seront remplacés par des valeurs via setString(), setInt(), etc.
         String checkEventQuery = "SELECT COUNT(*) FROM evennement WHERE idEvent = ?";
-        //PreparedStatement est indispensable pour écrire du code SQL sécurisé, performant et maintenable en Java.
         try (PreparedStatement psCheckEvent = connection.prepareStatement(checkEventQuery)) {
             psCheckEvent.setInt(1, evenementId);
-            //// Exécuter la requête et récupérer le résultat
             ResultSet rs = psCheckEvent.executeQuery();
-            // Vérifier si l'événement existe (doit retourner au moins 1 ligne)
             if (!rs.next() || rs.getInt(1) == 0) {
                 System.out.println("Erreur : L'événement n'existe pas.");
                 return;
@@ -42,19 +44,48 @@ public class ServiceSponsor implements IService<Sponsor> {
             }
         }
 
-        // Insérer l'événement au sponsor
-        String query = "INSERT INTO evenement_sponsor (evenement_id, sponsor_id) VALUES (?, ?)";
+        // Insérer l'événement au sponsor avec les nouveaux attributs
+        String query = "INSERT INTO evenement_sponsor (evenement_id, sponsor_id, datedebutContrat, duree) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, evenementId);
             preparedStatement.setInt(2, sponsorId);
+            preparedStatement.setDate(3, new java.sql.Date(datedebutContrat.getTime()));
+            preparedStatement.setString(4, duree);
             preparedStatement.executeUpdate();
-            System.out.println("Événement ajouté au sponsor !");
+            System.out.println("Événement ajouté au sponsor avec les nouveaux attributs !");
         } catch (SQLException e) {
             System.out.println("Erreur lors de l'ajout de l'événement au sponsor: " + e.getMessage());
         }
     }
 
 
+    public boolean isEventAssociatedWithSponsor(int sponsorId, int eventId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM evenement_sponsor WHERE sponsor_id = ? AND evenement_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, sponsorId);
+            preparedStatement.setInt(2, eventId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Retourne true si une association existe
+            }
+        }
+        return false;
+    }
+
+    public void updateAssociation(int sponsorId, int eventId, Date datedebutContrat, String duree) throws SQLException {
+        String query = "UPDATE evenement_sponsor SET datedebutContrat = ?, duree = ? WHERE sponsor_id = ? AND evenement_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setDate(1, datedebutContrat);
+            preparedStatement.setString(2, duree);
+            preparedStatement.setInt(3, sponsorId);
+            preparedStatement.setInt(4, eventId);
+            preparedStatement.executeUpdate();
+            System.out.println("Association mise à jour avec succès !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour de l'association : " + e.getMessage());
+            throw e;
+        }
+    }
     // Méthode pour ajouter un sponsor
     @Override
 
@@ -93,8 +124,33 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
 
-
     @Override
+    public List<Sponsor> afficher() throws SQLException {
+        List<Sponsor> sponsors = new ArrayList<>();
+        String query = "SELECT * FROM sponsor";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Sponsor sponsor = new Sponsor(
+                        resultSet.getString("nomSponso"),
+                        resultSet.getString("prenomSponso"),
+                        resultSet.getString("emailSponso"),
+                        resultSet.getDouble("budgetSponso")
+                );
+                sponsor.setIdSponsor(resultSet.getInt("idSponsor"));
+                // Récupérer et attribuer le classement
+                String classementStr = resultSet.getString("classement");
+                if (classementStr != null) {
+                    sponsor.setClassement(Classement.valueOf(classementStr));
+                }
+                sponsors.add(sponsor);
+            }
+        }
+        return sponsors;
+    }
+    /*@Override
     public List<Sponsor> afficher() throws SQLException {
         List<Sponsor> sponsors = new ArrayList<>();
         String query = "SELECT * FROM sponsor";
@@ -114,7 +170,7 @@ public class ServiceSponsor implements IService<Sponsor> {
             }
         }
         return sponsors;
-    }
+    }*/
     @Override
 
     public void modifier(Sponsor sponsor) throws SQLException {
@@ -138,52 +194,16 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
 
-    public List<Integer> getSponsorIds() {
-        List<Integer> sponsorIds = new ArrayList<>();
-        String query = "SELECT idSponsor FROM sponsor";
 
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) { // Use the existing connection
 
-            while (resultSet.next()) {
-                sponsorIds.add(resultSet.getInt("idSponsor"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des IDs des sponsors: " + e.getMessage());
+    public void mettreAJourBudgetApresReduction(int idSponsor, double budgetApresReduction) throws SQLException {
+        String query = "UPDATE sponsor SET BudgetApresReduction = ? WHERE idSponsor = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setDouble(1, budgetApresReduction);
+            stmt.setInt(2, idSponsor);
+            stmt.executeUpdate();
         }
-
-        return sponsorIds;
     }
-
-
-    public List<String> getSponsorEmails() {
-        List<String> sponsorEmails = new ArrayList<>();
-        String query = "SELECT emailSponso FROM sponsor";
-
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) { // Utiliser la connexion existante
-
-            while (resultSet.next()) {
-                sponsorEmails.add(resultSet.getString("emailSponso"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération des emails des sponsors: " + e.getMessage());
-        }
-
-        return sponsorEmails;
-    }
-    public Integer getSponsorIdByEmail(String sponsorEmail) throws SQLException {
-        String query = "SELECT idSponsor FROM sponsor WHERE emailSponso = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, sponsorEmail);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt("idSponsor");
-            }
-        }
-        return null; // Retourner null si aucun résultat trouvé
-    }
-
 
 
 
@@ -204,80 +224,47 @@ public class ServiceSponsor implements IService<Sponsor> {
         return null;
     }
 
+
+
     public List<String> getEventNamesBySponsor(int sponsorId) throws SQLException {
         List<String> eventNames = new ArrayList<>();
-        String query = "SELECT e.nomEvent FROM evennement e " +
+        String query = "SELECT e.nomEvent, es.datedebutContrat, es.duree FROM evennement e " +
                 "JOIN evenement_sponsor es ON e.idEvent = es.evenement_id " +
                 "WHERE es.sponsor_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, sponsorId); // On passe l'id du sponsor à la requête
+            preparedStatement.setInt(1, sponsorId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                eventNames.add(resultSet.getString("nomEvent")); // Ajout du nom de l'événement à la liste
+                String eventName = resultSet.getString("nomEvent");
+                Date datedebutContrat = resultSet.getDate("datedebutContrat");
+                String duree = resultSet.getString("duree");
+                eventNames.add(eventName + " (Début: " + datedebutContrat + ", Durée: " + duree + ")");
             }
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération des événements sponsorisés : " + e.getMessage());
         }
 
-        return eventNames; // Retourne la liste des noms d'événements
+        return eventNames;
+    }
+
+
+    public void mettreAJourClassement(int idSponsor, Classement classement) throws SQLException {
+        String req = "UPDATE sponsor SET classement=? WHERE idSponsor=?";
+        try (PreparedStatement pst = connection.prepareStatement(req)) {
+            pst.setString(1, classement.toString());
+            pst.setInt(2, idSponsor);
+            pst.executeUpdate();
+            System.out.println("Classement du sponsor mis à jour avec succès !");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour du classement du sponsor : " + e.getMessage());
+            throw e;
+        }
     }
 
 
 
 
-    public void supprimerAssociationEventSponsor(int sponsorId, int evenementId) throws SQLException {
-        // Vérification de l'existence de l'événement
-        String checkEventQuery = "SELECT COUNT(*) FROM evennement WHERE idEvent = ?";
-        try (PreparedStatement psCheckEvent = connection.prepareStatement(checkEventQuery)) {
-            psCheckEvent.setInt(1, evenementId);
-            ResultSet rs = psCheckEvent.executeQuery();
-            if (!rs.next() || rs.getInt(1) == 0) {
-                System.out.println("Erreur : L'événement n'existe pas.");
-                return;
-            }
-        }
-
-        // Vérification de l'existence du sponsor
-        String checkSponsorQuery = "SELECT COUNT(*) FROM sponsor WHERE idSponsor = ?";
-        try (PreparedStatement psCheckSponsor = connection.prepareStatement(checkSponsorQuery)) {
-            psCheckSponsor.setInt(1, sponsorId);
-            ResultSet rs = psCheckSponsor.executeQuery();
-            if (!rs.next() || rs.getInt(1) == 0) {
-                System.out.println("Erreur : Le sponsor n'existe pas.");
-                return;
-            }
-        }
-
-        // Suppression de l'association dans la table evenement_sponsor
-        String deleteAssociationQuery = "DELETE FROM evenement_sponsor WHERE evenement_id = ? AND sponsor_id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteAssociationQuery)) {
-            preparedStatement.setInt(1, evenementId);
-            preparedStatement.setInt(2, sponsorId);
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Association supprimée avec succès !");
-            } else {
-                System.out.println("Aucune association trouvée pour cet événement et ce sponsor.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression de l'association : " + e.getMessage());
-        }
-    }
-
-
-
-    /*public void removeEventFromSponsor(int sponsorId, int eventId) throws SQLException {
-        String query = "DELETE FROM evenement_sponsor WHERE evenement_id = ? AND sponsor_id = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, eventId);
-            preparedStatement.setInt(2, sponsorId);
-            preparedStatement.executeUpdate();
-            System.out.println("Association sponsor-événement supprimée avec succès !");
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression de l'association : " + e.getMessage());
-        }
-    }*/
     public void removeEventFromSponsor(int sponsorId, int eventId) throws SQLException {
         String query = "DELETE FROM evenement_sponsor WHERE sponsor_id = ? AND evenement_id = ?";
 
@@ -296,5 +283,32 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
 
+    public int getEventIdByName(String eventName) throws SQLException {
+        String query = "SELECT idEvent FROM evennement WHERE nomEvent = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, eventName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("idEvent");
+            }
+        }
+        throw new SQLException("Événement non trouvé : " + eventName);
+    }
 
+
+    public String getSponsorEmailById(int sponsorId) throws SQLException {
+        String query = "SELECT emailSponso FROM sponsor WHERE idSponsor = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, sponsorId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("emailSponso");
+            } else {
+                throw new SQLException("Aucun sponsor trouvé avec l'ID : " + sponsorId);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'e-mail du sponsor : " + e.getMessage());
+            throw e;
+        }
+    }
 }
