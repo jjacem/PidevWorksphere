@@ -384,11 +384,7 @@ public class AfficherOffreCandidatController {
                 details.setVgap(10);
                 details.setPadding(new Insets(10));
 
-//                // Add details
-//                addDetailToGrid(details, "Type de contrat", offre.getTypeContrat(), 0, 0);
-//                addDetailToGrid(details, "Lieu", offre.getLieuTravail(), 1, 0);
-//                addDetailToGrid(details, "Salaire", offre.getSalaire() + " TND", 0, 1);
-//                addDetailToGrid(details, "Date limite", offre.getDateLimite().toString(), 1, 1);
+
 
                 // Status indicator
                 Label statusLabel = new Label("■ " + offre.getStatutOffre());

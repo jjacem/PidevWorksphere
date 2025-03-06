@@ -25,7 +25,6 @@
         </repository>
     </repositories>
 
-    <dependencies>
 
     <dependencies>
 
@@ -59,7 +58,6 @@
             <artifactId>jjwt-impl</artifactId>
             <version>0.11.5</version>
             <scope>runtime</scope>
-            <scope>runtime</scope>  <!-- Ensures it's available at runtime -->
         </dependency>
 
         <dependency>
