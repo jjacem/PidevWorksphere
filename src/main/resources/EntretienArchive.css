@@ -1,0 +1,94 @@
+
+
+BorderPane {
+    -fx-background-color: #f4f4f4;
+}
+
+/* Header styles */
+#header {
+    -fx-padding: 20px;
+    -fx-background-color: #2c3e50;
+}
+
+#titleLabel {
+    -fx-font-size: 24px;
+    -fx-text-fill: #ecf0f1;
+    -fx-font-weight: bold;
+}
+
+#searchContainer {
+    -fx-padding: 10px;
+}
+
+#searchField {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+    -fx-prompt-text-fill: #95a5a6;
+}
+
+/* Main Content styles */
+#mainContent {
+    -fx-padding: 20px;
+    -fx-background-color: #ecf0f1;
+}
+
+/* ListView styles */
+#lv_entretien {
+    -fx-pref-width: 11600px; /* Make the ListView wider */
+    -fx-pref-height: 1000px; /* Make the ListView taller */
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-font-size: 16px;
+    -fx-control-inner-background: #ffffff; /* Background color of the list items */
+    -fx-selection-bar: #3498db; /* Selection color */
+    -fx-selection-bar-non-focused: #3498db; /* Selection color when not focused */
+}
+
+/* Custom ListView cells */
+.list-cell {
+    -fx-padding: 10px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: #ffffff;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: #ffffff;
+}
+
+/* Footer styles */
+#footer {
+    -fx-padding: 20px;
+    -fx-background-color: #2c3e50;
+}
+
+/*#btn_ajouter {*/
+/*    -fx-pref-width: 200px;*/
+/*    -fx-pref-height: 40px;*/
+/*    -fx-font-size: 16px;*/
+/*    -fx-background-color: #3498db;*/
+/*    -fx-text-fill: #ffffff;*/
+/*    -fx-background-radius: 20px;*/
+/*    -fx-border-radius: 20px;*/
+/*    -fx-border-color: #3498db;*/
+/*    -fx-border-width: 2px;*/
+/*}*/
+
+#btn_ajouter:hover {
+    -fx-background-color: #2980b9;
+    -fx-border-color: #2980b9;
+}

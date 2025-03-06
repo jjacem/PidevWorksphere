@@ -134,7 +134,7 @@ BorderPane {
 
 /* ListView styles */
 #lv_entretien {
-    -fx-pref-width: 1200px; /* Make the ListView wider */
+    -fx-pref-width: 1600px; /* Make the ListView wider */
     -fx-pref-height: 1000px; /* Make the ListView taller */
     -fx-background-color: #ffffff;
     -fx-border-color: #bdc3c7;

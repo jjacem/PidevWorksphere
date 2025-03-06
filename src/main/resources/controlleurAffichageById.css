@@ -107,4 +107,17 @@
 }
 
 
+.button-terminer {
+    -fx-background-color: #4CAF50; /* Vert */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+}
+
+.button-terminer:hover {
+    -fx-background-color: #45a049; /* Vert plus foncé au survol */
+}
+
+
 

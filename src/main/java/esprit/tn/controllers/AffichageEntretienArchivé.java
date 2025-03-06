@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Entretien;
+import esprit.tn.services.EntretienService;
 import esprit.tn.services.GemeniService;
 import esprit.tn.utils.SessionManager;
 import javafx.collections.FXCollections;
@@ -16,48 +17,36 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import esprit.tn.services.EntretienService;
 
-import javax.swing.text.Element;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class AffichageEntretienbyemployeeId {
+public class AffichageEntretienArchivé {
+
     public Button btn_afficher;
     @FXML
     private ListView<Entretien> lv_entretien;
 
     private EntretienService entretienService = new EntretienService();
 
-    private GemeniService gemeniService = new GemeniService();
-
 
     private ObservableList<Entretien> allEntretiens = FXCollections.observableArrayList();
 
 
-    @FXML
-    private Button btn_ajouter;
-    @FXML
-    private TextField searchField;
+
 
 
     @FXML
     public void initialize() throws SQLException {
         afficherEntretien();
         lv_entretien.getStylesheets().add(getClass().getResource("/controlleurAffichageById.css").toExternalForm());
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                filterEntretiens(newValue);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
+
     }
 
     private void afficherEntretien() throws SQLException {
-        List<Entretien> entretiens = entretienService.getEntretiensByEmployeId(SessionManager.extractuserfromsession().getIdUser());
+        List<Entretien> entretiens = entretienService.getEntretiensByEmployeIdAndArchivé(SessionManager.extractuserfromsession().getIdUser());
         ObservableList<Entretien> data = FXCollections.observableArrayList(entretiens);
         allEntretiens.setAll(entretiens);
         lv_entretien.setItems(allEntretiens);
@@ -70,7 +59,6 @@ public class AffichageEntretienbyemployeeId {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    // Créer les icônes et les labels (déjà existants)
                     ImageView iconTitre = new ImageView(new Image(getClass().getResourceAsStream("/icons/job-seeker.png")));
                     iconTitre.setFitHeight(24);
                     iconTitre.setFitWidth(24);
@@ -96,17 +84,11 @@ public class AffichageEntretienbyemployeeId {
                     iconStatut.setFitWidth(24);
                     iconStatut.setPreserveRatio(true);
 
-                    // Bouton pour générer des questions avec AI
-                    Button btnGenererQuestions = new Button("📄 Générer des Questions entretien avec AI");
-                    btnGenererQuestions.getStyleClass().add("button-ai");
-                    btnGenererQuestions.setOnAction(event -> genererQuestionsAI(entretien.getTitre()));
 
-                    // Bouton pour voir les détails
                     Button btnVoirDetail = new Button("Voir Détails");
                     btnVoirDetail.getStyleClass().add("button");
                     btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
 
-                    // Bouton pour ajouter/voir le feedback
                     Button btnFeedback;
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄 Voir Feedback");
@@ -125,21 +107,11 @@ public class AffichageEntretienbyemployeeId {
                         });
                     }
 
-                    // Bouton pour marquer l'entretien comme terminé
-                    Button btnMarquerTermine = new Button("✅ Marquer entrtien  Terminé");
-                    btnMarquerTermine.getStyleClass().add("button-terminer");
-                    btnMarquerTermine.setOnAction(event -> {
-                        marquerEntretienTermine(entretien.getId());
-                    });
 
-                    // Désactiver le bouton si l'entretien est déjà terminé
-                    btnMarquerTermine.setDisable(entretien.isStatus());
 
-                    // Créer un HBox pour les boutons
-                    HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail, btnGenererQuestions, btnMarquerTermine);
+                    HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail);
                     buttonBox.getStyleClass().add("hbox-buttons");
 
-                    // Créer un VBox pour les labels
                     VBox vbox = new VBox(5);
                     Label titreLabel = new Label("Titre: " + entretien.getTitre(), iconTitre);
                     titreLabel.getStyleClass().add("titre-label");
@@ -158,7 +130,6 @@ public class AffichageEntretienbyemployeeId {
 
                     vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
 
-                    // Ajouter le contenu et les boutons à la cellule
                     setGraphic(new VBox(vbox, buttonBox));
                 }
 
@@ -168,25 +139,7 @@ public class AffichageEntretienbyemployeeId {
 
 
 
-    private void genererQuestionsAI(String titre) {
 
-
-        Optional<String> questionsOpt = GemeniService.getQuestionsFromChatbot(titre);
-
-        questionsOpt.ifPresent(questions -> {
-            String fileName = "questions_entretien_" + titre.replaceAll("\\s+", "_") + ".pdf";
-            String downloadPath = GemeniService.generatePDF(questions, fileName);
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Téléchargement réussi");
-            alert.setHeaderText("Votre PDF a été téléchargé avec succès !");
-            alert.setContentText("Le fichier a été téléchargé à l'emplacement suivant : " + downloadPath);
-            alert.showAndWait();
-        });
-
-
-
-    }
 
     private void filterEntretiens(String keyword) throws SQLException {
         if (keyword == null || keyword.trim().isEmpty()) {
@@ -221,47 +174,11 @@ public class AffichageEntretienbyemployeeId {
 
 
 
-    private void ouvrirModifierEntretien(Entretien entretien) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierEntretien.fxml"));
-            Parent root = loader.load();
-
-            ModifierEntretienController controller = loader.getController();
-            controller.chargerEntretien(entretien);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Modifier Entretien");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
-    private void supprimerEntretien(Entretien entretien) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation de suppression");
-        alert.setHeaderText("Supprimer l'entretien");
-        alert.setContentText("Êtes-vous sûr de vouloir supprimer cet entretien ?");
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                try {
-                    entretienService.supprimer(entretien.getId());
-                    afficherEntretien();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setTitle("Erreur");
-                    errorAlert.setHeaderText("Échec de la suppression");
-                    errorAlert.setContentText("Une erreur est survenue lors de la suppression de l'entretien.");
-                    errorAlert.show();
-                }
-            }
-        });
-    }
+
 
 
     private void voirFeedback(int feedbackId) {
@@ -353,47 +270,11 @@ public class AffichageEntretienbyemployeeId {
     }
 
 
-    public void affichagecalendar(ActionEvent actionEvent) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageGoogleCalendar.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) btn_afficher.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Entretiens dans Google Calendar");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
-    private void marquerEntretienTermine(int idEntretien) {
-        try {
-            // Marquer l'entretien comme terminé et archivé
-            entretienService.marquerCommeTermineEtArchive(idEntretien);
 
-            // Afficher une alerte de succès
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText(null);
-            alert.setContentText("L'entretien a été marqué comme terminé et archivé avec succès !");
-            alert.showAndWait();
 
-            // Rafraîchir les données
-            refreshDatas();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            // Afficher une alerte d'erreur en cas d'échec
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Erreur");
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("Une erreur s'est produite lors de la mise à jour de l'entretien.");
-            errorAlert.showAndWait();
-        }
     }
 
 
@@ -410,12 +291,6 @@ public class AffichageEntretienbyemployeeId {
 
 
 
-
-
-
-
-
-}
 
 
 

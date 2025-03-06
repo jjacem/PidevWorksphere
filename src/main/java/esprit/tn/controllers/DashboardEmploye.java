@@ -128,4 +128,8 @@ public class DashboardEmploye {
     public void mesreservastion(ActionEvent actionEvent) {
         loadPage("/AfficherReservation.fxml");
     }
+
+    public void entretien1(ActionEvent actionEvent) {
+        loadPage("/AffichageEntretienArchivé.fxml");
+    }
 }
