@@ -207,6 +207,8 @@ if (checkbanned(email)){}
             Stage stage = (Stage) mail.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Sign Up");
+            stage.setFullScreen(true); // Set to full-screen mode
+
             stage.show();
         } catch (IOException e) {
             showAlert("Loading Error", "Error loading FXML: " + e.getMessage());
@@ -223,6 +225,7 @@ if (checkbanned(email)){}
             Stage stage = (Stage) mail.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Forgot Password");
+            stage.setFullScreen(true); // Set to full-screen mode
             stage.show();
         } catch (IOException e) {
             showAlert("Loading Error", "Error loading FXML: " + e.getMessage());

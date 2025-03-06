@@ -257,4 +257,33 @@ public class DashboardEmploye {
         // Afficher le popup
         popupStage.showAndWait();
     }
-}
+    public void reloadDashboard(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardCandidat.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Dashboard Candidat");
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error reloading DashboardCandidat: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Static method to reload from other controllers without an ActionEvent
+    public static void reloadDashboardFromStage(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DashboardManager.class.getResource("/DashboardManager.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Dashboard Manager");
+            stage.setMaximized(true); // Set to full-screen (maximized)
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error reloading DashboardManager: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }}

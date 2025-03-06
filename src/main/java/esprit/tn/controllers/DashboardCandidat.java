@@ -3,6 +3,7 @@ package esprit.tn.controllers;
 import esprit.tn.entities.User;
 import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,23 +14,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 
 public class DashboardCandidat {
+
     @FXML
     private VBox contentArea;
+
     @FXML
     private ImageView image;
 
     @FXML
     private Text name;
 
+    @FXML
     public void initialize() throws SQLException {
         User u = SessionManager.extractuserfromsession();
 
@@ -53,29 +53,24 @@ public class DashboardCandidat {
         } else {
             System.out.println("No user found in session.");
         }
+        loadPage("/AfficherCandidature.fxml");
     }
-
-
 
     private void loadPage(String page) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
-            Parent newPage = loader.load(); // Use Parent instead of AnchorPane
+            Parent newPage = loader.load();
             contentArea.getChildren().setAll(newPage);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
     @FXML
     private void logout(ActionEvent event) {
         SessionManager.clearSession();
         try {
-            // Get reference to current window using the event source
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
             Parent root = loader.load();
             stage.setScene(new Scene(root));
@@ -91,9 +86,8 @@ public class DashboardCandidat {
         loadPage("/ModifierCompte.fxml");
     }
 
-
-
     public void offreemploi(ActionEvent actionEvent) {
+        // Add logic if needed
     }
 
     public void reclamation(ActionEvent actionEvent) {
@@ -102,12 +96,40 @@ public class DashboardCandidat {
 
     public void candidature(ActionEvent actionEvent) {
         loadPage("/AfficherCandidature.fxml");
-
     }
 
     public void changemdp(ActionEvent actionEvent) {
         loadPage("/Changermdp.fxml");
-
     }
-}
 
+    // New reload function
+    public void reloadDashboard(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardCandidat.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Dashboard Candidat");
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error reloading DashboardCandidat: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Static method to reload from other controllers without an ActionEvent
+    public static void reloadDashboardFromStage(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DashboardManager.class.getResource("/DashboardManager.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Dashboard Manager");
+            stage.setMaximized(true); // Set to full-screen (maximized)
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error reloading DashboardManager: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }}

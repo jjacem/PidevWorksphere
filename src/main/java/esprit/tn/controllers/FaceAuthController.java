@@ -46,7 +46,7 @@ public class FaceAuthController {
     public void initialize() {
         capture = new VideoCapture(0);
         frame = new Mat();
-        faceDetector = new CascadeClassifier("C:\\Users\\yassi\\OneDrive\\Documents\\GitHub\\stash\\PidevWorksphere\\src\\main\\resources\\haarcascade_frontalface_alt.xml");
+        faceDetector = new CascadeClassifier("C:\\Users\\yassi\\OneDrive\\Documents\\GitHub\\finalone\\safeone\\PidevWorksphere\\target\\classes\\haarcascade_frontalface_alt.xml");
 
         if (!faceDetector.empty()) {
             System.out.println("Face detector loaded successfully.");
