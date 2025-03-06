@@ -52,7 +52,6 @@ public class VoirHistoriqueEntretien {
                     VBox vbox = new VBox(10);
                     vbox.getStyleClass().add("historique-item"); // Apply custom CSS class
 
-                    // Create labels for historique data with emojis
                     Label titreLabel = new Label("📝 Titre: " + item.getTitre());
                     Label descriptionLabel = new Label("📄 Description: " + item.getDescription());
                     Label dateLabel = new Label("📅 Date: " + item.getDateEntretien());

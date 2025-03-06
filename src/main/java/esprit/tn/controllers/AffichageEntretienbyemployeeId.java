@@ -70,7 +70,6 @@ public class AffichageEntretienbyemployeeId {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    // Créer les icônes et les labels (déjà existants)
                     ImageView iconTitre = new ImageView(new Image(getClass().getResourceAsStream("/icons/job-seeker.png")));
                     iconTitre.setFitHeight(24);
                     iconTitre.setFitWidth(24);
@@ -96,17 +95,14 @@ public class AffichageEntretienbyemployeeId {
                     iconStatut.setFitWidth(24);
                     iconStatut.setPreserveRatio(true);
 
-                    // Bouton pour générer des questions avec AI
                     Button btnGenererQuestions = new Button("📄 Générer des Questions entretien avec AI");
                     btnGenererQuestions.getStyleClass().add("button-ai");
                     btnGenererQuestions.setOnAction(event -> genererQuestionsAI(entretien.getTitre()));
 
-                    // Bouton pour voir les détails
                     Button btnVoirDetail = new Button("Voir Détails");
                     btnVoirDetail.getStyleClass().add("button");
                     btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
 
-                    // Bouton pour ajouter/voir le feedback
                     Button btnFeedback;
                     if (entretien.getFeedbackId() != 0) {
                         btnFeedback = new Button("📄 Voir Feedback");
@@ -125,21 +121,17 @@ public class AffichageEntretienbyemployeeId {
                         });
                     }
 
-                    // Bouton pour marquer l'entretien comme terminé
                     Button btnMarquerTermine = new Button("✅ Marquer entrtien  Terminé");
                     btnMarquerTermine.getStyleClass().add("button-terminer");
                     btnMarquerTermine.setOnAction(event -> {
                         marquerEntretienTermine(entretien.getId());
                     });
 
-                    // Désactiver le bouton si l'entretien est déjà terminé
                     btnMarquerTermine.setDisable(entretien.isStatus());
 
-                    // Créer un HBox pour les boutons
                     HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail, btnGenererQuestions, btnMarquerTermine);
                     buttonBox.getStyleClass().add("hbox-buttons");
 
-                    // Créer un VBox pour les labels
                     VBox vbox = new VBox(5);
                     Label titreLabel = new Label("Titre: " + entretien.getTitre(), iconTitre);
                     titreLabel.getStyleClass().add("titre-label");
