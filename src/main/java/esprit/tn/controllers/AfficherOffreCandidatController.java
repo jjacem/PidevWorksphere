@@ -1,5 +1,6 @@
 package esprit.tn.controllers;
 
+import esprit.tn.entities.Candidature;
 import esprit.tn.services.ServiceUser;
 import esprit.tn.services.OCRService;
 import esprit.tn.services.TranslationService;
@@ -12,10 +13,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
@@ -30,11 +35,20 @@ import esprit.tn.services.ServiceOffre;
 import esprit.tn.services.ServiceBookmark;
 import esprit.tn.services.NotificationService;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.geometry.Insets;
 
 public class AfficherOffreCandidatController {
     private ObservableList<OffreEmploi> offreList = FXCollections.observableArrayList();
@@ -134,6 +148,13 @@ public class AfficherOffreCandidatController {
                 bookmarkIcon.setVisible(false);
             }
         });
+
+        // Add double click handler for the ListView
+        lv_offre.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && offreSelectionnee != null) {
+                showOfferDetails(offreSelectionnee);
+            }
+        });
     }
     
     /**
@@ -189,32 +210,236 @@ public class AfficherOffreCandidatController {
         lv_offre.setItems(filteredOffreList);
         lv_offre.refresh();
     }
-    
+
     @FXML
     private void voirCandidatures() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCandidature.fxml"));
-            Parent root = loader.load();
+            var currentUser = SessionManager.extractuserfromsession();
+            if (currentUser == null) return;
 
-            Stage stage = (Stage) voirCandidatures.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            ServiceCandidature serviceCandidature = new ServiceCandidature();
+            List<Candidature> candidatures = serviceCandidature.getCandidaturesByUser(currentUser.getIdUser());
+
+            if (candidatures.isEmpty()) {
+                showAlert(Alert.AlertType.INFORMATION, "Mes Candidatures", 
+                    "Vous n'avez pas encore postulé à des offres.");
+                return;
+            }
+
+            // Create dialog
+            Dialog<Void> dialog = new Dialog<>();
+            dialog.setTitle("Mes Candidatures");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+
+            // Create content container
+            VBox content = new VBox(15);
+            content.setPadding(new Insets(20));
+            content.setStyle("-fx-background-color: white;");
+
+            // Add each candidature
+            for (Candidature candidature : candidatures) {
+                VBox candidatureBox = new VBox(10);
+                candidatureBox.setStyle("-fx-background-color: #f8f9fa; " +
+                                     "-fx-padding: 15; " +
+                                     "-fx-background-radius: 5; " +
+                                     "-fx-border-color: #e0e0e0; " +
+                                     "-fx-border-radius: 5;");
+
+                // Offer title
+                Text titleText = new Text(candidature.getIdOffre().getTitre());
+                titleText.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
+
+//                // Status with color
+//                Label statusLabel = new Label("Statut: " + candidature.getStatus());
+//                statusLabel.setStyle(String.format("-fx-text-fill: %s; -fx-font-weight: bold;",
+//                    getStatusColor(candidature.getStatus())));
+
+//                // Date section
+//                Text dateText = new Text("Date de candidature: " + candidature.getDateCandidature());
+//                dateText.setStyle("-fx-fill: #7f8c8d;");
+
+                // Documents section
+                VBox documents = new VBox(5);
+                documents.setStyle("-fx-padding: 10 0;");
+                
+                // CV Link
+                Hyperlink cvLink = new Hyperlink("Voir CV");
+                cvLink.setOnAction(e -> openDocument(candidature.getCv()));
+                
+                // Lettre Link
+                Hyperlink lettreLink = new Hyperlink("Voir Lettre de motivation");
+                lettreLink.setOnAction(e -> openDocument(candidature.getLettreMotivation()));
+
+                documents.getChildren().addAll(
+                    new Text("Documents:"),
+                    cvLink,
+                    lettreLink
+                );
+
+                // Add all elements to candidature box
+                candidatureBox.getChildren().addAll(
+                    titleText,
+//                    statusLabel,
+//                    dateText,
+                    documents
+                );
+
+                content.getChildren().add(candidatureBox);
+            }
+
+            // Make content scrollable
+            ScrollPane scrollPane = new ScrollPane(content);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setPrefHeight(500);
+            scrollPane.setPrefWidth(600);
+
+            // Set dialog content
+            dialog.getDialogPane().setContent(scrollPane);
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+
+            // Show dialog
+            dialog.show();
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Impossible de charger vos candidatures: " + e.getMessage());
+        }
+    }
+
+    private String getStatusColor(String status) {
+        return switch (status.toLowerCase()) {
+            case "en attente" -> "#f39c12";
+            case "acceptée" -> "#27ae60";
+            case "rejetée" -> "#e74c3c";
+            default -> "#2c3e50";
+        };
+    }
+
+    private void openDocument(String filePath) {
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Erreur", 
+                    "Le document n'existe pas: " + filePath);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Impossible d'ouvrir le document: " + e.getMessage());
         }
     }
 
     @FXML
     private void voirFavoris() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFavoris.fxml"));
-            Parent root = loader.load();
+            var currentUser = SessionManager.extractuserfromsession();
+            if (currentUser == null) return;
 
-            Stage stage = (Stage) voirFavorisBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            ServiceBookmark serviceBookmark = new ServiceBookmark();
+            ServiceOffre serviceOffre = new ServiceOffre();
+            List<Integer> bookmarkIds = serviceBookmark.getBookmarkedOfferIds(currentUser.getIdUser());
+            List<OffreEmploi> favoriteOffers = new ArrayList<>();
+
+            // Get all bookmarked offers
+            for (Integer id : bookmarkIds) {
+                OffreEmploi offre = serviceOffre.getOffreById(id);
+                if (offre != null) {
+                    favoriteOffers.add(offre);
+                }
+            }
+
+            if (favoriteOffers.isEmpty()) {
+                showAlert(Alert.AlertType.INFORMATION, "Mes Favoris", 
+                    "Vous n'avez pas encore d'offres dans vos favoris.");
+                return;
+            }
+
+            // Create dialog
+            Dialog<Void> dialog = new Dialog<>();
+            dialog.setTitle("Mes Favoris");
+            dialog.initModality(Modality.APPLICATION_MODAL);
+
+            // Create main content container
+            VBox content = new VBox(15);
+            content.setPadding(new Insets(20));
+            content.setStyle("-fx-background-color: white;");
+
+            // Add each favorite offer
+            for (OffreEmploi offre : favoriteOffers) {
+                VBox offerBox = new VBox(10);
+                offerBox.setStyle("-fx-background-color: #f8f9fa; " +
+                               "-fx-padding: 15; " +
+                               "-fx-background-radius: 5; " +
+                               "-fx-border-color: #e0e0e0; " +
+                               "-fx-border-radius: 5;");
+
+                // Title
+                Text titleText = new Text(offre.getTitre());
+                titleText.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
+
+                // Details Grid
+                GridPane details = new GridPane();
+                details.setHgap(30);
+                details.setVgap(10);
+                details.setPadding(new Insets(10));
+
+//                // Add details
+//                addDetailToGrid(details, "Type de contrat", offre.getTypeContrat(), 0, 0);
+//                addDetailToGrid(details, "Lieu", offre.getLieuTravail(), 1, 0);
+//                addDetailToGrid(details, "Salaire", offre.getSalaire() + " TND", 0, 1);
+//                addDetailToGrid(details, "Date limite", offre.getDateLimite().toString(), 1, 1);
+
+                // Status indicator
+                Label statusLabel = new Label("■ " + offre.getStatutOffre());
+                statusLabel.setStyle(String.format(
+                    "-fx-text-fill: %s; -fx-font-weight: bold;",
+                    offre.getStatutOffre().equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"
+                ));
+
+                // Remove from favorites button
+                Button removeButton = new Button("Retirer des favoris");
+                removeButton.setStyle("-fx-text-fill: #e74c3c;");
+                
+                removeButton.setOnAction(e -> {
+                    try {
+                        serviceBookmark.supprimerParUserEtOffre(currentUser.getIdUser(), offre.getIdOffre());
+                        content.getChildren().remove(offerBox);
+                        bookmarkedOfferIds.remove(Integer.valueOf(offre.getIdOffre()));
+                        lv_offre.refresh(); // Refresh main list view
+
+                        if (content.getChildren().isEmpty()) {
+                            dialog.close();
+                            showAlert(Alert.AlertType.INFORMATION, "Mes Favoris", 
+                                "Vous n'avez plus d'offres dans vos favoris.");
+                        }
+                    } catch (SQLException ex) {
+                        showAlert(Alert.AlertType.ERROR, "Erreur", 
+                            "Impossible de retirer l'offre des favoris: " + ex.getMessage());
+                    }
+                });
+
+                // Add all elements to offer box
+                offerBox.getChildren().addAll(titleText, details, statusLabel, removeButton);
+                content.getChildren().add(offerBox);
+            }
+
+            // Make content scrollable
+            ScrollPane scrollPane = new ScrollPane(content);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setPrefHeight(500);
+            scrollPane.setPrefWidth(600);
+
+            // Set dialog content
+            dialog.getDialogPane().setContent(scrollPane);
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+
+            // Show dialog
+            dialog.show();
+
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", 
+                "Impossible de charger vos favoris: " + e.getMessage());
         }
     }
 
@@ -285,45 +510,87 @@ public class AfficherOffreCandidatController {
     }
 
     private void setupListView() {
-        lv_offre.setCellFactory(lv -> new ListCell<OffreEmploi>() {
+        lv_offre.setCellFactory(param -> new ListCell<OffreEmploi>() {
             @Override
             protected void updateItem(OffreEmploi offre, boolean empty) {
                 super.updateItem(offre, empty);
+                
                 if (empty || offre == null) {
                     setText(null);
-                    setStyle("");
+                    setGraphic(null);
                 } else {
-                    setText(formaterOffre(offre));
+                    VBox card = new VBox(15);
+                    card.setPadding(new Insets(20));
+                    card.setPrefWidth(1000);
+                    card.setStyle("-fx-background-color: white; " +
+                                "-fx-border-color: #e0e0e0; " +
+                                "-fx-border-radius: 8; " +
+                                "-fx-background-radius: 8; " +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+
+                    // Title section
+                    HBox titleBox = new HBox(5);
+                    Text titleLabel = new Text("Titre: ");
+                    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: #2c3e50;");
+                    Text titleValue = new Text(offre.getTitre());
+                    titleValue.setStyle("-fx-font-size: 18px; -fx-fill: #2c3e50;");
+                    titleBox.getChildren().addAll(titleLabel, titleValue);
+
+                    // Details Grid
+                    GridPane details = new GridPane();
+                    details.setHgap(50);
+                    details.setVgap(15);
+                    details.setPadding(new Insets(15));
+                    details.setStyle("-fx-background-color: white; -fx-border-color: #eee; " +
+                                   "-fx-border-radius: 5; -fx-background-radius: 5;");
+
+                    // Add these lines back - they were commented out before
+                    addDetailToGrid(details, "Type de contrat", offre.getTypeContrat(), 0, 0);
+                    addDetailToGrid(details, "Lieu de travail", offre.getLieuTravail(), 0, 1);
+                    addDetailToGrid(details, "Salaire", offre.getSalaire() + " TND", 1, 0);
+                    addDetailToGrid(details, "Expérience", offre.getExperience(), 1, 1);
+                    addDetailToGrid(details, "Date publication", offre.getDatePublication().toString(), 2, 0);
+                    addDetailToGrid(details, "Date limite", offre.getDateLimite().toString(), 2, 1);
+
+                    // Status indicator
+                    Label statusLabel = new Label("■ " + offre.getStatutOffre());
+                    statusLabel.setStyle(String.format(
+                        "-fx-text-fill: %s; -fx-font-weight: bold; -fx-padding: 5 10;",
+                        offre.getStatutOffre().equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"
+                    ));
+
+                    // Add all sections to the card
+                    card.getChildren().addAll(titleBox, details, statusLabel);
+                    
+                    // Add special styling for applied/bookmarked offers
                     if (appliedOfferIds.contains(offre.getIdOffre())) {
-
-                        setStyle("-fx-background-color: #ADD8E6;"); // Light blue for applied
+                        card.setStyle(card.getStyle() + "; -fx-border-color: #3498db; -fx-border-width: 2;");
                     } else if (bookmarkedOfferIds.contains(offre.getIdOffre())) {
-                        setStyle("-fx-background-color: #FFFACD;"); // Light yellow for bookmarked
-                    } else {
-                        setStyle("");
+                        card.setStyle(card.getStyle() + "; -fx-border-color: #f1c40f; -fx-border-width: 2;");
                     }
+                    
+                    // Hover effect
+                    String baseStyle = card.getStyle();
+                    card.setOnMouseEntered(e -> 
+                        card.setStyle(baseStyle + "-fx-background-color: #f8f9fa;"));
+                    card.setOnMouseExited(e -> 
+                        card.setStyle(baseStyle + "-fx-background-color: white;"));
+
+                    setGraphic(card);
                 }
             }
         });
+    }
 
-        lv_offre.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                offreSelectionnee = newValue;
-                Postuler.setDisable(appliedOfferIds.contains(newValue.getIdOffre()));
-
-                bookmarkIcon.setVisible(true);
-                
-                // Update bookmark icon based on status
-                if (bookmarkedOfferIds.contains(newValue.getIdOffre())) {
-                    bookmarkIcon.setImage(bookmarkFilled);
-                } else {
-                    bookmarkIcon.setImage(bookmarkEmpty);
-                }
-            } else {
-                Postuler.setDisable(true);
-                bookmarkIcon.setVisible(false);
-            }
-        });
+    // Add this helper method if it's missing
+    private void addDetailToGrid(GridPane grid, String label, String value, int col, int row) {
+        VBox container = new VBox(5);
+        Text labelText = new Text(label);
+        labelText.setStyle("-fx-font-weight: bold; -fx-fill: #7f8c8d; -fx-font-size: 12px;");
+        Text valueText = new Text(value);
+        valueText.setStyle("-fx-fill: #2c3e50; -fx-font-size: 14px;");
+        container.getChildren().addAll(labelText, valueText);
+        grid.add(container, col, row);
     }
 
     @FXML
@@ -728,6 +995,70 @@ public class AfficherOffreCandidatController {
         textArea.setPrefHeight(400);
         
         dialog.getDialogPane().setContent(textArea);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+        dialog.show();
+    }
+
+    // Add this new method for showing offer details
+    private void showOfferDetails(OffreEmploi offre) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Détails de l'offre");
+        dialog.initModality(Modality.APPLICATION_MODAL);
+
+        VBox content = new VBox(15);
+        content.setPadding(new Insets(20));
+        content.setStyle("-fx-background-color: white;");
+
+        // Title
+        Text titleText = new Text(offre.getTitre());
+        titleText.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;");
+
+        // Description
+        VBox descriptionBox = new VBox(5);
+        descriptionBox.setStyle("-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 5;");
+        Text descLabel = new Text("Description");
+        descLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16px; -fx-fill: #34495e;");
+        TextFlow descValue = new TextFlow();
+        Text descText = new Text(offre.getDescription());
+        descText.setStyle("-fx-font-size: 14px; -fx-fill: #2c3e50;");
+        descValue.getChildren().add(descText);
+        descValue.setMaxWidth(550);
+        descValue.setLineSpacing(1.5);
+        descriptionBox.getChildren().addAll(descLabel, descValue);
+
+        // Details Grid
+        GridPane details = new GridPane();
+        details.setHgap(30);
+        details.setVgap(15);
+        details.setPadding(new Insets(15));
+        details.setStyle("-fx-background-color: white; -fx-border-color: #eee; " +
+                        "-fx-border-radius: 5; -fx-background-radius: 5;");
+
+        int row = 0;
+        addDetailToGrid(details, "Type de contrat", offre.getTypeContrat(), 0, row);
+        addDetailToGrid(details, "Lieu de travail", offre.getLieuTravail(), 1, row++);
+        addDetailToGrid(details, "Salaire", offre.getSalaire() + " TND", 0, row);
+        addDetailToGrid(details, "Expérience requise", offre.getExperience(), 1, row++);
+        addDetailToGrid(details, "Date de publication", offre.getDatePublication().toString(), 0, row);
+        addDetailToGrid(details, "Date limite", offre.getDateLimite().toString(), 1, row++);
+
+        // Status
+        Label statusLabel = new Label("■ " + offre.getStatutOffre());
+        statusLabel.setStyle(String.format(
+            "-fx-text-fill: %s; -fx-font-weight: bold; -fx-padding: 10;",
+            offre.getStatutOffre().equalsIgnoreCase("Active") ? "#27ae60" : "#e74c3c"
+        ));
+
+        // Add all elements to content
+        content.getChildren().addAll(titleText, descriptionBox, details, statusLabel);
+
+        // Make content scrollable
+        ScrollPane scrollPane = new ScrollPane(content);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(500);
+        scrollPane.setPrefWidth(600);
+
+        dialog.getDialogPane().setContent(scrollPane);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         dialog.show();
     }
