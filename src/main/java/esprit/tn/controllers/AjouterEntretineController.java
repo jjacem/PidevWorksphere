@@ -143,7 +143,7 @@ public class AjouterEntretineController {
             if (date.isBefore(LocalDate.now())) {
                 showAlert("Erreur", "La date doit être supérieure ou égale à aujourd'hui.");
                 return;
-                
+
             }
 
 
