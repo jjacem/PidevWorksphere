@@ -20,16 +20,7 @@ BorderPane {
     -fx-padding: 10px;
 }
 
-#searchField {
-    -fx-pref-width: 300px;
-    -fx-pref-height: 40px;
-    -fx-font-size: 14px;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-border-color: #3498db;
-    -fx-border-width: 2px;
-    -fx-prompt-text-fill: #95a5a6;
-}
+
 
 /* Main Content styles */
 #mainContent {
@@ -39,8 +30,7 @@ BorderPane {
 
 /* ListView styles */
 #lv_entretien {
-    -fx-pref-width: 11600px; /* Make the ListView wider */
-    -fx-pref-height: 1000px; /* Make the ListView taller */
+
     -fx-background-color: #ffffff;
     -fx-border-color: #bdc3c7;
     -fx-border-width: 1px;

@@ -372,17 +372,34 @@ public class AffichageEntretienbyemployeeId {
 
     private void marquerEntretienTermine(int idEntretien) {
         try {
-            // Marquer l'entretien comme terminé et archivé
+            Entretien entretien = entretienService.getEntretienById(idEntretien);
+
+            if (entretien == null) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Erreur");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Aucun entretien trouvé avec cet ID !");
+                errorAlert.showAndWait();
+                return;
+            }
+
+            if (entretien.getFeedbackId() == 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Feedback manquant");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous devez ajouter un feedback avant de marquer l'entretien comme terminé !");
+                alert.showAndWait();
+                return;
+            }
+
             entretienService.marquerCommeTermineEtArchive(idEntretien);
 
-            // Afficher une alerte de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
             alert.setContentText("L'entretien a été marqué comme terminé et archivé avec succès !");
             alert.showAndWait();
 
-            // Rafraîchir les données
             refreshDatas();
         } catch (SQLException e) {
             e.printStackTrace();
