@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class User {
     private int idUser;
-    private String nom, prenom, email, mdp, adresse, imageProfil, poste, departement, competence, departementGere, specialisation , telephone;
+    private String nom, prenom, email, mdp, adresse, imageProfil, poste, departement, competence, departementGere, specialisation , numt_tel;
     private Role role;
     private Sexe sexe;
     private Status status;
@@ -35,7 +35,7 @@ public class User {
         this.departementGere = departementGere;
         this.ansExperience = ansExperience;
         this.specialisation = specialisation;
-        this.telephone = telephone;
+        this.numt_tel = telephone;
 
     }
 
@@ -110,7 +110,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.ansExperience = ansExperience;
         this.specialisation = specialisation;
         this.imageProfil = imageProfil;
-        this.telephone = telephone;
+        this.numt_tel = telephone;
 
 
     }
@@ -128,7 +128,7 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
         this.competence = competence;
         this.departementGere = departementGere;
         this.specialisation = specialisation;
-        this.telephone = telephone;
+        this.numt_tel = telephone;
     }
 
     public User() {
@@ -306,11 +306,11 @@ public User( String nom,Role role, String prenom, String email, String mdp, Stri
     public void setSpecialisation(String specialisation) { this.specialisation = specialisation; }
 
     public String getTelephone() {
-        return telephone;
+        return numt_tel;
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+        this.numt_tel = telephone;
     }
 
     @Override
