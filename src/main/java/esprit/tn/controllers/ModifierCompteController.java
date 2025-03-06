@@ -9,7 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -24,26 +27,30 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class ModifierCompteController {
+
     @FXML
     private Button savebutton;
+
     @FXML
     private TextField nom, prenom, email, adresse;
+
     @FXML
     private ChoiceBox<Sexe> sexe;
+
     @FXML
     private ImageView imagePreview;
+
     @FXML
     private Button registerFaceButton;
 
     private String imagePath = "";
     private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
     private int userId;
+    private boolean b = false;
 
     public void initData(int userId) {
         this.userId = userId;
     }
-
-    private boolean b = false;
 
     public void modparadmin(Boolean k) {
         this.b = k;
@@ -63,7 +70,9 @@ public class ModifierCompteController {
                 adresse.setText(u.getAdresse());
                 sexe.setValue(u.getSexe());
                 imagePath = u.getImageProfil();
-                imagePreview.setImage(new Image(new File(imagePath).toURI().toString()));
+                if (imagePath != null && !imagePath.trim().isEmpty()) {
+                    imagePreview.setImage(new Image(new File(imagePath).toURI().toString()));
+                }
             }
 
             // Wait for the scene to be set before running animation
@@ -76,7 +85,7 @@ public class ModifierCompteController {
                 }
             });
 
-            // Real-time validation
+            // Real-time email validation
             email.textProperty().addListener((obs, old, newVal) -> {
                 if (!emailPattern.matcher(newVal).matches() && !newVal.isEmpty()) {
                     email.setStyle(email.getStyle() + "-fx-border-color: #EF4444;");
@@ -147,18 +156,29 @@ public class ModifierCompteController {
     }
 
     private void refreshWindow() {
-        try {
-            Stage stage = (Stage) savebutton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCompte.fxml"));
-            Scene newScene = new Scene(loader.load());
-            ModifierCompteController controller = loader.getController();
-            controller.initData(b ? userId : SessionManager.extractuserfromsession().getIdUser());
-            controller.modparadmin(b);
-            stage.setScene(newScene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Error", "Failed to refresh the window.");
+        navigate(SessionManager.getRole());
+    }
+
+    public void navigate(String role) {
+        System.out.println("Navigating to role: " + role);
+        Stage stage = (Stage) email.getScene().getWindow();
+        stage.setMaximized(true); // Ensure the stage is maximized before navigation
+        switch (role) {
+            case "CANDIDAT":
+                DashboardCandidat.reloadDashboardFromStage(stage);
+                break;
+            case "MANAGER":
+                DashboardManager.reloadDashboardFromStage(stage);
+                break;
+            case "RH":
+                DashboardHR.reloadDashboardFromStage(stage);
+                break;
+            case "EMPLOYE":
+                DashboardEmploye.reloadDashboardFromStage(stage);
+                break;
+            default:
+                showAlert("Navigation Error", "Unknown role: " + role);
+                break;
         }
     }
 

@@ -4,7 +4,22 @@
     -fx-padding: 20;
 }
 
-/* Main Container (Card) */
+/* Return Button */
+#returnButton {
+    -fx-background-color: #6B7280;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 120;
+    -fx-pref-height: 40;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-opacity: 1; /* Ensure visibility */
+}
+#returnButton:hover {
+    -fx-background-color: #4B5563; /* Darker gray on hover */
+}
+
 /* Main Container (Card) */
 #mainContainer {
     -fx-background-color: white;
@@ -16,6 +31,7 @@
     -fx-alignment: center;
     -fx-pref-height: 100%;
 }
+
 /* Title Label */
 #titleLabel {
     -fx-font-size: 32px; /* Larger font size */

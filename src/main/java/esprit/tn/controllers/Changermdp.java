@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.SessionManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,6 +35,7 @@ public class Changermdp {
         btnChanger.setOnAction(event -> changePassword());
     }
 
+    @FXML
     private void changePassword() {
         String newPass = newPasswordField.getText().trim();
         String confirmPass = confirmPasswordField.getText().trim();
@@ -87,4 +89,6 @@ public class Changermdp {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

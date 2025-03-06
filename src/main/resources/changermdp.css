@@ -35,5 +35,3 @@
 .error-label {
     -fx-opacity: 0;
 }
-
-/* Add these animations in your controller's initialize method if you want them */

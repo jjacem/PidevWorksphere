@@ -4,14 +4,21 @@ import esprit.tn.services.ServiceUser;
 import esprit.tn.utils.Emailsend;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.regex.Pattern;
 
 public class ForgotpasswordController {
+    @FXML
+    private Button returnButton; // Added for proper injection
     @FXML
     private TextField mail;
     @FXML
@@ -97,6 +104,20 @@ public class ForgotpasswordController {
 
         resetPasswordBox.setVisible(false);
         mail.clear(); // Reset the form
+    }
+
+    @FXML
+    public void onReturn(ActionEvent actionEvent) {
+        try {
+            Stage stage = (Stage) mail.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml")); // Adjust path as needed
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {

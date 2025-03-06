@@ -67,41 +67,7 @@ public class AjouterUser {
         sexe.getItems().addAll(Sexe.HOMME, Sexe.FEMME);
 
         // Load and play the video
-        try {
-            // Ensure the video file is in src/main/resources/videos/signup.mp4
-            URL mediaUrl = getClass().getResource("/videos/signup.mp4");
-            if (mediaUrl == null) {
-                System.err.println("Error: Video file not found at /videos/signup.mp4");
-                showAlert(Alert.AlertType.ERROR, "Video Error", "Video file not found in resources.");
-                return;
-            }
 
-            System.out.println("Video found at: " + mediaUrl.toExternalForm());
-            String videoPath = mediaUrl.toExternalForm();
-            Media media = new Media(videoPath);
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-
-            // Add listener to monitor MediaPlayer status
-            mediaPlayer.statusProperty().addListener((obs, oldStatus, newStatus) -> {
-                System.out.println("MediaPlayer Status: " + newStatus);
-                if (newStatus == MediaPlayer.Status.STALLED || newStatus == MediaPlayer.Status.HALTED) {
-                    System.err.println("Media playback failed: " + mediaPlayer.getError());
-                    showAlert(Alert.AlertType.ERROR, "Playback Error", "Failed to play video: " + mediaPlayer.getError());
-                }
-            });
-
-            // Configure MediaPlayer
-            mediaPlayer.setAutoPlay(true);
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
-            // Bind MediaPlayer to MediaView
-            mediaView.setMediaPlayer(mediaPlayer);
-            mediaView.setPreserveRatio(true); // Maintain aspect ratio
-        } catch (Exception e) {
-            System.err.println("Failed to load or play media: " + e.getMessage());
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Media Error", "Failed to load video: " + e.getMessage());
-        }
     }
 
     @FXML
@@ -243,6 +209,7 @@ public class AjouterUser {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setMaximized(true); // Open maximized
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load login page.");
@@ -277,6 +244,7 @@ public class AjouterUser {
         alert.showAndWait();
     }
 
+    @FXML
     public void retourner(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
@@ -285,9 +253,26 @@ public class AjouterUser {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setMaximized(true); // Open maximized
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    // Method to open this window from another controller
+    public static void openAjouterUser(Node sourceNode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(AjouterUser.class.getResource("/AjouterUser.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            Scene scene = new Scene(root, 1200, 800); // Match prefWidth and prefHeight
+            stage.setScene(scene);
+            stage.setMaximized(true); // Ensure maximized view
+            stage.setTitle("Ajouter un Candidat");
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading AjouterUser.fxml: " + e.getMessage());
         }
     }
 }
