@@ -101,6 +101,26 @@ public class AjouterFeedbackController {
             showAlert(Alert.AlertType.WARNING, "Note invalide", "La note doit être comprise entre 1 et 5.");
             return false;
         }
+
+        if (!(q1_r1.isSelected() || q1_r2.isSelected() || q1_r3.isSelected())) {
+            showAlert(Alert.AlertType.WARNING, "Réponse manquante", "Veuillez sélectionner une réponse pour la question 1.");
+            return false;
+        }
+        if (!(q2_r1.isSelected() || q2_r2.isSelected() || q2_r3.isSelected())) {
+            showAlert(Alert.AlertType.WARNING, "Réponse manquante", "Veuillez sélectionner une réponse pour la question 2.");
+            return false;
+        }
+        if (!(q3_r1.isSelected() || q3_r2.isSelected() || q3_r3.isSelected())) {
+            showAlert(Alert.AlertType.WARNING, "Réponse manquante", "Veuillez sélectionner une réponse pour la question 3.");
+            return false;
+        }
+        if (!(q4_r1.isSelected() || q4_r2.isSelected() || q4_r3.isSelected())) {
+            showAlert(Alert.AlertType.WARNING, "Réponse manquante", "Veuillez sélectionner une réponse pour la question 4.");
+            return false;
+        }
+
+
+
         return true;
     }
 

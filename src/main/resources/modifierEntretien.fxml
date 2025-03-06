@@ -19,17 +19,17 @@
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="📝 Modifier un Entretien" />
 
             <HBox spacing="15">
-                <Label text="📄 Titre :" />
+                <Label text="📄 Titre Titre (min 5 caractères) : :" />
                 <TextField fx:id="tf_titre" promptText="Entrez le titre" />
             </HBox>
 
             <HBox spacing="15">
-                <Label text="📃 Description :" />
+                <Label text="📃 Description : (min 110 caractères)" />
                 <TextField fx:id="tf_description" promptText="Entrez une description" />
             </HBox>
 
             <HBox spacing="15">
-                <Label text="📅 Date Entretien :" />
+                <Label text="📅Date Entretien(>= aujourd'hui): :" />
                 <DatePicker fx:id="dp_date_entretien" />
             </HBox>
 

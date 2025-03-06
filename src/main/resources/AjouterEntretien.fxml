@@ -19,17 +19,17 @@
             <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="📖 Ajouter un Entretien" />
 
             <HBox spacing="10">
-                <Label text="📄 Titre :" />
-                <TextField fx:id="tf_titre" prefWidth="180" promptText="Entrez le titre" />
+                <Label text="📄 Titre (min 5 caractères) :" />
+                <TextField fx:id="tf_titre" prefWidth="180" promptText="Entrez le titre " />
             </HBox>
 
             <HBox spacing="10">
-                <Label text="📃 Description :" />
+                <Label text="📃 Description  (min 10 caractères) :" />
                 <TextField fx:id="tf_description" prefWidth="180" promptText="Entrez une description" />
             </HBox>
 
             <HBox spacing="10">
-                <Label text="📅 Date Entretien :" />
+                <Label text="📅 Date Entretien(>= aujourd'hui):"/>
                 <DatePicker fx:id="dp_date_entretien" prefWidth="180" />
             </HBox>
 

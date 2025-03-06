@@ -1,32 +1,96 @@
-/*!* Premium Button Styling *!*/
-/*.premium-button {*/
-/*    -fx-background-color: #4CAF50;*/
-/*    -fx-text-fill: white;*/
-/*    -fx-font-size: 16px;*/
-/*    -fx-padding: 10px 20px;*/
-/*    -fx-border-radius: 5px;*/
-/*    -fx-background-radius: 5px;*/
-/*    -fx-font-weight: bold;*/
-/*}*/
+/* Root styles */
+.root {
+    -fx-background-color: #f5f5f5; /* Light grey background */
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
 
-/*.premium-button:hover {*/
-/*    -fx-background-color: #45a049;*/
-/*}*/
+/* Header Section */
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d2d2d; /* Dark grey text */
+}
 
-/*!* TableView Styling *!*/
+.header-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575; /* Light grey text */
+}
 
+/* ListView Section */
+.historique-list-view {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #e0e0e0; /* Light grey border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px; /* Rounded corners */
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-padding: 10px; /* Padding inside the ListView */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
+}
 
-/*!* Header Styling *!*/
-/*.label {*/
-/*    -fx-font-size: 20px;*/
-/*    -fx-text-fill: #333;*/
-/*    -fx-font-weight: bold;*/
-/*}*/
+.historique-list-view .list-cell {
+    -fx-background-color: #ffffff; /* White background for each cell */
+    -fx-border-color: #e0e0e0; /* Light grey border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px; /* Rounded corners for cells */
+    -fx-background-radius: 5px; /* Rounded corners for cells */
+    -fx-padding: 15px; /* Padding inside each cell */
+    -fx-margin: 5px; /* Margin between cells */
+}
 
-/*.label[styleClass='subtitle'] {*/
-/*    -fx-font-size: 14px;*/
-/*    -fx-text-fill: #777;*/
-/*}*/
+.historique-list-view .list-cell:hover {
+    -fx-background-color: #f0f0f0; /* Light grey on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8, 0, 0, 3); /* Enhanced shadow on hover */
+}
 
+/* Footer Section */
+.restore-button {
+    -fx-background-color: #3498db; /* Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px; /* Padding for buttons */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
 
+.restore-button:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
 
+.close-button {
+    -fx-background-color: #e74c3c; /* Red */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px; /* Padding for buttons */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
+
+.close-button:hover {
+    -fx-background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Custom styles for historique items */
+.historique-item {
+    -fx-spacing: 10px; /* Spacing between elements */
+}
+
+.historique-item .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d2d2d; /* Dark grey text */
+}
+
+.historique-item .button {
+    -fx-background-color: #27ae60; /* Green */
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px; /* Padding for buttons */
+    -fx-border-radius: 3px; /* Rounded corners */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
+
+.historique-item .button:hover {
+    -fx-background-color: #219653; /* Darker green on hover */
+}

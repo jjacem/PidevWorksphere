@@ -50,25 +50,23 @@ public class VoirHistoriqueEntretien {
 
                 if (item != null && !empty) {
                     VBox vbox = new VBox(10);
+                    vbox.getStyleClass().add("historique-item"); // Apply custom CSS class
 
-                    // Create labels for historique data
-                    Label titreLabel = new Label("Titre: " + item.getTitre());
-                    Label descriptionLabel = new Label("Description: " + item.getDescription());
-                    Label dateLabel = new Label("Date: " + item.getDateEntretien());
-                    Label heureLabel = new Label("Heure: " + item.getHeureEntretien());
-                    Label typeLabel = new Label("Type: " + item.getTypeEntretien());
-                    Label statusLabel = new Label("Status: " + (item.isStatus() ? "Active" : "Inactive"));
-                    Label dateAction = new Label("Date: " + item.getDateAction());
+                    // Create labels for historique data with emojis
+                    Label titreLabel = new Label("📝 Titre: " + item.getTitre());
+                    Label descriptionLabel = new Label("📄 Description: " + item.getDescription());
+                    Label dateLabel = new Label("📅 Date: " + item.getDateEntretien());
+                    Label heureLabel = new Label("🕒 Heure: " + item.getHeureEntretien());
+                    Label typeLabel = new Label("📌 Type: " + item.getTypeEntretien());
+                    Label statusLabel = new Label("✅ Status: " + (item.isStatus() ? "Active" : "Inactive"));
+                    Label dateAction = new Label("📅 Date Action: " + item.getDateAction());
+                    Label actionLabel = new Label("🔧 Action: " + item.getAction());
 
-                    Label actionLabel = new Label("Action: " + item.getAction());
+                    btnRestaurer = new Button("🔄 Restaurer");
 
-                     btnRestaurer = new Button("Restaurer");
-
-
-                     if ("suppression".equals(item.getAction())) {
-                        btnRestaurer.setText("Restaurer l'entretien");
+                    if ("suppression".equals(item.getAction())) {
+                        btnRestaurer.setText("🔄 Restaurer l'entretien");
                     } else {
-
                         btnRestaurer.setDisable(true);
                     }
 
@@ -80,7 +78,7 @@ public class VoirHistoriqueEntretien {
                         }
                     });
 
-                    vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, heureLabel, typeLabel, statusLabel, actionLabel,dateAction,  btnRestaurer);
+                    vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, heureLabel, typeLabel, statusLabel, actionLabel, dateAction, btnRestaurer);
                     setGraphic(vbox);
                 } else {
                     setGraphic(null);
@@ -139,5 +137,19 @@ public class VoirHistoriqueEntretien {
     }
 
 
+    public void fermerFenetre(ActionEvent actionEvent) {
 
-}
+            try {
+
+
+                Stage stage = (Stage) btnRestaurer.getScene().getWindow();
+                stage.close();
+
+            } catch (Exception e) {
+                showAlert("Erreur", "Impossible de fermer la fenêtre.");
+            }
+        }
+
+
+    }
+

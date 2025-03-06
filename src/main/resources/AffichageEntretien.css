@@ -83,8 +83,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 12, 0, 0, 3);
 
 
-
-
 }
 
 
@@ -248,4 +246,56 @@ BorderPane {
     -fx-background-color: #2980b9;
     -fx-border-color: #2980b9;
 }
+
+
+/* Header Styles */
+#header {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 10px;
+}
+
+#titleLabel {
+    -fx-text-fill: #ecf0f1;
+}
+
+#searchContainer {
+    -fx-padding: 5px;
+}
+
+/* Style for the date filters container */
+#dateFiltersContainer {
+    -fx-background-color: #f0f0f0; /* Light grey background */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-padding: 10px; /* Padding inside the container */
+}
+
+/* Style for labels */
+#dateFiltersContainer .label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #da0d0d; /* Red text */
+}
+
+/* Style for DatePickers */
+#dateFiltersContainer .date-picker {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #e0e0e0; /* Light grey border */
+    -fx-border-radius: 3px; /* Rounded corners */
+    -fx-padding: 5px; /* Padding inside the field */
+}
+
+/* Style for the filter button */
+#filterButton {
+    -fx-background-color: #3498db; /* Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5px 10px; /* Padding for the button */
+    -fx-border-radius: 3px; /* Rounded corners */
+}
+
+#filterButton:hover {
+    -fx-background-color: #2980b9; /* Darker blue on hover */
+}
+
+
+
 

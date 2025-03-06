@@ -8,9 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -52,7 +56,6 @@ public class AffichageEntretineController {
     public void initialize() throws SQLException {
         afficherEntretien();
         lv_entretien.getStylesheets().add(getClass().getResource("/controllerAffichage.css").toExternalForm());
-
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 filterEntretiens(newValue);
@@ -61,6 +64,7 @@ public class AffichageEntretineController {
             }
         });
     }
+
 
     private void afficherEntretien() throws SQLException {
         List<Entretien> entretiens = entretienService.afficher();
@@ -76,69 +80,106 @@ public class AffichageEntretineController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    // Créer les boutons
-                    Button btnModifier = new Button("Modifier");
-                    Button btnSupprimer = new Button("Supprimer");
-                    Button btnVoirDetail = new Button("Voir Détails");
-
-                    // Appliquer les styles CSS aux boutons
-                    btnModifier.getStyleClass().add("button-modifier");
-                    btnSupprimer.getStyleClass().add("button-supprimer");
-                    btnVoirDetail.getStyleClass().add("button");
-
-                    // Ajouter les actions aux boutons
-                    btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
-                    btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
-                    btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
-
-                    // Créer un HBox pour aligner les boutons à droite
-                    HBox buttonBox = new HBox(10, btnVoirDetail, btnModifier, btnSupprimer);
-                    buttonBox.getStyleClass().add("hbox-buttons");
-
-                    // Créer un VBox pour organiser le texte et les boutons
-                    VBox vbox = new VBox(5);
-
-                    // Titre
-                    Label titreLabel = new Label("📝 Titre: " + entretien.getTitre());
-                    titreLabel.getStyleClass().add("titre-label");
-
-                    // Description
-                    Label descriptionLabel = new Label("Description: " + entretien.getDescription());
-                    descriptionLabel.getStyleClass().add("description-label");
-
-                    // Date et heure
-                    Label dateLabel = new Label("📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien());
-                    dateLabel.getStyleClass().add("date-label");
-
-                    // Type
-                    Label typeLabel = new Label("📌 Type: " + entretien.getType_entretien());
-                    typeLabel.getStyleClass().add("type-label");
-
-                    // Statut
-                    Label statutLabel = new Label("✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
-                    statutLabel.getStyleClass().add("statut-label");
-
-                    vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
-
-                    if (entretien.getEmployeId() != 0) {
-                        try {
-                            User users = su.findbyid(entretien.getEmployeId());
-                            Label employeLabel = new Label("🔒 Entretien affecté chez " + users.getNom() + " " + users.getPrenom());
-                            employeLabel.getStyleClass().add("employe-label");
-                            vbox.getChildren().add(employeLabel);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-                    // Ajouter le VBox et le HBox à la cellule
-                    setGraphic(new VBox(vbox, buttonBox));
+                    // Create a VBox for the current entretien
+                    VBox entretienBox = createEntretienBox(entretien);
+                    setGraphic(entretienBox);
                 }
             }
         });
-
-
     }
+
+    // Helper method to create a VBox for each Entretien item
+    private VBox createEntretienBox(Entretien entretien) {
+        // Load icons
+        ImageView iconTitre = new ImageView(new Image(getClass().getResourceAsStream("/icons/job-seeker.png")));
+        iconTitre.setFitHeight(24);
+        iconTitre.setFitWidth(24);
+
+        ImageView iconDescription = new ImageView(new Image(getClass().getResourceAsStream("/icons/edit-info.png")));
+        iconDescription.setFitHeight(24);
+        iconDescription.setFitWidth(24);
+
+        ImageView iconDate = new ImageView(new Image(getClass().getResourceAsStream("/icons/date.png")));
+        iconDate.setFitHeight(24);
+        iconDate.setFitWidth(24);
+
+        ImageView iconType = new ImageView(new Image(getClass().getResourceAsStream("/icons/type.png")));
+        iconType.setFitHeight(24);
+        iconType.setFitWidth(24);
+
+        ImageView iconStatut = new ImageView(new Image(getClass().getResourceAsStream("/icons/checked.png")));
+        iconStatut.setFitHeight(24);
+        iconStatut.setFitWidth(24);
+
+        ImageView iconEmploye = new ImageView(new Image(getClass().getResourceAsStream("/icons/assignment.png")));
+        iconEmploye.setFitHeight(24);
+        iconEmploye.setFitWidth(24);
+
+        // Create buttons
+        Button btnModifier = new Button("Modifier");
+        Button btnSupprimer = new Button("Supprimer");
+        Button btnVoirDetail = new Button("Voir Détails");
+
+        // Apply CSS styles to buttons
+        btnModifier.getStyleClass().add("button-modifier");
+        btnSupprimer.getStyleClass().add("button-supprimer");
+        btnVoirDetail.getStyleClass().add("button");
+
+        // Add actions to buttons
+        btnModifier.setOnAction(event -> ouvrirModifierEntretien(entretien));
+        btnSupprimer.setOnAction(event -> supprimerEntretien(entretien));
+        btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
+
+        // Create an HBox to align buttons to the right
+        HBox buttonBox = new HBox(10, btnVoirDetail, btnModifier, btnSupprimer);
+        buttonBox.getStyleClass().add("hbox-buttons");
+
+        // Create a VBox to organize text and buttons
+        VBox vbox = new VBox(5);
+
+        // Title
+        Label titreLabel = new Label("Titre: " + entretien.getTitre(), iconTitre);
+        titreLabel.getStyleClass().add("titre-label");
+
+        // Description
+        Label descriptionLabel = new Label("Description: " + entretien.getDescription(), iconDescription);
+        descriptionLabel.getStyleClass().add("description-label");
+
+        // Date and time
+        Label dateLabel = new Label("Date: " + entretien.getDate_entretien() + "  Heure: " + entretien.getHeure_entretien(), iconDate);
+        dateLabel.getStyleClass().add("date-label");
+
+        // Type
+        Label typeLabel = new Label("Type: " + entretien.getType_entretien(), iconType);
+        typeLabel.getStyleClass().add("type-label");
+
+        // Status
+        Label statutLabel = new Label("Statut: " + (entretien.isStatus() ? "Terminé" : "En cours"), iconStatut);
+        statutLabel.getStyleClass().add("statut-label");
+
+        vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
+
+        if (entretien.getEmployeId() != 0) {
+            try {
+                User users = su.findbyid(entretien.getEmployeId());
+                Label employeLabel = new Label("Entretien affecté chez " + users.getNom() + " " + users.getPrenom(), iconEmploye);
+                employeLabel.getStyleClass().add("employe-label");
+                vbox.getChildren().add(employeLabel);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // Add the VBox and HBox to the cell
+        return new VBox(vbox, buttonBox);
+    }
+
+
+
+
+
+
+
 
 
     private void voirDetailEntretien(Entretien entretien) {
@@ -333,41 +374,55 @@ public class AffichageEntretineController {
 
     @FXML
     public void filterByDate(ActionEvent actionEvent) {
-
+        // Récupérer les dates sélectionnées
         LocalDate startDate = dateDebutPicker.getValue();
         LocalDate endDate = dateFinPicker.getValue();
 
-        Date dateDebut = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date dateFin = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-
-        if (startDate == null || endDate == null || startDate.equals(LocalDate.MIN) || endDate.equals(LocalDate.MIN)) {
+        // Vérifier si les dates sont nulles (non sélectionnées)
+        if (startDate == null || endDate == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Sélection de dates manquantes");
-            alert.setHeaderText("Veuillez sélectionner une date début et une date fin.");
-            alert.setContentText("Pour filtrer par date, vous devez choisir les deux dates.");
+            alert.setTitle("Dates manquantes");
+            alert.setHeaderText("Veuillez remplir la date de début et la date de fin.");
+            alert.setContentText("Pour filtrer par date, vous devez sélectionner les deux dates.");
             alert.showAndWait();
-        } else if (startDate.isAfter(endDate)) {
+            return; // Arrêter l'exécution de la méthode
+        }
+
+        // Vérifier si la date de début est après la date de fin
+        if (startDate.isAfter(endDate)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Erreur de dates");
             alert.setHeaderText("La date de début ne peut pas être après la date de fin.");
             alert.setContentText("Veuillez sélectionner une date de début antérieure ou égale à la date de fin.");
             alert.showAndWait();
-        } else {
-            try {
-                List<Entretien> filteredEntretiens = entretienService.filterEntretienByDate(dateDebut, dateFin);
-                ObservableList<Entretien> filteredData = FXCollections.observableArrayList(filteredEntretiens);
-                lv_entretien.setItems(filteredData);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur de filtrage");
-                alert.setHeaderText("Une erreur est survenue lors du filtrage.");
-                alert.setContentText("Veuillez réessayer.");
-                alert.showAndWait();
-            }
+            return; // Arrêter l'exécution de la méthode
+        }
+
+        // Convertir les LocalDate en Date
+        Date dateDebut = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date dateFin = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        try {
+            // Filtrer les entretiens par date
+            List<Entretien> filteredEntretiens = entretienService.filterEntretienByDate(dateDebut, dateFin);
+            ObservableList<Entretien> filteredData = FXCollections.observableArrayList(filteredEntretiens);
+            lv_entretien.setItems(filteredData);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de filtrage");
+            alert.setHeaderText("Une erreur est survenue lors du filtrage.");
+            alert.setContentText("Veuillez réessayer.");
+            alert.showAndWait();
         }
     }
+
+
+
+
+
+
+
 
 
     public void voirHistorique(ActionEvent actionEvent) {
@@ -386,8 +441,8 @@ public class AffichageEntretineController {
 
             popupStage.initModality(Modality.APPLICATION_MODAL);
 
-            popupStage.setWidth(420);
-            popupStage.setHeight(450);
+            popupStage.setWidth(800);
+            popupStage.setHeight(600);
 
             popupStage.setOnHidden(event -> {
                 try {

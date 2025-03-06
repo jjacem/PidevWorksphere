@@ -6,6 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="esprit.tn.controllers.AffichageEntretienbyemployeeId"
@@ -13,12 +15,35 @@
 
     <!-- 🔹 Header -->
     <top>
-        <VBox spacing="15" alignment="CENTER" id="header">
-            <Label text="Liste des Entretiens" id="titleLabel"/>
-            <HBox alignment="CENTER" spacing="10" id="searchContainer">
-                <Label text="🔍" id="searchIcon"/>
-                <TextField fx:id="searchField" promptText="🔍 Rechercher un entretien..."/>
-            </HBox>
+        <VBox id="header" alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+        <!-- HBox to hold the left, middle, and right ImageView elements -->
+        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 0 20;">
+            <!-- Left ImageView -->
+            <ImageView fitHeight="100" fitWidth="150" preserveRatio="true">
+                <Image url="@/Images/490748-PH5A0U-472-removebg-preview.png" /> <!-- Replace with your left image path -->
+            </ImageView>
+
+            <!-- Middle ImageView -->
+            <Region HBox.hgrow="ALWAYS" /> <!-- Spacer to push the middle image to the center -->
+            <ImageView fitHeight="100" fitWidth="150" preserveRatio="true">
+                <Image url="@/icons/recrutement-removebg-preview.png" /> <!-- Replace with your middle image path -->
+            </ImageView>
+
+            <!-- Right ImageView -->
+            <Region HBox.hgrow="ALWAYS" /> <!-- Spacer to push the right image to the right -->
+            <ImageView fitHeight="100" fitWidth="150" preserveRatio="true">
+                <Image url="@/Images/4906435-removebg-preview.png" /> <!-- Replace with your right image path -->
+            </ImageView>
+        </HBox>
+
+        <!-- Title Label with smaller font -->
+        <Label id="titleLabel" text="Liste des Entretiens" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <!-- Search Container with reduced spacing -->
+        <HBox id="searchContainer" alignment="CENTER" spacing="5">
+            <TextField fx:id="searchField" promptText="🔍 Rechercher un entretien..." style="-fx-pref-width: 250px;" />
+        </HBox>
+
         </VBox>
     </top>
 

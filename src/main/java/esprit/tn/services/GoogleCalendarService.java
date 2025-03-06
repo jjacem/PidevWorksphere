@@ -136,7 +136,6 @@ public class GoogleCalendarService {
                 .setTimeZone("Africa/Tunis");
         event.setEnd(end);
 
-        // Ajouter des participants (candidat et employé)f
         User candidat = userService.findbyid(entretien.getCandidatId());
         EventAttendee[] attendees = new EventAttendee[]{
                 new EventAttendee().setEmail(candidat.getEmail()),

@@ -11,11 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.services.EntretienService;
 
+import javax.swing.text.Element;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -67,22 +70,39 @@ public class AffichageEntretienbyemployeeId {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    // Create ImageView for each icon
+                    javafx.scene.image.ImageView iconTitre = new javafx.scene.image.ImageView(new Image(getClass().getResourceAsStream("/icons/job-seeker.png")));
+                    iconTitre.setFitHeight(24); // Set the height of the image
+                    iconTitre.setFitWidth(24); // Set the width of the image
+                    iconTitre.setPreserveRatio(true); // Maintain aspect ratio
 
+                    javafx.scene.image.ImageView iconDescription = new javafx.scene.image.ImageView(new Image(getClass().getResourceAsStream("/icons/edit-info.png")));
+                    iconDescription.setFitHeight(24);
+                    iconDescription.setFitWidth(24);
+                    iconDescription.setPreserveRatio(true);
 
-                    Button btnGenererQuestions = new Button("📄 Générer des  Questions entretien avec  AI");
+                    javafx.scene.image.ImageView iconDate = new javafx.scene.image.ImageView(new Image(getClass().getResourceAsStream("/icons/date.png")));
+                    iconDate.setFitHeight(24);
+                    iconDate.setFitWidth(24);
+                    iconDate.setPreserveRatio(true);
+
+                    javafx.scene.image.ImageView iconType = new javafx.scene.image.ImageView(new Image(getClass().getResourceAsStream("/icons/type.png")));
+                    iconType.setFitHeight(24);
+                    iconType.setFitWidth(24);
+                    iconType.setPreserveRatio(true);
+
+                    javafx.scene.image.ImageView iconStatut = new ImageView(new Image(getClass().getResourceAsStream("/icons/checked.png")));
+                    iconStatut.setFitHeight(24);
+                    iconStatut.setFitWidth(24);
+                    iconStatut.setPreserveRatio(true);
+
+                    Button btnGenererQuestions = new Button("📄 Générer des Questions entretien avec AI");
                     btnGenererQuestions.getStyleClass().add("button-ai");
                     btnGenererQuestions.setOnAction(event -> genererQuestionsAI(entretien.getTitre()));
 
-
-
-
-
-                    // Créer les boutons
                     Button btnVoirDetail = new Button("Voir Détails");
                     btnVoirDetail.getStyleClass().add("button");
-
                     btnVoirDetail.setOnAction(event -> voirDetailEntretien(entretien));
-
 
                     Button btnFeedback;
 
@@ -103,44 +123,39 @@ public class AffichageEntretienbyemployeeId {
                         });
                     }
 
-                    // Créer un HBox pour aligner les boutons à droite
-                    HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail , btnGenererQuestions);
+                    // Create an HBox for buttons
+                    HBox buttonBox = new HBox(10, btnFeedback, btnVoirDetail, btnGenererQuestions);
                     buttonBox.getStyleClass().add("hbox-buttons");
 
-                    // Créer un VBox pour organiser le texte et les boutons
+                    // Create a VBox for labels
                     VBox vbox = new VBox(5);
 
-
-
-                    // Titre
-                    Label titreLabel = new Label("📝 Titre: " + entretien.getTitre());
+                    // Labels for entretien details with ImageView instead of emojis
+                    Label titreLabel = new Label("Titre: " + entretien.getTitre(), iconTitre);
                     titreLabel.getStyleClass().add("titre-label");
 
-                    // Description
-                    Label descriptionLabel = new Label("Description: " + entretien.getDescription());
+                    Label descriptionLabel = new Label("Description: " + entretien.getDescription(), iconDescription);
                     descriptionLabel.getStyleClass().add("description-label");
 
-                    // Date et heure
-                    Label dateLabel = new Label("📅 Date: " + entretien.getDate_entretien() + "  🕒 Heure: " + entretien.getHeure_entretien());
+                    Label dateLabel = new Label("Date: " + entretien.getDate_entretien() + "  Heure: " + entretien.getHeure_entretien(), iconDate);
                     dateLabel.getStyleClass().add("date-label");
 
-                    // Type
-                    Label typeLabel = new Label("📌 Type: " + entretien.getType_entretien());
+                    Label typeLabel = new Label("Type: " + entretien.getType_entretien(), iconType);
                     typeLabel.getStyleClass().add("type-label");
 
-                    Label statutLabel = new Label("✅ Statut: " + (entretien.isStatus() ? "Terminé ✅" : "En cours ⏳"));
+                    Label statutLabel = new Label("Statut: " + (entretien.isStatus() ? "Terminé" : "En cours"), iconStatut);
                     statutLabel.getStyleClass().add("statut-label");
 
                     vbox.getChildren().addAll(titreLabel, descriptionLabel, dateLabel, typeLabel, statutLabel);
 
-                    // Ajouter le VBox et le HBox à la cellule
+                    // Add the content and buttons to the cell
                     setGraphic(new VBox(vbox, buttonBox));
                 }
             }
         });
-
-
     }
+
+
 
     private void genererQuestionsAI(String titre) {
 
@@ -157,18 +172,6 @@ public class AffichageEntretienbyemployeeId {
             alert.setContentText("Le fichier a été téléchargé à l'emplacement suivant : " + downloadPath);
             alert.showAndWait();
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

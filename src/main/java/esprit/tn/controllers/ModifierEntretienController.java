@@ -131,20 +131,26 @@ public class ModifierEntretienController implements Initializable {
             TypeEntretien types = (TypeEntretien) cb_type_entretien.getValue();
 
 
-            if (titrev.isEmpty() || titrev.length() < 3) {
-                showAlert("Erreur", "Le titre doit contenir au moins 3 caractères.");
-                return;
-            }
-
-            if (descriptionv.isEmpty() || descriptionv.length() < 5) {
-                showAlert("Erreur", "La description doit contenir au moins 5 caractères.");
-                return;
-            }
-
-            if (dates == null || types == null) {
+            if (titrev.isEmpty() || descriptionv.isEmpty() || dates == null || types == null ) {
                 showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
                 return;
             }
+
+            if (titrev.length() < 5) {
+                showAlert("Erreur", "Le titre doit contenir au moins 5 caractères.");
+                return;
+            }
+
+            if (descriptionv.length() < 10) {
+                showAlert("Erreur", "La description doit contenir au moins 10 caractères.");
+                return;
+            }
+
+            if (dates.isBefore(LocalDate.now())) {
+                showAlert("Erreur", "La date doit être supérieure ou égale à aujourd'hui.");
+                return;
+            }
+
 
 
 
@@ -155,8 +161,6 @@ public class ModifierEntretienController implements Initializable {
             Date dateEntretien = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
             int hour = (int) sp_heure_entretien.getValue();
             Time heureEntretien = Time.valueOf(LocalTime.of(hour, 0));
-
-
 
 
 
@@ -226,7 +230,7 @@ public class ModifierEntretienController implements Initializable {
         }
     }
 
-
+// show alert
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

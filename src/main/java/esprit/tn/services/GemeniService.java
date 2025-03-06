@@ -17,7 +17,7 @@ public class GemeniService {
 
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
-    private static final String API_KEY = "AIzaSyDlJH2RyzPz9CZdF2n9zcggC0JKd0nOwGc\n";
+    private static final String API_KEY = "";
 
 
     public static Optional<String> getQuestionsFromChatbot(String poste) {
@@ -28,24 +28,20 @@ public class GemeniService {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            // Construire la requête JSON correctement
             String prompt = "Génère 5 questions d'entretien pour un poste de " + poste;
             String jsonInputString = "{ \"contents\": [{\"role\": \"user\", \"parts\": [{\"text\": \"" + prompt + "\"}]}]}";
 
-            // Envoyer la requête
             try (OutputStream os = connection.getOutputStream()) {
                 byte[] inputBytes = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 os.write(inputBytes, 0, inputBytes.length);
             }
 
-            // Vérifier la réponse HTTP
             int statusCode = connection.getResponseCode();
             if (statusCode != 200) {
                 System.err.println("❌ Erreur API: " + statusCode + " - " + connection.getResponseMessage());
                 return Optional.empty();
             }
 
-            // Lire la réponse
             StringBuilder response = new StringBuilder();
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
                 String inputLine;
@@ -54,7 +50,6 @@ public class GemeniService {
                 }
             }
 
-            // Parser la réponse JSON
             JSONObject jsonResponse = new JSONObject(response.toString());
             JSONArray candidates = jsonResponse.optJSONArray("candidates");
 

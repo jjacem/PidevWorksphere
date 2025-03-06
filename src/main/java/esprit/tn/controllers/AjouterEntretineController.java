@@ -112,7 +112,7 @@ public class AjouterEntretineController {
         }  }
 
 
-
+//hh
     @FXML
     public void ajouterEntretien(ActionEvent actionEvent) throws SQLException {
         try {
@@ -126,6 +126,22 @@ public class AjouterEntretineController {
                 showAlert("Erreur", "Veuillez remplir tous les champs obligatoires.");
                 return;
             }
+
+            if (titre.length() < 5) {
+                showAlert("Erreur", "Le titre doit contenir au moins 5 caractères.");
+                return;
+            }
+
+            if (description.length() < 10) {
+                showAlert("Erreur", "La description doit contenir au moins 10 caractères.");
+                return;
+            }
+
+            if (date.isBefore(LocalDate.now())) {
+                showAlert("Erreur", "La date doit être supérieure ou égale à aujourd'hui.");
+                return;
+            }
+
 
             int employeId = extractIdFromComboBox((String) cb_employe.getValue());
             int candidatId = extractIdFromComboBox((String) cb_candidat.getValue());
@@ -172,7 +188,6 @@ public class AjouterEntretineController {
 
             WhatsAppService.sendWhatsAppMessage(numeroCandidat, messageCandidat);
             WhatsAppService.sendWhatsAppMessage(numeroEmployee, messageEmploye);
-
 
 
 

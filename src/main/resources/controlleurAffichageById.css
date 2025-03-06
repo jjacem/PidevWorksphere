@@ -1,93 +1,110 @@
-/* styles.css */
-
-/* Style général de la scène (fond dégradé) */
+/* Root styles with gradient background */
 .root {
-    -fx-background-color: linear-gradient(to bottom, #1e3c72, #2a5298);
+    -fx-background-color: linear-gradient(to bottom, #1e3c72, #2a5298); /* Gradient background */
+    -fx-font-family: 'Segoe UI', sans-serif;
 }
 
 /* Style général de la ListView */
+.list-view {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-padding: 10px; /* Padding around the ListView */
+}
+
+/* Style for each cell (card) */
 .list-cell {
-    -fx-padding: 15px;
-    -fx-background-color: #ffffff;
-    -fx-border-color: #e0e0e0;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+    -fx-padding: 20px; /* Increased padding inside each card */
+    -fx-background-color: #ffffff; /* White background for each cell */
+    -fx-border-color: #e0e0e0; /* Light grey border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px; /* Rounded corners for the card */
+    -fx-background-radius: 5px; /* Rounded corners for the background */
+    -fx-font-size: 16px; /* Larger font size */
+    -fx-text-fill: #000000; /* Black text */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1); /* Subtle shadow for depth */
+    -fx-letter-spacing: 1px; /* Letter spacing */
+    -fx-line-height: 1.5; /* Line height */
 }
 
 .list-cell:filled:hover {
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #f0f0f0; /* Light grey on hover */
 }
 
 /* Style du texte dans les cellules */
 .list-cell .label {
-    -fx-font-weight: bold; /* Texte en gras */
-    -fx-text-fill: #2c3e50; /* Couleur du texte */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-text-fill: #000000; /* Black color for text */
     -fx-padding: 5px 0; /* Padding vertical */
+    -fx-font-size: 18px; /* Larger font size */
 }
 
 /* Style spécifique pour les titres */
 .list-cell .titre-label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #2196F3; /* Couleur bleue pour le titre */
+    -fx-font-size: 20px; /* Even larger font for titles */
 }
 
 /* Style spécifique pour les descriptions */
 .list-cell .description-label {
-    -fx-text-fill: #555555; /* Couleur grise pour la description */
+    -fx-text-fill: #000000; /* Black for descriptions */
 }
 
 /* Style spécifique pour les dates et heures */
 .list-cell .date-label {
-    -fx-text-fill: #27ae60; /* Couleur verte pour les dates */
+    -fx-text-fill: #000000; /* Black for dates */
 }
 
 /* Style spécifique pour les types */
 .list-cell .type-label {
-    -fx-text-fill: #e67e22; /* Couleur orange pour les types */
+    -fx-text-fill: #000000; /* Black for types */
 }
 
 /* Style spécifique pour les statuts */
 .list-cell .statut-label {
-    -fx-text-fill: #e74c3c; /* Couleur rouge pour les statuts */
+    -fx-text-fill: #000000; /* Black for status */
 }
 
 /* Style des boutons */
 .button {
-    -fx-background-color: #2196F3;
+    -fx-background-color: #2196F3; /* Blue */
     -fx-text-fill: white;
-    -fx-background-radius: 20px; /* Boutons arrondis */
-    -fx-padding: 10px 20px;
-    -fx-font-size: 14px;
-    -fx-cursor: hand; /* Curseur en forme de main */
-}
-
-
-.button-ai {
-    -fx-background-color: #409e4b; /* Curseur en forme de main */
+    -fx-background-radius: 20px; /* Rounded corners */
+    -fx-padding: 12px 24px; /* Larger padding for bigger buttons */
+    -fx-font-size: 16px; /* Larger font size */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
 }
 
 .button:hover {
-    -fx-background-color: #1976D2; /* Couleur au survol */
+    -fx-background-color: #1976D2; /* Darker blue on hover */
 }
 
 .button:pressed {
-    -fx-background-color: #0D47A1; /* Couleur au clic */
+    -fx-background-color: #0D47A1; /* Darker blue on click */
 }
 
 /* Style spécifique pour les boutons de feedback */
 .button-feedback {
-    -fx-background-color: #FFC107; /* Couleur jaune */
+    -fx-background-color: #FFC107; /* Yellow */
 }
 
 .button-feedback:hover {
-    -fx-background-color: #FFA000; /* Couleur au survol */
+    -fx-background-color: #FFA000; /* Darker yellow on hover */
 }
 
 /* Alignement des boutons à droite */
 .hbox-buttons {
-    -fx-alignment: center-right;
-    -fx-spacing: 10px;
+    -fx-alignment: bottom-right; /* Align buttons to the bottom right */
+    -fx-spacing: 15px; /* Increased spacing between buttons */
+    -fx-padding: 20px; /* Increased padding */
 }
+
+/* Style for icons */
+.image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 3, 0, 0, 1); /* Subtle shadow for icons */
+}
+.button-ai{
+
+    -fx-background-color: #57ac0d;
+
+}
+
+
+

@@ -308,7 +308,7 @@ public class EntretienService implements IService<Entretien> {
 
     public List<Entretien> getEntretiensByEmployeId(int employeId) {
         List<Entretien> entretiens = new ArrayList<>();
-        String sql = "SELECT * FROM entretiens WHERE employe_id = ?";
+        String sql = "SELECT * FROM entretiens WHERE employe_id = ? and  status = false ";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, employeId);
@@ -339,6 +339,45 @@ public class EntretienService implements IService<Entretien> {
 
         return entretiens;
     }
+
+
+    public List<Entretien> getEntretiensByEmployeIdAndArchivé(int employeId) {
+        List<Entretien> entretiens = new ArrayList<>();
+        String sql = "SELECT * FROM entretiens WHERE employe_id = ? and  status = true ";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, employeId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titre = resultSet.getString("titre");
+                String description = resultSet.getString("description");
+                Date dateEntretien = resultSet.getDate("date_entretien");
+                Time heureEntretien = resultSet.getTime("heure_entretien");
+                TypeEntretien typeEntretien = TypeEntretien.valueOf(resultSet.getString("type_entretien"));
+                boolean status = resultSet.getBoolean("status");
+                int feedbackId = resultSet.getInt("feedbackId");
+                int idOffre = resultSet.getInt("idOffre");
+                int idCandidature = resultSet.getInt("idCandidature");
+                int idCandidat = resultSet.getInt("candidatId");
+
+                Entretien entretien = new Entretien(id, titre, description, dateEntretien, heureEntretien, typeEntretien, status, idCandidat
+                        , employeId, feedbackId, idOffre, idCandidature);
+                entretiens.add(entretien);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //cpg
+
+        return entretiens;
+    }
+
+
+
+
 
     public Entretien getEntretienById(int id) {
         String sql = "SELECT * FROM entretiens WHERE id = ?";
@@ -582,6 +621,35 @@ public class EntretienService implements IService<Entretien> {
         }
         return historiqueList;
     }
+
+
+    public void marquerCommeTermineEtArchive(int idEntretien) throws SQLException {
+
+        Entretien entretien = getEntretienById(idEntretien);
+
+        if (entretien == null) {
+            System.out.println("Aucun entretien trouvé avec cet ID !");
+            return;
+        }
+
+        String sql = "UPDATE entretiens SET status = true WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idEntretien);
+            pstmt.executeUpdate();
+            System.out.println("✅ Entretien marqué comme terminé et archivé avec succès !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("❌ Erreur lors de la mise à jour de l'entretien !");
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 
