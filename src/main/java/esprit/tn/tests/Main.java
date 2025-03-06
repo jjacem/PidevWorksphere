@@ -18,70 +18,69 @@ public class Main {
         connection = MyDatabase.getInstance().getConnection();
 
 
-//        //test
-//        //user
-//        ServiceUser serviceUser = new ServiceUser();
-//        User u1 = new User();
-//        u1 = u1.RH(
-//                "Johnson",
-//                "Emily",
-//                "emily.johnson@rhcorp.com",
-//                "SecurePass123",
-//                "01/05/1985",
-//                Sexe.FEMME,
-//                "New York",
-//                10,
-//                "Senior HR Manager"
-//        );
-//
-//        User u2 = new User();
-//        u2 = u2.Candidat(
-//                "Smith",
-//                "James",
-//                "james.smith24@gmail.com",
-//                "Candid@t3Pass",
-//                "12/11/1992",
-//                Sexe.HOMME,
-//                "Los Angeles",
-//                750.50
-//        );
-//
-//        User u3 = new User();
-//        u3 = u3.Manager(
-//                "Davis",
-//                "Sophia",
-//                "sophia.davis@financepro.com",
-//                "Fin@nc3Guru",
-//                "23/03/1980",
-//                Sexe.FEMME,
-//                "Chicago",
-//                "Finance",
-//                15,
-//                2500000.00
-//        );
-//
-//        User u4 = new User();
-//        u4 = u4.Employe(
-//                "Miller",
-//                "Daniel",
-//                "daniel.miller@corp.com",
-//                "Employ33Pass",
-//                "09/09/1990",
-//                Sexe.HOMME,
-//                "San Francisco",
-//                "IT Support",
-//                1200.00,
-//                8,
-//                "Technology",
-//                "Technical Support"
-//        );
-//
-////        try {
-////            serviceUser.ajouter(u4);
-////serviceUser.findbyid(1);
-////        } catch (SQLException e) {
-////            System.out.println(e.getMessage());
-////        }
+        //test
+        //user
+        ServiceUser serviceUser = new ServiceUser();
+        User u1 = new User();
+        u1 = u1.RH(
+                "Johnson",
+                "Emily",
+                "emily.johnson@rhcorp.com",
+                "SecurePass123",
+                "01/05/1985",
+                Sexe.FEMME,
+                "New York",
+                10,
+                "Senior HR Manager"
+        );
+
+        User u2 = new User();
+        u2 = u2.Candidat(
+                "Smith",
+                "James",
+                "james.smith24@gmail.com",
+                "Candid@t3Pass",
+                "12/11/1992",
+                Sexe.HOMME,
+                "Los Angeles",
+                750.50
+        );
+
+        User u3 = new User();
+        u3 = u3.Manager(
+                "Davis",
+                "Sophia",
+                "sophia.davis@financepro.com",
+                "Fin@nc3Guru",
+                "23/03/1980",
+                Sexe.FEMME,
+                "Chicago",
+                "Finance",
+                15,
+                2500000.00
+        );
+
+        User u4 = new User();
+        u4 = u4.Employe(
+                "Miller",
+                "Daniel",
+                "daniel.miller@corp.com",
+                "Employ33Pass",
+                "09/09/1990",
+                Sexe.HOMME,
+                "San Francisco",
+                "IT Support",
+                1200.00,
+                8,
+                "Technology",
+                "Technical Support"
+        );
+
+        try {
+            serviceUser.ajouter(u4);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 ////        try {
 ////            ServiceReclamation s = new ServiceReclamation();
 ////
@@ -304,26 +303,26 @@ public class Main {
 //        entretienService.getAllCandidatsSansEntretien(3);
 
 
-        EntretienService service = new EntretienService();
-
-        // Affichage des entretiens
-        List<Entretien> entretiens = service.afficher();
-
-        // Création de dates (sans utiliser le constructeur déprécié)
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2025, Calendar.FEBRUARY, 10); // Date de début
-        Date dateDebut = new Date(calendar.getTimeInMillis());
-
-        calendar.set(2025, Calendar.FEBRUARY, 13); // Date de fin
-        Date dateFin = new Date(calendar.getTimeInMillis());
-
-        // Filtrage des entretiens
-        List<Entretien> entretiensFiltrés = service.filterEntretienByDate(dateDebut, dateFin);
-
-        // Affichage des entretiens filtrés
-        for (Entretien entretien : entretiensFiltrés) {
-            System.out.println(entretien);
-        }
+//        EntretienService service = new EntretienService();
+//
+//        // Affichage des entretiens
+//        List<Entretien> entretiens = service.afficher();
+//
+//        // Création de dates (sans utiliser le constructeur déprécié)
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(2025, Calendar.FEBRUARY, 10); // Date de début
+//        Date dateDebut = new Date(calendar.getTimeInMillis());
+//
+//        calendar.set(2025, Calendar.FEBRUARY, 13); // Date de fin
+//        Date dateFin = new Date(calendar.getTimeInMillis());
+//
+//        // Filtrage des entretiens
+//        List<Entretien> entretiensFiltrés = service.filterEntretienByDate(dateDebut, dateFin);
+//
+//        // Affichage des entretiens filtrés
+//        for (Entretien entretien : entretiensFiltrés) {
+//            System.out.println(entretien);
+//        }
 
 
 

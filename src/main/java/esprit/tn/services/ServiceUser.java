@@ -269,7 +269,7 @@ public User extractuser(Object o){
                     rs.getString("departement_géré"),
                     rs.getInt("ans_experience"),
                     rs.getString("specialisation"),
-                    rs.getString("telephone")
+                    rs.getString("numt_tel")
 
             );
 
