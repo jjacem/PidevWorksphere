@@ -176,6 +176,8 @@ public class EvenementSponsorController {
         );
     }
 
+
+    //contrat passes vont etre afficher en rouge
     private LocalDate calculateEndDate(LocalDate startDate, String duree) {
         switch (duree) {
             case "troisMois":
@@ -193,6 +195,10 @@ public class EvenementSponsorController {
 
     private void generatePdf(EvenementSponsor evenementSponsor) throws SQLException, IOException, DocumentException {
         // Récupérer le sponsor et l'événement
+        //On utilise deux services, serviceSponsor et serviceEvenement, pour récupérer la liste des sponsors et des événements.
+        //Pour chaque service, un flux (stream()) est créé, puis on filtre la liste pour trouver le sponsor et
+        // l'événement correspondant à l'ID fourni dans l'objet EvenementSponsor.
+        //ndakhlou table ili binethom w nlawjou al correspondant mteou f lokhrin
         Sponsor sponsor = serviceSponsor.afficher().stream()
                 .filter(s -> s.getIdSponsor() == evenementSponsor.getSponsorId())
                 .findFirst()
@@ -210,7 +216,10 @@ public class EvenementSponsorController {
 
         // Créer le document PDF
         Document document = new Document();
+        //Le chemin du fichier PDF est construit dynamiquement en
+        // combinant le nom du sponsor et le nom de l'événement.
         String filePath = "Contrat_Sponsoring_" + sponsor.getNomSponso() + "_" + evenementRecherche.getNomEvent() + ".pdf";
+        // lie le document PDF à un fichier de sortie.
         PdfWriter.getInstance(document, new FileOutputStream(filePath));
         document.open();
 
@@ -278,9 +287,12 @@ public class EvenementSponsorController {
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = today.format(formatter);
+        //Ajout de la date actuelle :
         document.add(new Paragraph("Fait à Worksphere,Tunis Tunisie , le " + formattedDate, blackFont));
 
         // Ajouter l'image de signature
+        //Une image de signature est ajoutée à la fin du document PDF.
+        // L'image est redimensionnée et positionnée en bas à droite du document.
         try {
             String imagePath = "src\\main\\icons\\signatureContrat.png";
             Image signature = Image.getInstance(imagePath);

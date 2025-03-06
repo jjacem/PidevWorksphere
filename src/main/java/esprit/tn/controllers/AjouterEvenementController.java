@@ -57,18 +57,7 @@ public class AjouterEvenementController {
     @FXML
     private Button getThemeIdeasButton;
 
-    /* @FXML
-     public void getThemeIdeas(ActionEvent event) {
-         String prompt = "Donne-moi des idées de thèmes pour un événement d'entreprise.";
-         try {
-             String response = AIHelper.generateContent(prompt);
-             // Traiter la réponse JSON pour extraire les idées de thème
-             themeIdeasTextArea.setText(response); // Exemple simple, vous devrez extraire les données pertinentes
-         } catch (IOException e) {
-             // Gérer l'erreur
-             e.printStackTrace();
-         }
-     }*/
+
     @FXML
     public void getThemeIdeas(ActionEvent event) {
         String nomEvent = nomEventTextField.getText(); // Récupérer le nom de l'événement
@@ -150,8 +139,9 @@ public class AjouterEvenementController {
             // Créer l'événement
 
 
+            //recuperer le user connecte
             User u =SessionManager.extractuserfromsession();
-            Evenement evenement = new Evenement(nomEvent, descEvent, LocalDateTime.of(date, time), lieuEvent, capaciteEvent,u.getIdUser() ); // 1 est l'ID de l'utilisateur
+            Evenement evenement = new Evenement(nomEvent, descEvent, LocalDateTime.of(date, time), lieuEvent, capaciteEvent,u.getIdUser() );
 
             // Appeler le service pour ajouter l'événement
             ServiceEvenement serviceEvenement = new ServiceEvenement();
@@ -176,6 +166,7 @@ public class AjouterEvenementController {
         capaciteEventErrorLabel.setVisible(false);
     }
 
+    //methode naytoulha dans ajouter pour ouvrir une popup
     private void showAlert(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
