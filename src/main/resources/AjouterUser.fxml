@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -16,74 +15,63 @@
       <URL value="@signup.css" />
    </stylesheets>
 
-   <!-- SplitPane with exact half split -->
-   <SplitPane dividerPositions="0.5" style="-fx-background-color: transparent;" prefHeight="800.0" prefWidth="1200.0" VBox.vgrow="ALWAYS">
-      <!-- Left Side: Form -->
-      <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: transparent;" prefWidth="600.0" VBox.vgrow="ALWAYS">
+   <!-- Centered Form Container -->
+   <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: transparent;" prefWidth="600.0">
+      <padding>
+         <Insets top="10" right="5" bottom="10" left="10"/>
+      </padding>
+
+      <!-- Form Content -->
+      <VBox alignment="CENTER" spacing="15.0" styleClass="main-card" prefWidth="590.0">
          <padding>
-            <Insets top="10" right="5" bottom="10" left="10"/> <!-- Minimized padding for tighter fit -->
+            <Insets top="20" right="20" bottom="20" left="20"/>
          </padding>
+
          <Label text="Ajouter un Candidat" styleClass="title-label">
             <font>
                <Font name="System Bold" size="32.0" />
             </font>
          </Label>
 
-         <AnchorPane styleClass="main-card" prefHeight="740.0" prefWidth="590.0" VBox.vgrow="ALWAYS">
-            <GridPane hgap="10" vgap="10" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10"
-                      AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="5"> <!-- Adjusted padding -->
-               <columnConstraints>
-                  <ColumnConstraints prefWidth="140" /> <!-- Slightly reduced to fit 590px -->
-                  <ColumnConstraints prefWidth="290" /> <!-- Adjusted to fit 590px -->
-               </columnConstraints>
+         <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <columnConstraints>
+               <ColumnConstraints prefWidth="140" />
+               <ColumnConstraints prefWidth="290" />
+            </columnConstraints>
 
-               <Label text="Nom" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
-               <TextField fx:id="nom" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Nom" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+            <TextField fx:id="nom" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Label text="Prénom" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
-               <TextField fx:id="prenom" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Prénom" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+            <TextField fx:id="prenom" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
-               <TextField fx:id="email" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+            <TextField fx:id="email" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Label text="Mot de passe" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
-               <PasswordField fx:id="mdp" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Mot de passe" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+            <PasswordField fx:id="mdp" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Label text="Adresse" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
-               <TextField fx:id="adresse" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Adresse" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
+            <TextField fx:id="adresse" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Label text="Sexe" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="form-label"/>
-               <ChoiceBox fx:id="sexe" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Sexe" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="form-label"/>
+            <ChoiceBox fx:id="sexe" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Label text="Salaire attendu" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="form-label"/>
-               <TextField fx:id="salaireAttendu" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="form-field"/>
+            <Label text="Salaire attendu" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="form-label"/>
+            <TextField fx:id="salaireAttendu" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="form-field"/>
 
-               <Button GridPane.rowIndex="7" GridPane.columnIndex="0" text="Choisir une image" onAction="#uploadImage" styleClass="button-ajouter"/>
-               <ImageView fx:id="imagePreview" fitHeight="130.0" fitWidth="130.0" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="image-preview">
-                  <image>
-                     <Image url="/Images/profil.png" />
-                  </image>
-               </ImageView>
+            <Button GridPane.rowIndex="7" GridPane.columnIndex="0" text="Choisir une image" onAction="#uploadImage" styleClass="button-ajouter"/>
+            <ImageView fx:id="imagePreview" fitHeight="130.0" fitWidth="130.0" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="image-preview">
+               <image>
+                  <Image url="/Images/profil.png" />
+               </image>
+            </ImageView>
 
-               <HBox GridPane.rowIndex="8" GridPane.columnIndex="1" spacing="10" alignment="CENTER_RIGHT">
-                  <Button text="Ajouter" onAction="#ajoutercandidat" styleClass="button-ajouter"/>
-                  <Button text="Retour" onAction="#retourner" styleClass="button-secondary"/>
-               </HBox>
-            </GridPane>
-         </AnchorPane>
+            <HBox GridPane.rowIndex="8" GridPane.columnIndex="1" spacing="10" alignment="CENTER_RIGHT">
+               <Button text="Ajouter" onAction="#ajoutercandidat" styleClass="button-ajouter"/>
+               <Button text="Retour" onAction="#retourner" styleClass="button-secondary"/>
+            </HBox>
+         </GridPane>
       </VBox>
-
-      <!-- Right Side: Signup Image -->
-      <StackPane style="-fx-background-color: transparent;" prefWidth="600.0" VBox.vgrow="ALWAYS">
-         <padding>
-            <Insets top="10" right="10" bottom="10" left="5"/> <!-- Minimized padding for tighter fit -->
-         </padding>
-         <ImageView fx:id="signupImage" styleClass="signup-image" fitWidth="590.0" fitHeight="780.0"
-                    preserveRatio="true" StackPane.alignment="CENTER">
-            <image>
-               <Image url="/Images/signinimage.jpg" />
-            </image>
-         </ImageView>
-      </StackPane>
-   </SplitPane>
+   </VBox>
 </StackPane>

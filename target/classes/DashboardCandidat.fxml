@@ -54,10 +54,10 @@
    </VBox>
 
    <!-- Navbar -->
-   <HBox fx:id="navbar" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+   <HBox fx:id="navbar" layoutX="200.0" prefHeight="21.0" prefWidth="600.0" spacing="10" style="-fx-background-color: #ffffff; -fx-padding: 10px;" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
 
    <!-- Main Content -->
-   <VBox fx:id="contentArea" spacing="10" style="-fx-padding: 20px;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+   <VBox fx:id="contentArea" prefHeight="606.0" prefWidth="600.0" spacing="10" style="-fx-padding: 20px;" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
       <!-- Content will be loaded dynamically here -->
    </VBox>
 

@@ -599,9 +599,16 @@ public class AfficherOffreCandidatController {
                 AjouterCandidatureController candidatureController = loader.getController();
                 candidatureController.setOffre(offreSelectionnee);
 
-                Stage stage = (Stage) lv_offre.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
+//                Stage stage = (Stage) lv_offre.getScene().getWindow();
+//                stage.setScene(new Scene(root));
+//                stage.show();
+
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Ajouter un Entretien");
+                Scene scene = new Scene(root);
+                popupStage.setScene(scene);
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
             }

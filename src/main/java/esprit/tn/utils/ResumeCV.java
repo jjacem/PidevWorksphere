@@ -22,8 +22,7 @@ public class ResumeCV {
         }
 
         try {
-            String key = "";
-            String endpoint = "https://models.inference.ai.azure.com";
+
 
             // Clean up and simplify the input data
             String cleanCvContent = sanitizeText(cv);

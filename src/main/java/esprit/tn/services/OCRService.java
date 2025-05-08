@@ -19,7 +19,7 @@ public class OCRService {
         void onProgress(double progress);
     }
 
-    private static final String OCR_SPACE_API_KEY = "";
+    private static final String OCR_SPACE_API_KEY = "K89808668988957\n";
     private static final String OCR_SPACE_API_URL = "https://api.ocr.space/parse/image";
 
     /**

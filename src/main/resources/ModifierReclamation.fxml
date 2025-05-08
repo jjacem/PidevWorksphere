@@ -9,24 +9,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500" prefWidth="700" style="-fx-background-color: linear-gradient(to bottom, #1E3A8A, #2563EB);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierReclamationController">
-
+<AnchorPane prefHeight="600" prefWidth="800" style="-fx-background-color: linear-gradient(to bottom, #1E3A8A, #2563EB);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esprit.tn.controllers.ModifierReclamationController">
     <stylesheets>
         <URL value="@Modifierrec.css" />
     </stylesheets>
 
-    <VBox alignment="CENTER" spacing="15">
-        <AnchorPane.topAnchor>50</AnchorPane.topAnchor>
+    <VBox alignment="CENTER" spacing="20">
+        <AnchorPane.topAnchor>80</AnchorPane.topAnchor>
         <AnchorPane.leftAnchor>0</AnchorPane.leftAnchor>
         <AnchorPane.rightAnchor>0</AnchorPane.rightAnchor>
 
         <Text styleClass="title-text" text="Modifier Réclamation" />
 
-        <TextField fx:id="titre" promptText="Titre" styleClass="custom-textfield" />
+        <TextField fx:id="titre" promptText="Titre" styleClass="custom-textfield" prefWidth="400" />
 
-        <TextArea fx:id="description" promptText="Description" styleClass="custom-textarea" />
+        <TextArea fx:id="description" promptText="Description" styleClass="custom-textarea" prefWidth="400" prefHeight="150" />
 
-        <ChoiceBox fx:id="type" styleClass="custom-choicebox" />
+        <ChoiceBox fx:id="type" styleClass="custom-choicebox" prefWidth="400" />
 
         <Button fx:id="btnModifier" onAction="#modifier" styleClass="blue-button" text="Modifier" />
     </VBox>

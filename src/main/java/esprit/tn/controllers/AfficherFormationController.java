@@ -137,7 +137,7 @@ public class AfficherFormationController {
             List<Formation> formations = formationService.getListFormation();
             for (Formation formation : formations) {
                 HBox formationBox = createFormationBox(formation);
-               formationBox.getStyleClass().addAll("list", "list-cell");
+                formationBox.getStyleClass().addAll("list", "list-cell");
                 listformationid.getChildren().add(formationBox);
             }
         } catch (SQLException e) {

@@ -17,8 +17,7 @@ public class GemeniService {
 
     private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
-    private static final String API_KEY = "";
-
+     private static final String API_KEY = "AIzaSyDlJH2RyzPz9CZdF2n9zcggC0JKd0nOwGc\n";
 
     public static Optional<String> getQuestionsFromChatbot(String poste) {
         try {

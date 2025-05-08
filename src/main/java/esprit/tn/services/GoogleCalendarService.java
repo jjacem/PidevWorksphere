@@ -32,7 +32,7 @@ import java.util.List;
 public class GoogleCalendarService {
     private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH ="";
+    private static final String TOKENS_DIRECTORY_PATH ="tokens";
 //            "tokens";
 
     private final ServiceUser userService = new ServiceUser();
@@ -44,7 +44,7 @@ public class GoogleCalendarService {
     );
 
     private static final String CREDENTIALS_FILE_PATH =
-            "";
+            "C:\\Users\\yassi\\Downloads\\credentials.json";
 
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws Exception {
         File in = new File(CREDENTIALS_FILE_PATH);
@@ -136,20 +136,20 @@ public class GoogleCalendarService {
                 .setTimeZone("Africa/Tunis");
         event.setEnd(end);
 
-        User candidat = userService.findbyid(entretien.getCandidatId());
-        EventAttendee[] attendees = new EventAttendee[]{
-                new EventAttendee().setEmail(candidat.getEmail()),
-        };
-        event.setAttendees(Arrays.asList(attendees));
-
-        EventReminder[] reminderOverrides = new EventReminder[]{
-                new EventReminder().setMethod("email").setMinutes(24 * 60),
-                new EventReminder().setMethod("popup").setMinutes(30)
-        };
-        Event.Reminders reminders = new Event.Reminders()
-                .setUseDefault(false)
-                .setOverrides(Arrays.asList(reminderOverrides));
-        event.setReminders(reminders);
+//        User candidat = userService.findbyid(entretien.getCandidatId());
+//        EventAttendee[] attendees = new EventAttendee[]{
+//                new EventAttendee().setEmail(candidat.getEmail()),
+//        };
+//        event.setAttendees(Arrays.asList(attendees));
+//
+//        EventReminder[] reminderOverrides = new EventReminder[]{
+//                new EventReminder().setMethod("email").setMinutes(24 * 60),
+//                new EventReminder().setMethod("popup").setMinutes(30)
+//        };
+//        Event.Reminders reminders = new Event.Reminders()
+//                .setUseDefault(false)
+//                .setOverrides(Arrays.asList(reminderOverrides));
+//        event.setReminders(reminders);
 
         String calendarId = "hbaieb.houssem999@gmail.com";
         service.events().insert(calendarId, event).execute();

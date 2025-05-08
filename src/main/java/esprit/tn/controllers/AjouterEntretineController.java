@@ -183,8 +183,8 @@ public class AjouterEntretineController {
                     + "📍 **L’équipe WorkSphere**";
 
 
-            String numeroCandidat = "+216" + candidat.getTelephone().trim();
-            String numeroEmployee = "+216" + employe.getTelephone().trim();
+            String numeroCandidat = "+216" + candidat.getTelephone();
+            String numeroEmployee = "+216" + employe.getTelephone();
 
 
 

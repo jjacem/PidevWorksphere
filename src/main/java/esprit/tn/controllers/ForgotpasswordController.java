@@ -134,7 +134,7 @@ public class ForgotpasswordController {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
             sb.append(random.nextInt(10));
-        }
+        }   
         return sb.toString();
     }
 

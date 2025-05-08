@@ -204,6 +204,11 @@ public class DashboardEmploye {
 
     }
 
+
+    public void entretienarchive(ActionEvent actionEvent) {
+        loadPage("/AffichageEntretienArchivé.fxml");
+    }
+
     public void gestionProjet(ActionEvent actionEvent) {
         loadPage("/AfficherProjetEmploye.fxml");
 

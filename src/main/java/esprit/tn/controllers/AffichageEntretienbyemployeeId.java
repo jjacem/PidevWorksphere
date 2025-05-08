@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import esprit.tn.services.EntretienService;
@@ -161,8 +162,6 @@ public class AffichageEntretienbyemployeeId {
 
 
     private void genererQuestionsAI(String titre) {
-
-
         Optional<String> questionsOpt = GemeniService.getQuestionsFromChatbot(titre);
 
         questionsOpt.ifPresent(questions -> {
@@ -172,13 +171,27 @@ public class AffichageEntretienbyemployeeId {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Téléchargement réussi");
             alert.setHeaderText("Votre PDF a été téléchargé avec succès !");
-            alert.setContentText("Le fichier a été téléchargé à l'emplacement suivant : " + downloadPath);
+
+            TextArea textArea = new TextArea("Le fichier a été téléchargé à l'emplacement suivant : " + downloadPath);
+            textArea.setEditable(false);
+            textArea.setWrapText(true);
+            textArea.setMaxWidth(Double.MAX_VALUE);
+            textArea.setMaxHeight(Double.MAX_VALUE);
+
+            alert.getDialogPane().setContent(textArea);
+
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.getDialogPane().setMinWidth(Region.USE_PREF_SIZE);
+
+
             alert.showAndWait();
         });
-
-
-
     }
+
+
+
+
+
 
     private void filterEntretiens(String keyword) throws SQLException {
         if (keyword == null || keyword.trim().isEmpty()) {

@@ -62,12 +62,12 @@ public class Main {
 
         User u4 = new User();
         u4 = u4.Employe(
-                "Miller",
-                "Daniel",
-                "daniel.miller@corp.com",
-                "Employ33Pass",
-                "09/09/1990",
-                Sexe.HOMME,
+                "Molka",
+                "Gharbi",
+                "gharbimolka4@gmail.com",
+                "123456",
+                "Ariana",
+                Sexe.FEMME,
                 "San Francisco",
                 "IT Support",
                 1200.00,

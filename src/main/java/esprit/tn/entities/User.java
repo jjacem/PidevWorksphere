@@ -290,4 +290,8 @@ public class User {
                 ", num=" + num +
                 '}';
     }
+private int numt_tel;
+    public int getTelephone() {
+        return this.numt_tel;
+    }
 }
