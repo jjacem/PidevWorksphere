@@ -1,6 +1,5 @@
 # Worksphere 🌐
-
-Worksphere est une application complète de **gestion des ressources humaines** développée avec Java/JavaFX et MySQL. Conçue pour simplifier les tâches administratives RH, elle offre une suite d'outils pour gérer efficacement les employés, organiser des événements, coordonner des formations et superviser des projets. Ce projet a été réalisé dans le cadre du cours PIDEV 3A à **l'École supérieure privée d'ingénierie et de technologie**, mettant l'accent sur le développement desktop et l'intelligence artificielle.
+Worksphere est une application complète de **gestion des ressources humaines** développée avec Java/JavaFX et MySQL. Conçue pour simplifier les tâches administratives RH, elle offre une suite d'outils pour gérer efficacement les employés, organiser des événements, coordonner des formations et superviser des projets. Ce projet a été réalisé dans le cadre du cours PIDEV 3A à l'École supérieure privée d'ingénierie et de technologie, mettant l'accent sur le développement web avancé et l'intelligence artificielle
 ---
 
 ## ✨ Fonctionnalités  
