@@ -48,7 +48,7 @@ Worksphere est une application complète de **gestion des ressources humaines** 
 4. **Configurer l'application**
    - Modifier les paramètres de connexion à la base de données dans `src/main/resources/utils`
    ```properties
-    String URL="jdbc:mysql://localhost:3306/worksphere2";
+    String URL="jdbc:mysql://localhost:port/nom_de_votre_base";
     String USERNAME="root";
     String PASSWORD="";
 ## 💻 Technologies utilisées
