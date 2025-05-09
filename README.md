@@ -38,7 +38,7 @@ Worksphere est une application complète de **gestion des ressources humaines** 
 2. **Cloner le dépôt**
    ```bash
    git clone https://github.com/yourusername/PidevWorksphere.git
-   cd worksphere
+   cd PidevWorksphere
 
 3. **Configurer la base de données**
    - Démarrer Apache et MySQL dans XAMPP
