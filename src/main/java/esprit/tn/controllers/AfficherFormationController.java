@@ -62,7 +62,7 @@ public class AfficherFormationController {
     }*/
     @FXML
     public void initialize() {
-        // Charger la liste des équipes
+
         try {
 
             listformationid.getStyleClass().addAll("list", "list-view");
@@ -184,16 +184,15 @@ public class AfficherFormationController {
         // Création des labels pour les informations de la formation
         Label titreLabel = new Label(formation.getTitre());
         titreLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #22859c;");
-
-        Label descriptionLabel = new Label("Description: " + formation.getDescription());
         Label dateLabel = new Label("Date: " + formation.getDate().toString());
-        Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
-        Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
         Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
-        Label type = new Label("Type: " + formation.getType());
+        Label typeLabel = new Label("Type: " + formation.getType().toString());
+        Label certifieLabel = new Label("Certifiée: " + formation.getCertifie().toString());
+        Label langueLabel = new Label("Langue: " + formation.getLangue());
 
 
-        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel);
+
+        VBox infoBox = new VBox(5,titreLabel,dateLabel,nbPlacesLabel,typeLabel,certifieLabel,langueLabel);
 
         // Création des boutons d'action pour chaque formation
         Button detailButton = new Button("Detail");

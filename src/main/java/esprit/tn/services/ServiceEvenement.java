@@ -20,7 +20,7 @@ public class ServiceEvenement implements IService<Evenement> {
     @Override
 
     public void ajouter(Evenement evenement) throws SQLException {
-        String query = "INSERT INTO evennement (nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent, id_user) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO evennement (nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent, id_user, typeEvent) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, evenement.getNomEvent());
@@ -29,6 +29,7 @@ public class ServiceEvenement implements IService<Evenement> {
             preparedStatement.setString(4, evenement.getLieuEvent());
             preparedStatement.setInt(5, evenement.getCapaciteEvent());
             preparedStatement.setInt(6, evenement.getId_user());
+            preparedStatement.setString(7, evenement.getTypeEvent());
 
             preparedStatement.executeUpdate();
             System.out.println("Événement ajouté avec succès!");
@@ -62,16 +63,17 @@ public class ServiceEvenement implements IService<Evenement> {
 
    @Override
    public void modifier(Evenement evenement) throws SQLException {
-       String query = "UPDATE evennement SET nomEvent = ?, descEvent = ?, dateEvent = ?, lieuEvent = ?, capaciteEvent = ?, id_user = ? WHERE idEvent = ?";
+       String query = "UPDATE evennement SET nomEvent = ?, descEvent = ?, dateEvent = ?, lieuEvent = ?, capaciteEvent = ?, id_user = ?, typeEvent = ? WHERE idEvent = ?";
 
        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
            preparedStatement.setString(1, evenement.getNomEvent());
            preparedStatement.setString(2, evenement.getDescEvent());
-           preparedStatement.setTimestamp(3, Timestamp.valueOf(evenement.getDateEvent())); // Utilisation de Timestamp
+           preparedStatement.setTimestamp(3, Timestamp.valueOf(evenement.getDateEvent()));
            preparedStatement.setString(4, evenement.getLieuEvent());
            preparedStatement.setInt(5, evenement.getCapaciteEvent());
            preparedStatement.setInt(6, evenement.getId_user());
-           preparedStatement.setInt(7, evenement.getIdEvent());
+           preparedStatement.setString(7, evenement.getTypeEvent());
+           preparedStatement.setInt(8, evenement.getIdEvent());
 
            int rowsUpdated = preparedStatement.executeUpdate();
 
@@ -103,13 +105,14 @@ public class ServiceEvenement implements IService<Evenement> {
                 Evenement evenement = new Evenement(
                         resultSet.getString("nomEvent"),
                         resultSet.getString("descEvent"),
-                        resultSet.getTimestamp("dateEvent").toLocalDateTime(), // Récupération de LocalDateTime
+                        resultSet.getTimestamp("dateEvent").toLocalDateTime(),
                         resultSet.getString("lieuEvent"),
                         resultSet.getInt("capaciteEvent"),
                         u,
                         resultSet.getInt("id_user")
                 );
                 evenement.setIdEvent(resultSet.getInt("idEvent"));
+                evenement.setTypeEvent(resultSet.getString("typeEvent")); // Ajouter cette ligne
 
                 evenements.add(evenement);
             }

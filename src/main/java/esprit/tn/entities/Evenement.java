@@ -14,6 +14,7 @@ public class Evenement {
     private int capaciteEvent;
     private User RHgestionnaireEvent; // Nouvel attribut pour l'utilisateur qui gère l'événement
     private int id_user	;
+    private String typeEvent;
 
 
 
@@ -25,6 +26,7 @@ public class Evenement {
         this.lieuEvent = lieuEvent;
         this.capaciteEvent = capaciteEvent;
         this.RHgestionnaireEvent = RHgestionnaireEvent;
+        this.typeEvent = typeEvent;
         this.id_user	 = id_user	;
     }
 
@@ -100,6 +102,13 @@ public class Evenement {
     public void setId_user	(int id_user	) {
         this.id_user	 = id_user	;
     }
+    public String getTypeEvent() {
+        return typeEvent;
+    }
+
+    public void setTypeEvent(String typeEvent) {
+        this.typeEvent = typeEvent;
+    }
 
     @Override
     public String toString() {
@@ -109,6 +118,7 @@ public class Evenement {
                 ", dateEvent=" + dateEvent +
                 ", lieuEvent='" + lieuEvent + '\'' +
                 ", capaciteEvent=" + capaciteEvent +
+                ", typeEvent='" + typeEvent + '\'' +
                 ", id_user=" + id_user +
                 ", RHgestionnaireEvent=" + (RHgestionnaireEvent != null ? RHgestionnaireEvent.getNom() + " " + RHgestionnaireEvent.getPrenom() : "Non assigné") +
                 '}';

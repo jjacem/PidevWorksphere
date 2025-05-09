@@ -71,8 +71,7 @@ public class ServiceFavori implements IServiceFavori<Favoris> {
                 f.setTitre(rs.getString("titre"));
                 f.setDescription(rs.getString("description"));
                 f.setDate(rs.getDate("date").toLocalDate());
-                f.setHeure_debut(rs.getTime("heure_debut").toLocalTime());
-                f.setHeure_fin(rs.getTime("heure_fin").toLocalTime());
+                f.setLangue(rs.getString("langue"));
                 f.setNb_place(rs.getInt("nb_place"));
 
                 // Créer un objet User

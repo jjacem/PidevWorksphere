@@ -107,6 +107,9 @@ public class AfficherEvenementController {
                         Text capaciteEvent = new Text("Capacité: " + evenement.getCapaciteEvent());
                         capaciteEvent.getStyleClass().add("event-text");
 
+                        // Type de l'événement
+                        Text typeEvent = new Text("Type: " + evenement.getTypeEvent());
+                        typeEvent.getStyleClass().add("event-text");
                         // Calculer le message des jours restants ou si l'événement est passé
 
 
@@ -135,8 +138,7 @@ public class AfficherEvenementController {
                         }
 
                         // Ajouter les éléments au VBox
-                        vbox.getChildren().addAll(nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent, textJoursRestants);
-
+                        vbox.getChildren().addAll(nomEvent, descEvent, dateEvent, lieuEvent, capaciteEvent, typeEvent, textJoursRestants);
                         // Créer un HBox pour les boutons
                         //Le nombre 10 passé à HBox(10) représente l'espacement entre les éléments enfants de la HBox.
                         HBox hboxButtons = new HBox(10);

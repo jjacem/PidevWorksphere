@@ -52,6 +52,12 @@
             <TextField fx:id="tfCapaciteEvent" GridPane.rowIndex="10" GridPane.columnIndex="1"
                        prefHeight="35.0" prefWidth="250.0" />
             <Label fx:id="lblErrorCapacite" GridPane.rowIndex="11" GridPane.columnIndex="1" textFill="red" visible="false" styleClass="error-label"/>
+
+            <!-- Ajoutez ceci dans votre GridPane, par exemple après le champ Capacité -->
+            <Label text="Type:" GridPane.rowIndex="12" GridPane.columnIndex="0" />
+            <TextField fx:id="tfTypeEvent" GridPane.rowIndex="12" GridPane.columnIndex="1"
+                       prefHeight="35.0" prefWidth="250.0" />
+            <Label fx:id="lblErrorType" GridPane.rowIndex="13" GridPane.columnIndex="1" textFill="red" visible="false" styleClass="error-label"/>
         </GridPane>
 
         <Button fx:id="btnModifier" text="Modifier" prefHeight="40.0" prefWidth="120.0" />

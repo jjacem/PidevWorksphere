@@ -49,6 +49,14 @@
         </Label>
         <TextField fx:id="budgettextfield" promptText="Budget du sponsor" GridPane.rowIndex="3" GridPane.columnIndex="1" />
         <Label fx:id="budgetErrorLabel" textFill="red" GridPane.rowIndex="3" GridPane.columnIndex="2" />
+
+        <!-- Nouveau champ pour le secteur du sponsor -->
+        <Label text="Secteur du sponsor :" textFill="#0086b3" GridPane.rowIndex="4" GridPane.columnIndex="0">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="secteurtextfield" promptText="Secteur du sponsor" GridPane.rowIndex="4" GridPane.columnIndex="1" />
     </GridPane>
 
     <!-- Boutons -->

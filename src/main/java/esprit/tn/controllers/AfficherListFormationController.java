@@ -162,8 +162,8 @@ public class AfficherListFormationController {
 
         Label descriptionLabel = new Label("Description: " + formation.getDescription());
         Label dateLabel = new Label("Date: " + formation.getDate().toString());
-        Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
-        Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
+//        Label heureDebutLabel = new Label("Heure de Début: " + formation.getHeure_debut().toString());
+//        Label heureFinLabel = new Label("Heure de Fin: " + formation.getHeure_fin().toString());
         Label nbPlacesLabel = new Label("Nombre de Places: " + formation.getNb_place());
 
 
@@ -186,7 +186,7 @@ public class AfficherListFormationController {
 
 
 
-        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, heureDebutLabel, heureFinLabel, nbPlacesLabel , progressBar,progressLabel);
+        VBox infoBox = new VBox(5, titreLabel, descriptionLabel, dateLabel, nbPlacesLabel , progressBar,progressLabel);
         Button detailButton = new Button("Detail");
         detailButton.getStyleClass().addAll("card-button", "details-button");
         detailButton.setOnAction(event -> afficherDetails(formation));
@@ -369,10 +369,11 @@ public class AfficherListFormationController {
                         // Afficher les informations de la formation et le bouton de suppression
                         Label titleLabel = new Label("Titre: " + formation.getTitre());
                         Label dateLabel = new Label("Date: " + formation.getDate().toString());
-                        Label hdLabel = new Label("Heure de début: " + formation.getHeure_debut().toString());
-                        Label hfLabel = new Label("Heure de fin: " + formation.getHeure_fin().toString());
 
-                        HBox hbox = new HBox(10, titleLabel, dateLabel, hdLabel, hfLabel, deleteButton);
+//                        Label hdLabel = new Label("Heure de début: " + formation.getHeure_debut().toString());
+//                        Label hfLabel = new Label("Heure de fin: " + formation.getHeure_fin().toString());
+
+                        HBox hbox = new HBox(10, titleLabel, dateLabel, deleteButton);
                         setGraphic(hbox);
                     }
                 }

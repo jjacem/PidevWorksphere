@@ -87,16 +87,18 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
     }
     // Méthode pour ajouter un sponsor
-    @Override
 
+
+    @Override
     public void ajouter(Sponsor sponsor) throws SQLException {
-        String query = "INSERT INTO sponsor (nomSponso, prenomSponso, emailSponso, budgetSponso) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO sponsor (nomSponso, prenomSponso, emailSponso, budgetSponso, secteurSponsor) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, sponsor.getNomSponso());
             preparedStatement.setString(2, sponsor.getPrenomSponso());
             preparedStatement.setString(3, sponsor.getEmailSponso());
             preparedStatement.setDouble(4, sponsor.getBudgetSponso());
+            preparedStatement.setString(5, sponsor.getSecteurSponsor());
 
             preparedStatement.executeUpdate();
             System.out.println("Sponsor ajouté avec succès !");
@@ -137,7 +139,8 @@ public class ServiceSponsor implements IService<Sponsor> {
                         resultSet.getString("nomSponso"),
                         resultSet.getString("prenomSponso"),
                         resultSet.getString("emailSponso"),
-                        resultSet.getDouble("budgetSponso")
+                        resultSet.getDouble("budgetSponso"),
+                        resultSet.getString("secteurSponsor")
                 );
                 sponsor.setIdSponsor(resultSet.getInt("idSponsor"));
                 // Récupérer et attribuer le classement
@@ -171,17 +174,19 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
         return sponsors;
     }*/
-    @Override
 
+
+    @Override
     public void modifier(Sponsor sponsor) throws SQLException {
-        String query = "UPDATE sponsor SET nomSponso = ?, prenomSponso = ?, emailSponso = ?, budgetSponso = ? WHERE idSponsor = ?";
+        String query = "UPDATE sponsor SET nomSponso = ?, prenomSponso = ?, emailSponso = ?, budgetSponso = ?, secteurSponsor = ? WHERE idSponsor = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, sponsor.getNomSponso());
             preparedStatement.setString(2, sponsor.getPrenomSponso());
             preparedStatement.setString(3, sponsor.getEmailSponso());
             preparedStatement.setDouble(4, sponsor.getBudgetSponso());
-            preparedStatement.setInt(5, sponsor.getIdSponsor());
+            preparedStatement.setString(5, sponsor.getSecteurSponsor());
+            preparedStatement.setInt(6, sponsor.getIdSponsor());
 
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {

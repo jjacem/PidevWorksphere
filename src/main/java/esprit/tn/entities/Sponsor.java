@@ -10,24 +10,40 @@ public class Sponsor {
     private String emailSponso;
     private double budgetSponso;
     private double BudgetApresReduction;
-    private Classement classement=Classement.Bronze;
+    private Classement classement = Classement.Bronze;
+    private String secteurSponsor; // Nouvel attribut
     private List<Evenement> evenements; // Liste d'événements soutenus par ce sponsor
-    public Sponsor(){}
-    public Sponsor(String nomSponso, String prenomSponso, String emailSponso, double budgetSponso) {
+
+    public Sponsor() {}
+
+    public Sponsor(String nomSponso, String prenomSponso, String emailSponso, double budgetSponso, String secteurSponsor) {
         this.nomSponso = nomSponso;
         this.prenomSponso = prenomSponso;
         this.emailSponso = emailSponso;
         this.budgetSponso = budgetSponso;
+        this.secteurSponsor = secteurSponsor;
     }
-   public Sponsor(String nomSponso, String prenomSponso, String emailSponso, double budgetSponso, List<Evenement> evenements) {
-       this.nomSponso = nomSponso;
-       this.prenomSponso = prenomSponso;
-       this.emailSponso = emailSponso;
-       this.budgetSponso = budgetSponso;
-       this.evenements = evenements;
-   }
+
+    public Sponsor(String nomSponso, String prenomSponso, String emailSponso, double budgetSponso, String secteurSponsor, List<Evenement> evenements) {
+        this.nomSponso = nomSponso;
+        this.prenomSponso = prenomSponso;
+        this.emailSponso = emailSponso;
+        this.budgetSponso = budgetSponso;
+        this.secteurSponsor = secteurSponsor;
+        this.evenements = evenements;
+    }
+
     public Sponsor(String nomSponso) {
         this.nomSponso = nomSponso;
+    }
+
+    // Getters et Setters
+    public String getSecteurSponsor() {
+        return secteurSponsor;
+    }
+
+    public void setSecteurSponsor(String secteurSponsor) {
+        this.secteurSponsor = secteurSponsor;
     }
 
     public double getBudgetApresReduction() {
@@ -38,7 +54,6 @@ public class Sponsor {
         BudgetApresReduction = budgetApresReduction;
     }
 
-    // Getters et Setters
     public List<Evenement> getEvenements() {
         return evenements;
     }
@@ -54,6 +69,7 @@ public class Sponsor {
     public void setEvenements(List<Evenement> evenements) {
         this.evenements = evenements;
     }
+
     public int getIdSponsor() {
         return idSponsor;
     }
@@ -101,6 +117,7 @@ public class Sponsor {
                 ", prenomSponso='" + prenomSponso + '\'' +
                 ", emailSponso='" + emailSponso + '\'' +
                 ", budgetSponso=" + budgetSponso +
+                ", secteurSponsor='" + secteurSponsor + '\'' +
                 ", evenements=" + evenements +
                 '}';
     }

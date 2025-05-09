@@ -50,17 +50,7 @@
          </Label>
          <DatePicker fx:id="iddate" prefHeight="35.0" prefWidth="602.0" promptText="Date" />
 
-         <Label text="Heure début" textFill="#0086b3">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font>
-            <VBox.margin>
-               <Insets right="510.0" />
-            </VBox.margin>
-         </Label>
-         <TextField fx:id="idheuredebut" prefHeight="35.0" prefWidth="400.0" promptText="Heure de début" />
-
-         <Label text="Heure fin" textFill="#0086b3">
+         <Label prefHeight="20.0" prefWidth="68.0" text="Langue" textFill="#0086b3">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
@@ -68,7 +58,7 @@
                <Insets right="530.0" />
             </VBox.margin>
          </Label>
-         <TextField fx:id="idheurefin" prefHeight="35.0" prefWidth="400.0" promptText="Heure de fin" />
+         <TextField fx:id="idlangue" prefHeight="35.0" prefWidth="400.0" promptText="Langue" />
 
          <Label text="Type" textFill="#0086b3">
             <font>

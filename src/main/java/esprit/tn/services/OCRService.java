@@ -42,14 +42,14 @@ public class OCRService {
             callback.onProgress(0.3);
             PDFTextStripper textStripper = new PDFTextStripper();
             String text = textStripper.getText(document);
-            
+
             callback.onProgress(0.6);
             // If text extraction was successful and results aren't too short, return results
             if (text != null && text.trim().length() > 50) {
                 callback.onProgress(1.0);
                 return text;
             }
-            
+
             callback.onProgress(0.7);
             // If text extraction didn't yield good results, try OCR as a fallback
             return extractTextUsingOCR(pdfFilePath, callback);
@@ -104,12 +104,12 @@ public class OCRService {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                
+
                 // Extract text from JSON response
                 String jsonResponse = response.toString();
                 Pattern pattern = Pattern.compile("\"ParsedText\":\"(.*?)\"");
                 Matcher matcher = pattern.matcher(jsonResponse);
-                
+
                 if (matcher.find()) {
                     String extractedText = matcher.group(1)
                             .replace("\\r\\n", "\n")
@@ -128,7 +128,7 @@ public class OCRService {
                 System.err.println("OCR API error: " + response);
             }
         }
-        
+
         return "OCR text extraction failed.";
     }
 

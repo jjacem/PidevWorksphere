@@ -79,7 +79,15 @@
          <TextField fx:id="capaciteEventTextField" prefHeight="35.0" prefWidth="100.0" promptText="Capacité de l'événement" />
          <Label fx:id="capaciteEventErrorLabel" textFill="red" visible="false" />
       </VBox>
-
+      <VBox spacing="5">
+         <Label text="Type d'événement :" textFill="#0086b3">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TextField fx:id="typeEventTextField" prefHeight="35.0" prefWidth="100.0" promptText="Type d'événement" />
+         <Label fx:id="typeEventErrorLabel" textFill="red" visible="false" />
+      </VBox>
       <VBox spacing="5">
          <Label text="Idées de thème :" textFill="#0086b3">
             <font>

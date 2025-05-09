@@ -32,6 +32,8 @@ public class ModifierEvenementController {
     @FXML
     private TextField tfCapaciteEvent;
     @FXML
+    private TextField tfTypeEvent;
+    @FXML
     private Button btnModifier;
 
     // Labels d'erreur
@@ -53,6 +55,7 @@ public class ModifierEvenementController {
         tfHeureEvent.setText(evenement.getDateEvent().toLocalTime().toString());
         tfLieuEvent.setText(evenement.getLieuEvent());
         tfCapaciteEvent.setText(String.valueOf(evenement.getCapaciteEvent()));
+        tfTypeEvent.setText(String.valueOf(evenement.getTypeEvent()));
     }
 
     @FXML

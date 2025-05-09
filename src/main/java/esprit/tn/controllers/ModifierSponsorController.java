@@ -1,55 +1,4 @@
-/*package esprit.tn.controllers;
 
-import esprit.tn.entities.Sponsor;
-import esprit.tn.services.ServiceSponsor;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-
-import java.sql.SQLException;
-
-
-public class ModifierSponsorController {
-    @FXML
-    private TextField txtNom;
-    @FXML
-    private TextField txtPrenom;
-    @FXML
-    private TextField txtEmail;
-    @FXML
-    private TextField txtBudget;
-    @FXML
-    private Button btnModifier;
-
-    private Sponsor sponsor;
-    private ServiceSponsor serviceSponsor = new ServiceSponsor();
-
-    public void setSponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
-        txtNom.setText(sponsor.getNomSponso());
-        txtPrenom.setText(sponsor.getPrenomSponso());
-        txtEmail.setText(sponsor.getEmailSponso());
-        txtBudget.setText(String.valueOf(sponsor.getBudgetSponso()));
-    }
-
-    @FXML
-    private void modifierSponsor() {
-        try {
-            sponsor.setNomSponso(txtNom.getText());
-            sponsor.setPrenomSponso(txtPrenom.getText());
-            sponsor.setEmailSponso(txtEmail.getText());
-            sponsor.setBudgetSponso(Double.parseDouble(txtBudget.getText()));
-
-            serviceSponsor.modifier(sponsor);
-            System.out.println("Sponsor modifié avec succès !");
-        } catch (SQLException ex) {
-            System.out.println("Erreur lors de la modification : " + ex.getMessage());
-        } catch (NumberFormatException ex) {
-            System.out.println("Erreur : Le budget doit être un nombre valide.");
-        }
-    }
-}
-*/
 package esprit.tn.controllers;
 
 import esprit.tn.entities.Sponsor;
@@ -81,6 +30,8 @@ public class ModifierSponsorController {
     private TextField txtBudget;
     @FXML
     private Button btnModifier;
+    @FXML
+    private TextField txtSecteur;
 
     private Sponsor sponsor;
     private ServiceSponsor serviceSponsor = new ServiceSponsor();
@@ -91,25 +42,27 @@ public class ModifierSponsorController {
         txtPrenom.setText(sponsor.getPrenomSponso());
         txtEmail.setText(sponsor.getEmailSponso());
         txtBudget.setText(String.valueOf(sponsor.getBudgetSponso()));
+        txtSecteur.setText(sponsor.getSecteurSponsor());
     }
 
     @FXML
     private void modifierSponsor() {
-        // Contrôler si tous les champs sont remplis
+        // Vérification des champs vides
         if (txtNom.getText().isEmpty() || txtPrenom.getText().isEmpty() ||
-                txtEmail.getText().isEmpty() || txtBudget.getText().isEmpty()) {
+                txtEmail.getText().isEmpty() || txtBudget.getText().isEmpty() ||
+                txtSecteur.getText().isEmpty()) {
 
             showAlert("Erreur", "Tous les champs sont obligatoires.", Alert.AlertType.ERROR);
             return;
         }
 
-        // Contrôler le format de l'email
+        // Vérification du format de l'email
         if (!isValidEmail(txtEmail.getText())) {
             showAlert("Erreur", "Veuillez entrer un email valide.", Alert.AlertType.ERROR);
             return;
         }
 
-        // Contrôler si le budget est un nombre valide
+        // Vérification du format du budget
         double budget;
         try {
             budget = Double.parseDouble(txtBudget.getText());
@@ -118,17 +71,17 @@ public class ModifierSponsorController {
             return;
         }
 
-        // Mettre à jour l'objet sponsor avec les nouvelles valeurs
+        // Mise à jour de l'objet sponsor
         sponsor.setNomSponso(txtNom.getText());
         sponsor.setPrenomSponso(txtPrenom.getText());
         sponsor.setEmailSponso(txtEmail.getText());
         sponsor.setBudgetSponso(budget);
+        sponsor.setSecteurSponsor(txtSecteur.getText());
 
-        // Appeler la méthode pour modifier le sponsor dans la base de données
+        // Sauvegarde dans la base de données
         try {
             serviceSponsor.modifier(sponsor);
             showAlert("Succès", "Sponsor modifié avec succès.", Alert.AlertType.INFORMATION);
-            // Fermer la fenêtre de popup modif
             ((Stage) btnModifier.getScene().getWindow()).close();
         } catch (SQLException ex) {
             showAlert("Erreur", "Erreur lors de la modification : " + ex.getMessage(), Alert.AlertType.ERROR);

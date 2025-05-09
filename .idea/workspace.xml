@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="last we touched">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/WhatsAppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/WhatsAppService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tokens/StoredCredential" beforeDir="false" />
-    </list>
+    <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -33,12 +30,9 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jjacem/PidevWorksphere.git&quot;,
-    &quot;accountId&quot;: &quot;669d9986-2012-4d27-a05c-bc4e299fb965&quot;
+    &quot;accountId&quot;: &quot;d900a9a0-bcb0-4c7e-8d3e-d23966fe9f26&quot;
   }
 }</component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -50,25 +44,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.PidevWorksphere [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;finalwork&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yassi/OneDrive/Documents/GitHub/stash/PidevWorksphere&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Maven.PidevWorksphere [javafx:run].executor": "Run",
+    "Maven.Worksphere [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.Worksphere [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "finalwork",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Mega Pc/Documents/GitHub/PidevWorksphere",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Maven.PidevWorksphere [javafx:run]">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="esprit.tn.tests.Main" />
@@ -159,50 +153,17 @@
       <workItem from="1745872119264" duration="1896000" />
       <workItem from="1746052513247" duration="374000" />
       <workItem from="1746127134579" duration="28000" />
-      <workItem from="1746718849604" duration="3186000" />
+      <workItem from="1746792799497" duration="6224000" />
+      <workItem from="1746807965845" duration="6075000" />
+      <workItem from="1746826607875" duration="11000" />
+      <workItem from="1746828881669" duration="863000" />
+      <workItem from="1746830198293" duration="555000" />
+      <workItem from="1746830972726" duration="2801000" />
     </task>
-    <task id="LOCAL-00001" summary="last we touched">
-      <option name="closed" value="true" />
-      <created>1746718993081</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1746718993081</updated>
-    </task>
-    <task id="LOCAL-00002" summary="last we touched">
-      <option name="closed" value="true" />
-      <created>1746719098039</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1746719098039</updated>
-    </task>
-    <task id="LOCAL-00003" summary="last we touched">
-      <option name="closed" value="true" />
-      <created>1746724683196</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1746724683196</updated>
-    </task>
-    <task id="LOCAL-00004" summary="last we touched">
-      <option name="closed" value="true" />
-      <created>1746724686487</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1746724686487</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge remote-tracking branch 'origin/jacem+houseem' into finalwork" />
-    <MESSAGE value="last we touched" />
-    <option name="LAST_COMMIT_MESSAGE" value="last we touched" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

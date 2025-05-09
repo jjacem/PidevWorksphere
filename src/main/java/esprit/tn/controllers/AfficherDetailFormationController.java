@@ -7,17 +7,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import esprit.tn.entities.Formation;
 import esprit.tn.entities.User;
-import esprit.tn.services.ServiceFormation;
 import esprit.tn.services.ServiceReservation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -27,26 +25,29 @@ public class AfficherDetailFormationController {
     @FXML
     private Label DescID;
     @FXML
-    private Label hdID;
-    @FXML
-    private Label hfID;
-    @FXML
     private Label titreID;
     @FXML
     private Label tfID;
     @FXML
-    private Label nbplaceID;
-    @FXML
     private Label DateID;
+    @FXML
+    private Label certifieID;
+    @FXML
+    private Label langueID;
+    @FXML
+    private VBox contentArea;
 
-    private Formation formation;
     @FXML
     private ListView<User> userListView;
     private final ServiceReservation serviceReservation = new ServiceReservation();
-    @FXML
-    private VBox contentArea;
+
     @FXML
     private Button AfficherlistID;
+    @FXML
+    private Label nbplaceID;
+
+    private Formation formation;
+
 
     @FXML
     public void initialize() {
@@ -55,8 +56,7 @@ public class AfficherDetailFormationController {
             userListView.setVisible(false);
             contentArea.setVisible(false);
         }
-        // Initialisation de la ListView
-        userListView = new ListView<>();
+
         userListView.setCellFactory(new Callback<>() {
             @Override
             public ListCell<User> call(ListView<User> listView) {
@@ -65,13 +65,10 @@ public class AfficherDetailFormationController {
                     protected void updateItem(User user, boolean empty) {
                         super.updateItem(user, empty);
                         if (user != null && !empty) {
-                            HBox hbox = new HBox(10); // Espacement de 10 entre les labels
+                            HBox hbox = new HBox(10);
                             Label nomLabel = new Label("Nom: " + user.getNom());
-                            nomLabel.getStyleClass().addAll("label-detail", "label-detail");
                             Label prenomLabel = new Label("Prénom: " + user.getPrenom());
-                            prenomLabel.getStyleClass().addAll("label-detail", "label-detail");
                             Label emailLabel = new Label("Email: " + user.getEmail());
-                            emailLabel.getStyleClass().addAll("label-detail", "label-detail");
                             hbox.getChildren().addAll(nomLabel, prenomLabel, emailLabel);
                             setGraphic(hbox);
                         } else {
@@ -81,10 +78,6 @@ public class AfficherDetailFormationController {
                 };
             }
         });
-
-        // Ajouter la ListView au contentArea
-        contentArea.getChildren().add(userListView);
-       // contentArea.setStyle();
     }
 
     public void setFormation(Formation formation) {
@@ -92,11 +85,10 @@ public class AfficherDetailFormationController {
         if (formation != null) {
             titreID.setText(formation.getTitre());
             DescID.setText(formation.getDescription());
-            hdID.setText(formation.getHeure_debut().toString());
-            hfID.setText(formation.getHeure_fin().toString());
             tfID.setText(formation.getType().toString());
-            nbplaceID.setText(String.valueOf(formation.getNb_place()));
             DateID.setText(formation.getDate().toString());
+            certifieID.setText(formation.getCertifie() != null ? formation.getCertifie().toString() : "Non spécifié");
+            langueID.setText(formation.getLangue() != null ? formation.getLangue() : "Non spécifiée");
         }
     }
 

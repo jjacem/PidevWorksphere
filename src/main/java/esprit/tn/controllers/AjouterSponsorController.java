@@ -21,7 +21,8 @@ public class AjouterSponsorController {
     private TextField emailtextfield;
     @FXML
     private TextField budgettextfield;
-
+    @FXML
+    private TextField secteurtextfield;
     @FXML
     private Label emailErrorLabel;
     @FXML
@@ -35,6 +36,7 @@ public class AjouterSponsorController {
 
         String email = emailtextfield.getText();
         String budgetText = budgettextfield.getText();
+        String secteur = secteurtextfield.getText(); // Récupérer le secteur
 
         // Validation de l'email
         if (!isValidEmail(email)) {
@@ -63,7 +65,7 @@ public class AjouterSponsorController {
 
         // Si tout est valide, procéder à l'ajout
         ServiceSponsor serviceSponsor = new ServiceSponsor();
-        Sponsor sponsor = new Sponsor(nomtextfield.getText(), prenomtextfield.getText(), email, budget);
+        Sponsor sponsor = new Sponsor(nomtextfield.getText(), prenomtextfield.getText(), email, budget, secteur);
 
         try {
             serviceSponsor.ajouter(sponsor);
