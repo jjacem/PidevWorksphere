@@ -98,12 +98,12 @@ public class AfficherEquipeController {
                 nomEquipeLabel.getStyleClass().add("card-label");
 
                 // Nombre de projets
-                Label nbrProjetLabel = new Label("Nombre de projets : " + equipe.getNbrProjet());
+                /*Label nbrProjetLabel = new Label("Nombre de projets : " + equipe.getNbrProjet());
                 nbrProjetLabel.getStyleClass().add("card-label");
-                nbrProjetLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #555555;");
+                nbrProjetLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #555555;");*/
 
                 // Ajouter le nom et le nombre de projets dans le VBox
-                infoBox.getChildren().addAll(nomEquipeLabel, nbrProjetLabel);
+                infoBox.getChildren().addAll(nomEquipeLabel);
 
                 // Boutons
                 Button detailsButton = new Button("Détails");

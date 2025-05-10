@@ -38,7 +38,7 @@ public class AfficherProjetController {
 
     @FXML
     public void initialize() {
-        try {
+        /*try {
             // Charger tous les projets
             List<Projet> projets = serviceProjet.afficherProjet();
             afficherProjets(projets);
@@ -66,6 +66,30 @@ public class AfficherProjetController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }*/
+
+        // Initialiser le filtre par état
+        etatFilter.getItems().addAll("TOUS", "EnCours", "Terminé", "Annulé");
+        etatFilter.setValue("TOUS"); // Valeur par défaut
+
+        // Configurer les listeners
+        setupFilterListeners();
+
+        // Charger les projets initiaux
+        appliquerFiltre();
+
+    }
+
+    private void setupFilterListeners() {
+        // Listener pour le champ de recherche
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            appliquerFiltre();
+        });
+
+        // Listener pour le filtre d'état
+        etatFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
+            appliquerFiltre();
+        });
     }
 
     private void afficherProjets(List<Projet> projets) {
@@ -319,7 +343,7 @@ public class AfficherProjetController {
         dialogPane.getStyleClass().add("dialog-pane");
     }
 
-    @FXML
+    /*@FXML
     private void appliquerFiltre() {
         try {
             // Récupérer les valeurs des filtres
@@ -333,6 +357,38 @@ public class AfficherProjetController {
             afficherProjets(projetsFiltres);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }*/
+
+    @FXML
+    private void appliquerFiltre() {
+        try {
+            String searchText = searchField.getText().trim();
+            String etatSelectionne = etatFilter.getValue();
+
+            List<Projet> projetsFiltres;
+
+            if (searchText.isEmpty() && "TOUS".equals(etatSelectionne)) {
+                // Cas où aucun filtre n'est appliqué
+                projetsFiltres = serviceProjet.afficherProjet();
+            } else {
+                // Appliquer les filtres
+                projetsFiltres = serviceProjet.rechercherProjetParEtat(
+                        searchText.isEmpty() ? null : searchText,
+                        "TOUS".equals(etatSelectionne) ? null : etatSelectionne
+                );
+            }
+
+            afficherProjets(projetsFiltres);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Afficher un message d'erreur à l'utilisateur
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Une erreur est survenue lors du filtrage des projets.");
+            alert.showAndWait();
         }
     }
 }

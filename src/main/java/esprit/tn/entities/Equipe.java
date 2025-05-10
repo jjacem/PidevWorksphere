@@ -10,6 +10,8 @@ public class Equipe {
     private String imageEquipe;
     private int nbrProjet;
     private List<Projet> projets;
+    private User user;
+    private int id_user;
 
     public Equipe() {}
 
@@ -32,6 +34,15 @@ public class Equipe {
         this.employes = employes;
         this.imageEquipe = imageEquipe;
         this.nbrProjet = nbrProjet;
+
+    }
+    public Equipe(int id, String nomEquipe, List<User> employes, String imageEquipe,int nbrProjet, int id_user) {
+        this.id = id;
+        this.nomEquipe = nomEquipe;
+        this.employes = employes;
+        this.imageEquipe = imageEquipe;
+        this.nbrProjet = nbrProjet;
+        this.id_user = id_user;
     }
 
 
@@ -76,6 +87,20 @@ public class Equipe {
 
     public void setProjets(List<Projet> projets) {
         this.projets = projets;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
     @Override
     public String toString() {

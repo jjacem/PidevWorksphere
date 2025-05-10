@@ -177,7 +177,7 @@ public class PDFGenerator {
                 if (employes != null && !employes.isEmpty()) {
                     for (User membre : employes) {
                         // Ajouter l'image du membre
-                        if (membre.getImageProfil() != null && !membre.getImageProfil().isEmpty()) {
+                        /*if (membre.getImageProfil() != null && !membre.getImageProfil().isEmpty()) {
                             try {
                                 String imagePath = "C:/xampp/htdocs/img/" + new File(membre.getImageProfil()).getName();
                                 ImageData imageData = ImageDataFactory.create(imagePath);
@@ -190,7 +190,7 @@ public class PDFGenerator {
                             }
                         } else {
                             membresTable.addCell(new Paragraph("Pas d'image"));
-                        }
+                        }*/
 
                         // Ajouter le nom et prénom
                         membresTable.addCell(new Paragraph(membre.getNom() + " " + membre.getPrenom()));

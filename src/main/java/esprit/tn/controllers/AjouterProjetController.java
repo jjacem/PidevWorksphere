@@ -2,6 +2,7 @@ package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
 import esprit.tn.services.ServiceProjet;
+import esprit.tn.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -96,7 +97,7 @@ public class AjouterProjetController {
     }
 
 
-    @FXML
+    /*@FXML
     private void AjouterProjet(ActionEvent event) {
         try {
             String nom = nomField.getText();
@@ -177,7 +178,82 @@ public class AjouterProjetController {
             e.printStackTrace();
         }
     }
+*/
 
+    @FXML
+    private void AjouterProjet(ActionEvent event) {
+        try {
+            // Validation des champs
+            String nom = nomField.getText();
+            String description = descriptionField.getText();
+            LocalDate dateCreationLocal = dateCreationPicker.getValue();
+            LocalDate deadlineLocal = deadlinePicker.getValue();
+            String etat = etatComboBox.getValue();
+            Equipe equipe = equipeComboBox.getValue();
+
+            if (nom.isEmpty() || description.isEmpty() || dateCreationLocal == null ||
+                    deadlineLocal == null || etat == null || imagePath.isEmpty()) {
+                showAlert("Champs manquants", "Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
+
+            // Conversion des dates
+            Date dateCreation = java.sql.Date.valueOf(dateCreationLocal);
+            Date deadline = java.sql.Date.valueOf(deadlineLocal);
+
+            // Validation des dates
+            if (dateCreation.after(deadline)) {
+                showAlert("Erreur de date", "La date de création ne peut pas être postérieure à la deadline.");
+                return;
+            }
+
+            // Vérification du nom du projet
+            if (serviceProjet.projetExiste(nom)) {
+                showAlert("Projet existant", "Un projet avec ce nom existe déjà.");
+                return;
+            }
+
+            // Image par défaut si non spécifiée
+            if (imagePath.isEmpty()) {
+                imagePath = "images/projet_default.png";
+            }
+
+            // Création du projet
+            Projet projet = new Projet();
+            projet.setNom(nom);
+            projet.setDescription(description);
+            projet.setDatecréation(dateCreation);
+            projet.setDeadline(deadline);
+            projet.setEtat(EtatProjet.valueOf(etat));
+            projet.setEquipe(equipe); // Peut être null
+            projet.setImageProjet(imagePath);
+            projet.setId_user(SessionManager.extractuserfromsession().getIdUser());
+
+            // Ajout du projet
+            serviceProjet.ajouterProjet(projet);
+
+            showAlert("Succès", "Projet ajouté avec succès !");
+            closeWindow();
+
+        } catch (SQLException e) {
+            showAlert("Erreur SQL", "Erreur lors de l'ajout: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        applyAlertStyle(alert);
+        alert.showAndWait();
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) nomField.getScene().getWindow();
+        stage.close();
+    }
 
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();

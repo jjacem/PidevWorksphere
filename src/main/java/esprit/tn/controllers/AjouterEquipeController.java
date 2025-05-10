@@ -1,6 +1,7 @@
 package esprit.tn.controllers;
 
 import esprit.tn.entities.*;
+import esprit.tn.utils.SessionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -213,51 +214,63 @@ public class AjouterEquipeController {
         }
     }
 
+
     @FXML
     public void confirmer() {
         String nomEquipe = nomEquipeField.getText();
         List<User> employesSelectionnes = new ArrayList<>(employesSelectionnesList);
 
-
+        // Validation
         if (nomEquipe.isEmpty() || employesSelectionnes.size() < 2 || imagePath.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champ manquant");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs et sélectionner au moins deux employés.");
-            applyAlertStyle(alert);
-            alert.showAndWait();
+            showAlert("Champs manquants", "Veuillez remplir tous les champs et sélectionner au moins deux employés.");
             return;
         }
-        if (imagePath.isEmpty()) {
-            imagePath = "images/profil.png";
-        }
+
         try {
+            // Vérifier le nom de l'équipe
             if (serviceEquipe.nomEquipeExiste(nomEquipe)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Équipe existante");
-                alert.setHeaderText(null);
-                alert.setContentText("Une équipe avec ce nom existe déjà.");
-                applyAlertStyle(alert);
-                alert.showAndWait();
+                showAlert("Équipe existante", "Une équipe avec ce nom existe déjà.");
                 return;
             }
 
-            // Créer une nouvelle équipe avec l'image
-            Equipe equipe = new Equipe(0, nomEquipe, employesSelectionnes, imagePath);
+            // Vérifier l'utilisateur courant
+            User currentUser = SessionManager.extractuserfromsession();
+            if (currentUser == null || currentUser.getIdUser() <= 0) {
+                showAlert("Erreur de session", "Aucun utilisateur valide en session.");
+                return;
+            }
+
+            // Créer l'équipe
+            Equipe equipe = new Equipe();
+            equipe.setNomEquipe(nomEquipe);
+            equipe.setEmployes(employesSelectionnes);
+            equipe.setImageEquipe(imagePath.isEmpty() ? "images/profil.png" : imagePath);
+            equipe.setId_user(currentUser.getIdUser());
+
+            // Ajouter l'équipe
             serviceEquipe.ajouterEquipe(equipe);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText(null);
-            alert.setContentText("Équipe ajoutée avec succès !");
-            applyAlertStyle(alert);
-            alert.showAndWait();
 
-            Stage stage = (Stage) confirmerButton.getScene().getWindow();
-            stage.close();
-
+            showAlert("Succès", "Équipe ajoutée avec succès !");
+            closeWindow();
         } catch (SQLException e) {
+            showAlert("Erreur SQL", "Erreur lors de l'ajout: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    // Méthode utilitaire pour afficher des alertes
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        applyAlertStyle(alert);
+        alert.showAndWait();
+    }
+
+    private void closeWindow() {
+        Stage stage = (Stage) confirmerButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

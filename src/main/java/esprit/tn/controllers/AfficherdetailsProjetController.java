@@ -141,7 +141,7 @@ public class AfficherdetailsProjetController {
     }
 
 
-    @FXML
+    /*@FXML
     private void convertirEnPDF() {
         try {
             // Générer le PDF
@@ -174,7 +174,46 @@ public class AfficherdetailsProjetController {
             alert.showAndWait();
         }
     }
+*/
 
+    @FXML
+    private void convertirEnPDF() {
+        try {
+            // Verify project image exists
+            String imagePath = projet.getImageProjet();
+            if (imagePath != null && !imagePath.trim().isEmpty()) {
+                File imageFile = new File("C:/xampp/htdocs/img/" + new File(imagePath).getName());
+                if (!imageFile.exists()) {
+                    System.out.println("Warning: Project image not found at " + imageFile.getAbsolutePath());
+                    // Optionally set a default image path
+                    projet.setImageProjet("/Images/user.png");
+                }
+            }
+
+            // Generate PDF
+            byte[] pdfBytes = PDFGenerator.generateProjetPDF(projet);
+
+            // Save to local
+            String filePath = "C:/xampp/htdocs/" + projet.getNom().replace(" ", "_") + ".pdf";
+            Files.write(Paths.get(filePath), pdfBytes);
+
+            // Upload to Cloudinary
+            String cloudinaryUrl = CloudinaryUploader.uploadPdfToCloudinary(pdfBytes);
+
+            // Success message
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("PDF generated successfully!");
+            applyAlertStyle(alert);
+            alert.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Error generating PDF: " + e.getMessage());
+            applyAlertStyle(alert);
+            alert.showAndWait();
+        }
+    }
     private void applyAlertStyle(Alert alert) {
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/alert-styles.css").toExternalForm());

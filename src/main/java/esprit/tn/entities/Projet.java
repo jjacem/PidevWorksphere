@@ -11,6 +11,8 @@ public class Projet {
     private EtatProjet etat;
     private String imageProjet;
     private Equipe equipe;
+    private User user;
+    private int id_user;
 
     public Projet() {
     }
@@ -45,6 +47,18 @@ public class Projet {
         this.deadline = deadline;
         this.etat = etat;
         this.imageProjet = imageProjet;
+
+    }
+
+    public Projet(int id, String nom, String description, Date datecréation, Date deadline, EtatProjet etat, String imageProjet, int id_user) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.datecréation = datecréation;
+        this.deadline = deadline;
+        this.etat = etat;
+        this.imageProjet = imageProjet;
+        this.id_user = id_user;
 
     }
 
@@ -111,7 +125,19 @@ public class Projet {
     public void setImageProjet(String imageProjet) {
         this.imageProjet = imageProjet;
     }
+    public int getId_user() {
+        return id_user;
+    }
 
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
     @Override
     public String toString() {
         return "Projet{\n" +
