@@ -16,7 +16,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     public void ajouter(Reclamation reclamation) throws SQLException {
-        String req = "INSERT INTO Reclamation (titre, description, type, id_user, id_user2) VALUES (?, ?, ?, ?, ?)";
+        String req = "INSERT INTO Reclamation (titre, description, type, id_user, receiver) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, reclamation.getTitre());
@@ -43,7 +43,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getString("description"),
                         rs.getString("type"),
                         rs.getInt("id_user"),
-                        rs.getInt("id_user2")
+                        rs.getInt("receiver")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
@@ -55,7 +55,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         return reclamations;
     }
     public List<Reclamation> getReclamationsByUser2(int id_user2) {
-        String req = "SELECT * FROM Reclamation WHERE id_user2=?";
+        String req = "SELECT * FROM Reclamation WHERE receiver=?";
         List<Reclamation> reclamations = new ArrayList<>();
 
         try (PreparedStatement statement = connection.prepareStatement(req)) {
@@ -67,7 +67,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getString("description"),
                         rs.getString("type"),
                         rs.getInt("id_user"),
-                        rs.getInt("id_user2")
+                        rs.getInt("receiver")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
@@ -82,7 +82,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     public void modifier(Reclamation reclamation) throws SQLException {
-        String req = "UPDATE Reclamation SET titre=?, description=?, type=?, id_user=?, id_user2=? WHERE id_reclamation=?";
+        String req = "UPDATE Reclamation SET titre=?, description=?, type=?, id_user=?, receiver=? WHERE id_reclamation=?";
 
         try (PreparedStatement statement = connection.prepareStatement(req)) {
             statement.setString(1, reclamation.getTitre());
@@ -123,7 +123,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                         rs.getString("description"),
                         rs.getString("type"),
                         rs.getInt("id_user"),
-                        rs.getInt("id_user2")
+                        rs.getInt("receiver")
                 );
                 reclamation.setId_reclamation(rs.getInt("id_reclamation"));
                 reclamation.setDatedepot(rs.getTimestamp("datedepot"));
@@ -134,7 +134,7 @@ public class ServiceReclamation implements IService<Reclamation> {
     }
 
     public int findIdReclamation(int id_user, int id_user2) {
-        String req = "SELECT id_reclamation FROM Reclamation WHERE id_user=? AND id_user2=?";
+        String req = "SELECT id_reclamation FROM Reclamation WHERE id_user=? AND receiver=?";
         int id = 0;
         try (PreparedStatement statement = connection.prepareStatement(req)) {
             statement.setInt(1, id_user);
@@ -161,7 +161,7 @@ public class ServiceReclamation implements IService<Reclamation> {
                     rs.getString("description"),
                     rs.getString("type"),
                     rs.getInt("id_user"),
-                    rs.getInt("id_user2")
+                    rs.getInt("receiver")
             );
 
             r.setId_reclamation(rs.getInt("id_reclamation"));

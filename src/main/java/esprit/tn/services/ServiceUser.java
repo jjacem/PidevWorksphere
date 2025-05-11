@@ -296,10 +296,16 @@ public class ServiceUser implements IService<User> {
         if (rs.next()) {
             String hashpass = rs.getString("mdp");
 
+            // Convert Symfony's $2y$ to $2a$ for Java compatibility
+            if (hashpass != null && hashpass.startsWith("$2y$")) {
+                hashpass = hashpass.replaceFirst("\\$2y\\$", "\\$2a\\$");
+            }
+
+            // Now check the password
             if (BCrypt.checkpw(mdp, hashpass)) {
                 int id = rs.getInt("id_user");
                 String role = rs.getString("role");
-                Role r=changetexttorole(role);
+                Role r = changetexttorole(role);
                 String token = JwtUtil.generateToken(id, email, r);
                 System.out.println("Login successful! Token: " + token);
 
