@@ -7,10 +7,8 @@
     <list default="true" id="755b2591-77a7-4bc5-bc4c-e5f8fc94a57c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceReclamation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/esprit/tn/services/ServiceUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceReclamation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/esprit/tn/services/ServiceReclamation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +35,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jjacem/PidevWorksphere.git&quot;,
-    &quot;accountId&quot;: &quot;d900a9a0-bcb0-4c7e-8d3e-d23966fe9f26&quot;
+    &quot;accountId&quot;: &quot;669d9986-2012-4d27-a05c-bc4e299fb965&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -167,6 +165,8 @@
       <workItem from="1746830198293" duration="555000" />
       <workItem from="1746830972726" duration="2801000" />
       <workItem from="1746837977644" duration="1275000" />
+      <workItem from="1747044158568" duration="334000" />
+      <workItem from="1747061585795" duration="1698000" />
     </task>
     <servers />
   </component>

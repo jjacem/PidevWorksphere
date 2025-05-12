@@ -138,7 +138,7 @@ public class ServiceReclamation implements IService<Reclamation> {
         int id = 0;
         try (PreparedStatement statement = connection.prepareStatement(req)) {
             statement.setInt(1, id_user);
-            statement.setInt(2, id_user2);
+                statement.setInt(2, id_user2);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 id = rs.getInt("id_reclamation");
