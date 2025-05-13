@@ -23,8 +23,14 @@ import java.sql.SQLException;
 
 public class AjouterCandidatureController {
     private OffreEmploi selectedOffre; // Stocker l'offre sélectionnée
+    private AfficherOffreCandidatController parentController; // Référence au contrôleur parent
     @FXML
     private ListView<Candidature> lv_candidatures;
+
+    // Méthode pour définir le contrôleur parent
+    public void setParentController(AfficherOffreCandidatController controller) {
+        this.parentController = controller;
+    }
 
     // Méthode pour passer l'offre sélectionnée depuis le contrôleur précédent
     public void setOffre(OffreEmploi offre) {
@@ -40,80 +46,157 @@ public class AjouterCandidatureController {
     private Button retourButton;
     @FXML
     private void okpostuler() {
-        // Récupérer les informations du formulaire
-        String cv = cvField.getText();
-        String lettreMotivation = lettreMotivationField.getText();
+        // Récupérer les chemins des fichiers sélectionnés
+        String cvFilePath = cvField.getText();
+        String lettreMotivationFilePath = lettreMotivationField.getText();
 
         // Vérifier si les champs sont vides
-        if (cv.isEmpty() || lettreMotivation.isEmpty()) {
-            System.out.println("Veuillez remplir tous les champs.");
-
+        if (cvFilePath.isEmpty() || lettreMotivationFilePath.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champs manquants");
             alert.setContentText("Veuillez remplir tous les champs.");
             alert.showAndWait();
-            return; // Arrêter l'exécution si les champs ne sont pas remplis
+            return;
         }
-        // Vérification du format du CV (doit être un fichier .pdf)
-        if (!cv.endsWith(".pdf")) {
-            System.out.println("Le CV doit être un fichier au format PDF.");
 
+        // Vérification du format du CV
+        if (!cvFilePath.toLowerCase().endsWith(".pdf")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Format de CV invalide");
             alert.setContentText("Le CV doit être un fichier au format .pdf.");
             alert.showAndWait();
-            return; // Arrêter l'exécution si le format n'est pas correct
-        }
-
-        // Créer une instance de ServiceUser pour récupérer le candidat
-        ServiceUser serviceUser = new ServiceUser();
-        User candidat = null;
-        try {
-            candidat = SessionManager.extractuserfromsession(); // Récupérer le candidat avec le rôle "candidat"
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la récupération de l'utilisateur : " + e.getMessage());
-        }
-        if (candidat == null) {
-            System.out.println("Aucun candidat trouvé.");
             return;
         }
 
-
-        // Créer une nouvelle candidature
-        Candidature candidature = new Candidature(selectedOffre,candidat, cv, lettreMotivation);
-
-        // Appeler le service pour ajouter la candidature
-        ServiceCandidature serviceCandidature = new ServiceCandidature();
         try {
-            serviceCandidature.ajouter(candidature);
-            System.out.println("Candidature envoyée avec succès.");
+            // Récupérer l'utilisateur connecté
+            User candidat = SessionManager.extractuserfromsession();
+            if (candidat == null) {
+                System.out.println("Aucun candidat trouvé.");
+                return;
+            }
 
-            // Rediriger l'utilisateur après avoir postulé (par exemple, vers la liste des offres)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherOffreCandidat.fxml"));
-            Parent root = loader.load();
+            // Extraire les noms de fichiers
+            File cvSourceFile = new File(cvFilePath);
+            File lmSourceFile = new File(lettreMotivationFilePath);
+            String cvFileName = cvSourceFile.getName();
+            String lmFileName = lmSourceFile.getName();
 
-            // Obtenir le contrôleur de la nouvelle vue
-            AfficherOffreCandidatController afficherOffreCandidatController = loader.getController();
-            // Passer l'offre sélectionnée au contrôleur
-            afficherOffreCandidatController.setOffrePostulee(selectedOffre.getIdOffre());
+            // Générer des noms uniques pour éviter les conflits
+            String uniqueCvFileName = System.currentTimeMillis() + "-" + cvFileName;
+            String uniqueLmFileName = System.currentTimeMillis() + "-" + lmFileName;
 
+            // Définir le chemin du dossier de destination
+            String uploadsDir = "C:/Users/jacem/OneDrive/Documents/GitHub/symfony/PIDevWorksphereWeb/public/uploads/";
+
+            // Créer le dossier s'il n'existe pas
+            File uploadsDirFile = new File(uploadsDir);
+            if (!uploadsDirFile.exists()) {
+                uploadsDirFile.mkdirs();
+            }
+
+            // Créer les objets File pour la destination
+            File cvDestination = new File(uploadsDir + uniqueCvFileName);
+            File lmDestination = new File(uploadsDir + uniqueLmFileName);
+
+            // Copier les fichiers avec gestion des erreurs
+            copyFileWithRetry(cvSourceFile, cvDestination, 3);
+            copyFileWithRetry(lmSourceFile, lmDestination, 3);
+
+            // Créer la candidature avec les nouveaux noms de fichiers
+            Candidature candidature = new Candidature(selectedOffre, candidat, uniqueCvFileName, uniqueLmFileName);
+
+            // Enregistrer la candidature
+            ServiceCandidature serviceCandidature = new ServiceCandidature();
+            serviceCandidature.ajouter(candidature);            // Confirmation
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Candidature envoyée");
+            alert.setContentText("Votre candidature a été envoyée avec succès.");
+            alert.showAndWait();
+
+            // Mettre à jour le contrôleur parent
+            if (parentController != null) {
+                parentController.setOffrePostulee(selectedOffre.getIdOffre());
+                parentController.refreshData();
+            }
+
+            // Fermer la fenêtre actuelle
             Stage stage = (Stage) cvField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (SQLException | IOException e) {
+            stage.close();
+
+        } catch (Exception e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Une erreur est survenue: " + e.getMessage());
+            alert.showAndWait();
         }
     }
 
-    // New method to open a filepicker for selecting a CV file
+    // Méthode utilitaire pour copier des fichiers avec retentatives
+    private void copyFileWithRetry(File source, File destination, int maxRetries) throws IOException {
+        IOException lastException = null;
+
+        for (int attempt = 0; attempt < maxRetries; attempt++) {
+            try {
+                // Utiliser une approche de copie plus robuste
+                try (java.io.InputStream in = new java.io.FileInputStream(source);
+                     java.io.OutputStream out = new java.io.FileOutputStream(destination)) {
+
+                    byte[] buffer = new byte[8192];
+                    int length;
+                    while ((length = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, length);
+                    }
+                }
+
+                // Si la copie a réussi, sortir de la boucle
+                return;
+            } catch (IOException e) {
+                lastException = e;
+                System.out.println("Tentative " + (attempt + 1) + " échouée: " + e.getMessage());
+
+                // Attendre un moment avant de réessayer
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Interruption pendant la pause entre les tentatives", ie);
+                }
+            }
+        }
+
+        // Si nous arrivons ici, c'est que toutes les tentatives ont échoué
+        if (lastException != null) {
+            throw lastException;
+        }
+    }
+
+    // Method to open a filepicker for selecting a CV file
     @FXML
     private void browseFile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select CV PDF");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-        File selectedFile = fileChooser.showOpenDialog(cvField.getScene().getWindow());
+        fileChooser.setTitle("Sélectionner un fichier PDF");
+        
+        // Set extension filter for PDF files
+        FileChooser.ExtensionFilter extFilter = 
+                new FileChooser.ExtensionFilter("Fichiers PDF (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+        
+        // Get the source of the event (which button was clicked)
+        Button sourceButton = (Button) event.getSource();
+        
+        // Show file dialog and get the selected file
+        File selectedFile = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+        
         if (selectedFile != null) {
-            cvField.setText(selectedFile.getAbsolutePath());
+            // Check if the CV field is empty, update it first
+            if (cvField.getText().isEmpty()) {
+                cvField.setText(selectedFile.getAbsolutePath());
+            } else {
+                // Otherwise, update the lettre de motivation field
+                lettreMotivationField.setText(selectedFile.getAbsolutePath());
+            }
         }
     }
 

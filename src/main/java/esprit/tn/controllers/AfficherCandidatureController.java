@@ -71,7 +71,25 @@ public class AfficherCandidatureController implements Initializable {
 
     // Generate preview image from PDF file
     private Image generatePdfPreview(String filePath) {
-        try (PDDocument document = PDDocument.load(new File(filePath))) {
+        if (filePath == null || filePath.isEmpty()) {
+            System.out.println("File path is null or empty");
+            return null;
+        }
+        
+        // Check if the file path is relative or absolute
+        File file = new File(filePath);
+        if (!file.exists()) {
+            // Try to find the file in the upload directory used in AjouterCandidatureController
+            String uploadsDir = "C:/Users/jacem/OneDrive/Documents/GitHub/symfony/PIDevWorksphereWeb/public/uploads/";
+            file = new File(uploadsDir + filePath);
+            
+            if (!file.exists()) {
+                System.out.println("File does not exist: " + filePath);
+                return null;
+            }
+        }
+        
+        try (PDDocument document = PDDocument.load(file)) {
             PDFRenderer renderer = new PDFRenderer(document);
             BufferedImage bufferedImage = renderer.renderImageWithDPI(0, 100); // 100 DPI preview
             return SwingFXUtils.toFXImage(bufferedImage, null);
@@ -91,32 +109,71 @@ public class AfficherCandidatureController implements Initializable {
                     setGraphic(null);
                     setText(null);
                 } else {
-                    Label offerLabel = new Label("Offre: " + candidature.getIdOffre().getTitre());
-                    offerLabel.setStyle("-fx-font-weight: bold;");
-                    
-                    Image cvImage = generatePdfPreview(candidature.getCv());
-                    Image lettreImage = generatePdfPreview(candidature.getLettreMotivation());
-                    
-                    ImageView cvView = new ImageView(cvImage);
-                    cvView.setFitWidth(100);
-                    cvView.setFitHeight(100);
-                    ImageView lettreView = new ImageView(lettreImage);
-                    lettreView.setFitWidth(100);
-                    lettreView.setFitHeight(100);
-                    
-                    HBox imagesBox = new HBox(10, 
-                        new VBox(5, new Label("CV"), cvView),
-                        new VBox(5, new Label("Lettre"), lettreView)
-                    );
-                    
-//                    // Status information
-//                    Label statusLabel = new Label("Statut: " + candidature.getStatusCandidature());
-//                    statusLabel.setStyle("-fx-font-style: italic;");
-                    
-                    VBox cellBox = new VBox(5, offerLabel, imagesBox);
-                    cellBox.setStyle("-fx-padding: 5;");
-                    
-                    setGraphic(cellBox);
+                    try {
+                        // Create a container for all the elements
+                        VBox container = new VBox(5);
+                        container.setPadding(new javafx.geometry.Insets(10));
+                        
+                        // Display the offer title
+                        Label offerLabel = new Label("Offre: " + candidature.getIdOffre().getTitre());
+                        offerLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+                        
+                        // Create separate containers for CV and motivation letter
+                        HBox filesContainer = new HBox(20);
+                        
+                        // CV preview
+                        VBox cvBox = new VBox(5);
+                        Label cvLabel = new Label("CV:");
+                        cvLabel.setStyle("-fx-font-weight: bold;");
+                        
+                        Image cvImage = generatePdfPreview(candidature.getCv());
+                        ImageView cvView;
+                        if (cvImage != null) {
+                            cvView = new ImageView(cvImage);
+                            cvView.setFitWidth(100);
+                            cvView.setFitHeight(100);
+                            cvView.setPreserveRatio(true);
+                        } else {
+                            cvView = new ImageView(new Image(getClass().getResourceAsStream("/Images/file-pdf.png")));
+                            cvView.setFitWidth(50);
+                            cvView.setFitHeight(50);
+                        }
+                        
+                        cvBox.getChildren().addAll(cvLabel, cvView);
+                        
+                        // Lettre de motivation preview
+                        VBox lettreBox = new VBox(5);
+                        Label lettreLabel = new Label("Lettre de motivation:");
+                        lettreLabel.setStyle("-fx-font-weight: bold;");
+                        
+                        Image lettreImage = generatePdfPreview(candidature.getLettreMotivation());
+                        ImageView lettreView;
+                        if (lettreImage != null) {
+                            lettreView = new ImageView(lettreImage);
+                            lettreView.setFitWidth(100);
+                            lettreView.setFitHeight(100);
+                            lettreView.setPreserveRatio(true);
+                        } else {
+                            lettreView = new ImageView(new Image(getClass().getResourceAsStream("/Images/file-pdf.png")));
+                            lettreView.setFitWidth(50);
+                            lettreView.setFitHeight(50);
+                        }
+                        
+                        lettreBox.getChildren().addAll(lettreLabel, lettreView);
+                        
+                        // Add the CV and letter boxes to the file container
+                        filesContainer.getChildren().addAll(cvBox, lettreBox);
+                        
+                        // Add all elements to the main container
+                        container.getChildren().addAll(offerLabel, filesContainer);
+                        
+                        // Set the graphic for the list cell
+                        setGraphic(container);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // If there's an error, just display basic text
+                        setText("Candidature pour: " + candidature.getIdOffre().getTitre() + " (Erreur d'affichage)");
+                    }
                 }
             }
         });
@@ -139,23 +196,26 @@ public class AfficherCandidatureController implements Initializable {
                 lv_candidatures.setItems(candidaturesList);
                 
                 if (candidatures.isEmpty()) {
-                    System.out.println("No candidatures found");
-                } else {
-                    for (Candidature c : candidatures) {
-                        System.out.println("Candidature: " + c.getCv());
-                    }
+                    showAlert(Alert.AlertType.INFORMATION, "Aucune candidature", 
+                        "Vous n'avez pas encore postulé à des offres d'emploi.");
                 }
             } else {
                 System.out.println("No user found");
+                showAlert(Alert.AlertType.ERROR, "Erreur d'authentification", 
+                    "Impossible d'identifier l'utilisateur actuel.");
             }
         } catch (SQLException e) {
             System.out.println("Error loading candidatures: " + e.getMessage());
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur de chargement", 
+                "Impossible de charger les candidatures: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur inattendue", 
+                "Une erreur inattendue s'est produite: " + e.getMessage());
         }
     }
-
-    // These methods are kept but no longer used in the ListView
-    // ... existing code for analyzeCandidature, showTranslationOptions, translateDocument, etc...
 
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);

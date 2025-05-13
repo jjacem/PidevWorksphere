@@ -77,10 +77,17 @@ public class AjouterOffreController implements Initializable {
             alert.showAndWait();
             return;
         }
-        
-        // Validation du salaire
+          // Validation du salaire
         try {
-            Integer.parseInt(salaireoffre.getText());
+            int salaire = Integer.parseInt(salaireoffre.getText());
+            // Vérifier que le salaire est positif
+            if (salaire <= 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Le salaire doit être une valeur positive.");
+                alert.showAndWait();
+                return;
+            }
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");

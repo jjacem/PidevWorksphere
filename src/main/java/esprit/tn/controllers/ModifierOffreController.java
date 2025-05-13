@@ -141,11 +141,17 @@ public class ModifierOffreController implements Initializable {
             alert.setContentText("Veuillez remplir tous les champs.");
             alert.showAndWait();
             return false;
-        }
-
-        // Validate salary is a number
+        }        // Validate salary is a number and positive
         try {
-            Integer.parseInt(salaireField.getText());
+            int salaire = Integer.parseInt(salaireField.getText());
+            // Vérifier que le salaire est positif
+            if (salaire <= 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("Le salaire doit être une valeur positive.");
+                alert.showAndWait();
+                return false;
+            }
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");

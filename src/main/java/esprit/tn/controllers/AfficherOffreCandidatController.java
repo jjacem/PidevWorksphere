@@ -220,6 +220,9 @@ public class AfficherOffreCandidatController {
             ServiceCandidature serviceCandidature = new ServiceCandidature();
             List<Candidature> candidatures = serviceCandidature.getCandidaturesByUser(currentUser.getIdUser());
 
+            // Débogage des candidatures
+            debugCandidatures(candidatures);
+
             if (candidatures.isEmpty()) {
                 showAlert(Alert.AlertType.INFORMATION, "Mes Candidatures", 
                     "Vous n'avez pas encore postulé à des offres.");
@@ -315,20 +318,70 @@ public class AfficherOffreCandidatController {
         };
     }
 
-    private void openDocument(String filePath) {
+    private void openDocument(String fileName) {
+        if (fileName == null || fileName.trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Nom de fichier invalide");
+            return;
+        }
+
         try {
-            File file = new File(filePath);
+            // Chemin du dossier uploads
+            String uploadsDir = "C:/Users/jacem/OneDrive/Documents/GitHub/symfony/PIDevWorksphereWeb/public/uploads/";
+
+            // Vérifier si le nom du fichier contient déjà un chemin
+            File file;
+            if (fileName.contains(":\\") || fileName.contains("/")) {
+                // C'est un chemin complet
+                file = new File(fileName);
+            } else {
+                // C'est juste un nom de fichier
+                file = new File(uploadsDir + fileName);
+            }
+
+            // Afficher le chemin pour le debugging
+            System.out.println("Tentative d'ouverture: " + file.getAbsolutePath());
+
             if (file.exists()) {
+                // Si le fichier existe, l'ouvrir
                 Desktop.getDesktop().open(file);
             } else {
-                showAlert(Alert.AlertType.ERROR, "Erreur", 
-                    "Le document n'existe pas: " + filePath);
+                // Si le fichier n'existe pas avec le chemin direct, chercher dans le dossier uploads
+                File uploadsFolder = new File(uploadsDir);
+                File[] matchingFiles = uploadsFolder.listFiles((dir, name) ->
+                        name.toLowerCase().endsWith(".pdf") &&
+                                name.toLowerCase().contains(fileName.toLowerCase()));
+
+                if (matchingFiles != null && matchingFiles.length > 0) {
+                    // Utiliser le premier fichier trouvé
+                    System.out.println("Fichier trouvé via recherche: " + matchingFiles[0].getName());
+                    Desktop.getDesktop().open(matchingFiles[0]);
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Erreur",
+                            "Le document n'existe pas: " + fileName +
+                                    "\nAssurez-vous que le fichier existe dans: " + uploadsDir);
+                }
             }
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", 
-                "Impossible d'ouvrir le document: " + e.getMessage());
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Impossible d'ouvrir le document: " + e.getMessage());
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    private void debugCandidatures(List<Candidature> candidatures) {
+        System.out.println("=== Débogage des candidatures ===");
+        System.out.println("Nombre de candidatures: " + candidatures.size());
+
+        for (Candidature c : candidatures) {
+            System.out.println("ID: " + c.getIdCandidature());
+            System.out.println("Offre: " + (c.getIdOffre() != null ? c.getIdOffre().getTitre() : "NULL"));
+            System.out.println("CV: " + c.getCv());
+            System.out.println("Lettre: " + c.getLettreMotivation());
+            System.out.println("-----------------------------");
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////////
 
     @FXML
     private void voirFavoris() {
@@ -587,9 +640,7 @@ public class AfficherOffreCandidatController {
         valueText.setStyle("-fx-fill: #2c3e50; -fx-font-size: 14px;");
         container.getChildren().addAll(labelText, valueText);
         grid.add(container, col, row);
-    }
-
-    @FXML
+    }    @FXML
     private void postulerOffre() {
         if (offreSelectionnee != null) {
             try {
@@ -598,13 +649,11 @@ public class AfficherOffreCandidatController {
 
                 AjouterCandidatureController candidatureController = loader.getController();
                 candidatureController.setOffre(offreSelectionnee);
-
-//                Stage stage = (Stage) lv_offre.getScene().getWindow();
-//                stage.setScene(new Scene(root));
-//                stage.show();
+                // Passer une référence au contrôleur actuel pour les mises à jour
+                candidatureController.setParentController(this);
 
                 Stage popupStage = new Stage();
-                popupStage.setTitle("Ajouter un Entretien");
+                popupStage.setTitle("Postuler à l'offre");
                 Scene scene = new Scene(root);
                 popupStage.setScene(scene);
                 popupStage.initModality(Modality.APPLICATION_MODAL);

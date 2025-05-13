@@ -25,18 +25,22 @@ public class OCRService {
     /**
      * Extract text from a PDF file using PDFBox directly
      * This is faster and more reliable for normal PDFs
-     */
-    public String extractTextFromPDF(String text, ProgressCallback callback) {
+     */    public String extractTextFromPDF(String text, ProgressCallback callback) {
         // If the input is a file path, process it as a PDF
         if (text.toLowerCase().endsWith(".pdf")) {
-            return extractTextFromPDFFile(text, callback);
+            // Construct the full path to the PDF file
+            String uploadsDir = "C:/Users/jacem/OneDrive/Documents/GitHub/symfony/PIDevWorksphereWeb/public/uploads/";
+            String fullPath = uploadsDir + text;
+            
+            // Log for debugging
+            System.out.println("Extracting text from PDF file: " + fullPath);
+            
+            return extractTextFromPDFFile(fullPath, callback);
         }
         // Otherwise, return the text as-is
         callback.onProgress(1.0);
         return text;
-    }
-
-    private String extractTextFromPDFFile(String pdfFilePath, ProgressCallback callback) {
+    }    private String extractTextFromPDFFile(String pdfFilePath, ProgressCallback callback) {
         callback.onProgress(0.1);
         try (PDDocument document = PDDocument.load(new File(pdfFilePath))) {
             callback.onProgress(0.3);
@@ -55,11 +59,13 @@ public class OCRService {
             return extractTextUsingOCR(pdfFilePath, callback);
         } catch (IOException e) {
             System.err.println("Error extracting text from PDF: " + e.getMessage());
+            e.printStackTrace();  // Add stack trace for better debugging
             try {
                 // Try OCR as fallback
                 return extractTextUsingOCR(pdfFilePath, callback);
             } catch (Exception ex) {
                 System.err.println("OCR fallback also failed: " + ex.getMessage());
+                ex.printStackTrace();  // Add stack trace for better debugging
                 return "Failed to extract text from document.";
             }
         }

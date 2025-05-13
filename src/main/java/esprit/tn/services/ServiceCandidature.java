@@ -125,7 +125,8 @@ public class ServiceCandidature implements IService<Candidature> {
 
     public List<Candidature> getCandidaturesByUser(int userId) throws SQLException {
         List<Candidature> candidatures = new ArrayList<>();
-        String query = "SELECT c.*, o.id_offre, o.titre, o.description " +
+        String query = "SELECT c.*, o.id_offre, o.titre, o.description, o.type_contrat, o.lieu_travail, " +
+                "o.salaire, o.statut_offre, o.experience, o.date_publication, o.date_limite, c.status " +
                 "FROM candidature c " +
                 "JOIN offre o ON o.id_offre = c.id_offre " +
                 "WHERE c.id_candidat = ?";
@@ -134,21 +135,40 @@ public class ServiceCandidature implements IService<Candidature> {
             ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    OffreEmploi offre = new OffreEmploi(
-                            rs.getInt("id_offre"),
-                            0, "", "", "", "", "", "",
-                            null, null
-                    );
+                    // Créer un objet OffreEmploi plus complet
+                    OffreEmploi offre = new OffreEmploi();
+                    offre.setIdOffre(rs.getInt("id_offre"));
                     offre.setTitre(rs.getString("titre"));
                     offre.setDescription(rs.getString("description"));
+                    offre.setTypeContrat(rs.getString("type_contrat"));
+                    offre.setLieuTravail(rs.getString("lieu_travail"));
+                    offre.setSalaire(rs.getInt("salaire"));
+                    offre.setStatutOffre(rs.getString("statut_offre"));
+                    offre.setExperience(rs.getString("experience"));
+                    offre.setDatePublication(rs.getDate("date_publication"));
+                    offre.setDateLimite(rs.getDate("date_limite"));
 
-                    Candidature candidature = new Candidature(
-                            rs.getInt("id_candidature"),
-                            offre,
-                            userId,
-                            rs.getString("cv"),
-                            rs.getString("lettre_motivation")
-                    );
+                    // Créer l'objet Candidature
+                    Candidature candidature = new Candidature();
+                    candidature.setIdCandidature(rs.getInt("id_candidature"));
+                    candidature.setIdOffre(offre);
+                    candidature.setIdCandidat(userId);
+
+                    // Récupérer les chemins des fichiers
+                    String cv = rs.getString("cv");
+                    String lettre = rs.getString("lettre_motivation");
+
+                    candidature.setCv(cv != null ? cv : "");
+                    candidature.setLettreMotivation(lettre != null ? lettre : "");
+
+                    // Récupérer le statut si la colonne existe
+                    try {
+                        String status = rs.getString("status");
+                        // Vous pouvez ajouter un champ status à votre entité Candidature
+                        // candidature.setStatus(status != null ? status : "en attente");
+                    } catch (SQLException e) {
+                        // La colonne status n'existe peut-être pas, ignorez l'erreur
+                    }
 
                     candidatures.add(candidature);
                 }

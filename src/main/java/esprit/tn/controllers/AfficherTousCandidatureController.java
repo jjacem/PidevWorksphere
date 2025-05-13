@@ -81,8 +81,7 @@ public class AfficherTousCandidatureController implements Initializable {
             supprimerButton.setDisable(newValue == null);
         });
     }
-    
-    public void loadCandidaturesForOffer(int offreId) {
+      public void loadCandidaturesForOffer(int offreId) {
         this.offreId = offreId;
         try {
             // Get candidatures for this offer
@@ -101,6 +100,8 @@ public class AfficherTousCandidatureController implements Initializable {
                 alert.setTitle("Information");
                 alert.setContentText("Aucune candidature trouvée pour cette offre.");
                 alert.showAndWait();
+            } else {
+                System.out.println("Chargement de " + candidatures.size() + " candidatures pour l'offre #" + offreId);
             }
         } catch (SQLException e) {
             System.err.println("Erreur lors du chargement des candidatures: " + e.getMessage());
@@ -250,10 +251,8 @@ public class AfficherTousCandidatureController implements Initializable {
                 translateDocument(candidature.getLettreMotivation(), "Lettre de Motivation");
             }
         });
-    }
-
-    // Show language selection dialog
-    private void translateDocument(String filePath, String documentType) {
+    }    // Show language selection dialog
+    private void translateDocument(String fileName, String documentType) {
         ChoiceDialog<String> langDialog = new ChoiceDialog<>("English", 
             Arrays.asList("English", "Spanish", "German", "Arabic"));
         langDialog.setTitle("Choose Target Language");
@@ -280,7 +279,8 @@ public class AfficherTousCandidatureController implements Initializable {
             CompletableFuture.supplyAsync(() -> {
                 try {
                     double[] progressValue = {0.0};
-                    String extractedText = ocrService.extractTextFromPDF(filePath, 
+                    // The extractTextFromPDF method now handles the file path internally
+                    String extractedText = ocrService.extractTextFromPDF(fileName, 
                         p -> {
                             progressValue[0] = p * 0.5;
                             Platform.runLater(() -> progress.setProgress(progressValue[0]));
@@ -414,16 +414,26 @@ public class AfficherTousCandidatureController implements Initializable {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.show();
     }
-    
-    private Image generatePdfPreview(String filePath) {
+      private Image generatePdfPreview(String fileName) {
         try {
-            PDDocument document = PDDocument.load(new File(filePath));
+            // Append the full path to the file name
+            String uploadsDir = "C:/Users/jacem/OneDrive/Documents/GitHub/symfony/PIDevWorksphereWeb/public/uploads/";
+            String fullPath = uploadsDir + fileName;
+            
+            File pdfFile = new File(fullPath);
+            if (!pdfFile.exists()) {
+                System.err.println("Le fichier PDF n'existe pas: " + fullPath);
+                return new Image(getClass().getResourceAsStream("/Images/pdf_icon.png"));
+            }
+            
+            PDDocument document = PDDocument.load(pdfFile);
             PDFRenderer renderer = new PDFRenderer(document);
             BufferedImage bufferedImage = renderer.renderImageWithDPI(0, 100); // Render first page at 100 DPI
             document.close();
             return SwingFXUtils.toFXImage(bufferedImage, null);
         } catch (IOException e) {
             System.err.println("Erreur de prévisualisation du PDF: " + e.getMessage());
+            e.printStackTrace();
             // Return a placeholder image
             return new Image(getClass().getResourceAsStream("/Images/pdf_icon.png"));
         }
